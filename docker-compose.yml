@@ -1,0 +1,115 @@
+version: "3"
+services:
+  nginx:
+    image: nginx:1.15.0
+    working_dir: /app
+    ports:
+      - ${PORT}:80
+    volumes:
+      - ./sources:/sources
+      - ${PWD}/configs/nginx_conf/app.conf:/etc/nginx/conf.d/app.conf
+      - ${PWD}/configs/nginx_conf/logs:/var/log/nginx
+    depends_on:
+      - php
+    env_file:
+      - variables.env
+
+  composer:
+    image: composer:latest
+    working_dir: /sources
+    volumes:
+      - ./sources:/sources
+    command: install
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      -  mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: promptchat
+      MYSQL_USER: promptchat
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+
+  redis:
+    image: redis:4.0.5-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    hostname: redis
+    volumes:
+      - redis-data:/data
+  php:
+    build:
+      context: .
+      dockerfile: docker_files/php/Dockerfile
+      args:
+        uid: ${USERID}
+    depends_on:
+      - composer
+      - db
+      - redis
+    links:
+      - composer
+      - db
+      - redis
+    volumes:
+      - ./sources:/sources
+      - ${PWD}/configs/php/logs:/var/log/php7.2-fpm.log
+    working_dir: /sources
+    environment:
+      LOG_FILE: logs/laravel.log
+      UID: ${PWD}
+    env_file:
+      - variables.env
+#
+  scheduler:
+    build:
+      context: .
+      dockerfile: docker_files/phpworker/Dockerfile
+    depends_on:
+      - php
+    volumes:
+      - ./sources:/sources
+    working_dir: /sources
+    environment:
+      CONTAINER_ROLE: scheduler
+      LOG_FILE: logs/laravel-scheduler.log
+    env_file:
+      - variables.env
+
+  migrator:
+    build:
+      context: .
+      dockerfile: docker_files/phpworker/Dockerfile
+    depends_on:
+      - php
+    links:
+      - db
+    volumes:
+      - ./sources:/sources
+    working_dir: /sources
+    environment:
+      CONTAINER_ROLE: migrator
+      LOG_FILE: logs/laravel-migrator.log
+    env_file:
+      - variables.env
+
+  queue:
+    build:
+       context: .
+       dockerfile: docker_files/phpworker/Dockerfile
+    depends_on:
+      - php
+    volumes:
+      - ./sources:/sources
+    working_dir: /sources
+    environment:
+      CONTAINER_ROLE: queue
+      LOG_FILE: logs/laravel-queue.log
+    env_file:
+      - variables.env
+
+volumes:
+  redis-data:
+  mysql-data:
