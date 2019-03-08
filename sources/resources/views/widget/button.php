@@ -10,6 +10,8 @@
         window.config = <?php echo $config; ?>;
         window.chat = <?php echo $chat; ?>;
         window.hostUrl = "<?php echo request()->get('hostUrl'); ?>";
+        window.appName = "<?php echo e(env('APP_BASE_NAME', url(''))); ?>";
+
     </script>
     <style type="text/css">
 

@@ -1,6 +1,3 @@
-/public/help-button
-/public/css
-public/js
 /public/storage
 /storage/*.key
 /vendor

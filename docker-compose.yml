@@ -1,6 +1,7 @@
 version: "3"
 services:
   nginx:
+    restart: always
     image: nginx:1.15.0
     working_dir: /app
     ports:
@@ -40,6 +41,7 @@ services:
     volumes:
       - redis-data:/data
   php:
+    restart: always
     build:
       context: .
       dockerfile: docker_files/php/Dockerfile
@@ -64,6 +66,7 @@ services:
       - variables.env
 #
   scheduler:
+    restart: always
     build:
       context: .
       dockerfile: docker_files/phpworker/Dockerfile
@@ -96,6 +99,7 @@ services:
       - variables.env
 
   queue:
+    restart: always
     build:
        context: .
        dockerfile: docker_files/phpworker/Dockerfile
