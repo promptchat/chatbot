@@ -13,7 +13,7 @@
 <div style="background-color: #f4f4f4; padding: 25px 15px 25px; font-size: 14px; font-family: open-sans, Arial, sans-serif">
     <div style="max-width:640px; margin: 0 auto; text-align: center;">
         <div style="text-align: center; color: #74787E; font-size: 13px;">
-            © 2007-<?php echo e(\Carbon\Carbon::now()->format('Y')); ?> <?php echo e(\App\Models\SiteConfig::getTitle()); ?>: White label live chat and chatbot builder platform. All Rights Reserved
+            ©<?php echo e(\Carbon\Carbon::now()->format('Y')); ?> <?php echo e(\App\Models\SiteConfig::getTitle()); ?>: All Rights Reserved
         </div>
     </div>
 </div>
