@@ -34,6 +34,17 @@
                                 ><?php echo e($config->welcome_text ?? old("welcome_text")); ?></textarea>
                                 <?php $__env->startComponent('components.errors', ['field' => "welcome_text"]); ?><?php echo $__env->renderComponent(); ?>
                             </div>
+
+                            <div class="form-group">
+                                <label for="title"><?php echo app('translator')->getFromJson('models.config.welcome_live_chat_text'); ?></label>
+                                <textarea
+                                        placeholder="<?php echo app('translator')->getFromJson('models.config.welcome_live_chat_text'); ?>"
+                                        name="welcome_live_chat_text"
+                                        class="form-control"
+                                ><?php echo e($config->welcome_live_chat_text ?? old("welcome_live_chat_text")); ?></textarea>
+                                <?php $__env->startComponent('components.errors', ['field' => "welcome_live_chat_text"]); ?><?php echo $__env->renderComponent(); ?>
+                            </div>
+
                             <div class="form-group ">
                                 <label for="title"><?php echo app('translator')->getFromJson('models.config.live_chat_url'); ?></label>
                                 <input

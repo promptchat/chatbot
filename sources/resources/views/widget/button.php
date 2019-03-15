@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
     <script>
         window.baseUrl = "<?php echo e(url('')); ?>" ;
         window.agent = <?php echo $agent; ?>;
@@ -11,7 +10,7 @@
         window.chat = <?php echo $chat; ?>;
         window.hostUrl = "<?php echo request()->get('hostUrl'); ?>";
         window.appName = "<?php echo e(env('APP_BASE_NAME', url(''))); ?>";
-
+        window.projectBaseUrl =  "<?php echo \App\Models\SiteConfig::getProjectBaseUrl(); ?>"
     </script>
     <style type="text/css">
 
