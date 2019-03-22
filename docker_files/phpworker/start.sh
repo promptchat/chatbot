@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-
 role=${CONTAINER_ROLE:-php}
 env=${APP_ENV:-production}
 
