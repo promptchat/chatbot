@@ -70,6 +70,8 @@ services:
     build:
       context: .
       dockerfile: docker_files/phpworker/Dockerfile
+      args:
+        uid: ${USERID}
     depends_on:
       - php
     volumes:
@@ -85,6 +87,8 @@ services:
     build:
       context: .
       dockerfile: docker_files/phpworker/Dockerfile
+      args:
+        uid: ${USERID}
     depends_on:
       - php
     links:
@@ -103,6 +107,8 @@ services:
     build:
        context: .
        dockerfile: docker_files/phpworker/Dockerfile
+       args:
+         uid: ${USERID}
     depends_on:
       - php
     volumes:
