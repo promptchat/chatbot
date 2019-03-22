@@ -15,16 +15,30 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-sm-12 col-md-8 offset-md-2">
+                        <div class="col-sm-12">
                             <div class="form-group">
                                 <label for="title"><?php echo app('translator')->getFromJson('models.config.color'); ?></label>
 
                                 <color
                                         main_color="<?php echo e($config->main_color); ?>"
                                         secondary_color="<?php echo e($config->secondary_color); ?>"
+                                        window_header_bg="<?php echo e($config->window_header_bg); ?>"
+                                        window_header_color="<?php echo e($config->window_header_color); ?>"
+                                        window_content_bg="<?php echo e($config->window_content_bg); ?>"
+                                        window_content_color="<?php echo e($config->window_content_color); ?>"
+                                        window_footer_bg="<?php echo e($config->window_footer_bg); ?>"
+                                        window_footer_color="<?php echo e($config->window_footer_color); ?>"
+                                        chat_message_bg="<?php echo e($config->chat_message_bg); ?>"
+                                        chat_message_color="<?php echo e($config->chat_message_color); ?>"
+                                        chat_answer_bg="<?php echo e($config->chat_answer_bg); ?>"
+                                        chat_answer_color="<?php echo e($config->chat_answer_color); ?>"
+                                        input_text_color="<?php echo e($config->input_text_color); ?>"
+                                        input_send_btn_color="<?php echo e($config->input_send_btn_color); ?>"
                                 />
                             </div>
+                        </div>
 
+                        <div class="col-sm-12 col-md-8 offset-md-2">
                             <div class="form-group">
                                 <label for="title"><?php echo app('translator')->getFromJson('models.config.welcome_text'); ?></label>
                                 <textarea
