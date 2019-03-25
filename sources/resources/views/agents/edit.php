@@ -51,6 +51,17 @@
                             <?php $__env->startComponent('components.errors', ['field' => "chat_user_id"]); ?><?php echo $__env->renderComponent(); ?>
                         </div>
                         <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input
+                                    placeholder="Enter e-mail"
+                                    type="email"
+                                    name="email"
+                                    value="<?php echo e($agent->email ?? old("email")); ?>"
+                                    class="form-control"
+                            >
+                            <?php $__env->startComponent('components.errors', ['field' => "email"]); ?><?php echo $__env->renderComponent(); ?>
+                        </div>
+                        <div class="form-group">
                             <socials socials=<?php echo e(json_encode($agent->getFormattedContacts())); ?> />
                         </div>
                     </div>

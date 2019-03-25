@@ -1,6 +1,6 @@
 <?php $__env->startSection('content'); ?>
     <div class="container sign-page">
-        <iframe style='width: 100%; height: 700px; padding: 0; border: none; margin: 0; overflow: hidden;' src="https://promptchat.org/PC50/Administration/AccountRegistration?Code=5f19385248652cb7217584b1bc4e48c7"></iframe>
+        <iframe style='width: 100%; height: 700px; padding: 0; border: none; margin: 0; overflow: hidden;' src="<?php echo e(\App\Models\SiteConfig::getLiveChatAccountGeneratorUrl()); ?>"></iframe>
     </div>
 <?php $__env->stopSection(); ?>
 
