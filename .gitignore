@@ -1,3 +1,4 @@
 .idea/
 configs/nginx_conf/logs
 variables.env
+backup.sql
