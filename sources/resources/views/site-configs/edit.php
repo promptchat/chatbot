@@ -60,8 +60,10 @@
                                     >
                                     <?php $__env->startComponent('components.errors', ['field' => "ssl_certificate_key"]); ?><?php echo $__env->renderComponent(); ?>
                                 </div>
+                            <?php else: ?>
+
                             <?php endif; ?>
-                            <json-view config="<?php echo e(json_encode($siteConfig->data)); ?>"/>
+                            <json-view <?php echo e($siteConfig->type==\App\Models\SiteConfig::TYPE_PAGES ? 'aseditor="1"': ''); ?> config="<?php echo e(json_encode($siteConfig->data)); ?>"/>
                         </div>
                     </div>
                 </div>

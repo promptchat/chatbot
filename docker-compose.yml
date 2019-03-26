@@ -37,6 +37,7 @@ services:
   redis:
     image: redis:4.0.5-alpine
     command: ["redis-server", "--appendonly", "yes"]
+    restart: always
     hostname: redis
     volumes:
       - redis-data:/data
