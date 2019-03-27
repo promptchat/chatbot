@@ -1,5 +1,5 @@
 <?php $__env->startSection('page-name'); ?>
-    <?php echo app('translator')->getFromJson("Chats management"); ?>
+    <?php echo app('translator')->getFromJson("Calendars management"); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
