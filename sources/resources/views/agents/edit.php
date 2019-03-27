@@ -51,7 +51,7 @@
                             <?php $__env->startComponent('components.errors', ['field' => "chat_user_id"]); ?><?php echo $__env->renderComponent(); ?>
                         </div>
                         <div class="form-group">
-                            <label for="email">E-mail</label>
+                            <label for="email">Instant email notifications for live chat requests</label>
                             <input
                                     placeholder="Enter e-mail"
                                     type="email"
@@ -60,6 +60,17 @@
                                     class="form-control"
                             >
                             <?php $__env->startComponent('components.errors', ['field' => "email"]); ?><?php echo $__env->renderComponent(); ?>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Instant email notifications for chatbot activity notifications</label>
+                            <input
+                                    placeholder="Enter e-mail"
+                                    type="email"
+                                    name="chat_bot_notification_email"
+                                    value="<?php echo e($agent->chat_bot_notification_email ?? old("chat_bot_notification_email")); ?>"
+                                    class="form-control"
+                            >
+                            <?php $__env->startComponent('components.errors', ['field' => "chat_bot_notification_email"]); ?><?php echo $__env->renderComponent(); ?>
                         </div>
                         <div class="form-group">
                             <socials socials=<?php echo e(json_encode($agent->getFormattedContacts())); ?> />
