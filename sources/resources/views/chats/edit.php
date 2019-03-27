@@ -3,7 +3,7 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-    <chat-creator method="patch" url="<?php echo e(action('ChatController@update', $chat)); ?>" name="<?php echo e($chat->name); ?>" data="<?php echo e(json_encode($chat->chat->getItems())); ?>"/>
+    <chat-creator logo="<?php echo e(url('storage/'.\App\Models\SiteConfig::getLogo())); ?>" method="patch" url="<?php echo e(action('ChatController@update', $chat)); ?>" name="<?php echo e($chat->name); ?>" data="<?php echo e(json_encode($chat->chat->getItems())); ?>"/>
 
 <?php $__env->stopSection(); ?>
 

@@ -57,16 +57,22 @@
 
                                     </td>
                                     <td class="text-right text-nowrap">
-                                        <a href="<?php echo e(action("AgentController@edit", $agent)); ?>" class="action-button">
-                                            <span class="mi mi-edit"></span>
-                                        </a>
-                                        <?php $__env->startComponent('components.delete-record',
-                                                ['action' => 'AgentController@destroy',
-                                                'object' => $agent]); ?>
-                                        <?php echo $__env->renderComponent(); ?>
-                                        <a href="<?php echo e(action("AgentController@show", $agent)); ?>" class="action-button">
-                                            <span class="mi mi-remove-red-eye"></span>
-                                        </a>
+                                        <div class="d-inline-flex align-items-center">
+                                            <a href="<?php echo e(action("AgentController@edit", $agent)); ?>" class="action-button">
+                                                <span class="mi mi-edit"></span>
+                                            </a>
+                                            <?php $__env->startComponent('components.delete-record',
+                                                    ['action' => 'AgentController@destroy',
+                                                    'object' => $agent]); ?>
+                                            <?php echo $__env->renderComponent(); ?>
+                                            <a href="<?php echo e(action("AgentController@show", $agent)); ?>" class="action-button d-inline-flex align-items-center flex-column">
+                                            <span class="mi mi-remove-red-eye">
+                                            </span>
+                                                <span class="ml-1 text-uppercase">
+                                                code
+                                            </span>
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
