@@ -20,32 +20,7 @@
                                 <label for="title"><?php echo app('translator')->getFromJson('models.config.color'); ?></label>
 
                                 <color
-                                        main_color="<?php echo e($config->main_color); ?>"
-                                        secondary_color="<?php echo e($config->secondary_color); ?>"
-                                        window_header_bg="<?php echo e($config->window_header_bg); ?>"
-                                        window_header_color="<?php echo e($config->window_header_color); ?>"
-                                        window_content_bg="<?php echo e($config->window_content_bg); ?>"
-                                        window_content_color="<?php echo e($config->window_content_color); ?>"
-                                        window_footer_bg="<?php echo e($config->window_footer_bg); ?>"
-                                        window_footer_color="<?php echo e($config->window_footer_color); ?>"
-                                        chat_message_bg="<?php echo e($config->chat_message_bg); ?>"
-                                        chat_message_color="<?php echo e($config->chat_message_color); ?>"
-                                        chat_answer_bg="<?php echo e($config->chat_answer_bg); ?>"
-                                        chat_answer_color="<?php echo e($config->chat_answer_color); ?>"
-                                        input_text_color="<?php echo e($config->input_text_color); ?>"
-                                        input_send_btn_color="<?php echo e($config->input_send_btn_color); ?>"
-                                        window_header_fs="<?php echo e($config->window_header_fs); ?>"
-                                        window_header_ff="<?php echo e($config->window_header_ff); ?>"
-                                        window_content_fs="<?php echo e($config->window_content_fs); ?>"
-                                        window_content_ff="<?php echo e($config->window_content_ff); ?>"
-                                        window_footer_fs="<?php echo e($config->window_footer_fs); ?>"
-                                        window_footer_ff="<?php echo e($config->window_footer_ff); ?>"
-                                        chat_message_fs="<?php echo e($config->chat_message_fs); ?>"
-                                        chat_message_ff="<?php echo e($config->chat_message_ff); ?>"
-                                        chat_answer_fs="<?php echo e($config->chat_answer_fs); ?>"
-                                        chat_answer_ff="<?php echo e($config->chat_answer_ff); ?>"
-                                        input_text_fs="<?php echo e($config->input_text_fs); ?>"
-                                        input_text_ff="<?php echo e($config->input_text_ff); ?>"
+                                        styles="<?php echo e(json_encode($config->getStyleConfigs())); ?>"
                                 />
                             </div>
                         </div>
