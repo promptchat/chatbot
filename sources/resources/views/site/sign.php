@@ -97,6 +97,56 @@
                                     <?php endif; ?>
                                 </div>
                                 <div class="form-group">
+                                    <label for="telephone">Telephone</label>
+                                    <input
+                                            id="telephone"
+                                            type="text"
+                                            class="form-control <?php echo e($errors->has('telephone') ? ' is-invalid' : ''); ?>"
+                                            name="telephone"
+                                            value="<?php echo e(old('telephone')); ?>"
+                                            required
+                                    >
+                                    <?php if($errors->has('telephone')): ?>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong><?php echo e($errors->first('telephone')); ?></strong>
+                                        </span>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="form-group" data-toggle="tooltip" data-placement="top" title="Enter the main domain where you want to use the software without 'http' or 'www' such as: yourdomain.com">
+                                    <label for="domain">Domain</label>
+                                    <input
+                                            id="domain"
+                                            type="text"
+                                            class="form-control <?php echo e($errors->has('domain') ? ' is-invalid' : ''); ?>"
+                                            name="domain"
+                                            value="<?php echo e(old('domain')); ?>"
+                                            required
+                                    >
+                                    <?php if($errors->has('domain')): ?>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong><?php echo e($errors->first('domain')); ?></strong>
+                                        </span>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="form-group" data-toggle="tooltip" data-placement="top" title="Enter how many live chat operators you want to use to chat with your website visitors">
+                                    <label for="operators">Operators</label>
+                                    <input
+                                            id="operators"
+                                            type="text"
+                                            class="form-control <?php echo e($errors->has('operators') ? ' is-invalid' : ''); ?>"
+                                            name="operators"
+                                            value="<?php echo e(old('operators')); ?>"
+                                            required
+                                    >
+                                    <?php if($errors->has('operators')): ?>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong><?php echo e($errors->first('operators')); ?></strong>
+                                        </span>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
                                     <label for="register-email"><?php echo e(__('E-Mail Address')); ?></label>
                                     <input id="register-email" type="email" class="form-control<?php echo e($errors->has('register-email') ? ' is-invalid' : ''); ?>" name="register-email" value="<?php echo e(old('register-email')); ?>" required>
 
@@ -106,8 +156,6 @@
                                         </span>
                                     <?php endif; ?>
                                 </div>
-                            </div>
-                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="register-password"><?php echo e(__('Password')); ?></label>
                                     <input id="register-password" type="password" class="form-control<?php echo e($errors->has('register-password') ? ' is-invalid' : ''); ?>" name="register-password" required>
