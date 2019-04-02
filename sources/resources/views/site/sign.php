@@ -112,7 +112,7 @@
                                         </span>
                                     <?php endif; ?>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" data-toggle="tooltip" data-placement="top" title="Enter the main domain where you want to use the software without 'http' or 'www' such as: yourdomain.com">
                                     <label for="domain">Domain</label>
                                     <input
                                             id="domain"
@@ -128,7 +128,7 @@
                                         </span>
                                     <?php endif; ?>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" data-toggle="tooltip" data-placement="top" title="Enter how many live chat operators you want to use to chat with your website visitors">
                                     <label for="operators">Operators</label>
                                     <input
                                             id="operators"
