@@ -1,4 +1,6 @@
 /public/storage
 /storage/*.key
+/storage/sessions
+!/storage/sessions/.gitignore
 /vendor
 .env

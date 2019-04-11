@@ -9,8 +9,8 @@
         window.config = <?php echo $config; ?>;
         window.chat = <?php echo $chat; ?>;
         window.hostUrl = "<?php echo request()->get('hostUrl'); ?>";
-        window.appName = "<?php echo e(env('APP_BASE_NAME', url(''))); ?>";
-        window.projectBaseUrl =  "<?php echo \App\Models\SiteConfig::getProjectBaseUrl(); ?>"
+        window.appName = "<?php echo e(\App\Models\SiteConfig::getPoweredByName()); ?>";
+        window.projectBaseUrl =  "<?php echo e(\App\Models\SiteConfig::getPoweredByLink()); ?>"
     </script>
     <style type="text/css">
 
@@ -35,7 +35,7 @@
 
     <link rel="icon" type="image/png" sizes="16x16" href="<?php echo e(url('storage/'.\App\Models\SiteConfig::getFavicon())); ?>">
 
-    <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Playfair+Display|Poppins|Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Playfair+Display|Poppins|Roboto|Raleway" rel="stylesheet">
     <link href="<?php echo e(asset('help-button/style.css')); ?>" rel="stylesheet">
 </head>
 <body>
