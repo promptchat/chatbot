@@ -79,7 +79,7 @@
             </div>
             <div class="col-sm-12 col-lg-8" data-aos="fade-up">
                 <div class="register">
-                    <div class="big-text text-line">Become a Member</div>
+                    <div class="big-text text-line">Create a free account</div>
                     <form role="form" method="POST" action="<?php echo e(route('register')); ?>">
                         <div class="row">
                             <?php echo e(csrf_field()); ?>
@@ -112,8 +112,9 @@
                                         </span>
                                     <?php endif; ?>
                                 </div>
-                                <div class="form-group" data-toggle="tooltip" data-placement="top" title="Enter the main domain where you want to use the software without 'http' or 'www' such as: yourdomain.com">
-                                    <label for="domain">Domain</label>
+                                <div class="form-group">
+                                    <label for="domain">Domain </label>
+                                    <a class="text-center" data-toggle="tooltip" title="URL of your main domain without 'http://' or 'www' such as: yourdomain.com"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
                                     <input
                                             id="domain"
                                             type="text"
@@ -125,22 +126,6 @@
                                     <?php if($errors->has('domain')): ?>
                                         <span class="invalid-feedback" role="alert">
                                             <strong><?php echo e($errors->first('domain')); ?></strong>
-                                        </span>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="form-group" data-toggle="tooltip" data-placement="top" title="Enter how many live chat operators you want to use to chat with your website visitors">
-                                    <label for="operators">Operators</label>
-                                    <input
-                                            id="operators"
-                                            type="text"
-                                            class="form-control <?php echo e($errors->has('operators') ? ' is-invalid' : ''); ?>"
-                                            name="operators"
-                                            value="<?php echo e(old('operators')); ?>"
-                                            required
-                                    >
-                                    <?php if($errors->has('operators')): ?>
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong><?php echo e($errors->first('operators')); ?></strong>
                                         </span>
                                     <?php endif; ?>
                                 </div>
