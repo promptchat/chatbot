@@ -64,6 +64,7 @@ HelpChatWidget = {
                         d.style.left = "0";
                         d.style.bottom = "0";
                         document.body.style.overflow = 'hidden'
+
                         break;
                 }
             }
