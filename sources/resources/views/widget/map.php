@@ -27,8 +27,13 @@
         markerMap.forEach((markerObj) => {
             var marker = new google.maps.Marker({position: {lat: +markerObj.lat, lng: +markerObj.lng },  map: map});
             marker.info = new google.maps.InfoWindow({
-                content: markerObj.text
+                content: markerObj.text + '<div><a target="_blank" href="https://www.google.com/maps/dir/<?php echo e($location); ?>/'+markerObj.lat+','+markerObj.lng+'">directions</a></div>'
             });
+
+            if(markerMap.length === 1) {
+                marker.info.open(map, marker)
+            }
+
             marker.addListener('click', function(a) {
 
                 this.info.open(map, this);
