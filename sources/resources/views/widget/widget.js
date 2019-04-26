@@ -29,9 +29,10 @@ HelpChatWidget = {
             } else {
                 iframe.src = host + "/create-widget/?config=" + encodeURIComponent(JSON.stringify(options)) + src
             }
-            iframe.dataset.url = window.location.href
+            iframe.dataset.url = window.location.href;
+            iframe.allow = 'geolocation';
 
-            d.appendChild(iframe)
+            d.appendChild(iframe);
 
             window.addEventListener("message", receiveMessage, false);
 
