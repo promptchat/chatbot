@@ -30,6 +30,7 @@
             background-image: url("<?php echo e(url('/checkbox/radio_on.png')); ?>");
         }
     </style>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<?php echo e(config('app.google_map_key')); ?>&libraries=places"></script>
     
     <script src="<?php echo e(asset('help-button/bundle.js')); ?>" defer></script>
 
