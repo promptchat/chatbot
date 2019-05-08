@@ -67,14 +67,26 @@
         <div class="row mt-4">
             <div class="col-sm-12 col-lg-4" data-aos="fade-up">
                 <div class="info">
-                    <div class="big-text">Not a Member?</div>
-                    <p>The benefits of signing up to <?php echo e(\App\Models\SiteConfig::getTitle()); ?>:</p>
-                    <ol>
-                        <li><?php echo e(\App\Models\SiteConfig::getTitle()); ?> is your game-changing solution in today’s incredibly competitive world of live chat</li>
-                        <li>No one produces and designs chat & chatbot solutionsmore creatively, more quickly and more cost-effectively than <?php echo e(\App\Models\SiteConfig::getTitle()); ?></li>
-                        <li>Better chat functionalities  mean more response and more response leads to happier customers who will take more answers – bolstering your bottom line.</li>
-                        <li>We Make Chat Coversation More Profitable!</li>
-                    </ol>
+                    <div class="big-text">New to Chatbots?</div>
+                    <p>Built for online marketplaces, <?php echo e(\App\Models\SiteConfig::getTitle()); ?> helps automate simple tasks & create better experiences for your customers.</p>
+                    <p>An interactive agent using the ever so popular conversational interface which conducts a conversation between website visitors and website/listing owners via textual and visual methods.</p>
+                    <div class="big-text"><?php echo e(\App\Models\SiteConfig::getTitle()); ?> boosts:</div>
+                    <ul>
+                        <li>built in calendar based event bookings and management</li>
+                        <li>Integration to Google Maps</li>
+                        <li>Social Messenger Integration (WhatsApp, FB Messenger)</li>
+                        <li>Customization toolbox</li>
+                        <li>Analytics</li>
+                        <li>API for 3rd party systems integration</li>
+                    </ul>
+                    <p>
+                        Contact:
+                        <br>
+                        <a href="tel:3393092199">USA (339)309-2199</a>
+                        <br>
+                        <a href="tel:447492241828">UK (44)7492 241-828</a>
+                    </p>
+
                 </div>
             </div>
             <div class="col-sm-12 col-lg-8" data-aos="fade-up">
