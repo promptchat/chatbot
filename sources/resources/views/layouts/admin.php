@@ -64,6 +64,8 @@
                             <a class="menu-item" href="<?php echo e('/getting-started-guide'); ?>"><i class="fa fa-book"></i><?php echo app('translator')->getFromJson('Getting Started Guide'); ?></a>
                             <?php if(Auth::user()->isAdmin()): ?>
                                 <a class="menu-item" href="<?php echo e(action("SiteConfigController@index")); ?>"><i class="fa fa-cogs" aria-hidden="true"></i><?php echo app('translator')->getFromJson('Site configs'); ?></a>
+                                <a class="menu-item" href="<?php echo e(action("LanguageController@index")); ?>"><i class="fa fa-globe" aria-hidden="true"></i><?php echo app('translator')->getFromJson('Languages'); ?></a>
+                                <a class="menu-item" href="<?php echo e(action("TranslationController@index")); ?>"><i class="fa fa-language" aria-hidden="true"></i><?php echo app('translator')->getFromJson('Translates'); ?></a>
                             <?php endif; ?>
                         </ul>
                     </div>
