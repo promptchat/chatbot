@@ -51,7 +51,7 @@
                         <div class="form-group">
                             <label for="title"><?php echo app('translator')->getFromJson('models.agent.language'); ?></label>
                             <?php $__env->startComponent('components.select', [
-                                'empty' => __('models.agent.none'),
+                                'empty' => false,
                                 'options' => $languages,
                                 'name' => 'translator_language_locale',
                             ]); ?><?php echo $__env->renderComponent(); ?>
