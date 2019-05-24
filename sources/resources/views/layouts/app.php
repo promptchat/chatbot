@@ -56,16 +56,11 @@
         </footer>
     </div>
 
-    <script src="<?php echo e(mix('js/app.js')); ?>" defer></script>
-
 
     <?php echo app('chat-agent')->getWidget(); ?>
 
 
-    <script src="<?php echo e(mix('js/aos.js')); ?>"></script>
-    <script >
-        AOS.init();
-    </script>
+
 
 </body>
 
