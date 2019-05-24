@@ -5,3 +5,4 @@
 /vendor
 .env
 /node_modules
+laravel-echo-server.lock
