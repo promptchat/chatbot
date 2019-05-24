@@ -15,7 +15,7 @@
         window.google_maps_key = "<?php echo e(config('app.google_map_key')); ?>"
     </script>
     <!-- Scripts -->
-    <script src="<?php echo e(asset('js/admin.js')); ?>" defer></script>
+    <script src="<?php echo e(mix('js/admin.js')); ?>" defer></script>
 
     <link rel="icon" type="image/png" sizes="16x16" href="<?php echo e(url('storage/'.\App\Models\SiteConfig::getFavicon())); ?>">
 
@@ -27,7 +27,7 @@
 
 
     <!-- Styles -->
-    <link href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(mix('css/app.css')); ?>" rel="stylesheet">
 </head>
 <body class="admin">
     <div id="app">
