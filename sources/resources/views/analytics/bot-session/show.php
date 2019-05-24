@@ -66,7 +66,7 @@
                                         <td>
                                             <?php if($session->contact_clicks_count > 0): ?>
                                                 <a class="edit-button load-form-modal d-flex align-items-center"
-                                                   href="<?php echo e(action('AnalyticsController@showSessionStatisticDetail', $session)); ?>"
+                                                   href="<?php echo e(action('AnalyticsController@showBotSessionStatisticDetail', $session)); ?>"
                                                    data-toggle="modal" data-target="#show-form-modal"
                                                    style="text-decoration: none"
                                                 >

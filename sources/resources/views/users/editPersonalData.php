@@ -36,6 +36,12 @@
                             'required' => true
                         ]); ?><?php echo $__env->renderComponent(); ?>
 
+                        <?php $__env->startComponent('components.image-input',  [
+                            'label' => __('Photo'),
+                            'name' => 'image_id',
+                            'value' => $user->image_id,
+                        ]); ?><?php echo $__env->renderComponent(); ?>
+
                         <?php $__env->startComponent('components.form.input', [
                             'label' => __('New password'),
                             'type' => 'password',

@@ -3,13 +3,24 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-
-
     <div class="container">
         <div class="card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-12 col-md-8 offset-md-2">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <a href="<?php echo e(action('AnalyticsController@indexBotSessionStatistic')); ?>" class="btn btn-primary text-uppercase">
+                                    <?php echo app('translator')->getFromJson('View Bots Session Statistic'); ?>
+                                </a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="<?php echo e(action('AnalyticsController@indexChatSessionStatistic')); ?>" class="btn btn-primary text-uppercase">
+                                    <?php echo app('translator')->getFromJson('View Chats Session Statistic'); ?>
+                                </a>
+                            </div>
+                        </div>
+
                         <form action="" method="get" class="filter-form row">
                             <div class="form-group col-sm-6">
                                 <label for="title"><?php echo app('translator')->getFromJson('models.analytic.from'); ?></label>
@@ -59,46 +70,6 @@
                     </div>
                 </div>
                 <br/>
-                <div class="row">
-                    <div class="col-sm-12 col-md-8 offset-md-2">
-                        <h4>Bot statistic </h4>
-
-                        <div class="table-responsive">
-                            <table class="table table-sm">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        <div class="th-label">
-                                            <?php echo app('translator')->getFromJson('Bot name'); ?>
-                                        </div>
-                                    </th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php $__empty_1 = true; $__currentLoopData = $chatUsers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chatUser): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                                    <tr>
-                                        <td>
-                                            <h5><?php echo e($chatUser->name); ?></h5>
-                                        </td>
-                                        <td class="text-right text-nowrap">
-                                            <a href="<?php echo e(action("AnalyticsController@showSessionStatistic", $chatUser)); ?>" class="action-button">
-                                                <span class="mi mi-remove-red-eye"></span>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                                    <tr>
-                                        <td colspan="2">
-                                            No results
-                                        </td>
-                                    </tr>
-                                <?php endif; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

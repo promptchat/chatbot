@@ -4,3 +4,4 @@
 !/storage/sessions/.gitignore
 /vendor
 .env
+/node_modules

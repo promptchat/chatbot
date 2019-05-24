@@ -10,7 +10,8 @@
         window.chat = <?php echo $chat; ?>;
         window.hostUrl = "<?php echo request()->get('hostUrl'); ?>";
         window.appName = "<?php echo e(\App\Models\SiteConfig::getPoweredByName()); ?>";
-        window.projectBaseUrl =  "<?php echo e(\App\Models\SiteConfig::getPoweredByLink()); ?>"
+        window.projectBaseUrl =  "<?php echo e(\App\Models\SiteConfig::getPoweredByLink()); ?>";
+        window.translates = <?php echo $translates; ?>;
     </script>
     <style type="text/css">
 

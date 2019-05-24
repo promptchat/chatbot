@@ -4,14 +4,13 @@ services:
     restart: always
     image: nginx:1.15.0
     working_dir: /app
+    hostname: nginx
     ports:
       - ${PORT}:80
     volumes:
       - ./sources:/sources
       - ${PWD}/configs/nginx_conf/app.conf:/etc/nginx/conf.d/app.conf
       - ${PWD}/configs/nginx_conf/logs:/var/log/nginx
-    depends_on:
-      - php
     env_file:
       - variables.env
 
@@ -49,10 +48,6 @@ services:
       args:
         uid: ${USERID}
     depends_on:
-      - composer
-      - db
-      - redis
-    links:
       - composer
       - db
       - redis
@@ -120,6 +115,38 @@ services:
       LOG_FILE: logs/laravel-queue.log
     env_file:
       - variables.env
+
+  monitor:
+    restart: always
+    build:
+       context: .
+       dockerfile: docker_files/phpworker/Dockerfile
+       args:
+         uid: ${USERID}
+    depends_on:
+      - php
+    volumes:
+      - ./sources:/sources
+    working_dir: /sources
+    environment:
+      CONTAINER_ROLE: monitor
+      LOG_FILE: logs/laravel-monitor.log
+    env_file:
+      - variables.env
+
+  node:
+    build:
+      context: .
+      dockerfile: docker_files/node/Dockerfile
+    working_dir: /sources
+    hostname: node
+    volumes:
+      - ./sources:/sources
+    depends_on:
+      - redis
+#    command:
+#      - "npm install"
+#      - "npm laravel-echo-server start"
 
 volumes:
   redis-data:

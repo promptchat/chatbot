@@ -50,6 +50,28 @@
                             ]); ?><?php echo $__env->renderComponent(); ?>
                             <?php $__env->startComponent('components.errors', ['field' => "chat_user_id"]); ?><?php echo $__env->renderComponent(); ?>
                         </div>
+
+                        <div class="form-group">
+                            <label for="title"><?php echo app('translator')->getFromJson('models.agent.department'); ?></label>
+                            <?php $__env->startComponent('components.select', [
+                                'empty' => __('models.agent.none'),
+                                'options' => $departments,
+                                'name' => 'department_id',
+                                'default' => $agent->department_id
+                            ]); ?><?php echo $__env->renderComponent(); ?>
+                            <?php $__env->startComponent('components.errors', ['field' => "department_id"]); ?><?php echo $__env->renderComponent(); ?>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="title"><?php echo app('translator')->getFromJson('models.agent.language'); ?></label>
+                            <?php $__env->startComponent('components.select', [
+                                'empty' => false,
+                                'options' => $languages,
+                                'default' => $agent->translator_language_locale,
+                                'name' => 'translator_language_locale',
+                            ]); ?><?php echo $__env->renderComponent(); ?>
+                            <?php $__env->startComponent('components.errors', ['field' => "translator_language_locale"]); ?><?php echo $__env->renderComponent(); ?>
+                        </div>
                         <div class="form-group">
                             <label for="email">Instant email notifications for live chat requests</label>
                             <input

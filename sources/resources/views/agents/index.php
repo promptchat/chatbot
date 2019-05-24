@@ -6,13 +6,15 @@
     <div class="container">
         <div class="card">
             <div class="card-body">
-                <div class="row mb-15">
-                    <div class="col-sm-12">
-                        <a href="<?php echo e(action('AgentController@create')); ?>" class="btn btn-primary text-uppercase pull-right">
-                            <?php echo app('translator')->getFromJson('Add'); ?>
-                        </a>
+                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('create', \App\Models\Agent::class)): ?>
+                    <div class="row mb-15">
+                        <div class="col-sm-12">
+                            <a href="<?php echo e(action('AgentController@create')); ?>" class="btn btn-primary text-uppercase pull-right">
+                                <?php echo app('translator')->getFromJson('Add'); ?>
+                            </a>
+                        </div>
                     </div>
-                </div>
+                <?php endif; ?>
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="table-responsive">
@@ -21,7 +23,12 @@
                             <tr>
                                 <th class="with-100">
                                     <div class="th-label">
-                                        <?php echo app('translator')->getFromJson('Operator name'); ?>
+                                        <?php echo app('translator')->getFromJson('Name'); ?>
+                                    </div>
+                                </th>
+                                <th class="with-100">
+                                    <div class="th-label">
+                                        <?php echo app('translator')->getFromJson('Department'); ?>
                                     </div>
                                 </th>
                                 <th class="center-align" style="width: 200px">
@@ -38,10 +45,14 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <?php $__currentLoopData = $agents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $agent): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php $__empty_1 = true; $__currentLoopData = $agents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $agent): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                 <tr>
                                     <td>
                                         <?php echo e($agent->name); ?>
+
+                                    </td>
+                                    <td>
+                                        <?php echo e($agent->department->name ?? ''); ?>
 
                                     </td>
                                     <td>
@@ -58,24 +69,32 @@
                                     </td>
                                     <td class="text-right text-nowrap">
                                         <div class="d-inline-flex align-items-center">
-                                            <a href="<?php echo e(action("AgentController@edit", $agent)); ?>" class="action-button">
-                                                <span class="mi mi-edit"></span>
-                                            </a>
-                                            <?php $__env->startComponent('components.delete-record',
-                                                    ['action' => 'AgentController@destroy',
-                                                    'object' => $agent]); ?>
-                                            <?php echo $__env->renderComponent(); ?>
-                                            <a href="<?php echo e(action("AgentController@show", $agent)); ?>" class="action-button d-inline-flex align-items-center flex-column">
-                                            <span class="mi mi-remove-red-eye">
-                                            </span>
-                                                <span class="ml-1 text-uppercase">
-                                                code
-                                            </span>
-                                            </a>
+                                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('update', $agent)): ?>
+                                                <a href="<?php echo e(action("AgentController@edit", $agent)); ?>" class="action-button">
+                                                    <span class="mi mi-edit"></span>
+                                                </a>
+                                            <?php endif; ?>
+                                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('delete', $agent)): ?>
+                                                <?php $__env->startComponent('components.delete-record',
+                                                        ['action' => 'AgentController@destroy',
+                                                        'object' => $agent]); ?>
+                                                <?php echo $__env->renderComponent(); ?>
+                                            <?php endif; ?>
+                                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view', $agent)): ?>
+                                                <a href="<?php echo e(action("AgentController@show", $agent)); ?>" class="action-button d-inline-flex align-items-center flex-column">
+                                                    <span class="mi mi-remove-red-eye"></span><span class="ml-1 text-uppercase">code</span>
+                                                </a>
+                                            <?php endif; ?>
                                         </div>
                                     </td>
                                 </tr>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                                <tr>
+                                    <td colspan="100%">
+                                        <?php echo app('translator')->getFromJson('models.no_result'); ?>
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
                             </tbody>
                         </table>
                         </div>

@@ -99,74 +99,64 @@
 
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="register-name"><?php echo e(__('Name')); ?></label>
-                                    <input id="register-name" type="text" class="form-control<?php echo e($errors->has('name') ? ' is-invalid' : ''); ?>" name="name" value="<?php echo e(old('name')); ?>" required autofocus>
-
-                                    <?php if($errors->has('register-name')): ?>
-                                        <span class="invalid-feedback" role="alert">
-                                        <strong><?php echo e($errors->first('register-name')); ?></strong>
-                                    </span>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="form-group">
-                                    <label for="telephone">Telephone</label>
+                                    <label for="name"><?php echo e(__('Name')); ?></label>
                                     <input
-                                            id="telephone"
+                                            id="name"
                                             type="text"
-                                            class="form-control <?php echo e($errors->has('telephone') ? ' is-invalid' : ''); ?>"
-                                            name="telephone"
-                                            value="<?php echo e(old('telephone')); ?>"
+                                            class="form-control<?php echo e($errors->has('name') ? ' is-invalid' : ''); ?>"
+                                            name="name"
+                                            value="<?php echo e(old('name')); ?>"
                                             required
+                                            autofocus
                                     >
-                                    <?php if($errors->has('telephone')): ?>
+                                    <?php if($errors->has('name')): ?>
                                         <span class="invalid-feedback" role="alert">
-                                            <strong><?php echo e($errors->first('telephone')); ?></strong>
+                                            <strong><?php echo e($errors->first('name')); ?></strong>
                                         </span>
                                     <?php endif; ?>
                                 </div>
                                 <div class="form-group">
-                                    <label for="domain">Domain </label>
-                                    <a class="text-center" data-toggle="tooltip" title="URL of your main domain without 'http://' or 'www' such as: yourdomain.com"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
+                                    <label for="company_name"><?php echo e(__('Company name')); ?></label>
                                     <input
-                                            id="domain"
+                                            id="company_name"
                                             type="text"
-                                            class="form-control <?php echo e($errors->has('domain') ? ' is-invalid' : ''); ?>"
-                                            name="domain"
-                                            value="<?php echo e(old('domain')); ?>"
+                                            class="form-control<?php echo e($errors->has('company_name') ? ' is-invalid' : ''); ?>"
+                                            name="company_name"
+                                            value="<?php echo e(old('company_name')); ?>"
                                             required
                                     >
-                                    <?php if($errors->has('domain')): ?>
+                                    <?php if($errors->has('company_name')): ?>
                                         <span class="invalid-feedback" role="alert">
-                                            <strong><?php echo e($errors->first('domain')); ?></strong>
+                                            <strong><?php echo e($errors->first('company_name')); ?></strong>
                                         </span>
                                     <?php endif; ?>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="register-email"><?php echo e(__('E-Mail Address')); ?></label>
-                                    <input id="register-email" type="email" class="form-control<?php echo e($errors->has('register-email') ? ' is-invalid' : ''); ?>" name="register-email" value="<?php echo e(old('register-email')); ?>" required>
+                                    <label for="register_email"><?php echo e(__('E-Mail Address')); ?></label>
+                                    <input id="register_email" type="email" class="form-control<?php echo e($errors->has('register_email') ? ' is-invalid' : ''); ?>" name="register_email" value="<?php echo e(old('register_email')); ?>" required>
 
-                                    <?php if($errors->has('register-email')): ?>
+                                    <?php if($errors->has('register_email')): ?>
                                         <span class="invalid-feedback" role="alert">
-                                            <strong><?php echo e($errors->first('register-email')); ?></strong>
+                                            <strong><?php echo e($errors->first('register_email')); ?></strong>
                                         </span>
                                     <?php endif; ?>
                                 </div>
                                 <div class="form-group">
-                                    <label for="register-password"><?php echo e(__('Password')); ?></label>
-                                    <input id="register-password" type="password" class="form-control<?php echo e($errors->has('register-password') ? ' is-invalid' : ''); ?>" name="register-password" required>
+                                    <label for="register_password"><?php echo e(__('Password')); ?></label>
+                                    <input id="register_password" type="password" class="form-control<?php echo e($errors->has('register_password') ? ' is-invalid' : ''); ?>" name="register_password" required>
 
-                                    <?php if($errors->has('register-password')): ?>
+                                    <?php if($errors->has('register_password')): ?>
                                         <span class="invalid-feedback" role="alert">
-                                    <strong><?php echo e($errors->first('register-password')); ?></strong>
-                                </span>
+                                            <strong><?php echo e($errors->first('register_password')); ?></strong>
+                                        </span>
                                     <?php endif; ?>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="password-confirm"><?php echo e(__('Confirm Password')); ?></label>
-                                    <input id="password-confirm" type="password" class="form-control" name="register-password_confirmation" required>
+                                    <label for="password_confirm"><?php echo e(__('Confirm Password')); ?></label>
+                                    <input id="password_confirm" type="password" class="form-control" name="register_password_confirmation" required>
                                 </div>
                             </div>
 

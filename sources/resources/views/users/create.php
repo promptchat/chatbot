@@ -61,6 +61,11 @@
                             <?php $__env->startComponent('components.errors', ['field' => "role"]); ?><?php echo $__env->renderComponent(); ?>
                         </div>
 
+                        <?php $__env->startComponent('components.image-input',  [
+                            'label' => __('Photo'),
+                            'name' => 'image_id',
+                        ]); ?><?php echo $__env->renderComponent(); ?>
+
                         <?php echo $__env->make('components.form.select2Multiple', [
                             'label' => 'Departments',
                             'name' => 'user_departments[]',

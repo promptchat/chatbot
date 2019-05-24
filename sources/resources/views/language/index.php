@@ -30,7 +30,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <?php $__currentLoopData = $languages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $language): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php $__empty_1 = true; $__currentLoopData = $languages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $language): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                 <tr>
                                     <td>
                                         <?php echo e($language->name); ?>
@@ -44,7 +44,13 @@
                                         <?php endif; ?>
                                     </td>
                                 </tr>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                                <tr>
+                                    <td colspan="100%">
+                                        <?php echo app('translator')->getFromJson('models.no_result'); ?>
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
                             </tbody>
                         </table>
                         </div>

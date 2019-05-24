@@ -37,8 +37,8 @@
             </tr>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
             <tr>
-                <td colspan="2">
-                    No results
+                <td colspan="100%">
+                    <?php echo app('translator')->getFromJson('models.no_result'); ?>
                 </td>
             </tr>
         <?php endif; ?>

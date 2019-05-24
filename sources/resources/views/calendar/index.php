@@ -6,13 +6,15 @@
     <div class="container">
         <div class="card">
             <div class="card-body">
-                <div class="row mb-15">
-                    <div class="col-sm-12">
-                        <a href="<?php echo e(action('CalendarController@create')); ?>" class="btn btn-primary text-uppercase pull-right">
-                            <?php echo app('translator')->getFromJson('Add'); ?>
-                        </a>
+                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('create', \App\Models\Calendar::class)): ?>
+                    <div class="row mb-15">
+                        <div class="col-sm-12">
+                            <a href="<?php echo e(action('CalendarController@create')); ?>" class="btn btn-primary text-uppercase pull-right">
+                                <?php echo app('translator')->getFromJson('Add'); ?>
+                            </a>
+                        </div>
                     </div>
-                </div>
+                <?php endif; ?>
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="table-responsive">
@@ -28,23 +30,33 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <?php $__currentLoopData = $calendars; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $calendar): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php $__empty_1 = true; $__currentLoopData = $calendars; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $calendar): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                 <tr>
                                     <td>
                                         <?php echo e($calendar->name); ?>
 
                                     </td>
                                     <td class="text-right text-nowrap">
-                                        <a href="<?php echo e(action("CalendarController@edit", $calendar)); ?>" class="action-button">
-                                            <span class="mi mi-edit"></span>
-                                        </a>
-                                        <?php $__env->startComponent('components.delete-record',
-                                                ['action' => 'CalendarController@destroy',
-                                                'object' => $calendar]); ?>
-                                        <?php echo $__env->renderComponent(); ?>
+                                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('update', $calendar)): ?>
+                                            <a href="<?php echo e(action("CalendarController@edit", $calendar)); ?>" class="action-button">
+                                                <span class="mi mi-edit"></span>
+                                            </a>
+                                        <?php endif; ?>
+                                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('delete', $calendar)): ?>
+                                            <?php $__env->startComponent('components.delete-record',
+                                                    ['action' => 'CalendarController@destroy',
+                                                    'object' => $calendar]); ?>
+                                            <?php echo $__env->renderComponent(); ?>
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                                <tr>
+                                    <td colspan="100%">
+                                        <?php echo app('translator')->getFromJson('models.no_result'); ?>
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
                             </tbody>
                         </table>
                         </div>
