@@ -7,7 +7,7 @@
 
     <title><?php echo e(\App\Models\SiteConfig::getTitle()); ?></title>
     <meta name="description" content="<?php echo e(\App\Models\SiteConfig::getDescription()); ?>">
-    <link href="<?php echo e(mix('css/custom.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/custom.css')); ?>" rel="stylesheet">
 
     <link rel="icon" type="image/png" sizes="16x16" href="<?php echo e(url('storage/'.\App\Models\SiteConfig::getFavicon())); ?>">
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans" rel="stylesheet">
@@ -56,11 +56,16 @@
         </footer>
     </div>
 
+    <script src="<?php echo e(asset('js/app.js')); ?>" defer></script>
+
 
     <?php echo app('chat-agent')->getWidget(); ?>
 
 
-
+    <script src="<?php echo e(asset('js/aos.js')); ?>"></script>
+    <script >
+        AOS.init();
+    </script>
 
 </body>
 

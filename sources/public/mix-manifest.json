@@ -1,9 +1,8 @@
 {
-    "/help-button/bundle.js": "/help-button/bundle.js?id=299ff19db3287a42a964",
-    "/help-button/style.css": "/help-button/style.css?id=e0dbe940f1a6e8a9c097",
-    "/js/admin.js": "/js/admin.js?id=e518fe9c5a2b730304e1",
-    "/js/app.js": "/js/app.js?id=390093ed8e54aba43eed",
-    "/css/app.css": "/css/app.css?id=d0a6e547b33f84cf8cb2",
-    "/css/preview.css": "/css/preview.css?id=2a1dcd5484f5de649443",
-    "/css/custom.css": "/css/custom.css?id=9a3d846d5923fe31d9e6"
+    "/js/admin.js": "/js/admin.js",
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
+    "/css/preview.css": "/css/preview.css",
+    "/css/custom.css": "/css/custom.css",
+    "/js/aos.js": "/js/aos.js"
 }
