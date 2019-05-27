@@ -135,6 +135,7 @@ services:
       - variables.env
 
   node:
+    restart: always
     build:
       context: .
       dockerfile: docker_files/node/Dockerfile

@@ -3,4 +3,4 @@ set -o allexport
 [[ -f variables.env ]] && source variables.env
 set +o allexport
 
-docker-compose up -d --build
+docker-compose up -d
