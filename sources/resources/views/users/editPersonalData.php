@@ -42,6 +42,37 @@
                             'value' => $user->image_id,
                         ]); ?><?php echo $__env->renderComponent(); ?>
 
+
+                        <?php $__env->startComponent('components.form.checkbox', [
+                           'label' => __('Allow short notifications'),
+                           'type' => 'checkbox',
+                           'name' => 'short_notification_allowed',
+                           'value' => $user->short_notification_allowed,
+
+                       ]); ?><?php echo $__env->renderComponent(); ?>
+
+
+                        <?php $__env->startComponent('components.audio-input',  [
+                            'label' => __('Short notification'),
+                            'default' => '/audio/notification.mp3',
+                            'name' => 'short_notification_id',
+                            'value' => $user->short_notification_id,
+                        ]); ?><?php echo $__env->renderComponent(); ?>
+
+
+                        <?php $__env->startComponent('components.form.checkbox', [
+                           'label' => __('Allow long notifications'),
+                           'name' => 'bring_notification_allowed',
+                           'value' => $user->bring_notification_allowed,
+
+                       ]); ?><?php echo $__env->renderComponent(); ?>
+
+                        <?php $__env->startComponent('components.audio-input',  [
+                            'label' => __('Long notification'),
+                            'default' => '/audio/bring.mp3',
+                            'name' => 'bring_notification_id',
+                            'value' => $user->bring_notification_id,
+                        ]); ?><?php echo $__env->renderComponent(); ?>
                         <?php $__env->startComponent('components.form.input', [
                             'label' => __('New password'),
                             'type' => 'password',

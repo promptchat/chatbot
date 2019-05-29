@@ -26,7 +26,7 @@
                             </div>
                             <?php if($siteConfig->type == \App\Models\SiteConfig::TYPE_LOGO): ?>
                                 <div>
-                                    <?php $__env->startComponent('components.image-input-logo',  [
+                                    <?php $__env->startComponent('components.image-input',  [
                                         'label' => __('Picture (Only PNG format)'),
                                         'name' => 'image_id',
                                         'value' => $siteConfig->image_id,
@@ -34,7 +34,7 @@
                                 </div>
                             <?php elseif($siteConfig->type == \App\Models\SiteConfig::TYPE_FAVICON): ?>
                                 <div>
-                                    <?php $__env->startComponent('components.image-input-favicon',  [
+                                    <?php $__env->startComponent('components.image-input',  [
                                         'label' => __('Picture (Only ICO format)'),
                                         'name' => 'image_id',
                                         'value' => $siteConfig->image_id,
