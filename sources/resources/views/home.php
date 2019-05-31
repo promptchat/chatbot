@@ -5,7 +5,7 @@
                 <h2 class="text-center" style="padding: 50px 0;">
                     Welcome to
                     <div>
-                        <img style="width: 230px;" src="<?php echo e(url('storage/'.\App\Models\SiteConfig::getLogo())); ?>">
+                        <img style="width: 230px;" src="<?php echo e(\App\Models\SiteConfig::getLogo()); ?>">
                     </div>
                     <div>
                         <?php echo e(\App\Models\SiteConfig::getTitle()); ?>

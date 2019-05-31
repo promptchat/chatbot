@@ -1,7 +1,7 @@
 <div style="background-color: #f4f4f4; padding: 15px;">
     <div style="max-width:640px; margin: 0 auto; text-align: center">
         <a href="<?php echo e(url('/')); ?>">
-            <img style="max-width: 150px;" src="<?php echo e(url('storage/'.\App\Models\SiteConfig::getLogo())); ?>" alt="">
+            <img style="max-width: 150px;" src="<?php echo e(\App\Models\SiteConfig::getLogo()); ?>" alt="">
         </a>
     </div>
 </div>

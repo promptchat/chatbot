@@ -35,7 +35,7 @@
     
     <script src="<?php echo e(asset('help-button/bundle.js')); ?>" defer></script>
 
-    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo e(url('storage/'.\App\Models\SiteConfig::getFavicon())); ?>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo e(\App\Models\SiteConfig::getFavicon()); ?>">
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Playfair+Display|Poppins|Roboto|Raleway" rel="stylesheet">
     <link href="<?php echo e(asset('help-button/style.css')); ?>" rel="stylesheet">

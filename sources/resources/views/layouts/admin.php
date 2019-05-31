@@ -17,7 +17,7 @@
     <!-- Scripts -->
     <script src="<?php echo e(asset('js/admin.js')); ?>" defer></script>
 
-    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo e(url('storage/'.\App\Models\SiteConfig::getFavicon())); ?>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo e(\App\Models\SiteConfig::getFavicon()); ?>">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -50,7 +50,7 @@
                                 <span class="mi mi-close"></span>
                             </div>
                             <div class="dashboard-name">
-                                <img class="menu-logo" src="<?php echo e(url('storage/'.\App\Models\SiteConfig::getLogo())); ?>">
+                                <img class="menu-logo" src="<?php echo e(\App\Models\SiteConfig::getLogo()); ?>">
                             </div>
                         </div>
 

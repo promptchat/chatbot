@@ -5,7 +5,7 @@
             <div class="card ">
                 <div class="card-body">
                     <div class="text-center">
-                        <img src="<?php echo e(url('storage/'.\App\Models\SiteConfig::getLogo())); ?>" class="authorization-logo" style="margin: 15px 0">
+                        <img src="<?php echo e(\App\Models\SiteConfig::getLogo()); ?>" class="authorization-logo" style="margin: 15px 0">
                     </div>
                     <?php if(session('status')): ?>
                            <div class="row">

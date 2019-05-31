@@ -9,7 +9,7 @@
     <meta name="description" content="<?php echo e(\App\Models\SiteConfig::getDescription()); ?>">
     <link href="<?php echo e(asset('css/custom.css')); ?>" rel="stylesheet">
 
-    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo e(url('storage/'.\App\Models\SiteConfig::getFavicon())); ?>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo e(\App\Models\SiteConfig::getFavicon()); ?>">
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans" rel="stylesheet">
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <!-- Scripts -->
@@ -30,7 +30,7 @@
             </div>
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container">
-                    <a class="navbar-brand" href="/"><img src="<?php echo e(url('storage/'.\App\Models\SiteConfig::getLogo())); ?>"></a>
+                    <a class="navbar-brand" href="/"><img src="<?php echo e(\App\Models\SiteConfig::getLogo()); ?>"></a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -45,7 +45,7 @@
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-md-6 footer-logo">
-                            <a href="/" class="d-inline-block"><img class="logo" src="<?php echo e(url('storage/'.\App\Models\SiteConfig::getLogo())); ?>"></a>
+                            <a href="/" class="d-inline-block"><img class="logo" src="<?php echo e(\App\Models\SiteConfig::getLogo()); ?>"></a>
                         </div>
                         <div class="col-md-6 copyright-text">
                             &copy; 2007-<?php echo e(\Carbon\Carbon::now()->format('Y')); ?> <?php echo e(\App\Models\SiteConfig::getTitle()); ?> <br> All Rights Reserved

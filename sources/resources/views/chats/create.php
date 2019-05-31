@@ -3,7 +3,7 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-    <chat-creator logo="<?php echo e(url('storage/'.\App\Models\SiteConfig::getLogo())); ?>" method="post" url="<?php echo e(action('ChatController@store')); ?>" name=""/>
+    <chat-creator logo="<?php echo e(\App\Models\SiteConfig::getLogo()); ?>" method="post" url="<?php echo e(action('ChatController@store')); ?>" name=""/>
 
 <?php $__env->stopSection(); ?>
 
