@@ -33,7 +33,7 @@
                             <?php echo app('translator')->getFromJson('Company users'); ?>
                         </a>
                         <hr class="my-4">
-                        <?php echo $__env->make('departments.index', ['departments' => $company->departments, 'companyId' => $company->id], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                        <?php echo $__env->make('departments.index', ['departments' => $company->departments, 'companyId' => $company->id], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                     </div>
                 </div>
             </div>
@@ -54,4 +54,4 @@
 
 
 
-<?php echo $__env->make('layouts.admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

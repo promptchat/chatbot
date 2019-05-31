@@ -1,0 +1,389 @@
+@import "~font-awesome/css/font-awesome.css";
+@import "~bootstrap/scss/bootstrap.scss";
+@import "./fonts";
+@import "./mixins";
+@import "./aos.css";
+
+$screen-768: 768px;
+$screen-767: 767px;
+$screen-992: 992px;
+$dark-blue: #00A0B8;
+$white-blue: #00DAEA;
+$orange-text: #FF7840;
+$blue-text: #00A0B8;
+$grey-text: #676767;
+$card-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+$btn-color: $dark-blue;
+$background-color: #f4f4f4;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.content {
+  flex: 1 0 auto;
+
+  @media (max-width: $screen-992) {
+    margin-top: 85px;
+  }
+}
+
+a {
+  color: $dark-blue;
+}
+
+.footer {
+  flex: 0 0 auto;
+  text-align: center;
+  margin-top: 30px;
+
+  .grey-footer {
+    background: $background-color;
+    padding: 50px 0 25px;
+    color: $black;
+    font-size: 13px;
+
+    .pt-block {
+      margin-top: 25px;
+
+      a {
+        color: $dark-blue;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .footer-logo {
+    text-align: left;
+
+    .logo {
+      max-width: 200px;
+      max-height: 100px;
+    }
+
+    @media (max-width: $screen-767) {
+      text-align: center;
+    }
+  }
+
+  .copyright-text {
+    text-align: right;
+
+    @media (max-width: $screen-767) {
+      text-align: center;
+    }
+  }
+}
+
+.btn-primary {
+  background-color: $btn-color;
+  border-color: $btn-color;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a,
+button {
+    cursor: pointer;
+}
+
+a {
+    &:hover,
+    &:focus,
+    &:active {
+        text-decoration: none;
+        color: inherit;
+        box-shadow: none!important;
+        outline: none;
+    }
+}
+
+.form-group {
+    .help-block {
+        color: #c70000;
+        font-size: 12px;
+        margin-left: 5px;
+    }
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+}
+
+.btn, input, a {
+    outline: none;
+    box-shadow: none;
+
+    &:hover,
+    &:active,
+    &:focus {
+        outline: none;
+        box-shadow: none;
+    }
+}
+
+.img-responsive {
+    width: 100%;
+    height: auto;
+}
+
+.orange-text {
+    color: $orange-text;
+}
+
+.blue-text {
+    color: $blue-text;
+}
+
+.my-card {
+    background: $white;
+    box-shadow: $card-shadow;
+    border-radius: 20px;
+
+    &.p-15 {
+      padding: 15px;
+    }
+}
+
+.card-title {
+  font-size: 24px;
+}
+
+.icon-img {
+    width: 60px;
+    display: inline-block;
+}
+
+.list-style {
+  padding-left: 30px;
+}
+
+header {
+    font-family: Montserrat, sans-serif;
+
+    @media (max-width: $screen-992) {
+      margin-bottom: 15px;
+      position: fixed;
+      width: 100%;
+      background: #fff;
+      z-index: 99;
+    }
+
+    .navbar-light {
+      padding: 0 1rem 1rem;
+
+      .navbar-brand {
+        padding-top: 0;
+      }
+
+      @media (max-width: $screen-992) {
+        padding: 0;
+
+        .navbar-brand {
+          margin-left: 1rem;
+        }
+
+        .navbar-toggler {
+          margin-right: 1rem;
+        }
+
+        .navbar-nav {
+          border-top: 1px solid #f5f5f5f5;
+
+          .nav-item {
+            padding: 0;
+            border-bottom: 1px solid #f5f5f5f5;
+          }
+        }
+      }
+
+      .dropdown-menu {
+        margin: 0;
+
+        @media (max-width: $screen-992) {
+          text-align: center;
+          border-radius: 0;
+          border: none;
+          border-top: 1px solid #f5f5f5f5;
+        }
+
+        .dropdown-item {
+          line-height: normal;
+          font-size: 14px;
+          color: $black;
+          transition: linear 0.2s;
+
+          &:hover,
+          &:active,
+          &:focus {
+            color: $dark-blue;
+          }
+        }
+      }
+
+      .nav-item  {
+        &.active {
+          .nav-link {
+            line-height: normal;
+            font-size: 14px;
+            color: $black;
+            font-weight: bold;
+
+            &:hover,
+            &:active,
+            &:focus {
+              color: $dark-blue;
+            }
+          }
+        }
+
+        .nav-link {
+          line-height: normal;
+          font-size: 14px;
+          color: $black;
+          transition: linear 0.2s;
+          text-align: center;
+
+          &:hover,
+          &:active,
+          &:focus {
+            color: $dark-blue;
+          }
+        }
+      }
+    }
+
+    .navbar-brand {
+        img {
+          max-width: 200px;
+          max-height: 90px;
+
+          @media (max-width: $screen-992) {
+            max-height: 50px;
+            margin-top: 8px;
+          }
+        }
+    }
+}
+
+.sign-btn {
+  width: 120px;
+  height: 40px;
+  background: $white;
+  border: 2px solid $btn-color;
+  box-sizing: border-box;
+  border-radius: 20px;
+  color: $btn-color;
+  font-weight: bold;
+  transition: linear 0.3s;
+  margin: 5px;
+
+  &.cabinet {
+    background: $btn-color;
+    color: $white;
+
+    &:hover {
+      background: $white;
+      color: $btn-color;
+    }
+  }
+
+
+  &:hover {
+    background: $btn-color;
+    color: $white;
+  }
+}
+
+.sign-page {
+  .big-text {
+    font-size: 36px;
+    text-transform: uppercase;
+    color: $dark-blue;
+
+    @media (max-width: $screen-768) {
+      font-size: 26px;
+    }
+  }
+
+  .main-line {
+    background: $white-blue;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 5px 0;
+
+    .big-text {
+      color: $white;
+    }
+
+    .form-group {
+      @media (max-width: $screen-768) {
+        width: 100%;
+      }
+
+      @media (max-width: $screen-992) {
+        margin-bottom: 15px;
+      }
+
+      .form-control {
+        @media (max-width: $screen-768) {
+          width: 100%;
+        }
+      }
+    }
+
+    .btn {
+      @media (max-width: $screen-992) {
+        float: right;
+      }
+    }
+  }
+
+  .info {
+    background: $background-color;
+    padding: 10px 20px;
+    margin: 0 0 10px;
+
+    .big-text {
+      color: $white-blue;
+      font-size: 25px;
+      line-height: 27px;
+      margin-bottom: 10px;
+    }
+
+    ol,
+    ul {
+      margin-left: 30px;
+    }
+  }
+
+  .register {
+    .big-text {
+      background: $background-color;
+      padding: 5px 0 5px 20px;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+#PromptchatFloatingButton {
+  img {
+    max-width: 50px;
+  }
+}

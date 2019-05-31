@@ -70,28 +70,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="email">Instant email notifications for live chat requests</label>
-                            <input
-                                    placeholder="Enter e-mail"
-                                    type="email"
-                                    name="email"
-                                    value="<?php echo e(old("email")); ?>"
-                                    class="form-control"
-                            >
-                            <?php $__env->startComponent('components.errors', ['field' => "email"]); ?><?php echo $__env->renderComponent(); ?>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Instant email notifications for chatbot activity notifications</label>
-                            <input
-                                    placeholder="Enter e-mail"
-                                    type="email"
-                                    name="chat_bot_notification_email"
-                                    value="<?php echo e(old("chat_bot_notification_email")); ?>"
-                                    class="form-control"
-                            >
-                            <?php $__env->startComponent('components.errors', ['field' => "chat_bot_notification_email"]); ?><?php echo $__env->renderComponent(); ?>
-                        </div>
-                        <div class="form-group">
                             <socials />
                         </div>
                     </div>
@@ -114,4 +92,4 @@
 
 
 
-<?php echo $__env->make('layouts.admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

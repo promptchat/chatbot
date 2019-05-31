@@ -18,4 +18,4 @@
             into your web browser: <a target="_blank" style="word-break: break-all;" href="<?php echo e($url); ?>"><?php echo e($url); ?></a></p>
     </div>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('mail.mail', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('mail.mail', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
