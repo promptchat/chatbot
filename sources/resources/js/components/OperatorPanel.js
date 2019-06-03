@@ -20,6 +20,7 @@ export default class OperatorPanel extends Component {
 
         this.leave = this.leave.bind(this);
         this.onNameChange = this.onNameChange.bind(this);
+        this.shortAlert = this.shortAlert.bind(this);
 
 
         this.sound = new Howl({
@@ -109,6 +110,12 @@ export default class OperatorPanel extends Component {
         this.checkSound();
     }
 
+    shortAlert() {
+        if(this.state.chatConfigs.short_notification_allowed) {
+            this.sound.play();
+        }
+    }
+
     componentDidMount() {
 
         axios.get('/api/panel')
@@ -120,7 +127,6 @@ export default class OperatorPanel extends Component {
                 });
 
             });
-
 
         this.state.departments.map((departmentId) => {
             window.Echo.private('Department.'+departmentId)
@@ -147,9 +153,7 @@ export default class OperatorPanel extends Component {
                         let newState = clone(state);
                         let currentClient = find(newState.clients, {id:client.id});
                         if(currentClient) {
-                            if(this.state.chatConfigs.short_notification_allowed) {
-                                this.sound.play();
-                            }
+                            this.shortAlert();
                             currentClient.last_message_from_user = client.last_message_from_user;
                             return newState;
                         }
@@ -250,6 +254,7 @@ export default class OperatorPanel extends Component {
                         <div className={'card-body'}>
                             <h5>Sessions</h5>
                             <ChatSessions
+                                shortAlert={this.shortAlert}
                                 leave={this.leave}
                                 operator={this.props.operator}
                                 open={this.state.open}

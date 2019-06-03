@@ -28,6 +28,11 @@ export default class ChatSessions extends React.Component {
                     if(activeTab != client.id) {
                         newUnreadTabs[client.id] = true;
                     }
+
+                    if(activeTab != client.id || !document.hasFocus()) {
+                        this.props.shortAlert()
+                    }
+
                     return {
                         unreadTabs: newUnreadTabs
                     }
