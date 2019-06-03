@@ -79,13 +79,6 @@
                         <li>Analytics</li>
                         <li>API for 3rd party systems integration</li>
                     </ul>
-                    <p>
-                        Contact:
-                        <br>
-                        <a href="tel:3393092199">USA (339)309-2199</a>
-                        <br>
-                        <a href="tel:447492241828">UK (44)7492 241-828</a>
-                    </p>
 
                 </div>
             </div>
