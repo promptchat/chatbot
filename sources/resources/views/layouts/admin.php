@@ -102,7 +102,7 @@
                             <?php endif; ?>
                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\Company::class)): ?>
                                 <a class="menu-item" href="<?php echo e(action("CompanyController@index")); ?>">
-                                    <i class="fa fa-building" aria-hidden="true"></i><?php echo app('translator')->getFromJson('Companies'); ?>
+                                    <i class="fa fa-building" aria-hidden="true"></i><?php echo app('translator')->getFromJson('Customer accounts'); ?>
                                 </a>
                             <?php endif; ?>
                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\SiteConfig::class)): ?>
