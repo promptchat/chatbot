@@ -57,67 +57,67 @@
                         <ul class="nav-menu">
                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\Agent::class)): ?>
                                 <a class="menu-item" href="<?php echo e(action("AgentController@index")); ?>">
-                                    <i class="fa fa-plus"></i><?php echo app('translator')->getFromJson('Chat boxes'); ?>
+                                    <i class="fa fa-plus"></i><?php echo app('translator')->getFromJson('site.left_menu.chat_boxes'); ?>
                                 </a>
                             <?php endif; ?>
                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\ChatSession::class)): ?>
                                 <a class="menu-item" href="<?php echo e(action("AnalyticsController@index")); ?>">
-                                    <i class="fa fa-bar-chart"></i><?php echo app('translator')->getFromJson('Analytics'); ?>
+                                    <i class="fa fa-bar-chart"></i><?php echo app('translator')->getFromJson('site.left_menu.analytics'); ?>
                                 </a>
                             <?php endif; ?>
                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\Calendar::class)): ?>
                                 <a class="menu-item" href="<?php echo e(action("CalendarController@index")); ?>">
-                                    <i class="fa fa-calendar"></i><?php echo app('translator')->getFromJson('Calendar'); ?>
+                                    <i class="fa fa-calendar"></i><?php echo app('translator')->getFromJson('site.left_menu.calendar'); ?>
                                 </a>
                             <?php endif; ?>
                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('edit', \App\Models\Config::class)): ?>
                                 <a class="menu-item" href="<?php echo e(action("ConfigController@edit")); ?>">
-                                    <i class="fa fa-sliders"></i><?php echo app('translator')->getFromJson('Button settings'); ?>
+                                    <i class="fa fa-sliders"></i><?php echo app('translator')->getFromJson('site.left_menu.button_settings'); ?>
                                 </a>
                             <?php endif; ?>
                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\ChatUser::class)): ?>
                                 <a class="menu-item" href="<?php echo e(action("ChatController@index")); ?>">
-                                    <i class="fa fa-comments"></i><?php echo app('translator')->getFromJson('Chatbots'); ?>
+                                    <i class="fa fa-comments"></i><?php echo app('translator')->getFromJson('site.left_menu.chatbots'); ?>
                                 </a>
                             <?php endif; ?>
 
                             <a class="menu-item" href="<?php echo e('/live-chat'); ?>">
-                                <i class="fa fa-commenting "></i><?php echo app('translator')->getFromJson('Live chat'); ?>
+                                <i class="fa fa-commenting "></i><?php echo app('translator')->getFromJson('site.left_menu.live_chat'); ?>
                             </a>
                             <a class="menu-item" href="<?php echo e('/getting-started-guide'); ?>">
-                                <i class="fa fa-book"></i><?php echo app('translator')->getFromJson('Getting Started Guide'); ?>
+                                <i class="fa fa-book"></i><?php echo app('translator')->getFromJson('site.left_menu.getting_started_guide'); ?>
                             </a>
 
                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\User::class)): ?>
                                 <a class="menu-item" href="<?php echo e(action("UserController@index")); ?>">
-                                    <i class="fa fa-users" aria-hidden="true"></i><?php echo app('translator')->getFromJson('Users'); ?>
+                                    <i class="fa fa-users" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.users'); ?>
                                 </a>
                             <?php endif; ?>
                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('update', Auth::user()->company)): ?>
                                 <?php if(Auth::user()->isCompanyAdmin()): ?>
                                     <a class="menu-item" href="<?php echo e(action("CompanyController@edit", Auth::user()->company_id)); ?>">
-                                        <i class="fa fa-building" aria-hidden="true"></i><?php echo app('translator')->getFromJson('My Company'); ?>
+                                        <i class="fa fa-building" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.my_company'); ?>
                                     </a>
                                 <?php endif; ?>
                             <?php endif; ?>
                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\Company::class)): ?>
                                 <a class="menu-item" href="<?php echo e(action("CompanyController@index")); ?>">
-                                    <i class="fa fa-building" aria-hidden="true"></i><?php echo app('translator')->getFromJson('Customer accounts'); ?>
+                                    <i class="fa fa-building" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.customer_accounts'); ?>
                                 </a>
                             <?php endif; ?>
                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\SiteConfig::class)): ?>
                                 <a class="menu-item" href="<?php echo e(action("SiteConfigController@index")); ?>">
-                                    <i class="fa fa-cogs" aria-hidden="true"></i><?php echo app('translator')->getFromJson('Site configs'); ?>
+                                    <i class="fa fa-cogs" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.site_configs'); ?>
                                 </a>
                             <?php endif; ?>
                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \Waavi\Translation\Models\Language::class)): ?>
                                 <a class="menu-item" href="<?php echo e(action("LanguageController@index")); ?>">
-                                    <i class="fa fa-globe" aria-hidden="true"></i><?php echo app('translator')->getFromJson('Languages'); ?>
+                                    <i class="fa fa-globe" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.languages'); ?>
                                 </a>
                             <?php endif; ?>
                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \Waavi\Translation\Models\Translation::class)): ?>
                                 <a class="menu-item" href="<?php echo e(action("TranslationController@index")); ?>">
-                                    <i class="fa fa-language" aria-hidden="true"></i><?php echo app('translator')->getFromJson('Translates'); ?>
+                                    <i class="fa fa-language" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.translates'); ?>
                                 </a>
                             <?php endif; ?>
                         </ul>
@@ -127,8 +127,6 @@
                         <span class="brand-name">
                           <i class="fa fa-bars icon-menu burger" aria-hidden="true" ></i>
                           <span class="name"><?php echo $__env->yieldContent('page-name'); ?></span>
-
-
                         </span>
                         <span class="right-user-name pull-right d-flex">
                             <div class="dropdown">
