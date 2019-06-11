@@ -1,5 +1,5 @@
 <?php $__env->startSection('page-name'); ?>
-    <?php echo app('translator')->getFromJson("Customer accounts"); ?>
+    <?php echo app('translator')->getFromJson("site.company.page_title"); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -10,7 +10,7 @@
                     <div class="row mb-15">
                         <div class="col-sm-12">
                             <a href="<?php echo e(action('CompanyController@create')); ?>" class="btn btn-primary text-uppercase pull-right">
-                                <?php echo app('translator')->getFromJson('Add'); ?>
+                                <?php echo app('translator')->getFromJson('site.buttons.add'); ?>
                             </a>
                         </div>
                     </div>
@@ -23,12 +23,12 @@
                             <tr>
                                 <th>
                                     <div class="th-label">
-                                        <?php echo app('translator')->getFromJson('Name'); ?>
+                                        <?php echo app('translator')->getFromJson("site.company.name"); ?>
                                     </div>
                                 </th>
                                 <th>
                                     <div class="th-label">
-                                        <?php echo app('translator')->getFromJson('Company users'); ?>
+                                        <?php echo app('translator')->getFromJson('site.company.company_users'); ?>
                                     </div>
                                 </th>
                                 <th></th>
@@ -43,7 +43,7 @@
                                     </td>
                                     <td>
                                         <a href="<?php echo e(action("UserController@index", ['companyId' => $company->id])); ?>">
-                                            <?php echo app('translator')->getFromJson('Users'); ?>
+                                            <?php echo app('translator')->getFromJson('site.company.users'); ?>
                                         </a>
                                     </td>
                                     <td class="text-right text-nowrap">
@@ -65,7 +65,7 @@
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                                 <tr>
                                     <td colspan="100%">
-                                        <?php echo app('translator')->getFromJson('models.no_result'); ?>
+                                        <?php echo app('translator')->getFromJson('site.no_result'); ?>
                                     </td>
                                 </tr>
                             <?php endif; ?>

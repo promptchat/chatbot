@@ -1,5 +1,5 @@
 <?php $__env->startSection('page-name'); ?>
-    <?php echo app('translator')->getFromJson("Site Configs"); ?>
+    <?php echo app('translator')->getFromJson("site.site_config.page_title"); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -27,7 +27,7 @@
                             <?php if($siteConfig->type == \App\Models\SiteConfig::TYPE_LOGO): ?>
                                 <div>
                                     <?php $__env->startComponent('components.image-input',  [
-                                        'label' => __('Picture (Only PNG format)'),
+                                        'label' => __('site.site_config.image_png'),
                                         'name' => 'image_id',
                                         'value' => $siteConfig->image_id,
                                     ]); ?><?php echo $__env->renderComponent(); ?>
@@ -35,14 +35,14 @@
                             <?php elseif($siteConfig->type == \App\Models\SiteConfig::TYPE_FAVICON): ?>
                                 <div>
                                     <?php $__env->startComponent('components.image-input',  [
-                                        'label' => __('Picture (Only ICO format)'),
+                                        'label' => __('site.site_config.image_ico'),
                                         'name' => 'image_id',
                                         'value' => $siteConfig->image_id,
                                     ]); ?><?php echo $__env->renderComponent(); ?>
                                 </div>
                             <?php elseif($siteConfig->type == \App\Models\SiteConfig::TYPE_SSL): ?>
                                 <div class="form-group">
-                                    <label for="title">SSL CERTIFICATE</label>
+                                    <label for="title"><?php echo app('translator')->getFromJson("site.site_config.ssl"); ?></label>
                                     <input
                                             type="file"
                                             name="ssl_certificate"
@@ -51,7 +51,7 @@
                                     <?php $__env->startComponent('components.errors', ['field' => "ssl_certificate"]); ?><?php echo $__env->renderComponent(); ?>
                                 </div>
                                 <div class="form-group">
-                                    <label for="title">SSL CERTIFICATE KEY</label>
+                                    <label for="title"><?php echo app('translator')->getFromJson("site.site_config.ssl_key"); ?></label>
                                     <input
 
                                             type="file"
@@ -71,7 +71,7 @@
 
             <div class="row">
                 <div class="col-sm-12 bottom-btn">
-                    <button type="submit" class="btn btn-primary pull-right text-uppercase"><?php echo app('translator')->getFromJson('Save'); ?></button>
+                    <button type="submit" class="btn btn-primary pull-right text-uppercase"><?php echo app('translator')->getFromJson('site.buttons.save'); ?></button>
                 </div>
             </div>
         </form>

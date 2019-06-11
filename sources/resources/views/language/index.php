@@ -1,5 +1,5 @@
 <?php $__env->startSection('page-name'); ?>
-    <?php echo app('translator')->getFromJson("Languages"); ?>
+    <?php echo app('translator')->getFromJson("site.language.page_title"); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -10,7 +10,7 @@
                     <div class="row mb-15">
                         <div class="col-sm-12">
                             <a href="<?php echo e(action('LanguageController@create')); ?>" class="btn btn-primary text-uppercase pull-right">
-                                <?php echo app('translator')->getFromJson('Add'); ?>
+                                <?php echo app('translator')->getFromJson('site.buttons.add'); ?>
                             </a>
                         </div>
                     </div>
@@ -23,7 +23,7 @@
                             <tr>
                                 <th class="with-100">
                                     <div class="th-label">
-                                        <?php echo app('translator')->getFromJson('Name'); ?>
+                                        <?php echo app('translator')->getFromJson('site.language.language'); ?>
                                     </div>
                                 </th>
                                 <th></th>
@@ -47,7 +47,7 @@
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                                 <tr>
                                     <td colspan="100%">
-                                        <?php echo app('translator')->getFromJson('models.no_result'); ?>
+                                        <?php echo app('translator')->getFromJson('site.no_result'); ?>
                                     </td>
                                 </tr>
                             <?php endif; ?>

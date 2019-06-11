@@ -41,10 +41,10 @@ class LocationSearchInput extends React.Component {
             >
                 {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                     <div className="form-group">
-                        <label>Place</label>
+                        <label>{window.translates.place}</label>
                         <input
                             {...getInputProps({
-                                placeholder: 'Search Places ...',
+                                placeholder: window.translates.search_places,
                                 className: 'location-search-input form-control',
                             })}
                         />
@@ -157,7 +157,7 @@ class Map extends React.PureComponent {
         return (
             <div>
                 <div className="form-group">
-                    <label>Window message</label>
+                    <label>{window.translates.window_message}</label>
                     <div className="ck-editor-block">
                         <CKEditor
                             editor={ InlineEditor }
@@ -180,8 +180,8 @@ class Map extends React.PureComponent {
                         />
                     </div>
                 </div>
-                <button className="btn btn-danger text-uppercase mr-3" onClick={this.removeActiveMarker}>delete</button>
-                <button className="btn btn-primary text-uppercase" onClick={this.updateActiveMarker}>save</button>
+                <button className="btn btn-danger text-uppercase mr-3" onClick={this.removeActiveMarker}>{window.translates.delete}</button>
+                <button className="btn btn-primary text-uppercase" onClick={this.updateActiveMarker}>{window.translates.save}</button>
             </div>
         )
     }
@@ -218,7 +218,7 @@ class Map extends React.PureComponent {
                     this.state.activeMarker ? this.renderActiveMarker(): null
                 }
                 <hr/>
-                <button className="btn btn-primary text-uppercase pull-right" onClick={this.save} >save</button>
+                <button className="btn btn-primary text-uppercase pull-right" onClick={this.save} >{window.translates.save}</button>
             </div>
         )
     }
@@ -462,9 +462,8 @@ export default class BaseButton extends Component {
 
     renderMessage() {
         return <div className="form-group">
-            <div className="label">Message <Tooltip destroyTooltipOnHide={true} placement="right" trigger={['hover']} overlay={<div className="help">
-                You can use any of yours variables. Just write "@variable$" (for. ex. Hello @name$!) and it will be
-                replaced with text user input in it.
+            <div className="label">{window.translates.message} <Tooltip destroyTooltipOnHide={true} placement="right" trigger={['hover']} overlay={<div className="help">
+                {window.translates.you_can_use_any_of_yours_variables}
             </div>}>
                 <i className={'fa fa-question-circle'}/>
             </Tooltip></div>
@@ -505,7 +504,7 @@ export default class BaseButton extends Component {
             {
                 this.state.errors['text'] &&
                 <div className="validation-error">
-                    This field is required
+                    {window.translates.this_field_is_required}
                 </div>
             }
         </div>
@@ -517,23 +516,23 @@ export default class BaseButton extends Component {
                 className={'button accept button-inline'}
                 onClick={
                     this.saveBlock
-                }>OK</button>
+                }>{window.translates.ok}</button>
             <button
                 type={'button'}
                 className={'button decline button-inline'}
                 onClick={this.props.onCancel}
             >
-                Cancel
+                {window.translates.cancel}
             </button>
-            <div className="clearfix" />
+            <div className="clearfix"/>
         </div>
     }
     renderVariable() {
         return <div className="form-group">
-            <div className="label">Save value to variable <Tooltip destroyTooltipOnHide={true}
+            <div className="label">{window.translates.save_value_to_variable} <Tooltip destroyTooltipOnHide={true}
                                                                    placement="right" trigger={['hover']}
                                                                    overlay={<div className="help">
-                Enter keyword which will be saved in statistic and which you can use in your messages
+                {window.translates.enter_keyword_which_will_be_saved_in_statistic}
             </div>}>
                 <i className={'fa fa-question-circle'}/>
             </Tooltip></div>
@@ -546,7 +545,7 @@ export default class BaseButton extends Component {
             {
                 this.state.errors['variable'] &&
                 <div className="validation-error">
-                    This field is required
+                    {window.translates.this_field_is_required}
                 </div>
             }
 
@@ -555,7 +554,7 @@ export default class BaseButton extends Component {
     }
     renderCalendar() {
         return <div className="form-group">
-            <div className="label">Scheduler</div>
+            <div className="label">{window.translates.scheduler}</div>
             <select value={this.state.calendar} onChange={(e) =>this.setState({
                 calendar: e.target.value,
                 calendar_name: find(this.state.calendars, {id:~~e.target.value})['name']
@@ -565,17 +564,17 @@ export default class BaseButton extends Component {
             {
                 this.state.errors['calendar'] &&
                 <div className="validation-error">
-                    This field is required
+                    {window.translates.this_field_is_required}
                 </div>
             }
         </div>
     }
     renderMaxCountValues() {
         return  <div className="form-group">
-            <div className="label">Max count selected items <Tooltip destroyTooltipOnHide={true}
+            <div className="label">{window.translates.max_count_selected_items} <Tooltip destroyTooltipOnHide={true}
                                                                    placement="right" trigger={['hover']}
                                                                    overlay={<div className="help">
-                Interger will show how many items can select user at ones. Set 0 or empty for infinity selects
+                {window.translates.integer_will_show_how_many_items}
                                                                    </div>}>
                 <i className={'fa fa-question-circle'}/>
             </Tooltip></div>
@@ -590,7 +589,7 @@ export default class BaseButton extends Component {
     renderVariants() {
         return  <div className={'multi-config'}>
             <div className="form-group">
-                <div className="label">Variants</div>
+                <div className="label">{window.translates.variants}</div>
                 <button
                     type={'button'}
                     className={'button action button-inline'}
@@ -621,9 +620,9 @@ export default class BaseButton extends Component {
     renderMap() {
         return  <div className={'multi-config'}>
             <div className="form-group">
-                <div className="label">Map</div>
+                <div className="label">{window.translates.map}</div>
             </div>
-            <a className="cursor-pointer" onClick={() => this.setState({mapModal: true})}>Add/edit  location marker(s) ({this.state.markers.length})</a>
+            <a className="cursor-pointer" onClick={() => this.setState({mapModal: true})}>{window.translates.add_edit_location_marker} ({this.state.markers.length})</a>
             <Modal
                 isOpen={this.state.mapModal}
                 onAfterOpen={() => {
@@ -641,7 +640,7 @@ export default class BaseButton extends Component {
     renderButtons() {
         return  <div className={'multi-config'}>
             <div className="form-group">
-                <div className="label">Buttons</div>
+                <div className="label">{window.translates.buttons}</div>
                 <button
                     type={'button'}
                     className={'button action button-inline'}
@@ -670,7 +669,7 @@ export default class BaseButton extends Component {
     }
     renderValidators() {
         return <div className="form-group">
-            <div className="label">Validators</div>
+            <div className="label">{window.translates.validators}</div>
             <div>
                 {validators.map((validator) =>
                     <div className="custom-control custom-checkbox" key={validator.value}>

@@ -54,7 +54,7 @@ class DatePickerInput extends React.Component {
             <button
                 className="btn btn-primary text-uppercase"
                 onClick={this.props.onClick}>
-                Move to another day
+                {window.translates.move_to_another_day}
             </button>
         )
     }
@@ -358,20 +358,20 @@ export default class Calendar extends React.Component {
                                     />
 
                                     <label className="custom-control-label" htmlFor={`work-day-edit`}>
-                                        Working day
+                                        {window.translates.working_day}
                                     </label>
                                     {this.state.specialActive ?
                                         <Fragment>
                                             <div className={'row'}>
                                                 <div className="col-sm-6">
-                                                    Work from
+                                                    {window.translates.work_from}
                                                     <TimePicker
                                                         onTimeChange={({hour, minute}) => this.setState({specialWorkFrom: hour + ":" + minute})}
                                                         time={this.state.specialWorkFrom} // initial time, default current time
                                                     />
                                                 </div>
                                                 <div className="col-sm-6">
-                                                    Work to
+                                                    {window.translates.work_to}
                                                     <TimePicker
                                                         onTimeChange={({hour, minute}) => this.setState({specialWorkTo: hour + ":" + minute})}
                                                         time={this.state.specialWorkTo} // initial time, default current time
@@ -380,29 +380,28 @@ export default class Calendar extends React.Component {
                                             </div>
                                             <div className={'row'}>
                                                 <div className="col-sm-6">
-                                                    Lunch from
+                                                    {window.translates.lunch_from}
                                                     <TimePicker
                                                         onTimeChange={({hour, minute}) => this.setState({specialDinnerFrom: hour + ":" + minute})}
                                                         time={this.state.specialDinnerFrom} // initial time, default current time
                                                     />
                                                 </div>
                                                 <div className="col-sm-6">
-                                                    Lunch to
+                                                    {window.translates.lunch_to}
                                                     <TimePicker
                                                         onTimeChange={({hour, minute}) => this.setState({specialDinnerTo: hour + ":" + minute})}
                                                         time={this.state.specialDinnerTo} // initial time, default current time
                                                     />
                                                 </div>
-
                                             </div>
-
-
                                         </Fragment> : null
                                     }
                                     <div className="row">
                                         <div className="col-sm-12 bottom-btn">
                                             <button onClick={this.modifyActiveDay}
-                                                    className="btn btn-primary pull-right text-uppercase">Save
+                                                    className="btn btn-primary pull-right text-uppercase"
+                                            >
+                                                {window.translates.save}
                                             </button>
                                         </div>
                                     </div>
@@ -411,10 +410,9 @@ export default class Calendar extends React.Component {
                             <div>
                                 <div style={{width: 600}}>
                                     <h3>{moment(this.state.activeDay).format('DD/MM/YYYY ')}
-                                        <a onClick={() => this.setState({special: true})}> Click to set special
-                                            schedule</a></h3>
+                                        <a onClick={() => this.setState({special: true})}> {window.translates.click_to_set_special_schedule}</a></h3>
                                     <div className="d-flex align-items-center mt-2 mb-3">
-                                        <h4 className="d-inline-block m-0">Create event</h4>
+                                        <h4 className="d-inline-block m-0">{window.translates.create_event}</h4>
                                         <div className="d-inline-block ml-4">
                                             <DatePicker
                                                 customInput={<DatePickerInput/>}
@@ -427,14 +425,14 @@ export default class Calendar extends React.Component {
                                     <div>
                                         <div className="row my-2">
                                             <div className="col-sm-6">
-                                                <div className="pull-left">From</div>
+                                                <div className="pull-left">{window.translates.from}</div>
                                                 <TimePicker
                                                     onTimeChange={({hour, minute}) => this.setState({eventFrom: hour + ":" + minute})}
                                                     time={this.state.eventFrom} // initial time, default current time
                                                 />
                                             </div>
                                             <div className="col-sm-6">
-                                                <div className="pull-left">To</div>
+                                                <div className="pull-left">{window.translates.to}</div>
                                                 <TimePicker
                                                     onTimeChange={({hour, minute}) => this.setState({eventTo: hour + ":" + minute})}
                                                     time={this.state.eventTo} // initial time, default current time
@@ -442,10 +440,9 @@ export default class Calendar extends React.Component {
                                             </div>
                                         </div>
                                         <div className="form-group">
-                                            <label>Name</label>
+                                            <label>{window.translates.name}</label>
                                             <input
-
-                                                placeholder="Event name"
+                                                placeholder={window.translates.event_name}
                                                 type="text"
                                                 name="eventName"
                                                 value={this.state.eventName}
@@ -454,10 +451,10 @@ export default class Calendar extends React.Component {
                                             />
                                         </div>
                                         <div className="form-group">
-                                            <label>Client name</label>
+                                            <label>{window.translates.client_name}</label>
                                             <input
 
-                                                placeholder="Client name"
+                                                placeholder={window.translates.client_name}
                                                 type="text"
                                                 name="clientname"
                                                 value={this.state.eventClientName}
@@ -466,10 +463,10 @@ export default class Calendar extends React.Component {
                                             />
                                         </div>
                                         <div className="form-group">
-                                            <label>User email</label>
+                                            <label>{window.translates.user_email}</label>
                                             <input
 
-                                                placeholder="User email"
+                                                placeholder={window.translates.user_email}
                                                 type="text"
                                                 name="eventEmail"
                                                 value={this.state.eventEmail}
@@ -478,10 +475,10 @@ export default class Calendar extends React.Component {
                                             />
                                         </div>
                                         <div className="form-group">
-                                            <label>User phone</label>
+                                            <label>{window.translates.user_phone}</label>
                                             <input
 
-                                                placeholder="User phone"
+                                                placeholder={window.translates.user_phone}
                                                 type="text"
                                                 name="eventPhone"
                                                 value={this.state.eventPhone}
@@ -490,10 +487,10 @@ export default class Calendar extends React.Component {
                                             />
                                         </div>
                                         <div className="form-group">
-                                            <label>Comment</label>
+                                            <label>{window.translates.comment}</label>
                                             <input
 
-                                                placeholder="Comment"
+                                                placeholder={window.translates.comment}
                                                 type="text"
                                                 name="eventComment"
                                                 value={this.state.eventComment}
@@ -502,7 +499,7 @@ export default class Calendar extends React.Component {
                                             />
                                         </div>
                                         <div className="form-group">
-                                            {this.state.eventAlreadyConfirmed ? <div className="">This user is confirmed</div>:
+                                            {this.state.eventAlreadyConfirmed ? <div className="">{window.translates.this_user_is_confirmed}</div>:
                                             <div className="custom-control custom-checkbox">
                                                 <input
                                                     type="checkbox"
@@ -512,7 +509,7 @@ export default class Calendar extends React.Component {
                                                     checked={this.state.eventConfirmVisitor}
                                                     onChange={() => this.toggleConfirm()}
                                                 />
-                                                <label className="custom-control-label" htmlFor="eventConfirmVisitor">Confirm to visitor</label>
+                                                <label className="custom-control-label" htmlFor="eventConfirmVisitor">{window.translates.confirm_to_visitor}</label>
                                             </div>}
 
                                         </div>
@@ -522,12 +519,12 @@ export default class Calendar extends React.Component {
                                                     onClick={this.deleteEvent}
                                                     className="btn btn-primary pull-left text-uppercase"
                                                 >
-                                                    Delete
+                                                    {window.translates.delete}
                                                 </button>
                                                 <button onClick={this.saveEvent}
                                                         className="btn btn-primary pull-right text-uppercase"
                                                 >
-                                                    Save
+                                                    {window.translates.save}
                                                 </button>
                                             </div>
                                         </div>
@@ -539,10 +536,10 @@ export default class Calendar extends React.Component {
                 <div className="card-body">
 
                     <div className="form-group">
-                        <label>Name</label>
+                        <label>{window.translates.name}</label>
                         <input
 
-                            placeholder="Name"
+                            placeholder={window.translates.name}
                             type="text"
                             name="name"
                             value={this.state.name}
@@ -551,10 +548,10 @@ export default class Calendar extends React.Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Name of this calendar based event? (such as "Call me back" or appointment)</label>
+                        <label>{window.translates.name_of_this_calendar_based_event}</label>
                         <input
 
-                            placeholder='Name of this calendar based event? (such as "Call me back" or appointment)'
+                            placeholder={window.translates.name_of_this_calendar_based_event}
                             type="text"
                             name="default_event_name"
                             value={this.state.default_event_name}
@@ -563,10 +560,10 @@ export default class Calendar extends React.Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label>How long will this event last? Enter a default value for online queuing (minutes)</label>
+                        <label>{window.translates.how_long_will_this_event_last}</label>
                         <input
 
-                            placeholder="How long will this event last? Enter a default value for online queuing (minutes)"
+                            placeholder={window.translates.how_long_will_this_event_last}
                             type="text"
                             name="default_minutes_for_event"
                             value={this.state.default_minutes_for_event}
@@ -576,7 +573,7 @@ export default class Calendar extends React.Component {
 
                     </div>
                     <div className="form-group">
-                        <label>Please enter your email address where we send the notification of new calendar booking</label>
+                        <label>{window.translates.email_notification_of_new_calendar_booking}</label>
                         <CreatableSelect
                             isClearable
                             isMulti
@@ -588,15 +585,15 @@ export default class Calendar extends React.Component {
 
                     </div>
                     <div>
-                        Working hours
+                        {window.translates.working_hours}
                         <table className={'table stripped'} style={{width: "100%"}}>
                             <thead>
                             <tr>
-                                <th style={{width: 200}}>Day</th>
-                                <th className="text-center">Work from</th>
-                                <th className="text-center">Work to</th>
-                                <th className="text-center">Lunch from</th>
-                                <th className="text-center">Lunch to</th>
+                                <th style={{width: 200}}>{window.translates.day}</th>
+                                <th className="text-center">{window.translates.work_from}</th>
+                                <th className="text-center">{window.translates.work_to}</th>
+                                <th className="text-center">{window.translates.lunch_from}</th>
+                                <th className="text-center">{window.translates.lunch_to}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -656,7 +653,7 @@ export default class Calendar extends React.Component {
                                             </td>
                                         </Fragment> :
                                         <td className={'text-center'} colSpan={4}>
-                                            Day off
+                                            {window.translates.day_off}
                                         </td>
                                     }
                                 </tr>
@@ -720,7 +717,7 @@ export default class Calendar extends React.Component {
 
                     <div className="row">
                         <div className="col-sm-12 bottom-btn">
-                            <button onClick={this.save} className="btn btn-primary pull-right text-uppercase">Save
+                            <button onClick={this.save} className="btn btn-primary pull-right text-uppercase">{window.translates.save}
                             </button>
                         </div>
                     </div>

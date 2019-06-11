@@ -1,9 +1,8 @@
 <?php $__env->startSection('page-name'); ?>
-    <?php echo app('translator')->getFromJson("Translates"); ?>
+    <?php echo app('translator')->getFromJson("site.translate.page_title"); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-
     <div class="container">
         <form
                 role="form"
@@ -20,9 +19,9 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-6 offset-md-3">
                             <div class="form-group">
-                                <label for="title"><?php echo app('translator')->getFromJson('Group'); ?></label>
+                                <label for="title"><?php echo app('translator')->getFromJson('site.translate.group'); ?></label>
                                 <input
-                                        placeholder="<?php echo app('translator')->getFromJson('Group'); ?>"
+                                        placeholder="<?php echo app('translator')->getFromJson('site.translate.group'); ?>"
                                         type="text"
                                         name="group"
                                         value="<?php echo e($translation->group ?? old("group")); ?>"
@@ -32,9 +31,9 @@
                                 <?php $__env->startComponent('components.errors', ['field' => "group"]); ?><?php echo $__env->renderComponent(); ?>
                             </div>
                             <div class="form-group">
-                                <label for="title"><?php echo app('translator')->getFromJson('Item'); ?></label>
+                                <label for="title"><?php echo app('translator')->getFromJson('site.translate.item'); ?></label>
                                 <input
-                                        placeholder="<?php echo app('translator')->getFromJson('Item'); ?>"
+                                        placeholder="<?php echo app('translator')->getFromJson('site.translate.item'); ?>"
                                         type="text"
                                         name="item"
                                         value="<?php echo e($translation->item ?? old("item")); ?>"
@@ -68,9 +67,9 @@
                                             aria-labelledby="lang-<?php echo e($language->id); ?>-tab"
                                     >
                                         <div class="form-group">
-                                            <label for="title"><?php echo app('translator')->getFromJson('Text'); ?></label>
+                                            <label for="title"><?php echo app('translator')->getFromJson('site.translate.text'); ?></label>
                                             <textarea
-                                                    placeholder="<?php echo app('translator')->getFromJson('Text'); ?>"
+                                                    placeholder="<?php echo app('translator')->getFromJson('site.translate.text'); ?>"
                                                     type="text"
                                                     name="text[<?php echo e($language->locale); ?>]"
                                                     class="form-control"
@@ -80,7 +79,6 @@
                                     </div>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -88,7 +86,7 @@
 
             <div class="row">
                 <div class="col-sm-12 bottom-btn">
-                    <button type="submit" class="btn btn-primary pull-right text-uppercase"><?php echo app('translator')->getFromJson('Save'); ?></button>
+                    <button type="submit" class="btn btn-primary pull-right text-uppercase"><?php echo app('translator')->getFromJson('site.buttons.save'); ?></button>
                 </div>
             </div>
         </form>

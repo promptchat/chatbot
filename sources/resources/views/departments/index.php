@@ -1,6 +1,6 @@
 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('create', \App\Models\Department::class)): ?>
     <a href="<?php echo e(action('DepartmentController@create', ['companyId' => $companyId])); ?>" class="btn btn-primary text-uppercase pull-right">
-        <?php echo app('translator')->getFromJson('Add'); ?>
+        <?php echo app('translator')->getFromJson('site.buttons.add'); ?>
     </a>
 <?php endif; ?>
 <div class="table-responsive">
@@ -9,7 +9,7 @@
         <tr>
             <th>
                 <div class="th-label">
-                    <?php echo app('translator')->getFromJson('Department'); ?>
+                    <?php echo app('translator')->getFromJson('site.department.department'); ?>
                 </div>
             </th>
             <th></th>
@@ -38,7 +38,7 @@
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
             <tr>
                 <td colspan="100%">
-                    <?php echo app('translator')->getFromJson('models.no_result'); ?>
+                    <?php echo app('translator')->getFromJson('site.no_result'); ?>
                 </td>
             </tr>
         <?php endif; ?>

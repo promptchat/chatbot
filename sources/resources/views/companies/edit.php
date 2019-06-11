@@ -1,5 +1,5 @@
 <?php $__env->startSection('page-name'); ?>
-    <?php echo app('translator')->getFromJson("Customer accounts"); ?>
+    <?php echo app('translator')->getFromJson("site.company.page_title"); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -19,9 +19,9 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-6 offset-md-3">
                         <div class="form-group">
-                            <label for="title"><?php echo app('translator')->getFromJson('Company name'); ?></label>
+                            <label for="title"><?php echo app('translator')->getFromJson('site.company.name'); ?></label>
                             <input
-                                    placeholder="<?php echo app('translator')->getFromJson('Enter the company name'); ?>"
+                                    placeholder="<?php echo app('translator')->getFromJson('site.company.name'); ?>"
                                     type="text"
                                     name="name"
                                     value="<?php echo e($company->name ?? old("name")); ?>"
@@ -30,7 +30,7 @@
                             <?php $__env->startComponent('components.errors', ['field' => "name"]); ?><?php echo $__env->renderComponent(); ?>
                         </div>
                         <a href="<?php echo e(action("UserController@index", ['companyId' => $company->id])); ?>">
-                            <?php echo app('translator')->getFromJson('Company users'); ?>
+                            <?php echo app('translator')->getFromJson('site.company.company_users'); ?>
                         </a>
                         <hr class="my-4">
                         <?php echo $__env->make('departments.index', ['departments' => $company->departments, 'companyId' => $company->id], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
@@ -41,7 +41,7 @@
 
         <div class="row">
             <div class="col-sm-12 bottom-btn">
-                <button type="submit" class="btn btn-primary pull-right text-uppercase"><?php echo app('translator')->getFromJson('Save'); ?></button>
+                <button type="submit" class="btn btn-primary pull-right text-uppercase"><?php echo app('translator')->getFromJson('site.buttons.save'); ?></button>
             </div>
         </div>
     </form>

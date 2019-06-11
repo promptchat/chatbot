@@ -1,7 +1,7 @@
 <?php $__env->startSection('content'); ?>
-    <h2>Hello!</h2>
+    <h2><?php echo app('translator')->getFromJson('mail.hello1'); ?></h2>
     <br>
-    Copy following code to your html file
+    <?php echo app('translator')->getFromJson('mail.copy_following_code'); ?>
     <br><br>
     <code style="display: block">
         <?php echo e(view('widget.code')); ?>

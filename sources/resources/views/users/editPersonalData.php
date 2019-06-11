@@ -1,5 +1,5 @@
 <?php $__env->startSection('page-name'); ?>
-    <?php echo app('translator')->getFromJson("Accounts management"); ?>
+    <?php echo app('translator')->getFromJson("site.user.page_title"); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -19,8 +19,8 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-6 offset-md-3">
                         <?php $__env->startComponent('components.form.input', [
-                            'label' => __('Name'),
-                            'placeholder' => __('Enter the name'),
+                            'label' => __('site.user.name'),
+                            'placeholder' => __('site.user.name'),
                             'type' => 'text',
                             'name' => 'name',
                             'value' => $user->name,
@@ -28,8 +28,8 @@
                         ]); ?><?php echo $__env->renderComponent(); ?>
 
                         <?php $__env->startComponent('components.form.input', [
-                            'label' => __('Email'),
-                            'placeholder' => __('Enter the email'),
+                            'label' => __('site.user.email'),
+                            'placeholder' => __('site.user.email'),
                             'type' => 'email',
                             'name' => 'email',
                             'value' => $user->email,
@@ -37,14 +37,14 @@
                         ]); ?><?php echo $__env->renderComponent(); ?>
 
                         <?php $__env->startComponent('components.image-input',  [
-                            'label' => __('Photo'),
+                            'label' => __('site.user.photo'),
                             'name' => 'image_id',
                             'value' => $user->image_id,
                         ]); ?><?php echo $__env->renderComponent(); ?>
 
 
                         <?php $__env->startComponent('components.form.checkbox', [
-                           'label' => __('Allow short notifications'),
+                           'label' => __('site.user.allow_short_notifications'),
                            'type' => 'checkbox',
                            'name' => 'short_notification_allowed',
                            'value' => $user->short_notification_allowed,
@@ -53,7 +53,7 @@
 
 
                         <?php $__env->startComponent('components.audio-input',  [
-                            'label' => __('Short notification'),
+                            'label' => __('site.user.short_notification'),
                             'default' => '/audio/notification.mp3',
                             'name' => 'short_notification_id',
                             'value' => $user->short_notification_id,
@@ -61,26 +61,26 @@
 
 
                         <?php $__env->startComponent('components.form.checkbox', [
-                           'label' => __('Allow long notifications'),
+                           'label' => __('site.user.allow_long_notifications'),
                            'name' => 'bring_notification_allowed',
                            'value' => $user->bring_notification_allowed,
 
                        ]); ?><?php echo $__env->renderComponent(); ?>
 
                         <?php $__env->startComponent('components.audio-input',  [
-                            'label' => __('Long notification'),
+                            'label' => __('site.user.long_notification'),
                             'default' => '/audio/bring.mp3',
                             'name' => 'bring_notification_id',
                             'value' => $user->bring_notification_id,
                         ]); ?><?php echo $__env->renderComponent(); ?>
                         <?php $__env->startComponent('components.form.input', [
-                            'label' => __('New password'),
+                            'label' => __('site.user.new_password'),
                             'type' => 'password',
                             'name' => 'password',
                         ]); ?><?php echo $__env->renderComponent(); ?>
 
                         <?php $__env->startComponent('components.form.input', [
-                            'label' => __('Confirm new password'),
+                            'label' => __('site.user.confirm_new_password'),
                             'type' => 'password',
                             'name' => 'password_confirmation',
                         ]); ?><?php echo $__env->renderComponent(); ?>
@@ -91,7 +91,7 @@
 
         <div class="row">
             <div class="col-sm-12 bottom-btn">
-                <button type="submit" class="btn btn-primary pull-right text-uppercase"><?php echo app('translator')->getFromJson('Save'); ?></button>
+                <button type="submit" class="btn btn-primary pull-right text-uppercase"><?php echo app('translator')->getFromJson('site.buttons.save'); ?></button>
             </div>
         </div>
     </form>

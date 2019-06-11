@@ -56,7 +56,7 @@ export default class Messages extends React.Component {
 
                 this.setState({
                     messages: data.messages,
-                    notification: data.session.is_finished ? 'User left chat':'',
+                    notification: data.session.is_finished ? window.translates.user_left_chat :'',
                     session: data.session
                 }, () => this.scrollBottom())
             })
@@ -89,7 +89,7 @@ export default class Messages extends React.Component {
             })
             .listen('NewUserDisconnected', (e) => {
                 this.setState({
-                    notification: "User left chat"
+                    notification: window.translates.user_left_chat
                 })
             })
             .listen('NewUserConnected', (e) => {
@@ -160,14 +160,14 @@ export default class Messages extends React.Component {
                     </ul>
                 </div>
                 {
-                    this.state.typing ? <span className={'user-typing'}>User typing ({
+                    this.state.typing ? <span className={'user-typing'}>{window.translates.user_typing} ({
                         this.state.typing
                     })</span>: null
                 }
                 <div>
                     <form action="" onSubmit={this.writeMessage}>
                         <div className={'answer-block'}>
-                            <textarea className={'answer-area'} placeholder='Enter message here' onKeyDown={(e) => {
+                            <textarea className={'answer-area'} placeholder={window.translates.enter_message_here} onKeyDown={(e) => {
                                 if(e.keyCode === 13 && !e.shiftKey) {
                                     this.writeMessage(e);
 

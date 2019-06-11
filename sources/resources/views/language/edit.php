@@ -1,5 +1,5 @@
 <?php $__env->startSection('page-name'); ?>
-    <?php echo app('translator')->getFromJson("Languages"); ?>
+    <?php echo app('translator')->getFromJson("site.language.page_title"); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -20,9 +20,9 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-6 offset-md-3">
                             <div class="form-group">
-                                <label for="name"><?php echo app('translator')->getFromJson('Language'); ?></label>
+                                <label for="name"><?php echo app('translator')->getFromJson('site.language.language'); ?></label>
                                 <input
-                                        placeholder="<?php echo app('translator')->getFromJson('Language'); ?>"
+                                        placeholder="<?php echo app('translator')->getFromJson('site.language.language'); ?>"
                                         type="text"
                                         name="name"
                                         value="<?php echo e($language->name ?? old("name")); ?>"
@@ -31,9 +31,9 @@
                                 <?php $__env->startComponent('components.errors', ['field' => "name"]); ?><?php echo $__env->renderComponent(); ?>
                             </div>
                             <div class="form-name">
-                                <label for="locale"><?php echo app('translator')->getFromJson('Locale (ISO)'); ?></label>
+                                <label for="locale"><?php echo app('translator')->getFromJson('site.language.locale'); ?></label>
                                 <input
-                                        placeholder="<?php echo app('translator')->getFromJson('Locale (ISO)'); ?>"
+                                        placeholder="<?php echo app('translator')->getFromJson('site.language.locale'); ?>"
                                         type="text"
                                         name="locale"
                                         value="<?php echo e($language->locale ?? old("locale")); ?>"
@@ -49,7 +49,7 @@
 
             <div class="row">
                 <div class="col-sm-12 bottom-btn">
-                    <button type="submit" class="btn btn-primary pull-right text-uppercase"><?php echo app('translator')->getFromJson('Save'); ?></button>
+                    <button type="submit" class="btn btn-primary pull-right text-uppercase"><?php echo app('translator')->getFromJson('site.buttons.save'); ?></button>
                 </div>
             </div>
         </form>

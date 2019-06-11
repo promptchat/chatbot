@@ -19,21 +19,21 @@
 <body id="app">
     <div class="wrapper">
         <header>
-            <div class="top-header desktop">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-12 text">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container">
                     <a class="navbar-brand" href="/"><img src="<?php echo e(\App\Models\SiteConfig::getLogo()); ?>"></a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                    <div class="dropdown mr-3 mt-3 dropdown-lang">
+                        <button class="btn shadow-none dropdown-toggle" type="button" id="dropdownLangButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <?php echo e($currentLanguage); ?>
+
+                        </button>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownLangButton">
+                            <?php $__currentLoopData = $locales; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $language): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <a class="dropdown-item" href="<?php echo e(action("UserController@changeLanguage", $key)); ?>"><?php echo e($language); ?></a>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </div>
+                    </div>
                 </div>
             </nav>
         </header>
@@ -48,7 +48,7 @@
                             <a href="/" class="d-inline-block"><img class="logo" src="<?php echo e(\App\Models\SiteConfig::getLogo()); ?>"></a>
                         </div>
                         <div class="col-md-6 copyright-text">
-                            &copy; 2007-<?php echo e(\Carbon\Carbon::now()->format('Y')); ?> <?php echo e(\App\Models\SiteConfig::getTitle()); ?> <br> All Rights Reserved
+                            &copy; 2007-<?php echo e(\Carbon\Carbon::now()->format('Y')); ?> <?php echo e(\App\Models\SiteConfig::getTitle()); ?> <br> <?php echo app('translator')->getFromJson('site.all_rights_reserved'); ?>
                         </div>
                     </div>
                 </div>

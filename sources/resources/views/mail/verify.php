@@ -1,21 +1,20 @@
 <?php $__env->startSection('content'); ?>
-    <h2>Hello!</h2>
+    <h2><?php echo app('translator')->getFromJson('mail.hello1'); ?></h2>
     <br>
-    <p>Please click the button below to verify your email address.</p>
+    <p><?php echo app('translator')->getFromJson('mail.please_click_the_button'); ?></p>
     <br><br><br>
     <a
             target="_blank"
             rel="noopener noreferrer"
             href="<?php echo e($url); ?>"
             style="box-sizing: border-box; border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); color: #FFF; display: inline-block; text-decoration: none; -webkit-text-size-adjust: none; background-color: #1db3de; border-top: 10px solid #1db3de; border-right: 18px solid #1db3de; border-bottom: 10px solid #1db3de; border-left: 18px solid #1db3de;"
-    >Verify</a>
+    ><?php echo app('translator')->getFromJson('mail.verify'); ?></a>
     <br><br><br><br>
-    <p>If you did not create an account, no further action is required.</p>
+    <p><?php echo app('translator')->getFromJson('mail.if_you_did_not_create_an_account'); ?></p>
     <br><br><br>
     <div style="color: #74787E; font-size: 12px;">
         <hr>
-        <p>If you’re having trouble clicking the "Verify" button, copy and paste the URL below<br>
-            into your web browser: <a target="_blank" style="word-break: break-all;" href="<?php echo e($url); ?>"><?php echo e($url); ?></a></p>
+        <p><?php echo app('translator')->getFromJson('mail.if_you_having_trouble_clicking_verify', ['url' => $url]); ?></p>
     </div>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('mail.mail', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

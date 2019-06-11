@@ -1,5 +1,5 @@
 <?php $__env->startSection('page-name'); ?>
-    <?php echo app('translator')->getFromJson("Bot statistic"); ?>
+    <?php echo app('translator')->getFromJson("site.analytic.page_title"); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -14,7 +14,7 @@
                                 <tr>
                                     <th>
                                         <div class="th-label">
-                                            <?php echo app('translator')->getFromJson('Bot name'); ?>
+                                            <?php echo app('translator')->getFromJson('site.analytic.bot_name'); ?>
                                         </div>
                                     </th>
                                     <th></th>
@@ -37,7 +37,7 @@
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                                     <tr>
                                         <td colspan="100%">
-                                            <?php echo app('translator')->getFromJson('models.no_result'); ?>
+                                            <?php echo app('translator')->getFromJson('site.no_result'); ?>
                                         </td>
                                     </tr>
                                 <?php endif; ?>

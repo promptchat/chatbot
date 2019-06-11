@@ -1,5 +1,5 @@
 <?php $__env->startSection('page-name'); ?>
-    <?php echo app('translator')->getFromJson("Accounts management"); ?>
+    <?php echo app('translator')->getFromJson("site.user.page_title"); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -19,10 +19,10 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-6 offset-md-3">
                         <div class="form-group">
-                            <label for="name"><?php echo app('translator')->getFromJson('Name'); ?></label>
+                            <label for="name"><?php echo app('translator')->getFromJson("site.user.name"); ?></label>
                             <input
                                     class="form-control"
-                                    placeholder="<?php echo app('translator')->getFromJson('Enter the name'); ?>"
+                                    placeholder="<?php echo app('translator')->getFromJson("site.user.name"); ?>"
                                     type="text"
                                     name="name"
                                     value="<?php echo e($user->name ?? old("name")); ?>"
@@ -30,9 +30,9 @@
                             <?php $__env->startComponent('components.errors', ['field' => "name"]); ?><?php echo $__env->renderComponent(); ?>
                         </div>
                         <div class="form-group">
-                            <label for="email"><?php echo app('translator')->getFromJson('Email'); ?></label>
+                            <label for="email"><?php echo app('translator')->getFromJson("site.user.email"); ?></label>
                             <input
-                                    placeholder="<?php echo app('translator')->getFromJson('Enter the email'); ?>"
+                                    placeholder="<?php echo app('translator')->getFromJson("site.user.email"); ?>"
                                     type="email"
                                     name="email"
                                     value="<?php echo e($user->email ?? old("email")); ?>"
@@ -41,9 +41,9 @@
                             <?php $__env->startComponent('components.errors', ['field' => "email"]); ?><?php echo $__env->renderComponent(); ?>
                         </div>
                         <div class="form-group">
-                            <label for="title"><?php echo app('translator')->getFromJson('Role'); ?></label>
+                            <label for="title"><?php echo app('translator')->getFromJson("site.user.role"); ?></label>
                             <?php $__env->startComponent('components.select', [
-                                'empty' => __('Select the role'),
+                                'empty' => __('site.user.select_role'),
                                 'options' => $userRoles,
                                 'name' => 'role',
                                 'default' => $user->role
@@ -52,13 +52,13 @@
                         </div>
 
                         <?php $__env->startComponent('components.image-input',  [
-                            'label' => __('Photo'),
+                            'label' => __('site.user.photo'),
                             'name' => 'image_id',
                             'value' => $user->image_id,
                         ]); ?><?php echo $__env->renderComponent(); ?>
 
                         <?php echo $__env->make('components.form.select2Multiple', [
-                            'label' => 'Departments',
+                            'label' => __('site.user.departments'),
                             'name' => 'user_departments[]',
                             'options' => $departments,
                             'selected' => $user->userDepartments->pluck('department_id')->toArray()
@@ -70,7 +70,7 @@
 
         <div class="row">
             <div class="col-sm-12 bottom-btn">
-                <button type="submit" class="btn btn-primary pull-right text-uppercase"><?php echo app('translator')->getFromJson('Save'); ?></button>
+                <button type="submit" class="btn btn-primary pull-right text-uppercase"><?php echo app('translator')->getFromJson('site.buttons.save'); ?></button>
             </div>
         </div>
     </form>

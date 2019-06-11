@@ -1,5 +1,5 @@
 <?php $__env->startSection('page-name'); ?>
-    <?php echo app('translator')->getFromJson("Chat boxes management"); ?>
+    <?php echo app('translator')->getFromJson("site.chat_box.page_title"); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -10,7 +10,7 @@
                     <div class="row mb-15">
                         <div class="col-sm-12">
                             <a href="<?php echo e(action('AgentController@create')); ?>" class="btn btn-primary text-uppercase pull-right">
-                                <?php echo app('translator')->getFromJson('Add'); ?>
+                                <?php echo app('translator')->getFromJson('site.buttons.add'); ?>
                             </a>
                         </div>
                     </div>
@@ -23,22 +23,22 @@
                             <tr>
                                 <th class="with-100">
                                     <div class="th-label">
-                                        <?php echo app('translator')->getFromJson('Name'); ?>
+                                        <?php echo app('translator')->getFromJson('site.chat_box.name_small'); ?>
                                     </div>
                                 </th>
                                 <th class="with-100">
                                     <div class="th-label">
-                                        <?php echo app('translator')->getFromJson('Department'); ?>
+                                        <?php echo app('translator')->getFromJson('site.chat_box.department'); ?>
                                     </div>
                                 </th>
                                 <th class="center-align" style="width: 200px">
                                     <div class="th-label">
-                                        <?php echo app('translator')->getFromJson('Contacts'); ?>
+                                        <?php echo app('translator')->getFromJson('site.chat_box.contacts'); ?>
                                     </div>
                                 </th>
                                 <th class="center-align" style="width: 200px">
                                     <div class="th-label">
-                                        <?php echo app('translator')->getFromJson('Chat bot'); ?>
+                                        <?php echo app('translator')->getFromJson('site.chat_box.chat_bot'); ?>
                                     </div>
                                 </th>
                                 <th></th>
@@ -82,7 +82,9 @@
                                             <?php endif; ?>
                                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view', $agent)): ?>
                                                 <a href="<?php echo e(action("AgentController@show", $agent)); ?>" class="action-button d-inline-flex align-items-center flex-column">
-                                                    <span class="mi mi-remove-red-eye"></span><span class="ml-1 text-uppercase">code</span>
+                                                    <span class="mi mi-remove-red-eye"></span><span class="ml-1 text-uppercase">
+                                                        <?php echo app('translator')->getFromJson('site.chat_box.code'); ?>
+                                                    </span>
                                                 </a>
                                             <?php endif; ?>
                                         </div>

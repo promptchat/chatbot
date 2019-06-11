@@ -1,5 +1,5 @@
 <?php $__env->startSection('page-name'); ?>
-    <?php echo app('translator')->getFromJson("Accounts management"); ?>
+    <?php echo app('translator')->getFromJson("site.user.page_title"); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -10,7 +10,7 @@
                     <div class="row mb-15">
                         <div class="col-sm-12">
                             <a href="<?php echo e(action('UserController@create', ['companyId' => $companyId])); ?>" class="btn btn-primary text-uppercase pull-right">
-                                <?php echo app('translator')->getFromJson('Add'); ?>
+                                <?php echo app('translator')->getFromJson('site.buttons.add'); ?>
                             </a>
                         </div>
                     </div>
@@ -23,17 +23,17 @@
                             <tr>
                                 <th>
                                     <div class="th-label">
-                                        <?php echo app('translator')->getFromJson('Name'); ?>
+                                        <?php echo app('translator')->getFromJson('site.user.name'); ?>
                                     </div>
                                 </th>
                                 <th>
                                     <div class="th-label">
-                                        <?php echo app('translator')->getFromJson('Email'); ?>
+                                        <?php echo app('translator')->getFromJson('site.user.email'); ?>
                                     </div>
                                 </th>
                                 <th>
                                     <div class="th-label">
-                                        <?php echo app('translator')->getFromJson('Role'); ?>
+                                        <?php echo app('translator')->getFromJson('site.user.role'); ?>
                                     </div>
                                 </th>
                                 <th></th>

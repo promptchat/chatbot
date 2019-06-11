@@ -1,8 +1,11 @@
 <?php $__env->startSection('page-name'); ?>
-    <?php echo app('translator')->getFromJson("Calendars management"); ?>
+    <?php echo app('translator')->getFromJson("site.calendar.page_title"); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
+    <script>
+        window.translates = <?php echo $translates; ?>;
+    </script>
     <calendar calendar="<?php echo e(json_encode($calendar)); ?>"/>
 <?php $__env->stopSection(); ?>
 

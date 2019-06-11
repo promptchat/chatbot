@@ -1,5 +1,5 @@
 <?php $__env->startSection('page-name'); ?>
-    <?php echo app('translator')->getFromJson("Bot statistics"); ?>
+    <?php echo app('translator')->getFromJson("site.analytic.page_title_bot"); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -11,9 +11,9 @@
                         <h3><?php echo e($chatUser->name); ?></h3>
                         <form action="" method="get" class="filter-form row">
                             <div class="form-group col-lg-3 col-sm-6">
-                                <label for="title"><?php echo app('translator')->getFromJson('models.analytic.from'); ?></label>
+                                <label for="title"><?php echo app('translator')->getFromJson('site.analytic.from'); ?></label>
                                 <input
-                                        placeholder="<?php echo app('translator')->getFromJson('models.analytic.from'); ?>"
+                                        placeholder="<?php echo app('translator')->getFromJson('site.analytic.from'); ?>"
                                         type="text"
                                         name="from"
                                         value="<?php echo e($from); ?>"
@@ -22,9 +22,9 @@
                                 >
                             </div>
                             <div class="form-group col-lg-3 col-sm-6">
-                                <label for="title"><?php echo app('translator')->getFromJson('models.analytic.to'); ?></label>
+                                <label for="title"><?php echo app('translator')->getFromJson('site.analytic.to'); ?></label>
                                 <input
-                                        placeholder="<?php echo app('translator')->getFromJson('models.analytic.to'); ?>"
+                                        placeholder="<?php echo app('translator')->getFromJson('site.analytic.to'); ?>"
                                         type="text"
                                         name="to"
                                         value="<?php echo e($to); ?>"
@@ -38,10 +38,10 @@
                             <table class="table table-sm">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Ip</th>
-                                    <th>Url</th>
-                                    <th>Created at</th>
+                                    <th><?php echo app('translator')->getFromJson('site.analytic.id'); ?></th>
+                                    <th><?php echo app('translator')->getFromJson('site.analytic.ip'); ?></th>
+                                    <th><?php echo app('translator')->getFromJson('site.analytic.url'); ?></th>
+                                    <th><?php echo app('translator')->getFromJson('site.analytic.created_at'); ?></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -79,8 +79,8 @@
                                     </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                                     <tr>
-                                        <td colspan="5">
-                                            No results
+                                        <td colspan="100%">
+                                            <?php echo app('translator')->getFromJson('site.no_result'); ?>
                                         </td>
                                     </tr>
                                 <?php endif; ?>
@@ -98,7 +98,7 @@
 
     <?php $__env->startComponent('components.modal', [
         'id' => 'show-form-modal',
-        'title' => __('Detail')
+        'title' => __('site.analytic.detail')
     ]); ?><?php echo $__env->renderComponent(); ?>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

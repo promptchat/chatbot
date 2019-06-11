@@ -1,8 +1,8 @@
 <div class="row">
     <div class="col-sm-12">
-        Ip: <?php echo e($chatSession->ip); ?><br>
-        Url: <?php echo e($chatSession->url); ?><br>
-        Created at: <?php echo e($chatSession->created_at); ?><br>
+        <?php echo app('translator')->getFromJson('site.analytic.ip'); ?>: <?php echo e($chatSession->ip); ?><br>
+        <?php echo app('translator')->getFromJson('site.analytic.url'); ?>: <?php echo e($chatSession->url); ?><br>
+        <?php echo app('translator')->getFromJson('site.analytic.created_at'); ?>: <?php echo e($chatSession->created_at); ?><br>
         <br>
         <table class="table table-sm">
             <?php $__currentLoopData = $variables; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $name => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

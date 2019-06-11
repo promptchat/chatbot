@@ -1,30 +1,30 @@
 <?php $__env->startSection('content'); ?>
-    <p>A Website visitor requested an appointment on <a href="<?php echo e($host); ?>"><?php echo e($host); ?></a></p>
+    <p><?php echo app('translator')->getFromJson('mail.website_visitor_requested_an_appointment_on'); ?> <a href="<?php echo e($host); ?>"><?php echo e($host); ?></a></p>
 
     <p>
-    The details the visitor left:<br>
-    <strong>Name:</strong> <?php echo e($event->user_name); ?><br>
-    <strong>Telephone:</strong> <?php echo e($event->user_phone); ?><br>
-    <strong>Email:</strong> <?php echo e($event->user_email); ?><br>
-    <strong>Comment:</strong> <?php echo e($event->comment); ?><br>
-    <strong>CallBack requested for:</strong> <?php echo e((new \Carbon\Carbon($event->start_time))->format('Y-m-d H:i')); ?><br>
+    <?php echo app('translator')->getFromJson('mail.details_the_visitor_left'); ?>:<br>
+    <strong><?php echo app('translator')->getFromJson('mail.name'); ?>:</strong> <?php echo e($event->user_name); ?><br>
+    <strong><?php echo app('translator')->getFromJson('mail.telephone'); ?>:</strong> <?php echo e($event->user_phone); ?><br>
+    <strong><?php echo app('translator')->getFromJson('mail.email'); ?>:</strong> <?php echo e($event->user_email); ?><br>
+    <strong><?php echo app('translator')->getFromJson('mail.comment'); ?>:</strong> <?php echo e($event->comment); ?><br>
+    <strong><?php echo app('translator')->getFromJson('mail.callback_requested_for'); ?>:</strong> <?php echo e((new \Carbon\Carbon($event->start_time))->format('Y-m-d H:i')); ?><br>
     </p>
 
     <p>
-        Please confirm this appointment request by either a phone call or an email using the details above.<br>
+        <?php echo app('translator')->getFromJson('mail.please_confirm_this_appointment_request'); ?><br>
         <a href="<?php echo e(action("CalendarController@edit", $event->calendar_id)); ?>">Click to log in to your <?php echo e(\App\Models\SiteConfig::getTitle()); ?> calendar</a>
     </p>
 
     <div style="border: 2px solid #f4f4f4; border-radius: 10px; padding: 5px;">
-        <p>Additional details about this visitor:</p>
+        <p><?php echo app('translator')->getFromJson('mail.additional_details_about_this_visitor'); ?>:</p>
         <p>
-            Chatbot was used on following URL: <a href="<?php echo e($url); ?>"><?php echo e($url); ?></a><br>
-            Time of chat: <?php echo e(Carbon\Carbon::now()); ?><br>
-            IP address of visitor: <?php echo e($ip); ?><br>
+            <?php echo app('translator')->getFromJson('mail.chatbot_was_used_on_following_url'); ?>: <a href="<?php echo e($url); ?>"><?php echo e($url); ?></a><br>
+            <?php echo app('translator')->getFromJson('mail.time_of_chat'); ?>: <?php echo e(Carbon\Carbon::now()); ?><br>
+            <?php echo app('translator')->getFromJson('mail.visitor_ip'); ?>: <?php echo e($ip); ?><br>
         </p>
     </div>
 
-    <p>With kind regards,</p>
+    <p><?php echo app('translator')->getFromJson('mail.with_kind_regards'); ?></p>
 
     <p><a href="<?php echo e(url('/')); ?>"><?php echo e(\App\Models\SiteConfig::getTitle()); ?></a></p>
 <?php $__env->stopSection(); ?>

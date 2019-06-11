@@ -82,7 +82,7 @@ export default class RightBar extends React.PureComponent {
                         onClick={this.startButtonCreation}
                     >
                         <i className={`button-icon fa fa-plus`} aria-hidden="true" />
-                        Create block
+                        {window.translates.create_block}
                     </a>
                     {
                         step===STEP_BUTTON_CREATION && <ButtonCreation  onCancel={this.stopButtonCreation} onBlockChange={this.onBlockChange} block={block}/>
@@ -91,7 +91,7 @@ export default class RightBar extends React.PureComponent {
                         className="button"
                         onClick={this.startTemplates}
 
-                    ><i className={`button-icon fa fa-download`} aria-hidden="true" />Load from template</a>
+                    ><i className={`button-icon fa fa-download`} aria-hidden="true" />{window.translates.load_from_template}</a>
                     {
                         step===STEP_TEMPLATES && <TemplatesLoader
 

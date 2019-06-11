@@ -22,6 +22,9 @@ elif  [ "$role" = "migrator" ]; then
        echo "Try to migrate ..."
        sleep 60
     done
+    php artisan translator:load
+    php artisan cache:clear
+
     php artisan up
     php /sources/artisan  storage:link
 

@@ -7,11 +7,11 @@
 
     <?php $__env->startComponent('components.modal', [
         'id' => 'modal-'.$object->id,
-        'title' => __('Delete')
+        'title' => __('site.delete_window.title')
     ]); ?>
         <?php $__env->slot('body'); ?>
-            <h5 class="text-center">Do you want to delete this record?</h5>
-            <div><button type="button" class="btn btn-link" style="text-decoration: none" data-dismiss="modal">Cancel</button><button type="button" class="btn btn-primary delete-form-btn" data-action="<?php echo e(action($action, $object->id)); ?>" data-id="<?php echo e($object->id); ?>">Delete</button></div>
+            <h5 class="text-center"><?php echo app('translator')->getFromJson('site.delete_window.question'); ?></h5>
+            <div><button type="button" class="btn btn-link" style="text-decoration: none" data-dismiss="modal"><?php echo app('translator')->getFromJson('site.delete_window.cancel'); ?></button><button type="button" class="btn btn-primary delete-form-btn" data-action="<?php echo e(action($action, $object->id)); ?>" data-id="<?php echo e($object->id); ?>"><?php echo app('translator')->getFromJson('site.delete_window.delete'); ?></button></div>
         <?php $__env->endSlot(); ?>
     <?php echo $__env->renderComponent(); ?>
 </div>

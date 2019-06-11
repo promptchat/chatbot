@@ -216,7 +216,7 @@ export default class OperatorPanel extends Component {
                 <div className={'col-md-4 panel'}>
                     <div className={'card mb-3'}>
                         <div className={'card-body'}>
-                            <h5>Operator panel</h5>
+                            <h5>{window.translates.operator_panel}</h5>
                             <ul className={'chats-list'}>
                                 {
                                         clients
@@ -252,7 +252,7 @@ export default class OperatorPanel extends Component {
                 <div className={'col-md-8 sessions'}>
                     <div className={'card'}>
                         <div className={'card-body'}>
-                            <h5>Sessions</h5>
+                            <h5>{window.translates.sessions}</h5>
                             <ChatSessions
                                 shortAlert={this.shortAlert}
                                 leave={this.leave}

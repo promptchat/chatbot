@@ -189,7 +189,7 @@ export class StatisticByChatBots extends Component {
     render() {
         return (
             <div>
-                <h4>Bot statistic </h4>
+                <h4>{window.translates.page_title_bot} </h4>
                 {this.state.bots.map((bot) => (
                     <div key={bot.id}>
                         <h5>{bot.name}</h5>
@@ -198,10 +198,10 @@ export class StatisticByChatBots extends Component {
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Ip</th>
-                                    <th>Url</th>
-                                    <th>Created at</th>
-                                    {bot.variables.map((v) => <th key={v.id}>Variable {v.variable}</th>)}
+                                    <th>{window.translates.ip}</th>
+                                    <th>{window.translates.url}</th>
+                                    <th>{window.translates.created_at}</th>
+                                    {bot.variables.map((v) => <th key={v.id}>{window.translates.variable} {v.variable}</th>)}
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -246,11 +246,10 @@ export default class Analytics extends Component {
 
         return(
             <div>
-                <h4>Statistic by agent's channels</h4>
+                <h4>{window.translates.statistic_by_agents_channels}</h4>
                 <StatisticByAgent from={this.props.from} to={this.props.to} />
-                <h4>Statistic by contacts</h4>
+                <h4>{window.translates.statistic_by_contacts}</h4>
                 <StatisticByServices from={this.props.from} to={this.props.to} />
-
             </div>
         )
 

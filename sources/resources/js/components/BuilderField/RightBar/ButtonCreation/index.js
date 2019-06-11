@@ -31,7 +31,7 @@ export default class ButtonCreation extends React.PureComponent {
                     })}
                 >
                     <i className={`button-icon fa fa-comment`} aria-hidden="true" />
-                    Message
+                    {window.translates.message}
                 </a>
                 {buttonType === TYPE_MESSAGE && (
                             <Message
@@ -46,7 +46,7 @@ export default class ButtonCreation extends React.PureComponent {
                         step: STEP_MESSAGE_CREATION,
                         buttonType: TYPE_QUESTION,
                     })}
-                ><i className={`button-icon fa fa-question`} aria-hidden="true" />Question</a>
+                ><i className={`button-icon fa fa-question`} aria-hidden="true" />{window.translates.question}</a>
                 {buttonType === TYPE_QUESTION && (
                     <Question
                         onCancel={this.props.onCancel}
@@ -59,7 +59,7 @@ export default class ButtonCreation extends React.PureComponent {
                         step: STEP_MESSAGE_CREATION,
                         buttonType: TYPE_BUTTONS,
                     })}
-                ><i className={`button-icon fa fa-list`} aria-hidden="true" />Buttons</a>
+                ><i className={`button-icon fa fa-list`} aria-hidden="true" />{window.translates.buttons}</a>
                 {buttonType === TYPE_BUTTONS && (
                     <Buttons
                         onCancel={this.props.onCancel}
@@ -73,7 +73,7 @@ export default class ButtonCreation extends React.PureComponent {
                         step: STEP_MESSAGE_CREATION,
                         buttonType: TYPE_SELECT,
                     })}
-                ><i className={`button-icon fa fa-check-square`} aria-hidden="true" />Select</a>
+                ><i className={`button-icon fa fa-check-square`} aria-hidden="true" />{window.translates.select}</a>
                 {buttonType === TYPE_SELECT && (
                             <Select
                                 onCancel={this.props.onCancel}
@@ -87,7 +87,7 @@ export default class ButtonCreation extends React.PureComponent {
                         step: STEP_MESSAGE_CREATION,
                         buttonType: TYPE_CALENDAR,
                     })}
-                ><i className={`button-icon fa fa-calendar`} aria-hidden="true" />Calendar</a>
+                ><i className={`button-icon fa fa-calendar`} aria-hidden="true" />{window.translates.calendar}</a>
                 {buttonType === TYPE_CALENDAR && (
                             <Calendar
                                 onCancel={this.props.onCancel}
@@ -100,7 +100,7 @@ export default class ButtonCreation extends React.PureComponent {
                         step: STEP_MESSAGE_CREATION,
                         buttonType: TYPE_MAP,
                     })}
-                ><i className={`button-icon fa fa-map`} aria-hidden="true" />Map</a>
+                ><i className={`button-icon fa fa-map`} aria-hidden="true" />{window.translates.map}</a>
                 {buttonType === TYPE_MAP && (
                             <Map
                                 onCancel={this.props.onCancel}

@@ -1,5 +1,5 @@
 <?php $__env->startSection('page-name'); ?>
-    <?php echo app('translator')->getFromJson("Chat History"); ?>
+    <?php echo app('translator')->getFromJson("site.analytic.page_title_chat"); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -14,27 +14,27 @@
                                 <tr>
                                     <th>
                                         <div class="th-label">
-                                            <?php echo app('translator')->getFromJson('Chat Box'); ?>
+                                            <?php echo app('translator')->getFromJson('site.analytic.chat_box'); ?>
                                         </div>
                                     </th>
                                     <th>
                                         <div class="th-label">
-                                            <?php echo app('translator')->getFromJson('Operators'); ?>
+                                            <?php echo app('translator')->getFromJson('site.analytic.chat_box'); ?>
                                         </div>
                                     </th>
                                     <th>
                                         <div class="th-label">
-                                            <?php echo app('translator')->getFromJson('IP'); ?>
+                                            <?php echo app('translator')->getFromJson('site.analytic.ip'); ?>
                                         </div>
                                     </th>
                                     <th>
                                         <div class="th-label">
-                                            <?php echo app('translator')->getFromJson('URL'); ?>
+                                            <?php echo app('translator')->getFromJson('site.analytic.url'); ?>
                                         </div>
                                     </th>
                                     <th>
                                         <div class="th-label">
-                                            <?php echo app('translator')->getFromJson('Last active'); ?>
+                                            <?php echo app('translator')->getFromJson('site.analytic.last_active'); ?>
                                         </div>
                                     </th>
                                 </tr>
@@ -81,7 +81,7 @@
                                         <div class="message"><?php echo e($liveMessage->message); ?></div>
                                     </li>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                                    <?php echo app('translator')->getFromJson('models.no_result'); ?>
+                                    <?php echo app('translator')->getFromJson('site.no_result'); ?>
                                 <?php endif; ?>
                             </ul>
                         </div>

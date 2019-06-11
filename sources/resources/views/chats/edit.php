@@ -1,10 +1,18 @@
 <?php $__env->startSection('page-name'); ?>
-    <?php echo app('translator')->getFromJson("Chatbots management"); ?>
+    <?php echo app('translator')->getFromJson("site.chatbots.page_title"); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-    <chat-creator logo="<?php echo e(\App\Models\SiteConfig::getLogo()); ?>" method="patch" url="<?php echo e(action('ChatController@update', $chat)); ?>" name="<?php echo e($chat->name); ?>" data="<?php echo e(json_encode($chat->chat->getItems())); ?>"/>
-
+    <script>
+        window.translates = <?php echo $translates; ?>;
+    </script>
+    <chat-creator
+            logo="<?php echo e(\App\Models\SiteConfig::getLogo()); ?>"
+            method="patch"
+            url="<?php echo e(action('ChatController@update', $chat)); ?>"
+            name="<?php echo e($chat->name); ?>"
+            data="<?php echo e(json_encode($chat->chat->getItems())); ?>"
+    />
 <?php $__env->stopSection(); ?>
 
 

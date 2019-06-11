@@ -2,8 +2,8 @@
     <thead>
         <tr>
             <td></td>
-            <td>Working hours</td>
-            <td>Dinner break</td>
+            <td><?php echo app('translator')->getFromJson("site.calendar.working_hours"); ?></td>
+            <td><?php echo app('translator')->getFromJson("site.calendar.dinner_break"); ?></td>
         </tr>
     </thead>
     <tbody>
@@ -11,9 +11,8 @@
             <?php if($workingHour->working): ?>
                 <tr>
                     <td><?php echo e(substr(\Carbon\Carbon::getDays()[$workingHour->day_of_week], 0, 2)); ?></td>
-
-                        <td><?php echo e($workingHour->workingTimes()); ?></td>
-                        <td><?php echo e($workingHour->dinnerTimes()); ?></td>
+                    <td><?php echo e($workingHour->workingTimes()); ?></td>
+                    <td><?php echo e($workingHour->dinnerTimes()); ?></td>
                 </tr>
             <?php endif; ?>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

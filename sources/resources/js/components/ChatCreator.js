@@ -53,10 +53,10 @@ export default class ChatCreator extends React.Component {
                     <div className="chat-config">
 
                         <div className="form-group">
-                            <label >Name</label>
+                            <label>{window.translates.name}</label>
                             <input
 
-                                placeholder="Name your new chatbot"
+                                placeholder={window.translates.name_your_new_chatbot}
                                 type="text"
                                 name="name"
                                 value={this.state.name}
@@ -66,7 +66,7 @@ export default class ChatCreator extends React.Component {
                         </div>
                         <div className="row">
                             <div className="col-sm-12 bottom-btn">
-                                <button onClick={() =>this.createButton()} className="btn btn-primary pull-right text-uppercase">Save</button>
+                                <button onClick={() =>this.createButton()} className="btn btn-primary pull-right text-uppercase">{window.translates.save}</button>
                             </div>
                         </div>
                     </div>

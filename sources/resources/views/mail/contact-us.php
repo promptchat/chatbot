@@ -1,13 +1,13 @@
 <?php $__env->startSection('content'); ?>
     <p>
-        <strong>From:</strong> <?php echo e($data->get('name')); ?> (<?php echo e($data->get('email')); ?>)
+        <strong><?php echo app('translator')->getFromJson('mail.from'); ?>:</strong> <?php echo e($data->get('name')); ?> (<?php echo e($data->get('email')); ?>)
     </p>
     <p>
-        <strong>Subject:</strong> <?php echo e($data->get('subject')); ?>
+        <strong><?php echo app('translator')->getFromJson('mail.subject'); ?>:</strong> <?php echo e($data->get('subject')); ?>
 
     </p>
     <p>
-        <strong>Message:</strong><br>
+        <strong><?php echo app('translator')->getFromJson('mail.message'); ?>:</strong><br>
         <?php echo e($data->get('message')); ?>
 
     </p>

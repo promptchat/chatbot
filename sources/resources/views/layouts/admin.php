@@ -127,8 +127,23 @@
                         <span class="brand-name">
                           <i class="fa fa-bars icon-menu burger" aria-hidden="true" ></i>
                           <span class="name"><?php echo $__env->yieldContent('page-name'); ?></span>
+
+
                         </span>
-                        <span class="right-user-name pull-right">
+                        <span class="right-user-name pull-right d-flex">
+                            <div class="dropdown">
+                                <button class="btn shadow-none dropdown-toggle" type="button" id="dropdownLangButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <?php echo e($currentLanguage); ?>
+
+                                 </button>
+
+                                <div class="dropdown-menu" aria-labelledby="dropdownLangButton">
+                                    <?php $__currentLoopData = $locales; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $language): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <a class="dropdown-item" href="<?php echo e(action("UserController@changeLanguage", $key)); ?>"><?php echo e($language); ?></a>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </div>
+                            </div>
+
                             <div class="dropdown">
                                 <button class="btn shadow-none dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <?php echo e(Auth::user()->name); ?>
@@ -136,11 +151,11 @@
                                  </button>
 
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="<?php echo e(action("UserController@editPersonalData", Auth::user())); ?>">Edit my profile</a>
+                                    <a class="dropdown-item" href="<?php echo e(action("UserController@editPersonalData", Auth::user())); ?>"><?php echo app('translator')->getFromJson('site.edit_my_profile'); ?></a>
                                     <a class="dropdown-item" href="<?php echo e(route('logout')); ?>"
                                      onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();"
-                                    >Log Out</a>
+                                    ><?php echo app('translator')->getFromJson('site.log_out'); ?></a>
                                     <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;">
                                         <?php echo e(csrf_field()); ?>
 

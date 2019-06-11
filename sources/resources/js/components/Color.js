@@ -189,7 +189,7 @@ export default class Color extends React.Component {
 
                     <div className="col-sm-4 mb-15">
                         <div className="form-group">
-                            <label>Button icon color</label>
+                            <label>{window.translates.button_icon_color}</label>
                             <input type="hidden" name={'main_color'} value={this.state.main_color}/>
                             <CompactPicker
                                 color={ this.state.main_color }
@@ -220,7 +220,7 @@ export default class Color extends React.Component {
                     </div>
                     <div className="col-sm-4 mb-15 text-right">
                         <div className="form-group">
-                            <label>Button background</label>
+                            <label>{window.translates.button_background}</label>
                             <input type="hidden" name={'secondary_color'} value={this.state.secondary_color}/>
                             <CompactPicker
                                 color={ this.state.secondary_color }
@@ -234,7 +234,7 @@ export default class Color extends React.Component {
                 <div className="row">
                     <div className="col-lg-4 mb-15">
                         <div className="form-group">
-                            <label>Window header background</label>
+                            <label>{window.translates.window_header_background}</label>
                             <input type="hidden" name={'window_header_bg'} value={this.state.window_header_bg}/>
                             <CompactPicker
                                 color={ this.state.window_header_bg }
@@ -242,7 +242,7 @@ export default class Color extends React.Component {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Window header text color</label>
+                            <label>{window.translates.window_header_text_color}</label>
                             <input type="hidden" name={'window_header_color'} value={this.state.window_header_color}/>
                             <CompactPicker
                                 color={ this.state.window_header_color }
@@ -251,7 +251,7 @@ export default class Color extends React.Component {
                         </div>
 
                         <div className="form-group">
-                            <label>Window content background</label>
+                            <label>{window.translates.window_content_background}</label>
                             <input type="hidden" name={'window_content_bg'} value={this.state.window_content_bg}/>
                             <CompactPicker
                                 color={ this.state.window_content_bg }
@@ -259,7 +259,7 @@ export default class Color extends React.Component {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Window content text color</label>
+                            <label>{window.translates.window_content_text_color}</label>
                             <input type="hidden" name={'window_content_color'} value={this.state.window_content_color}/>
                             <CompactPicker
                                 color={ this.state.window_content_color }
@@ -268,7 +268,7 @@ export default class Color extends React.Component {
                         </div>
 
                         <div className="form-group">
-                            <label>Window footer background</label>
+                            <label>{window.translates.window_footer_background}</label>
                             <input type="hidden" name={'window_footer_bg'} value={this.state.window_footer_bg}/>
                             <CompactPicker
                                 color={ this.state.window_footer_bg }
@@ -276,7 +276,7 @@ export default class Color extends React.Component {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Window footer text color</label>
+                            <label>{window.translates.window_footer_text_color}</label>
                             <input type="hidden" name={'window_footer_color'} value={this.state.window_footer_color}/>
                             <CompactPicker
                                 color={ this.state.window_footer_color }
@@ -284,7 +284,7 @@ export default class Color extends React.Component {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Chat input text color</label>
+                            <label>{window.translates.chat_input_text_color}</label>
                             <input type="hidden" name={'input_text_color'} value={this.state.input_text_color}/>
                             <CompactPicker
                                 color={ this.state.input_text_color }
@@ -365,7 +365,7 @@ export default class Color extends React.Component {
                     </div>
                     <div className="col-lg-4 mb-15 text-right">
                         <div className="form-group">
-                            <label>Chat message background</label>
+                            <label>{window.translates.chat_message_background}</label>
                             <input type="hidden" name={'chat_message_bg'} value={this.state.chat_message_bg}/>
                             <CompactPicker
                                 color={ this.state.chat_message_bg }
@@ -373,7 +373,7 @@ export default class Color extends React.Component {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Chat message text color</label>
+                            <label>{window.translates.chat_message_text_color}</label>
                             <input type="hidden" name={'chat_message_color'} value={this.state.chat_message_color}/>
                             <CompactPicker
                                 color={ this.state.chat_message_color }
@@ -382,7 +382,7 @@ export default class Color extends React.Component {
                         </div>
 
                         <div className="form-group">
-                            <label>Chat answer background</label>
+                            <label>{window.translates.chat_answer_backgroundr}</label>
                             <input type="hidden" name={'chat_answer_bg'} value={this.state.chat_answer_bg}/>
                             <CompactPicker
                                 color={ this.state.chat_answer_bg }
@@ -390,7 +390,7 @@ export default class Color extends React.Component {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Chat answer text color</label>
+                            <label>{window.translates.chat_answer_text_color}</label>
                             <input type="hidden" name={'chat_answer_color'} value={this.state.chat_answer_color}/>
                             <CompactPicker
                                 color={ this.state.chat_answer_color }
@@ -399,7 +399,7 @@ export default class Color extends React.Component {
                         </div>
 
                         <div className="form-group">
-                            <label>Chat answer button background</label>
+                            <label>{window.translates.chat_answer_button_background}</label>
                             <input type="hidden" name={'chat_answer_btn_bg'} value={this.state.chat_answer_btn_bg}/>
                             <CompactPicker
                                 color={ this.state.chat_answer_btn_bg }
@@ -407,7 +407,7 @@ export default class Color extends React.Component {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Chat answer button text color</label>
+                            <label>{window.translates.chat_answer_button_text_color}</label>
                             <input type="hidden" name={'chat_answer_btn_color'} value={this.state.chat_answer_btn_color}/>
                             <CompactPicker
                                 color={ this.state.chat_answer_btn_color }
@@ -416,7 +416,7 @@ export default class Color extends React.Component {
                         </div>
 
                         <div className="form-group">
-                            <label>Chat input send button color</label>
+                            <label>{window.translates.chat_input_send_button_color}</label>
                             <input type="hidden" name={'input_send_btn_color'} value={this.state.input_send_btn_color}/>
                             <CompactPicker
                                 color={ this.state.input_send_btn_color }
@@ -430,7 +430,7 @@ export default class Color extends React.Component {
                 <div className="row">
                     <div className="col-lg-4 mb-15">
                         <div className="form-group">
-                            <label>Window header font family</label>
+                            <label>{window.translates.window_header_font_family}</label>
                             <Select
                                 name={'window_header_ff'}
                                 value={this.state.window_header_ff}
@@ -439,7 +439,7 @@ export default class Color extends React.Component {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Window header font size</label>
+                            <label>{window.translates.window_header_font_size}</label>
                             <input
                                 className="form-control"
                                 name={'window_header_fs'}
@@ -451,7 +451,7 @@ export default class Color extends React.Component {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Window content font family</label>
+                            <label>{window.translates.window_content_font_family}</label>
                             <Select
                                 name={'window_content_ff'}
                                 value={this.state.window_content_ff}
@@ -460,7 +460,7 @@ export default class Color extends React.Component {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Window content font size</label>
+                            <label>{window.translates.window_content_font_size}</label>
                             <input
                                 name={'window_content_fs'}
                                 className="form-control"
@@ -472,7 +472,7 @@ export default class Color extends React.Component {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Window footer font family</label>
+                            <label>{window.translates.window_footer_font_family}</label>
                             <Select
                                 name={'window_footer_ff'}
                                 value={this.state.window_footer_ff}
@@ -481,7 +481,7 @@ export default class Color extends React.Component {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Window footer font size</label>
+                            <label>{window.translates.window_footer_font_size}</label>
                             <input
                                 name={'window_footer_fs'}
                                 className="form-control"
@@ -493,7 +493,7 @@ export default class Color extends React.Component {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Window input text font family</label>
+                            <label>{window.translates.window_input_text_font_family}</label>
                             <Select
                                 name={'input_text_ff'}
                                 value={this.state.input_text_ff}
@@ -502,7 +502,7 @@ export default class Color extends React.Component {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Window input text font size</label>
+                            <label>{window.translates.window_input_text_font_size}</label>
                             <input
                                 name={'input_text_fs'}
                                 className="form-control"
@@ -587,7 +587,7 @@ export default class Color extends React.Component {
                     </div>
                     <div className="col-lg-4 mb-15 text-right">
                         <div className="form-group">
-                            <label>Window chat message font family</label>
+                            <label>{window.translates.window_chat_message_font_family}</label>
                             <Select
                                 name={'chat_answer_ff'}
                                 value={this.state.chat_answer_ff}
@@ -596,7 +596,7 @@ export default class Color extends React.Component {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Window chat message font size</label>
+                            <label>{window.translates.window_chat_message_font_size}</label>
                             <input
                                 name={'chat_answer_fs'}
                                 className="form-control"
@@ -609,7 +609,7 @@ export default class Color extends React.Component {
                         </div>
 
                         <div className="form-group">
-                            <label>Window chat message button font family</label>
+                            <label>{window.translates.window_chat_message_button_font_family}</label>
                             <Select
                                 name={'chat_answer_btn_ff'}
                                 value={this.state.chat_answer_btn_ff}
@@ -618,7 +618,7 @@ export default class Color extends React.Component {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Window chat message button font size</label>
+                            <label>{window.translates.window_chat_message_button_font_size}</label>
                             <input
                                 name={'chat_answer_btn_fs'}
                                 className="form-control"
@@ -631,7 +631,7 @@ export default class Color extends React.Component {
                         </div>
 
                         <div className="form-group">
-                            <label>Window chat message font family</label>
+                            <label>{window.translates.window_chat_answer_message_font_family}</label>
                             <Select
                                 name={'chat_message_ff'}
                                 value={this.state.chat_message_ff}
@@ -640,7 +640,7 @@ export default class Color extends React.Component {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Window chat message font size</label>
+                            <label>{window.translates.window_chat_answer_message_font_size}</label>
                             <input
                                 name={'chat_message_fs'}
                                 className="form-control"

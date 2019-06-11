@@ -1,5 +1,5 @@
 <?php $__env->startSection('page-name'); ?>
-    <?php echo app('translator')->getFromJson("Site Configs"); ?>
+    <?php echo app('translator')->getFromJson("site.site_config.page_title"); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -14,7 +14,7 @@
                             <tr>
                                 <th class="with-100">
                                     <div class="th-label">
-                                        <?php echo app('translator')->getFromJson('Name'); ?>
+                                        <?php echo app('translator')->getFromJson('site.site_config.page_title'); ?>
                                     </div>
                                 </th>
                                 <th></th>
@@ -38,7 +38,7 @@
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                                 <tr>
                                     <td colspan="100%">
-                                        <?php echo app('translator')->getFromJson('models.no_result'); ?>
+                                        <?php echo app('translator')->getFromJson('site.no_result'); ?>
                                     </td>
                                 </tr>
                             <?php endif; ?>
