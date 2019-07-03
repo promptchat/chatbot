@@ -47,7 +47,7 @@
                 <div class=" col-xl-12 bottom-header">
                     <div class="liner">
                         <div class=" logo">
-                            <img src="../img/logo.png" class="logo-img" alt="" />
+                            <img src="/img/preview-images/logo.png" class="logo-img" alt="" />
                         </div>
 
                         <nav class="menu navbar navbar-expand-lg bg-white navbar-light">
