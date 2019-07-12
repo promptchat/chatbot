@@ -69,6 +69,12 @@
                             <?php $__env->startComponent('components.errors', ['field' => "translator_language_locale"]); ?><?php echo $__env->renderComponent(); ?>
                         </div>
 
+                        <?php $__env->startComponent('components.audio-input',  [
+                            'label' => __('site.chat_box.message_notification'),
+                            'default' => '/audio/notification.mp3',
+                            'name' => 'message_notification_id',
+                        ]); ?><?php echo $__env->renderComponent(); ?>
+
                         <div class="form-group">
                             <socials />
                         </div>

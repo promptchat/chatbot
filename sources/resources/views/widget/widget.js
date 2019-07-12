@@ -7,8 +7,8 @@ HelpChatWidget = {
             style.innerHTML = "  #help-button-wrapper {\n" +
                 "        position: fixed;\n" +
                 "        z-index: 999999;\n" +
-                "        "+position+": 10px;\n" +
-                "        bottom: 10px;\n" +
+                "        "+position+": 0;\n" +
+                "        bottom: 0;\n" +
                 "    }"
 
             var isMobile = document.body.clientWidth <= 500 || document.body.clientHeight <= 500
