@@ -3,6 +3,7 @@
 const services = [
     {
         "name": "Whats App",
+        'hasText': true,
         "icon": '/icons/whatsapp.png',
         "id": 1,
         "format": "Phone number (i.e. 5555551234)",

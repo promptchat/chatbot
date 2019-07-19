@@ -46,13 +46,28 @@ export default class SocialServices extends Component {
                                         <div className="col-10">
                                             <label >{service.format}</label>
                                             <input
-                                                name={`socials[${service.id}]`}
-                                                defaultValue={this.state.socials[service.id]}
+                                                name={`socials[${service.id}][value]`}
+                                                defaultValue={this.state.socials[service.id]? this.state.socials[service.id].value: ''}
                                                 type="text"
                                                 className="form-control"
                                             />
                                         </div>
                                     </div>
+                                    {service.hasText &&
+                                        <div className="form-group row mt-15">
+
+                                            <div className="offset-2 col-10">
+                                                <label>Welcome text</label>
+                                                <input
+                                                    name={`socials[${service.id}][message_text]`}
+                                                    defaultValue={this.state.socials[service.id]? this.state.socials[service.id].message_text: ''}
+                                                    type="text"
+                                                    className="form-control"
+                                                />
+                                            </div>
+                                        </div>
+                                    }
+
                                 </div>
 
                             )

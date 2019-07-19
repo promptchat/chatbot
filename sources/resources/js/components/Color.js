@@ -1,5 +1,5 @@
 import React from 'react';
-import { CompactPicker } from 'react-color';
+import {find} from 'lodash';
 import {
     IMG_ICON,
     CLOSE_ICON,
@@ -11,6 +11,18 @@ import {
     BACK_ICON, RESTART_ICON, WHATSAPP_ICON
 } from "./_colorIcons";
 import Select from 'react-select';
+import ChatConfigsItems, {
+    ButtonConfigsItems,
+    TYPE_COLOR,
+    TYPE_FONT_FAMILY,
+    TYPE_FONT_SIZE,
+    TYPE_INPUT,
+    TYPE_SELECT, TYPE_TRANSLATE
+} from "./ChatConfigsItems";
+import ColorPicker from "./ColorPicker";
+import axios from "axios";
+import AudioLoader from "./AudioLoader";
+import TranslateField from "./TranslateField";
 
 let fonts = [
     'Raleway',
@@ -20,7 +32,7 @@ let fonts = [
     'Poppins',
     'Roboto',];
 
-const fontSelect = fonts.map((font) => ({ value: font, label: font })) ;
+const FONT_VARIANTS = fonts.map((font) => ({ value: font, label: font }));
 
 export default class Color extends React.Component {
 
@@ -28,7 +40,11 @@ export default class Color extends React.Component {
     constructor(props) {
         super(...arguments);
         let styles = JSON.parse(props.styles);
+
         this.state = {
+            name: props.name,
+            message_notification_id: null,
+            message_notification: props.message_notification,
             main_color: styles.main_color,
             secondary_color: styles.secondary_color,
             window_header_bg: styles.window_header_bg,
@@ -66,14 +82,68 @@ export default class Color extends React.Component {
             input_placeholder_text_color: styles.input_placeholder_text_color,
             input_bg_color: styles.input_bg_color,
             input_send_btn_bg: styles.input_send_btn_bg,
+            position: {label: styles.position, value: styles.position},
+            size: styles.size,
+            auto_open_time: styles.auto_open_time,
+            header_title: styles.header_title,
+            bot: styles.bot,
+            click_to_bot: styles.click_to_bot,
+            live: styles.live,
+            click_to_live: styles.click_to_live,
+            welcome_live_chat_text: styles.welcome_live_chat_text,
+
+            menu: null,
+            submenu: null,
         };
+
+        this.saveConfigs = this.saveConfigs.bind(this);
 
     }
 
+    getData() {
+        let data = {};
+        [ChatConfigsItems, ButtonConfigsItems].map((config) => {
+            config.map((main) => {
+                main.items.map(({items}) => items.map((item) => {
+                    let value = null;
+                    let name = item.key;
+                    switch (item.type) {
+                        case TYPE_SELECT:
+                        case TYPE_FONT_FAMILY:
+                            value = this.state[name].value;
+                            break;
+                        default:
+                            value = this.state[name];
+                    }
+
+                    data[name] = value;
+
+                }))
+            });
+        });
+
+        return {
+            name: this.state.name,
+            message_notification_id: this.state.message_notification_id,
+            config: data
+        }
+    }
 
     handleChangeColor(attribute) {
         return (color) => {
             this.setState({ [attribute]: color.hex });
+        }
+    }
+    handleChangeTranslate(attribute) {
+        return (value) => {
+            this.setState({ [attribute]: value });
+        }
+    }
+
+    handleChangeTextInput(attribute) {
+        return (e) => {
+            let value = e.target.value;
+            this.setState({[attribute]: value});
         }
     }
 
@@ -107,12 +177,244 @@ export default class Color extends React.Component {
         return `rgba(${r}, ${g}, ${b}, ${a})`
     }
 
+    openMenu(menu = null, submenu = null) {
+        this.setState({
+            menu,
+            submenu
+        })
+    }
+
+    openMenuClicker(menu, submenu) {
+        return (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+
+            this.openMenu(menu, submenu)
+
+        }
+    }
+
+    getCurrentItems(configs) {
+        const {menu, submenu} = this.state;
+
+        if(!menu || !submenu) {
+            return [];
+        }
+        let currentMenu = find(configs, {key: menu});
+
+        if(!currentMenu) {
+            return [];
+        }
+
+        let currentSubmenu = find(currentMenu.items, {key: submenu});
+
+        if(!currentSubmenu) {
+            return [];
+        }
+
+        return currentSubmenu.items;
+
+    }
+
+    renderField(item) {
+        const {type, key, name} = item;
+        let value = this.state[key];
+        let content = null;
+
+        switch (type) {
+            case TYPE_COLOR:
+                content = <ColorPicker
+                    value={value}
+                    name={key}
+                    onChange={this.handleChangeColor(key)}
+                />;
+                break;
+            case TYPE_FONT_FAMILY:
+                content = <Select
+                    name={key}
+                    value={value}
+                    onChange={this.handleChangeSelect(key)}
+                    options={FONT_VARIANTS}
+                />;
+                break;
+            case TYPE_FONT_SIZE:
+                content = <input
+                        className="form-control"
+                        name={key}
+                        type="number"
+                        min="10"
+                        max="20"
+                        value={value}
+                        onChange={this.handleChangeInput(key)}
+                />;
+                break;
+            case TYPE_INPUT:
+                content = <input
+                    type="text"
+                    name={key}
+                    value={value}
+                    className="form-control"
+                    onChange={this.handleChangeTextInput(key)}
+                />;
+                break;
+            case TYPE_SELECT:
+                content = <Select
+                    name={key}
+                    value={value}
+                    onChange={this.handleChangeSelect(key)}
+                    options={item.variants}
+                />;
+                break;
+            case TYPE_TRANSLATE:
+                content = <TranslateField
+                    name={key}
+                    value={value}
+                    onChange={this.handleChangeTranslate(key)}
+                />;
+                break;
+        }
+
+
+        return (
+            <div  key={key} className="form-group">
+                <label>{window.translates[name]}</label>
+                {content}
+            </div>
+        )
+    }
+
+    saveConfigs() {
+        if(this.props.id) {
+            axios.post(`/configs/${this.props.id}/update`, this.getData());
+        } else {
+            axios.post(`/configs/`, this.getData());
+        }
+        window.location.href = '/configs';
+    }
+
     render() {
         return (
             <div>
                 <div className="row">
-                    <style>
-                        {`
+                    <div className="col-sm-12 col-md-4 offset-md-4">
+                        <div className="form-group">
+                            <label htmlFor="name">Name</label>
+                            <input
+                                type="text"
+                                name="name"
+                                value={this.state.name}
+                                className="form-control"
+                                onChange={this.handleChangeTextInput('name')}
+                                required
+                            />
+                        </div>
+                        <AudioLoader
+                            onChange={(id) => this.setState({message_notification_id: id})}
+                            label="Message Notification"
+                            default='/audio/notification.mp3'
+                            value={this.state.message_notification}
+                        />
+                    </div>
+                </div>
+                <div className="row">
+                    {this.getStyle()}
+                    <div className="col-xl-3 col-lg-6">
+                        <div className="colors-menu">
+                            <ul>
+                                {ButtonConfigsItems.map((param) => {
+                                    const {key: mainMenu, name, items} = param;
+                                    return <li
+                                        key={mainMenu}
+                                    >
+                                        <div className="menu-item" onClick={this.openMenuClicker(mainMenu)} >{name}</div>
+                                        {
+                                            this.state.menu === mainMenu &&
+                                            <ul>
+                                                {
+                                                    items.map((item) => {
+                                                        const {key, name} = item;
+                                                        return (
+                                                            <li
+                                                                onClick={this.openMenuClicker(mainMenu, key)}
+                                                                key={key}
+                                                                className={`sub-menu-item ${this.state.submenu === key  ? 'active' : ''}`}
+                                                            >
+                                                                {name}
+                                                            </li>)
+                                                    })
+                                                }
+                                            </ul>
+                                        }
+                                    </li>
+                                })}
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="col-xl-4 col-lg-6">
+                        {this.getCurrentItems(ButtonConfigsItems).map((item) => {
+                            return this.renderField(item);
+                        })}
+                    </div>
+                    <div className="col-xl-5 col-lg-12 d-flex align-items-end">
+                        <div className="position-relative d-flex justify-content-center align-items-center" style={{width: '100%', height: '100px'}}>
+                            <a className="chat-btn show hover-element" onClick={this.openMenuClicker('button', 'colors')}>
+                                <div className="img-icon show" dangerouslySetInnerHTML={{__html: IMG_ICON}}></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <hr/>
+                <div className="row">
+                    <div className="col-xl-3 col-lg-6">
+                        <div className="colors-menu">
+                            <ul>
+                                {ChatConfigsItems.map((param) => {
+                                    const {key: mainMenu, name, items} = param;
+                                    return <li
+                                        key={mainMenu}
+                                    >
+                                        <div className="menu-item" onClick={this.openMenuClicker(mainMenu)} >{name}</div>
+                                            {
+                                                this.state.menu === mainMenu &&
+                                                <ul>
+                                                    {
+                                                        items.map((item) => {
+                                                            const {key, name} = item;
+                                                            return (
+                                                                <li
+                                                                    onClick={this.openMenuClicker(mainMenu, key)}
+                                                                    key={key}
+                                                                    className={`sub-menu-item ${this.state.submenu === key  ? 'active' : ''}`}
+                                                                >
+                                                                    {name}
+                                                                </li>)
+                                                        })
+                                                    }
+                                                </ul>
+                                            }
+                                    </li>
+                                })}
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="col-xl-4 col-lg-6">
+                        {this.getCurrentItems(ChatConfigsItems).map((item) => {
+                            return this.renderField(item);
+                        })}
+                    </div>
+                    <div className="col-xl-5 col-lg-12 d-flex justify-content-center">
+                        {this.renderChatWindow()}
+                    </div>
+                </div>
+                <button onClick={this.saveConfigs} className="mt-4 btn btn-primary pull-right text-uppercase">Save</button>
+            </div>
+        );
+    }
+
+    getStyle() {
+        return <style>
+            {`
 
 						.chat-btn {
 							border-color: ${this.state.main_color};
@@ -125,6 +427,22 @@ export default class Color extends React.Component {
 
 						.chat-btn {
 							background-color: ${this.state.secondary_color};
+						}
+
+						.chat-btn .img-icon,
+						.chat-btn .img-icon svg {
+						    width: ${~~(this.state.size/2)}px;
+						    height: ${~~(this.state.size/2)}px;
+						    position: absolute;
+						}
+
+						.chat-btn {
+							width: ${(this.state.size - 2)}px;
+							height: ${(this.state.size - 2)}px;
+							border-color: ${this.state.main_color};
+							background-color: ${this.state.secondary_color};
+							bottom: ${(this.state.size/10+10)}px;
+							${this.state.position.value}: ${(this.state.size/10+10)}px;
 						}
 
 						@keyframes play {
@@ -202,6 +520,10 @@ export default class Color extends React.Component {
                             background-color: ${this.state.dropdown_bg};
                         }
 
+                        .chat-window .cw-content .messages .message-item .time {
+                        	color: ${this.state.window_content_color};
+                        }
+
 						.chat-window .cw-content .operator-message .message-item .message {
 							background-color: ${this.state.chat_answer_bg};
                             color: ${this.state.chat_answer_color};
@@ -270,669 +592,180 @@ export default class Color extends React.Component {
 						}
 
 					`}
-                    </style>
+        </style>
+    }
 
-                    <div className="col-sm-4 mb-15">
-                        <div className="form-group">
-                            <label>{window.translates.button_icon_color}</label>
-                            <input type="hidden" name={'main_color'} value={this.state.main_color}/>
-                            <CompactPicker
-                                color={ this.state.main_color }
-                                onChangeComplete={this.handleChangeColor('main_color')}
-                            />
+    getFirstFromSate(key) {
+        const value = this.state[key];
+        return value[Object.keys(value)[0]] || '';
+    }
+
+    renderChatWindow() {
+        return <div className="chat-window show">
+            <div className="cw-header">
+                <div onClick={this.openMenuClicker('header', 'top_header')} className="hover-element top-header d-flex justify-content-space-between align-items-center">
+                    <div className="d-flex align-items-center">
+                        <div className="logo">
+                            <div dangerouslySetInnerHTML={{__html: LOGO_ICON}}/>
                         </div>
+                        <div className="name">{this.getFirstFromSate('header_title')}</div>
                     </div>
-                    <div className="col-sm-4 mb-15 d-flex align-items-center justify-content-center">
-                        <div className="text-center">
-                            <a className="chat-btn show">
-                                <div className="img-icon show" dangerouslySetInnerHTML={{__html: IMG_ICON}}></div>
+                    <div className="d-flex justify-content-space-between align-items-center">
+                        <a>
+                            <div className="icon" dangerouslySetInnerHTML={{__html: FULL_SCREEN_ICON}}/>
+                        </a>
+                        <a>
+                            <div className="icon" dangerouslySetInnerHTML={{__html: CLOSE_ICON}}/>
+                        </a>
+                    </div>
+                </div>
+                <div onClick={this.openMenuClicker('header', 'bottom_header')} className="hover-element bottom-header d-flex justify-content-space-between align-items-center">
+                    <div>
+                        <a className="chat-select">
+                            <div className="d-flex align-items-center">
+                                <div className="flip-container">
+                                    <div className="flipper">
+                                        <div className="front">
+                                            <div className="icon"
+                                                 dangerouslySetInnerHTML={{__html: BOT_ICON}}></div>
+                                            <img className="click" src="" alt=""/>
+                                            <span className="click-to shake">{this.getFirstFromSate('click_to_live')}</span>
+                                        </div>
+                                        <div className="back">
+                                            <div className="icon"></div>
+                                            <img className="click" src="" alt=""/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="sevice-name">
+                                    <span>{this.getFirstFromSate('bot')}</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div>
+                        <div>
+                            <a className="social-dropdown">
+                                <div className="social-icon"
+                                     dangerouslySetInnerHTML={{__html: FACEBOOK_ICON}}></div>
                             </a>
-                        </div>
-                    </div>
-                    <div className="col-sm-4 mb-15 text-right">
-                        <div className="form-group">
-                            <label>{window.translates.button_background}</label>
-                            <input type="hidden" name={'secondary_color'} value={this.state.secondary_color}/>
-                            <CompactPicker
-                                color={ this.state.secondary_color }
-                                onChangeComplete={ this.handleChangeColor('secondary_color') }
-                            />
-                        </div>
-                    </div>
-                </div>
-                <br/>
-                <hr/>
-                <div className="row">
-                    <div className="col-lg-4 mb-15">
-                        <div className="form-group">
-                            <label>{window.translates.window_header_background}</label>
-                            <input type="hidden" name={'window_header_bg'} value={this.state.window_header_bg}/>
-                            <CompactPicker
-                                color={ this.state.window_header_bg }
-                                onChangeComplete={ this.handleChangeColor('window_header_bg') }
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>{window.translates.window_header_text_color}</label>
-                            <input type="hidden" name={'window_header_color'} value={this.state.window_header_color}/>
-                            <CompactPicker
-                                color={ this.state.window_header_color }
-                                onChangeComplete={ this.handleChangeColor('window_header_color') }
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label>{window.translates.window_sub_header_background}</label>
-                            <input type="hidden" name={'window_sub_header_bg'} value={this.state.window_sub_header_bg}/>
-                            <CompactPicker
-                                color={ this.state.window_sub_header_bg }
-                                onChangeComplete={ this.handleChangeColor('window_sub_header_bg') }
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>{window.translates.window_sub_header_text_color}</label>
-                            <input type="hidden" name={'window_sub_header_color'} value={this.state.window_sub_header_color}/>
-                            <CompactPicker
-                                color={ this.state.window_sub_header_color }
-                                onChangeComplete={ this.handleChangeColor('window_sub_header_color') }
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label>{window.translates.dropdown_bg}</label>
-                            <input type="hidden" name={'dropdown_bg'} value={this.state.dropdown_bg}/>
-                            <CompactPicker
-                                color={ this.state.dropdown_bg }
-                                onChangeComplete={ this.handleChangeColor('dropdown_bg') }
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label>{window.translates.window_content_background}</label>
-                            <input type="hidden" name={'window_content_bg'} value={this.state.window_content_bg}/>
-                            <CompactPicker
-                                color={ this.state.window_content_bg }
-                                onChangeComplete={ this.handleChangeColor('window_content_bg') }
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>{window.translates.window_content_text_color}</label>
-                            <input type="hidden" name={'window_content_color'} value={this.state.window_content_color}/>
-                            <CompactPicker
-                                color={ this.state.window_content_color }
-                                onChangeComplete={ this.handleChangeColor('window_content_color') }
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label>{window.translates.window_footer_background}</label>
-                            <input type="hidden" name={'window_footer_bg'} value={this.state.window_footer_bg}/>
-                            <CompactPicker
-                                color={ this.state.window_footer_bg }
-                                onChangeComplete={ this.handleChangeColor('window_footer_bg') }
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label>{window.translates.window_footer_text_color}</label>
-                            <input type="hidden" name={'window_footer_color'} value={this.state.window_footer_color}/>
-                            <CompactPicker
-                                color={ this.state.window_footer_color }
-                                onChangeComplete={ this.handleChangeColor('window_footer_color') }
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label>{window.translates.window_footer_icon_color}</label>
-                            <input type="hidden" name={'window_footer_icon_color'} value={this.state.window_footer_icon_color}/>
-                            <CompactPicker
-                                color={ this.state.window_footer_icon_color }
-                                onChangeComplete={ this.handleChangeColor('window_footer_icon_color') }
-                            />
-                        </div>
-                    </div>
-                    <div className="col-lg-4 mb-15 d-flex align-items-center justify-content-center">
-                        <div className="chat-window show">
-                            <div className="cw-header">
-                                <div className="top-header d-flex justify-content-space-between align-items-center">
-                                    <div className="d-flex align-items-center">
-                                        <div className="logo">
-                                            <div dangerouslySetInnerHTML={{__html: LOGO_ICON}}/>
-                                        </div>
-                                        <div className="name">No name</div>
-                                    </div>
-                                    <div className="d-flex justify-content-space-between align-items-center">
-                                        <a><div className="icon" dangerouslySetInnerHTML={{__html: FULL_SCREEN_ICON}}/></a>
-                                        <a><div className="icon" dangerouslySetInnerHTML={{__html: CLOSE_ICON}}/></a>
-                                    </div>
-                                </div>
-                                <div className="bottom-header d-flex justify-content-space-between align-items-center">
-                                    <div>
-                                        <a className="chat-select">
-                                            <div className="d-flex align-items-center">
-                                                <div className="flip-container">
-                                                    <div className="flipper">
-                                                        <div className="front">
-                                                            <div className="icon" dangerouslySetInnerHTML={{__html: BOT_ICON}}></div>
-                                                            <img className="click" src="" alt=""/>
-                                                        </div>
-                                                        <div className="back">
-                                                            <div className="icon"></div>
-                                                            <img className="click" src="" alt=""/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="sevice-name">
-                                                    <span>Chat<span className="bot">Bot</span></span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div>
-                                        <div>
-                                            <a className="social-dropdown">
-                                                <div className="social-icon" dangerouslySetInnerHTML={{__html: FACEBOOK_ICON}}></div>
-                                            </a>
-                                            <div className="social-dropdown-menu show">
-                                                <a className="social-item">
-                                                    <div className="social-icon" dangerouslySetInnerHTML={{__html: FACEBOOK_ICON}}></div>
-                                                </a>
-                                                <a className="social-item">
-                                                    <div className="social-icon" dangerouslySetInnerHTML={{__html: WHATSAPP_ICON}}></div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div className="social-dropdown-menu show hover-element"  onClick={this.openMenuClicker('header', 'bottom_header')}>
+                                <a className="social-item">
+                                    <div className="social-icon"
+                                         dangerouslySetInnerHTML={{__html: FACEBOOK_ICON}}></div>
+                                </a>
+                                <a className="social-item">
+                                    <div className="social-icon"
+                                         dangerouslySetInnerHTML={{__html: WHATSAPP_ICON}}></div>
+                                </a>
                             </div>
-                            <div className="show">
-                                <div className="cw-content">
-                                    <div className="c-content">
-                                        <div className="operator-message">
-                                            <div className="image-block">
-                                                <div className="image d-flex">
-                                                    <div className="d-flex align-items-center justify-content-center" dangerouslySetInnerHTML={{__html: BOT_ICON}}/>
-                                                </div>
-                                            </div>
-                                            <div className="messages">
-                                                <div className="message-item">
-                                                    <div className="message">
-                                                        <div>
-                                                            <p>Message text 1</p>
-                                                        </div>
-                                                        <div className="select">
-                                                            <label className="button"><input name="id" type="checkbox" value="1"/>button 1</label>
-                                                            <label className="button "><input name="id" type="checkbox" value="2"/>button 2</label>
-                                                            <label className="button "><input name="id" type="checkbox" value="3"/>button 3</label>
-                                                        </div>
-                                                    </div>
-                                                    <div className="time">14:00</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="user-message">
-                                            <div className="messages">
-                                                <div className="message-item">
-                                                    <div className="time">14:01</div>
-                                                    <div className="message">Message text 2</div>
-                                                </div>
-                                            </div>
-                                            <div className="image-block">
-                                                <div className="image">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="operator-message">
-                                            <div className="image-block">
-                                                <div className="image d-flex">
-                                                    <div className="d-flex align-items-center justify-content-center" dangerouslySetInnerHTML={{__html: BOT_ICON}}/>
-                                                </div>
-                                            </div>
-                                            <div className="messages">
-                                                <div className="message-item">
-                                                    <div className="message">Message text 3</div>
-                                                    <div className="time">14:01</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="user-message">
-                                            <div className="messages">
-                                                <div className="message-item">
-                                                    <div className="time">14:02</div>
-                                                    <div className="message">Message text 4</div>
-                                                </div>
-                                            </div>
-                                            <div className="image-block">
-                                                <div className="image">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p class="welcome-message">Text example</p>
-                                    </div>
-                                    <div className="c-footer">
-                                        <div>
-                                            <textarea name="message" placeholder="Start typing here...UA" className="user-input"></textarea>
-                                            <button type="button" className="send-button">
-                                                <div dangerouslySetInnerHTML={{__html: SEND_ICON}}></div>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="cw-footer d-flex justify-content-space-between align-items-flex-end">
-                                    <div className="cw-buttons d-flex">
-                                        <a className="cw-button d-flex align-items-flex-end" title="Restart chatbotUA">
-                                            <div className="icon" dangerouslySetInnerHTML={{__html: RESTART_ICON}}/>
-                                            <div className="name">Restart</div>
-                                        </a>
-                                        <a className="cw-button d-flex align-items-flex-end" title="Go back one stepUA">
-                                            <div className="icon" dangerouslySetInnerHTML={{__html: BACK_ICON}}/>
-                                            <div className="name">Back</div>
-                                        </a>
-                                    </div>
-                                    <div className="cw-powered">Powered by</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-4 mb-15 text-right">
-                        <div className="form-group">
-                            <label>{window.translates.chat_message_background}</label>
-                            <input type="hidden" name={'chat_message_bg'} value={this.state.chat_message_bg}/>
-                            <CompactPicker
-                                color={ this.state.chat_message_bg }
-                                onChangeComplete={ this.handleChangeColor('chat_message_bg') }
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>{window.translates.chat_message_text_color}</label>
-                            <input type="hidden" name={'chat_message_color'} value={this.state.chat_message_color}/>
-                            <CompactPicker
-                                color={ this.state.chat_message_color }
-                                onChangeComplete={ this.handleChangeColor('chat_message_color') }
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label>{window.translates.chat_answer_background}</label>
-                            <input type="hidden" name={'chat_answer_bg'} value={this.state.chat_answer_bg}/>
-                            <CompactPicker
-                                color={ this.state.chat_answer_bg }
-                                onChangeComplete={ this.handleChangeColor('chat_answer_bg') }
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>{window.translates.chat_answer_text_color}</label>
-                            <input type="hidden" name={'chat_answer_color'} value={this.state.chat_answer_color}/>
-                            <CompactPicker
-                                color={ this.state.chat_answer_color }
-                                onChangeComplete={ this.handleChangeColor('chat_answer_color') }
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label>{window.translates.chat_answer_button_background}</label>
-                            <input type="hidden" name={'chat_answer_btn_bg'} value={this.state.chat_answer_btn_bg}/>
-                            <CompactPicker
-                                color={ this.state.chat_answer_btn_bg }
-                                onChangeComplete={ this.handleChangeColor('chat_answer_btn_bg') }
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>{window.translates.chat_answer_button_text_color}</label>
-                            <input type="hidden" name={'chat_answer_btn_color'} value={this.state.chat_answer_btn_color}/>
-                            <CompactPicker
-                                color={ this.state.chat_answer_btn_color }
-                                onChangeComplete={ this.handleChangeColor('chat_answer_btn_color') }
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label>{window.translates.input_placeholder_text_color}</label>
-                            <input type="hidden" name={'input_placeholder_text_color'} value={this.state.input_placeholder_text_color}/>
-                            <CompactPicker
-                                color={ this.state.input_placeholder_text_color }
-                                onChangeComplete={ this.handleChangeColor('input_placeholder_text_color') }
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label>{window.translates.chat_input_text_color}</label>
-                            <input type="hidden" name={'input_text_color'} value={this.state.input_text_color}/>
-                            <CompactPicker
-                                color={ this.state.input_text_color }
-                                onChangeComplete={ this.handleChangeColor('input_text_color') }
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label>{window.translates.input_bg_color}</label>
-                            <input type="hidden" name={'input_bg_color'} value={this.state.input_bg_color}/>
-                            <CompactPicker
-                                color={ this.state.input_bg_color }
-                                onChangeComplete={ this.handleChangeColor('input_bg_color') }
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label>{window.translates.input_send_btn_bg}</label>
-                            <input type="hidden" name={'input_send_btn_bg'} value={this.state.input_send_btn_bg}/>
-                            <CompactPicker
-                                color={ this.state.input_send_btn_bg }
-                                onChangeComplete={ this.handleChangeColor('input_send_btn_bg') }
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label>{window.translates.chat_input_send_button_color}</label>
-                            <input type="hidden" name={'input_send_btn_color'} value={this.state.input_send_btn_color}/>
-                            <CompactPicker
-                                color={ this.state.input_send_btn_color }
-                                onChangeComplete={ this.handleChangeColor('input_send_btn_color') }
-                            />
-                        </div>
-                    </div>
-                </div>
-                <br/>
-                <hr/>
-                <div className="row">
-                    <div className="col-lg-4 mb-15">
-                        <div className="form-group">
-                            <label>{window.translates.window_header_font_family}</label>
-                            <Select
-                                name={'window_header_ff'}
-                                value={this.state.window_header_ff}
-                                onChange={this.handleChangeSelect('window_header_ff')}
-                                options={fontSelect}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>{window.translates.window_header_font_size}</label>
-                            <input
-                                className="form-control"
-                                name={'window_header_fs'}
-                                type="number"
-                                min="10"
-                                max="20"
-                                value={this.state.window_header_fs}
-                                onChange={this.handleChangeInput('window_header_fs')}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>{window.translates.window_content_font_family}</label>
-                            <Select
-                                name={'window_content_ff'}
-                                value={this.state.window_content_ff}
-                                onChange={this.handleChangeSelect('window_content_ff')}
-                                options={fontSelect}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>{window.translates.window_content_font_size}</label>
-                            <input
-                                name={'window_content_fs'}
-                                className="form-control"
-                                type="number"
-                                min="10"
-                                max="20"
-                                value={this.state.window_content_fs}
-                                onChange={this.handleChangeInput('window_content_fs')}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>{window.translates.window_footer_font_family}</label>
-                            <Select
-                                name={'window_footer_ff'}
-                                value={this.state.window_footer_ff}
-                                onChange={this.handleChangeSelect('window_footer_ff')}
-                                options={fontSelect}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>{window.translates.window_footer_font_size}</label>
-                            <input
-                                name={'window_footer_fs'}
-                                className="form-control"
-                                type="number"
-                                min="10"
-                                max="20"
-                                value={this.state.window_footer_fs}
-                                onChange={this.handleChangeInput('window_footer_fs')}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>{window.translates.window_input_text_font_family}</label>
-                            <Select
-                                name={'input_text_ff'}
-                                value={this.state.input_text_ff}
-                                onChange={this.handleChangeSelect('input_text_ff')}
-                                options={fontSelect}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>{window.translates.window_input_text_font_size}</label>
-                            <input
-                                name={'input_text_fs'}
-                                className="form-control"
-                                type="number"
-                                min="10"
-                                max="20"
-                                value={this.state.input_text_fs}
-                                onChange={this.handleChangeInput('input_text_fs')}
-                            />
-                        </div>
-                    </div>
-                    <div className="col-lg-4 mb-15 d-flex align-items-center justify-content-center">
-                        <div className="chat-window show">
-                            <div className="cw-header">
-                                <div className="top-header d-flex justify-content-space-between align-items-center">
-                                    <div className="d-flex align-items-center">
-                                        <div className="logo">
-                                            <div dangerouslySetInnerHTML={{__html: LOGO_ICON}}/>
-                                        </div>
-                                        <div className="name">No name</div>
-                                    </div>
-                                    <div className="d-flex justify-content-space-between align-items-center">
-                                        <a><div className="icon" dangerouslySetInnerHTML={{__html: FULL_SCREEN_ICON}}/></a>
-                                        <a><div className="icon" dangerouslySetInnerHTML={{__html: CLOSE_ICON}}/></a>
-                                    </div>
-                                </div>
-                                <div className="bottom-header d-flex justify-content-space-between align-items-center">
-                                    <div>
-                                        <a className="chat-select">
-                                            <div className="d-flex align-items-center">
-                                                <div className="flip-container">
-                                                    <div className="flipper">
-                                                        <div className="front">
-                                                            <div className="icon" dangerouslySetInnerHTML={{__html: BOT_ICON}}></div>
-                                                            <img className="click" src="" alt=""/>
-                                                        </div>
-                                                        <div className="back">
-                                                            <div className="icon"></div>
-                                                            <img className="click" src="" alt=""/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="sevice-name">
-                                                    <span>Chat<span className="bot">Bot</span></span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div>
-                                        <div>
-                                            <a className="social-dropdown">
-                                                <div className="social-icon" dangerouslySetInnerHTML={{__html: FACEBOOK_ICON}}></div>
-                                            </a>
-                                            <div className="social-dropdown-menu show">
-                                                <a className="social-item">
-                                                    <div className="social-icon" dangerouslySetInnerHTML={{__html: FACEBOOK_ICON}}></div>
-                                                </a>
-                                                <a className="social-item">
-                                                    <div className="social-icon" dangerouslySetInnerHTML={{__html: WHATSAPP_ICON}}></div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="show">
-                                <div className="cw-content">
-                                    <div className="c-content">
-                                        <div className="operator-message">
-                                            <div className="image-block">
-                                                <div className="image d-flex">
-                                                    <div className="d-flex align-items-center justify-content-center" dangerouslySetInnerHTML={{__html: BOT_ICON}}/>
-                                                </div>
-                                            </div>
-                                            <div className="messages">
-                                                <div className="message-item">
-                                                    <div className="message">
-                                                        <div>
-                                                            <p>Message text 1</p>
-                                                        </div>
-                                                        <div className="select">
-                                                            <label className="button"><input name="id" type="checkbox" value="1"/>button 1</label>
-                                                            <label className="button "><input name="id" type="checkbox" value="2"/>button 2</label>
-                                                            <label className="button "><input name="id" type="checkbox" value="3"/>button 3</label>
-                                                        </div>
-                                                    </div>
-                                                    <div className="time">14:00</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="user-message">
-                                            <div className="messages">
-                                                <div className="message-item">
-                                                    <div className="time">14:01</div>
-                                                    <div className="message">Message text 2</div>
-                                                </div>
-                                            </div>
-                                            <div className="image-block">
-                                                <div className="image">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="operator-message">
-                                            <div className="image-block">
-                                                <div className="image d-flex">
-                                                    <div className="d-flex align-items-center justify-content-center" dangerouslySetInnerHTML={{__html: BOT_ICON}}/>
-                                                </div>
-                                            </div>
-                                            <div className="messages">
-                                                <div className="message-item">
-                                                    <div className="message">Message text 3</div>
-                                                    <div className="time">14:01</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="user-message">
-                                            <div className="messages">
-                                                <div className="message-item">
-                                                    <div className="time">14:02</div>
-                                                    <div className="message">Message text 4</div>
-                                                </div>
-                                            </div>
-                                            <div className="image-block">
-                                                <div className="image">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p class="welcome-message">Text example</p>
-                                    </div>
-                                    <div className="c-footer">
-                                        <div>
-                                            <textarea name="message" placeholder="Start typing here...UA" className="user-input"></textarea>
-                                            <button type="button" className="send-button">
-                                                <div dangerouslySetInnerHTML={{__html: SEND_ICON}}></div>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="cw-footer d-flex justify-content-space-between align-items-flex-end">
-                                    <div className="cw-buttons d-flex">
-                                        <a className="cw-button d-flex align-items-flex-end" title="Restart chatbotUA">
-                                            <div className="icon" dangerouslySetInnerHTML={{__html: RESTART_ICON}}/>
-                                            <div className="name">Restart</div>
-                                        </a>
-                                        <a className="cw-button d-flex align-items-flex-end" title="Go back one stepUA">
-                                            <div className="icon" dangerouslySetInnerHTML={{__html: BACK_ICON}}/>
-                                            <div className="name">Back</div>
-                                        </a>
-                                    </div>
-                                    <div className="cw-powered">Powered by</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-4 mb-15 text-right">
-                        <div className="form-group">
-                            <label>{window.translates.window_chat_message_font_family}</label>
-                            <Select
-                                name={'chat_answer_ff'}
-                                value={this.state.chat_answer_ff}
-                                onChange={this.handleChangeSelect('chat_answer_ff')}
-                                options={fontSelect}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>{window.translates.window_chat_message_font_size}</label>
-                            <input
-                                name={'chat_answer_fs'}
-                                className="form-control"
-                                type="number"
-                                min="10"
-                                max="20"
-                                value={this.state.chat_answer_fs}
-                                onChange={this.handleChangeInput('chat_answer_fs')}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label>{window.translates.window_chat_message_button_font_family}</label>
-                            <Select
-                                name={'chat_answer_btn_ff'}
-                                value={this.state.chat_answer_btn_ff}
-                                onChange={this.handleChangeSelect('chat_answer_btn_ff')}
-                                options={fontSelect}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>{window.translates.window_chat_message_button_font_size}</label>
-                            <input
-                                name={'chat_answer_btn_fs'}
-                                className="form-control"
-                                type="number"
-                                min="10"
-                                max="20"
-                                value={this.state.chat_answer_btn_fs}
-                                onChange={this.handleChangeInput('chat_answer_btn_fs')}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label>{window.translates.window_chat_answer_message_font_family}</label>
-                            <Select
-                                name={'chat_message_ff'}
-                                value={this.state.chat_message_ff}
-                                onChange={this.handleChangeSelect('chat_message_ff')}
-                                options={fontSelect}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>{window.translates.window_chat_answer_message_font_size}</label>
-                            <input
-                                name={'chat_message_fs'}
-                                className="form-control"
-                                type="number"
-                                min="10"
-                                max="20"
-                                value={this.state.chat_message_fs}
-                                onChange={this.handleChangeInput('chat_message_fs')}
-                            />
                         </div>
                     </div>
                 </div>
             </div>
-        );
+            <div className="show">
+                <div className="cw-content hover-element" onClick={this.openMenuClicker('content', 'main')}>
+                    <div className="c-content">
+                        <div className="operator-message">
+                            <div className="image-block">
+                                <div className="image d-flex">
+                                    <div className="d-flex align-items-center justify-content-center"
+                                         dangerouslySetInnerHTML={{__html: BOT_ICON}}/>
+                                </div>
+                            </div>
+                            <div className="messages">
+                                <div className="message-item">
+                                    <div className="message hover-element" onClick={this.openMenuClicker('content', 'bot_message')}>
+                                        <div>
+                                            <p>Message text 1</p>
+                                        </div>
+                                        <div className="select">
+                                            <label className="button hover-element" onClick={this.openMenuClicker('content', 'bot_message_btn')}>
+                                                <input name="id" type="checkbox" value="1"/>
+                                                button 1
+                                            </label>
+                                            <label className="button hover-element" onClick={this.openMenuClicker('content', 'bot_message_btn')}>
+                                                <input name="id" type="checkbox" value="2"/>
+                                                button 2
+                                            </label>
+                                            <label className="button hover-element" onClick={this.openMenuClicker('content', 'bot_message_btn')}>
+                                                <input name="id" type="checkbox" value="3"/>
+                                                button 3
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div className="time">14:00</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="user-message">
+                            <div className="messages">
+                                <div className="message-item">
+                                    <div className="time">14:01</div>
+                                    <div className="message hover-element" onClick={this.openMenuClicker('content', 'user_message')}>Message text 2</div>
+                                </div>
+                            </div>
+                            <div className="image-block">
+                                <div className="image">
+                                </div>
+                            </div>
+                        </div>
+                        <div className="operator-message">
+                            <div className="image-block">
+                                <div className="image d-flex">
+                                    <div className="d-flex align-items-center justify-content-center"
+                                         dangerouslySetInnerHTML={{__html: BOT_ICON}}/>
+                                </div>
+                            </div>
+                            <div className="messages">
+                                <div className="message-item">
+                                    <div className="message hover-element" onClick={this.openMenuClicker('content', 'bot_message')}>Message text 3</div>
+                                    <div className="time">14:01</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="user-message">
+                            <div className="messages">
+                                <div className="message-item">
+                                    <div className="time">14:02</div>
+                                    <div className="message hover-element" onClick={this.openMenuClicker('content', 'user_message')}>Message text 4</div>
+                                </div>
+                            </div>
+                            <div className="image-block">
+                                <div className="image">
+                                </div>
+                            </div>
+                        </div>
+                        <p className="welcome-message">Text example</p>
+                    </div>
+                    <div className="c-footer">
+                        <div>
+                            <textarea
+                                placeholder="Start typing here...UA"
+                                className="user-input hover-element"
+                                onClick={this.openMenuClicker('content', 'user_input')}
+                            >
+                            </textarea>
+                            <button type="button" className="send-button hover-element" onClick={this.openMenuClicker('content', 'user_send_btn')}>
+                                <div dangerouslySetInnerHTML={{__html: SEND_ICON}}></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div className="cw-footer d-flex justify-content-space-between align-items-flex-end hover-element" onClick={this.openMenuClicker('footer', 'main')}>
+                    <div className="cw-buttons d-flex">
+                        <a className="cw-button d-flex align-items-flex-end" title="Restart chatbotUA">
+                            <div className="icon" dangerouslySetInnerHTML={{__html: RESTART_ICON}}/>
+                            <div className="name">Restart</div>
+                        </a>
+                        <a className="cw-button d-flex align-items-flex-end" title="Go back one stepUA">
+                            <div className="icon" dangerouslySetInnerHTML={{__html: BACK_ICON}}/>
+                            <div className="name">Back</div>
+                        </a>
+                    </div>
+                    <div className="cw-powered">Powered by</div>
+                </div>
+            </div>
+        </div>;
     }
 }

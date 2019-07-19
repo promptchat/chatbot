@@ -70,8 +70,8 @@
                                     <i class="fa fa-calendar"></i><?php echo app('translator')->getFromJson('site.left_menu.calendar'); ?>
                                 </a>
                             <?php endif; ?>
-                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('edit', \App\Models\Config::class)): ?>
-                                <a class="menu-item" href="<?php echo e(action("ConfigController@edit")); ?>">
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\Config::class)): ?>
+                                <a class="menu-item" href="<?php echo e(action("ConfigController@index")); ?>">
                                     <i class="fa fa-sliders"></i><?php echo app('translator')->getFromJson('site.left_menu.button_settings'); ?>
                                 </a>
                             <?php endif; ?>

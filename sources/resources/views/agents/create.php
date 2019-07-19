@@ -49,6 +49,16 @@
                             <?php $__env->startComponent('components.errors', ['field' => "chat_user_id"]); ?><?php echo $__env->renderComponent(); ?>
                         </div>
 
+                        <div class="form-group select-field">
+                            <label for="title"><?php echo app('translator')->getFromJson('site.chat_box.button_config'); ?></label>
+                            <?php $__env->startComponent('components.select', [
+                                'empty' => __('site.chat_box.none'),
+                                'options' => $configs,
+                                'name' => 'config_id',
+                            ]); ?><?php echo $__env->renderComponent(); ?>
+                            <?php $__env->startComponent('components.errors', ['field' => "config_id"]); ?><?php echo $__env->renderComponent(); ?>
+                        </div>
+
                         <div class="form-group">
                             <label for="title"><?php echo app('translator')->getFromJson('site.chat_box.department'); ?></label>
                             <?php $__env->startComponent('components.select', [
@@ -68,12 +78,6 @@
                             ]); ?><?php echo $__env->renderComponent(); ?>
                             <?php $__env->startComponent('components.errors', ['field' => "translator_language_locale"]); ?><?php echo $__env->renderComponent(); ?>
                         </div>
-
-                        <?php $__env->startComponent('components.audio-input',  [
-                            'label' => __('site.chat_box.message_notification'),
-                            'default' => '/audio/notification.mp3',
-                            'name' => 'message_notification_id',
-                        ]); ?><?php echo $__env->renderComponent(); ?>
 
                         <div class="form-group">
                             <socials />
