@@ -110,6 +110,17 @@
                                     <i class="fa fa-cogs" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.site_configs'); ?>
                                 </a>
                             <?php endif; ?>
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\Plan::class)): ?>
+                                <a class="menu-item" href="<?php echo e(action("PlanController@index")); ?>">
+                                    <i class="fa fa-credit-card" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.plans'); ?>
+                                </a>
+
+                            <?php endif; ?>
+                                <?php if(Auth::user()->isCompanyAdmin()): ?>
+                                    <a class="menu-item" href="<?php echo e(action("PlanController@buy")); ?>">
+                                        <i class="fa fa-credit-card" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.plan'); ?>
+                                    </a>
+                                <?php endif; ?>
                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \Waavi\Translation\Models\Language::class)): ?>
                                 <a class="menu-item" href="<?php echo e(action("LanguageController@index")); ?>">
                                     <i class="fa fa-globe" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.languages'); ?>

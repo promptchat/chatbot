@@ -31,7 +31,7 @@
                             </thead>
                             <tbody>
                             <?php $__empty_1 = true; $__currentLoopData = $calendars; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $calendar): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                                <tr>
+                                <tr class="<?php echo e($calendar->limited ? 'limited' : ''); ?>">
                                     <td>
                                         <?php echo e($calendar->name); ?>
 

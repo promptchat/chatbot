@@ -17,7 +17,7 @@
         </thead>
         <tbody>
         <?php $__empty_1 = true; $__currentLoopData = $departments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $department): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-            <tr>
+            <tr class="<?php echo e($department->limited ? 'limited' : ''); ?>">
                 <td><?php echo e($department->name); ?></td>
                 <td class="text-right text-nowrap">
                     <div class="d-inline-flex align-items-center">

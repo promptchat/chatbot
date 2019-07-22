@@ -23,7 +23,7 @@
                             <tr>
                                 <th class="with-100">
                                     <div class="th-label">
-                                        <?php echo app('translator')->getFromJson('site.chat_box.name'); ?>
+                                        <?php echo app('translator')->getFromJson('site.chat_box.name_small'); ?>
                                     </div>
                                 </th>
                                 <th class="with-100">
@@ -41,17 +41,13 @@
                                         <?php echo app('translator')->getFromJson('site.chat_box.chat_bot'); ?>
                                     </div>
                                 </th>
-                                <th class="center-align" style="width: 200px">
-                                    <div class="th-label">
-                                        <?php echo app('translator')->getFromJson('site.chat_box.button_config'); ?>
-                                    </div>
-                                </th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
                             <?php $__empty_1 = true; $__currentLoopData = $agents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $agent): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                                <tr>
+
+                                <tr class="<?php echo e($agent->limited ? 'limited' : ''); ?>">
                                     <td>
                                         <?php echo e($agent->name); ?>
 
@@ -70,10 +66,6 @@
                                     </td>
                                     <td>
                                         <?php echo e($agent->chatUser->name ?? ''); ?>
-
-                                    </td>
-                                    <td>
-                                        <?php echo e($agent->config->name ?? ''); ?>
 
                                     </td>
                                     <td class="text-right text-nowrap">

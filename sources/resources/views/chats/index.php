@@ -31,7 +31,8 @@
                             </thead>
                             <tbody>
                             <?php $__empty_1 = true; $__currentLoopData = $chats; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                                <tr>
+
+                                <tr class="<?php echo e($chat->limited ? 'limited' : ''); ?>">
                                     <td>
                                         <?php echo e($chat->name); ?>
 

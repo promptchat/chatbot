@@ -17,7 +17,9 @@ import ChatCreator from "./components/ChatCreator";
 import Calendar from "./components/Calendar";
 import JsonView from "./components/JsonView";
 import OperatorPanel from "./components/OperatorPanel";
+import PlanCreator from "./components/PlanCreator";
 import './image-input';
+import PlanCount from "./components/PlanCount";
 
 
 
@@ -32,6 +34,8 @@ react.component('chat-creator', ChatCreator);
 react.component('calendar', Calendar);
 react.component('json-view', JsonView);
 react.component('operator-panel', OperatorPanel);
+react.component('plan-count', PlanCount);
+react.component('plan-create', PlanCreator);
 
 react.render();
 

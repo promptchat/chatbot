@@ -73,7 +73,8 @@
                                         </td>
                                     </tr>
                                 <?php else: ?>
-                                    <tr>
+
+                                    <tr class="<?php echo e($user->limited ? 'limited' : ''); ?>">
                                         <td>
                                             <?php echo e($user->name); ?>
 
