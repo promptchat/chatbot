@@ -42,37 +42,38 @@
                             'value' => $user->image_id,
                         ]); ?><?php echo $__env->renderComponent(); ?>
 
+                        <?php if(Gate::allows('live-chat', \Auth::user())): ?>
+                            <?php $__env->startComponent('components.form.checkbox', [
+                               'label' => __('site.user.allow_short_notifications'),
+                               'type' => 'checkbox',
+                               'name' => 'short_notification_allowed',
+                               'value' => $user->short_notification_allowed,
 
-                        <?php $__env->startComponent('components.form.checkbox', [
-                           'label' => __('site.user.allow_short_notifications'),
-                           'type' => 'checkbox',
-                           'name' => 'short_notification_allowed',
-                           'value' => $user->short_notification_allowed,
-
-                       ]); ?><?php echo $__env->renderComponent(); ?>
-
-
-                        <?php $__env->startComponent('components.audio-input',  [
-                            'label' => __('site.user.short_notification'),
-                            'default' => '/audio/notification.mp3',
-                            'name' => 'short_notification_id',
-                            'value' => $user->short_notification_id,
-                        ]); ?><?php echo $__env->renderComponent(); ?>
+                           ]); ?><?php echo $__env->renderComponent(); ?>
 
 
-                        <?php $__env->startComponent('components.form.checkbox', [
-                           'label' => __('site.user.allow_long_notifications'),
-                           'name' => 'bring_notification_allowed',
-                           'value' => $user->bring_notification_allowed,
+                            <?php $__env->startComponent('components.audio-input',  [
+                                'label' => __('site.user.short_notification'),
+                                'default' => '/audio/notification.mp3',
+                                'name' => 'short_notification_id',
+                                'value' => $user->short_notification_id,
+                            ]); ?><?php echo $__env->renderComponent(); ?>
 
-                       ]); ?><?php echo $__env->renderComponent(); ?>
 
-                        <?php $__env->startComponent('components.audio-input',  [
-                            'label' => __('site.user.long_notification'),
-                            'default' => '/audio/bring.mp3',
-                            'name' => 'bring_notification_id',
-                            'value' => $user->bring_notification_id,
-                        ]); ?><?php echo $__env->renderComponent(); ?>
+                            <?php $__env->startComponent('components.form.checkbox', [
+                               'label' => __('site.user.allow_long_notifications'),
+                               'name' => 'bring_notification_allowed',
+                               'value' => $user->bring_notification_allowed,
+
+                           ]); ?><?php echo $__env->renderComponent(); ?>
+
+                            <?php $__env->startComponent('components.audio-input',  [
+                                'label' => __('site.user.long_notification'),
+                                'default' => '/audio/bring.mp3',
+                                'name' => 'bring_notification_id',
+                                'value' => $user->bring_notification_id,
+                            ]); ?><?php echo $__env->renderComponent(); ?>
+                        <?php endif; ?>
                         <?php $__env->startComponent('components.form.input', [
                             'label' => __('site.user.new_password'),
                             'type' => 'password',

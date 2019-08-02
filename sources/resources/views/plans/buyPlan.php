@@ -24,6 +24,9 @@
                                         ]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $limit): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <li ><?php echo app('translator')->getFromJson('site.plan.user.'.$limit); ?>: <strong><?php echo e($plan->{$limit}?:__('site.plan.user.unlimited')); ?></strong></li>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        <?php if($plan->live_chat_enabled): ?>
+                                                <li ><?php echo app('translator')->getFromJson('site.plan.user.live_chat_enabled'); ?></li>
+                                        <?php endif; ?>
                                     </ul>
                                 </div>
                             </div>

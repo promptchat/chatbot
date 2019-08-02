@@ -14,6 +14,7 @@
                             styles="<?php echo e(json_encode($config->getStyleConfigs())); ?>"
                             name="<?php echo e($config->name); ?>"
                             id="<?php echo e($config->id); ?>"
+                            hasLive="<?php echo e($hasLive); ?>"
                             message_notification="<?php echo e($config->messageNotification ? $config->messageNotification->url : url('/audio/notification.mp3')); ?>"
                     />
                 </div>

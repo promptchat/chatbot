@@ -22,19 +22,20 @@
                             </thead>
                             <tbody>
                             <?php $__empty_1 = true; $__currentLoopData = $siteConfigs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $siteConfig): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                                <tr>
-                                    <td>
-                                        <?php echo e($siteConfig->name); ?>
+                                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('update', $siteConfig)): ?>
+                                    <tr>
+                                        <td>
+                                            <?php echo e($siteConfig->name); ?>
 
-                                    </td>
-                                    <td class="text-right text-nowrap">
-                                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('update', $siteConfig)): ?>
-                                            <a href="<?php echo e(action("SiteConfigController@edit", $siteConfig)); ?>" class="action-button">
-                                                <span class="mi mi-edit"></span>
-                                            </a>
-                                        <?php endif; ?>
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td class="text-right text-nowrap">
+                                                <a href="<?php echo e(action("SiteConfigController@edit", $siteConfig)); ?>" class="action-button">
+                                                    <span class="mi mi-edit"></span>
+                                                </a>
+
+                                        </td>
+                                    </tr>
+                                <?php endif; ?>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                                 <tr>
                                     <td colspan="100%">

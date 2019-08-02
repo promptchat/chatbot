@@ -81,9 +81,12 @@
                                 </a>
                             <?php endif; ?>
 
-                            <a class="menu-item" href="<?php echo e('/live-chat'); ?>">
-                                <i class="fa fa-commenting "></i><?php echo app('translator')->getFromJson('site.left_menu.live_chat'); ?>
-                            </a>
+                            <?php if(Gate::allows('live-chat', \Auth::user())): ?>
+                                <a class="menu-item" href="<?php echo e(action("LiveChatController@all")); ?>">
+                                    <i class="fa fa-commenting "></i><?php echo app('translator')->getFromJson('site.left_menu.live_chat'); ?>
+                                </a>
+                            <?php endif; ?>
+
                             <a class="menu-item" href="<?php echo e('/getting-started-guide'); ?>">
                                 <i class="fa fa-book"></i><?php echo app('translator')->getFromJson('site.left_menu.getting_started_guide'); ?>
                             </a>

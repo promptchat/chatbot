@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {clone} from 'lodash';
 import axios from "axios";
-
+const TYPE_LIVE_CHAT = 6;
 export default class PlanCreator extends Component {
     constructor(props) {
         super(...arguments);
@@ -47,6 +47,7 @@ export default class PlanCreator extends Component {
 
     changeLimit(name)  {
         return (e) => {
+
             let value = e.target.value;
             if(value==="" || isFinite(value) && parseInt(value) === +value) {
                 let limits = clone(this.state.limits);
@@ -54,7 +55,9 @@ export default class PlanCreator extends Component {
                 if(+value>0) {
                     delete incorrectValues[name];
                 } else {
-                    incorrectValues[name] = 'Minimum value is 1';
+                    if(name !== 'live_chat_enabled') {
+                        incorrectValues[name] = 'Minimum value is 1';
+                    }
                 }
                 limits[name] = value && +value;
                 this.setState({limits, incorrectValues});
@@ -68,15 +71,22 @@ export default class PlanCreator extends Component {
                 <div className="card">
                     <div className="card-body">
                         {
-                            this.state.items.map(({name, price}) =>
+                            this.state.items.map(({name, price, id}) =>
 
                                 <div className="form-group "  key={name}>
                                     <label htmlFor={name} className="control-label">
                                         {window.translates[name]} (${price}/{window.translates.days})
                                     </label>
+                                    {
+                                        id===TYPE_LIVE_CHAT ?
+                                            <input id="limit_departments" type="checkbox" className="form-control  "
+                                                   checked={this.state.limits[name]}
+                                                   name={name} placeholder="" onChange={this.changeLimit(name)} value={+!this.state.limits[name]} />
 
-                                    <input id="limit_departments" type="text" className="form-control  "
-                                           name={name} placeholder="" onChange={this.changeLimit(name)} value={this.state.limits[name]} />
+                                            :<input id="limit_departments" type="text" className="form-control  "
+                                                                      name={name} placeholder="" onChange={this.changeLimit(name)} value={this.state.limits[name]} />
+                                    }
+
                                     {this.state.incorrectValues[name] &&
                                     <span className="invalid-feedback d-block">
                                         <strong>{this.state.incorrectValues[name]}</strong>

@@ -10,6 +10,7 @@
                                         'limit_chatboxes' => __('site.plan.user.limit_chatboxes'),
                                         'limit_chatbots' => __('site.plan.user.limit_chatbots'),
                                         'limit_calendars' => __('site.plan.user.limit_calendars'),
+                                        'live_chat_enabled' => __('site.plan.user.live_chat_enabled'),
                                         'days' => __('site.plan.user.days_count', ['count' => '30']),
                                         'create' => __('site.plan.user.create_title'),
                                         'create_button' => __('site.plan.user.select')

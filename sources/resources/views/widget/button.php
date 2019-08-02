@@ -6,6 +6,7 @@
         window.baseUrl = "<?php echo e(url('')); ?>" ;
         window.agent = <?php echo $agent; ?>;
         window.messageNotification = "<?php echo $messageNotification; ?>";
+        window.hasLive = "<?php echo $hasLive; ?>";
         window.isMobile = <?php echo request()->get('isMobile'); ?>;
         window.config = <?php echo $config; ?>;
         window.chat = <?php echo $chat; ?>;

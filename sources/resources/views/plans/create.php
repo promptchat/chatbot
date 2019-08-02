@@ -72,6 +72,11 @@
                         ]); ?><?php echo $__env->renderComponent(); ?>
 
                         <?php $__env->startComponent('components.form.checkbox', [
+                            'label' => __('site.plan.live_chat_enabled'),
+                            'name' => 'live_chat_enabled',
+                        ]); ?><?php echo $__env->renderComponent(); ?>
+
+                        <?php $__env->startComponent('components.form.checkbox', [
                             'label' => __('site.plan.visible'),
                             'name' => 'visible',
 

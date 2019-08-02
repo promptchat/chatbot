@@ -43,6 +43,7 @@ export default class Color extends React.Component {
 
         this.state = {
             name: props.name,
+            hasLive: props.hasLive,
             message_notification_id: null,
             message_notification: props.message_notification,
             main_color: styles.main_color,
@@ -308,12 +309,14 @@ export default class Color extends React.Component {
                                 required
                             />
                         </div>
-                        <AudioLoader
-                            onChange={(id) => this.setState({message_notification_id: id})}
-                            label="Message Notification"
-                            default='/audio/notification.mp3'
-                            value={this.state.message_notification}
-                        />
+                        {this.state.hasLive &&
+                            <AudioLoader
+                                onChange={(id) => this.setState({message_notification_id: id})}
+                                label="Message Notification"
+                                default='/audio/notification.mp3'
+                                value={this.state.message_notification}
+                            />
+                        }
                     </div>
                 </div>
                 <div className="row">
@@ -629,7 +632,9 @@ export default class Color extends React.Component {
                                             <div className="icon"
                                                  dangerouslySetInnerHTML={{__html: BOT_ICON}}></div>
                                             <img className="click" src="" alt=""/>
-                                            <span className="click-to shake">{this.getFirstFromSate('click_to_live')}</span>
+                                            {this.state.hasLive &&
+                                                <span className="click-to shake">{this.getFirstFromSate('click_to_live')}</span>
+                                            }
                                         </div>
                                         <div className="back">
                                             <div className="icon"></div>

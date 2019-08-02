@@ -63,7 +63,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="title"><?php echo app('translator')->getFromJson('site.chat_box.department'); ?></label>
+                            <label for="title"><?php echo app('translator')->getFromJson('site.chat_box.department_text'); ?></label>
                             <?php $__env->startComponent('components.select', [
                                 'empty' => __('site.chat_box.none'),
                                 'options' => $departments,
