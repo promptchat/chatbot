@@ -69,6 +69,7 @@
                         <?php echo $__env->make('components.form.select2Multiple', [
                             'label' => __('site.user.departments'),
                             'name' => 'user_departments[]',
+                            'selected' => old('user_departments') ?: $departments->keys()->slice(0,1)->toArray(),
                             'options' => $departments,
                         ], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                     </div>
