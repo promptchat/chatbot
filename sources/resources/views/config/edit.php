@@ -15,7 +15,8 @@
                             name="<?php echo e($config->name); ?>"
                             id="<?php echo e($config->id); ?>"
                             hasLive="<?php echo e($hasLive); ?>"
-                            logo_id="<?php echo e($config->logo ? $config->logo->url : url('/img/default_chat_logo.svg')); ?>"
+                            logo_id="<?php echo e($config->logo_id ? $config->logo_id : null); ?>"
+                            logo="<?php echo e($config->logo ? $config->logo->url : url('/img/default_chat_logo.svg')); ?>"
                             message_notification="<?php echo e($config->messageNotification ? $config->messageNotification->url : url('/audio/notification.mp3')); ?>"
                     />
                 </div>

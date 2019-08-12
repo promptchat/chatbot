@@ -45,7 +45,7 @@ export default class Color extends React.Component {
         this.state = {
             name: props.name,
             logo_id: props.logo_id,
-            logo_url: props.logo_id,
+            logo: props.logo,
             hasLive: props.hasLive,
             message_notification_id: null,
             message_notification: props.message_notification,
@@ -315,10 +315,10 @@ export default class Color extends React.Component {
                             />
                         </div>
                         <ImageLoader
-                            onChange={(id, url) => this.setState({logo_id: id, logo_url: url})}
+                            onChange={(id, url) => this.setState({logo_id: id, logo: url})}
                             label="Chat Logo"
                             default='/img/default_chat_logo.svg'
-                            value={this.state.logo_id}
+                            value={this.state.logo}
                         />
                         {this.state.hasLive &&
                             <AudioLoader
@@ -620,7 +620,7 @@ export default class Color extends React.Component {
                 <div onClick={this.openMenuClicker('header', 'top_header')} className="hover-element top-header d-flex justify-content-space-between align-items-center">
                     <div className="d-flex align-items-center">
                         <div className="logo">
-                            <img src={this.state.logo_url}/>
+                            <img src={this.state.logo}/>
                         </div>
                         <div className="name">{this.getFirstFromSate('header_title')}</div>
                     </div>
