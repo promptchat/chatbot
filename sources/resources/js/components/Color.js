@@ -23,6 +23,7 @@ import ColorPicker from "./ColorPicker";
 import axios from "axios";
 import AudioLoader from "./AudioLoader";
 import TranslateField from "./TranslateField";
+import ImageLoader from "./ImageLoader";
 
 let fonts = [
     'Raleway',
@@ -43,6 +44,8 @@ export default class Color extends React.Component {
 
         this.state = {
             name: props.name,
+            logo_id: props.logo_id,
+            logo_url: props.logo_id,
             hasLive: props.hasLive,
             message_notification_id: null,
             message_notification: props.message_notification,
@@ -125,9 +128,11 @@ export default class Color extends React.Component {
 
         return {
             name: this.state.name,
+            logo_id: this.state.logo_id,
             message_notification_id: this.state.message_notification_id,
             config: data
         }
+
     }
 
     handleChangeColor(attribute) {
@@ -286,7 +291,7 @@ export default class Color extends React.Component {
 
     saveConfigs() {
         if(this.props.id) {
-            axios.post(`/configs/${this.props.id}/update`, this.getData());
+            axios.patch(`/configs/${this.props.id}`, this.getData());
         } else {
             axios.post(`/configs/`, this.getData());
         }
@@ -309,6 +314,12 @@ export default class Color extends React.Component {
                                 required
                             />
                         </div>
+                        <ImageLoader
+                            onChange={(id, url) => this.setState({logo_id: id, logo_url: url})}
+                            label="Chat Logo"
+                            default='/img/default_chat_logo.svg'
+                            value={this.state.logo_id}
+                        />
                         {this.state.hasLive &&
                             <AudioLoader
                                 onChange={(id) => this.setState({message_notification_id: id})}
@@ -609,7 +620,7 @@ export default class Color extends React.Component {
                 <div onClick={this.openMenuClicker('header', 'top_header')} className="hover-element top-header d-flex justify-content-space-between align-items-center">
                     <div className="d-flex align-items-center">
                         <div className="logo">
-                            <div dangerouslySetInnerHTML={{__html: LOGO_ICON}}/>
+                            <img src={this.state.logo_url}/>
                         </div>
                         <div className="name">{this.getFirstFromSate('header_title')}</div>
                     </div>

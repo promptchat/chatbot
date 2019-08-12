@@ -666,10 +666,10 @@ $white: #ffffff;
       height: 50px;
       background: #2E1849;
       color: $white;
-      padding: 0 5px 0 20px;
+      padding: 0 5px 0 10px;
 
       .logo {
-        svg {
+        svg, img {
           width: auto;
           height: 34px;
 
