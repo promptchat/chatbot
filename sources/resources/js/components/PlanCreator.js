@@ -67,9 +67,10 @@ export default class PlanCreator extends Component {
 
     render() {
         return (<div className="row justify-content-center align-items-center" >
-            <div className="col-sm-3">
+            <div className="col-sm-4">
                 <div className="card">
                     <div className="card-body">
+                        <h5 className="card-title text-center">{window.translates.make_your_own}</h5>
                         {
                             this.state.items.map(({name, price, id}) =>
 
@@ -79,6 +80,7 @@ export default class PlanCreator extends Component {
                                     </label>
                                     {
                                         id===TYPE_LIVE_CHAT ?
+
                                             <input id="limit_departments" type="checkbox" className="form-control  "
                                                    checked={this.state.limits[name]}
                                                    name={name} placeholder="" onChange={this.changeLimit(name)} value={+!this.state.limits[name]} />
@@ -114,7 +116,7 @@ export default class PlanCreator extends Component {
                             }
 
                         </ul>
-                        <a onClick={this.createPlan} className="btn btn-primary">{window.translates.create_button}</a>
+                        <button onClick={this.createPlan} className="btn btn-primary">{window.translates.create_button}</button>
                     </div>
                 </div>
             </div>

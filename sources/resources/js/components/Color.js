@@ -46,7 +46,9 @@ export default class Color extends React.Component {
             name: props.name,
             logo_id: props.logo_id,
             logo: props.logo,
-            hasLive: props.hasLive,
+            default_operator_img_id: props.default_operator_img_id,
+            default_operator_img: props.default_operator_img,
+            hasLive: props.has_live,
             message_notification_id: null,
             message_notification: props.message_notification,
             main_color: styles.main_color,
@@ -129,6 +131,7 @@ export default class Color extends React.Component {
         return {
             name: this.state.name,
             logo_id: this.state.logo_id,
+            default_operator_img_id: this.state.default_operator_img_id,
             message_notification_id: this.state.message_notification_id,
             config: data
         }
@@ -321,12 +324,18 @@ export default class Color extends React.Component {
                             value={this.state.logo}
                         />
                         {this.state.hasLive &&
+                            [<ImageLoader
+                                onChange={(id, url) => this.setState({default_operator_img_id: id, default_operator_img: url})}
+                                label="Default operator image"
+                                default='/img/default_operator_img.svg'
+                                value={this.state.default_operator_img}
+                            />,
                             <AudioLoader
                                 onChange={(id) => this.setState({message_notification_id: id})}
                                 label="Message Notification"
                                 default='/audio/notification.mp3'
                                 value={this.state.message_notification}
-                            />
+                            />]
                         }
                     </div>
                 </div>
@@ -639,14 +648,22 @@ export default class Color extends React.Component {
                             <div className="d-flex align-items-center">
                                 <div className="flip-container">
                                     <div className="flipper">
-                                        <div className="front">
-                                            <div className="icon"
-                                                 dangerouslySetInnerHTML={{__html: BOT_ICON}}></div>
-                                            <img className="click" src="" alt=""/>
-                                            {this.state.hasLive &&
-                                                <span className="click-to shake">{this.getFirstFromSate('click_to_live')}</span>
-                                            }
-                                        </div>
+                                        {this.state.hasLive ?
+                                            <div className="front">
+                                                <div className="icon">
+                                                    <img src={this.state.default_operator_img}/>
+                                                </div>
+                                                <img className="click" src="" alt=""/>
+                                                <span
+                                                    className="click-to shake">{this.getFirstFromSate('click_to_live')}</span>
+                                            </div>
+                                            :
+                                            <div className="front">
+                                                <div className="icon"
+                                                     dangerouslySetInnerHTML={{__html: BOT_ICON}}></div>
+                                                <img className="click" src="" alt=""/>
+                                            </div>
+                                        }
                                         <div className="back">
                                             <div className="icon"></div>
                                             <img className="click" src="" alt=""/>

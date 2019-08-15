@@ -16,6 +16,7 @@
                             id="<?php echo e($config->id); ?>"
                             hasLive="<?php echo e($hasLive); ?>"
                             logo_id="<?php echo e($config->logo ? $config->logo->url : url('/img/default_chat_logo.svg')); ?>"
+                            default_operator_img_id="<?php echo e($config->defaultOperatorImg ? $config->defaultOperatorImg->url : url('/img/default_operator_img.svg')); ?>"
                             message_notification="<?php echo e($config->messageNotification ? $config->messageNotification->url : url('/audio/notification.mp3')); ?>"
                     />
                 </div>
