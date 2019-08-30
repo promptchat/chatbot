@@ -85,6 +85,9 @@
                                 <a class="menu-item" href="<?php echo e(action("LiveChatController@all")); ?>">
                                     <i class="fa fa-commenting "></i><?php echo app('translator')->getFromJson('site.left_menu.live_chat'); ?>
                                 </a>
+                                <a class="menu-item" href="<?php echo e(action("LiveChatWaitingUserController@index")); ?>">
+                                    <i class="fa fa-user-times"></i><?php echo app('translator')->getFromJson('site.left_menu.live_chat_waiting_user'); ?>
+                                </a>
                             <?php endif; ?>
 
                             <a class="menu-item" href="<?php echo e('/getting-started-guide'); ?>">

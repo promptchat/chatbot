@@ -19,7 +19,7 @@
                                     </th>
                                     <th>
                                         <div class="th-label">
-                                            <?php echo app('translator')->getFromJson('site.analytic.chat_box'); ?>
+                                            <?php echo app('translator')->getFromJson('site.analytic.operator'); ?>
                                         </div>
                                     </th>
                                     <th>
