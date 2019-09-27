@@ -46,6 +46,7 @@
                                 <td><div class="form-control clear-input-filter"></div></td>
                                 <td><?php $__env->startComponent('components.filter.filterSelect',['name' => 'chat_user_id', 'options' => $userChats]); ?><?php echo $__env->renderComponent(); ?></td>
                                 <td><div class="form-control clear-input-filter"></div></td>
+                                <td><div class="form-control clear-input-filter"></div></td>
                             <?php $__env->endSlot(); ?>
 
                             <?php $__env->slot('data'); ?>
