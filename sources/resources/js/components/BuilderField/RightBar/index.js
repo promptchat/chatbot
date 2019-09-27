@@ -77,31 +77,26 @@ export default class RightBar extends React.PureComponent {
                     <img className={'logo'} src={this.props.logo} alt=""/>
                 </div>
                 <div className="configs">
+                    <div className="navigation-label">{window.translates.create_block}</div>
+                    <ButtonCreation
+                        isCreation={step === STEP_BUTTON_CREATION}
+                        onCancel={this.stopButtonCreation}
+                        onBlockChange={this.onBlockChange}
+                        block={block}
+                        startButtonCreation={this.startButtonCreation}
+                    />
+                    <div className="navigation-label">Template</div>
                     <a
-                        className="button"
-                        onClick={this.startButtonCreation}
-                    >
-                        <i className={`button-icon fa fa-plus`} aria-hidden="true" />
-                        {window.translates.create_block}
-                    </a>
-                    {
-                        step===STEP_BUTTON_CREATION && <ButtonCreation  onCancel={this.stopButtonCreation} onBlockChange={this.onBlockChange} block={block}/>
-                    }
-                    <a
-                        className="button"
+                        className="menu-item"
                         onClick={this.startTemplates}
 
                     ><i className={`button-icon fa fa-download`} aria-hidden="true" />{window.translates.load_from_template}</a>
                     {
                         step===STEP_TEMPLATES && <TemplatesLoader
-
                             setData={this.setData}
                         />
                     }
-                    {/*<a className="button"><i className={`button-icon fa fa-info`} aria-hidden="true" />See instructions</a>*/}
-                    {/*<a className="button"></a>*/}
-                    {/*<a href="" className="button"></a>*/}
-
+                    <div className="navigation-label">Chat configs</div>
                     {this.props.chatConfig}
                 </div>
             </div>

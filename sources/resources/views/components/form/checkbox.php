@@ -1,5 +1,5 @@
 <div class="form-group <?php echo e(isset($class) ? $class : ''); ?>">
-    <div class="custom-control custom-checkbox">
+    <div class="custom-control custom-checkbox d-inline-block">
 
         <input
                type="hidden"

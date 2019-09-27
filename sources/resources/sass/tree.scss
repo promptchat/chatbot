@@ -12,6 +12,174 @@ $danger: red;
 //    border: 1px solid #ccc;
 //}
 
+.ReactModal__Content {
+    width: auto;
+    margin: .5rem;
+    
+    @media (min-width: 576px) {
+        max-width: 500px;
+        margin: 1.75rem auto;
+    }
+    
+    .react-modal-header {
+        margin: -20px -20px 20px;
+        background: #272634;
+        padding: 15px 20px;
+        color: $white;
+    
+        .icon {
+            margin-right: 5px;
+        }
+        
+        .close {
+            color: $white;
+        }
+    }
+    
+    .validation-error {
+        color: red;
+    }
+    
+    .button-config {
+        .button.button-inline {
+            color: white;
+            border: none;
+            border-radius: 50px;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            &.decline,
+            &.accept {
+                width: 55px;
+                height: 30px;
+                line-height: normal;
+            }
+            
+            &.decline {
+                background: transparent;
+                text-decoration: underline;
+                color: red;
+            }
+        }
+    }
+    
+    .sub-configs {
+        .button {
+            padding-left: 35px;
+        }
+    }
+    
+    .check-config {
+        input[type=checkbox] {
+            margin-right: 10px;
+        }
+        color: white;
+        width: 100%;
+    }
+    
+    .message-editor {
+        background-color: white;
+        height: 120px;
+        border: 1px solid #ccc;
+        
+        .ck {
+            border: none!important;
+            box-shadow: none!important;
+        }
+        .ck-content {
+            height: 100%;
+        }
+    }
+    
+    .multi-config {
+        margin-top: 20px;
+    }
+    
+    textarea, input[type=text], select {
+        background-color: white;
+        width: 100%;
+        padding: 5px;
+        min-height: 40px;
+        border-radius: 0;
+    }
+    
+    input.with-action {
+        padding-right: 45px;
+    }
+    
+    .label {
+        font-size: 18px;
+    }
+    
+    .button {
+        cursor: pointer;
+        display: block;
+        font-family: 'Open Sans', sans-serif;
+        line-height: 45px;
+        padding-bottom: 3px;
+        padding-left: 25px;
+        padding-top: 3px;
+        font-size: 14px;
+        text-decoration: none;
+        text-transform: capitalize;
+        color: #858598;
+        outline: none;
+        
+        &:hover {
+            color: #C9C7EF;
+            cursor: pointer;
+        }
+        
+        &:focus {
+            outline: none;
+        }
+        
+        &.button-inline {
+            float: right;
+            margin-top: 5px;
+            margin-left: 10px;
+            
+            .button-icon {
+                margin-right: 0;
+            }
+        }
+        
+        &.action {
+            position: relative;
+            margin-top: -35px;
+            border-radius: 50%;
+            padding: 5px;
+            height: 40px;
+            line-height: 35px;
+            width: 40px;
+            background-color: #F6A500;
+            
+            &.remove {
+                border-radius: 0;
+                margin-top: -40px;
+                background-color: $danger;
+            }
+        }
+        
+        &.accept {
+            background-color: $primary-color;
+        }
+        &.decline {
+            background-color: $danger;
+        }
+        
+        .button-icon {
+            margin-right: 20px;
+            width: 15px;
+            text-align: center;
+        }
+    }
+}
+
 .top-block {
     padding: 15px 25px;
 
@@ -34,8 +202,7 @@ $danger: red;
     position: relative;
 
     $headerHeight: 65px;
-
-
+    
     &.full-screen {
         position: fixed;
         top: $headerHeight;
@@ -44,112 +211,38 @@ $danger: red;
         bottom: 0;
         z-index: 1000;
     }
-
-
-
+    
     .right-bar {
         width: $rightBarWidth;
-        background-color: #ffffff;
+        background-color: #272634;
         height: 100%;
         margin-top: -$headerHeight;
         position: absolute;
         box-shadow: 0 0 10px 0 #888;
         z-index: 5000;
         overflow: hidden;
-
+        
+        label {
+            color: white;
+        }
+        
+        .navigation-label {
+            color: #f1f7ff;
+            font-size: 12px;
+            font-weight: 500;
+            opacity: 1;
+            padding: 25px 25px 5px 15px;
+            margin-bottom: 5px;
+            position: relative;
+        }
+        
         .configs {
-            border-top: 1px solid $borderColor;
-            height: calc(100% - #{2*$headerHeight});
-            width: calc(100% + 20px);
-            overflow-y: scroll;
-
-            .validation-error {
-                color: red;
-            }
-
-            .button-config {
-                padding: 10px 20px 10px 30px;
-                border-bottom: 1px solid #eaeaea;
-
-                .button.button-inline {
-                    color: white;
-                    border: none;
-                    border-radius: 50px;
-                    width: 40px;
-                    height: 40px;
-                    padding: 0;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-
-                    &.decline,
-                    &.accept {
-                        width: 55px;
-                        height: 30px;
-                        line-height: normal;
-                    }
-
-                    &.decline {
-                        background: transparent;
-                        text-decoration: underline;
-                        color: red;
-                    }
-                }
-
-            }
-
-            .sub-configs {
-                .button {
-                    padding-left: 35px;
-                }
-            }
-
-            .check-config {
-                input[type=checkbox] {
-                    margin-right: 10px;
-                }
-                color: white;
-                width: 100%;
-            }
-
-            .message-editor {
-                background-color: white;
-                height: 120px;
-                border: 1px solid #ccc;
-
-                .ck {
-                    border: none!important;
-                    box-shadow: none!important;
-                }
-                .ck-content {
-                    height: 100%;
-                }
-            }
-
-            .multi-config {
-                margin-top: 20px;
-            }
-
-            textarea, input[type=text], select {
-                background-color: white;
-                width: 100%;
-                padding: 5px;
-                min-height: 40px;
-                border-radius: 0;
-            }
-
-            input.with-action {
-                padding-right: 45px;
-            }
-
-            .label {
-                font-size: 18px;
-            }
-
-            .button {
-                cursor: pointer;
+            height: calc(100% - #{$headerHeight});
+            width: 100%;
+            overflow-y: auto;
+    
+            .menu-item {
                 display: block;
-                border-bottom: 1px solid #eaeaea;
                 font-family: 'Open Sans', sans-serif;
                 line-height: 45px;
                 padding-bottom: 3px;
@@ -158,73 +251,29 @@ $danger: red;
                 font-size: 14px;
                 text-decoration: none;
                 text-transform: capitalize;
-                color: #000000;
+                color: $primary-color;
                 outline: none;
-
+        
                 &:hover {
-                    background: $primary-color;
-                    color: white;
+                    color: #C9C7EF;
                     cursor: pointer;
                 }
-
-
-                &.button-inline {
-                    float: right;
-                    margin-top: 5px;
-                    margin-left: 10px;
-
-                    .button-icon {
-                        margin-right: 0;
-                    }
-                }
-                &.action {
-                    position: relative;
-                    margin-top: -35px;
-                    border-radius: 50%;
-                    padding: 5px;
-                    height: 40px;
-                    line-height: 35px;
-                    width: 40px;
-
-                    background-color: #F6A500;
-
-                    &.remove {
-                        border-radius: 0;
-                        margin-top: -40px;
-                        background-color: $danger;
-                    }
-                }
-
-                &.accept {
-                    background-color: $primary-color;
-                }
-                &.decline {
-                    background-color: $danger;
-                }
-
-                .button-icon {
-                    margin-right: 20px;
+        
+                i {
+                    margin-right: 15px;
                     width: 15px;
-                    text-align: center;
                 }
             }
-
         }
     }
-
-
-
+    
     .builder-wrapper {
         width: calc(100% - #{$rightBarWidth});
         height: calc(100% - #{$headerHeight});
         margin-left: $rightBarWidth;
         overflow: scroll;
         position: relative;
-
-
-
-
-
+        
         .builder-block {
             .header {
                 cursor: move;

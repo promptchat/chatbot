@@ -22,174 +22,226 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Playfair+Display|Poppins|Roboto" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Playfair+Display|Poppins|Roboto"
+          rel="stylesheet">
 
 
     <!-- Styles -->
     <link href="<?php echo e(mix('css/app.css')); ?>" rel="stylesheet">
 </head>
 <body class="admin">
-    <div id="app">
-        <header>
-            <div class="container-fluid padding-null">
-                <?php if(auth()->guard()->guest()): ?>
-                    <div></div>
-                <?php else: ?>
-                    <?php if($hiddenMenu ?? false): ?>
-                            <style type="text/css">
-                                .menu {
-                                    display: none;
-                                }
+<div id="app">
+    <header>
+        <div class="container-fluid padding-null">
+            <?php if(auth()->guard()->guest()): ?>
+                <div></div>
+            <?php else: ?>
+                <?php if($hiddenMenu ?? false): ?>
+                    <style type="text/css">
+                        .menu {
+                            display: none;
+                        }
 
-                            </style>
-                    <?php endif; ?>
-                    <div class="menu" >
-                        <div class="top-block">
-                            <div class="icon-close">
-                                <span class="mi mi-close"></span>
-                            </div>
-                            <div class="dashboard-name">
+                    </style>
+                <?php endif; ?>
+                <div class="menu">
+                    <div class="top-block d-flex">
+                        <div class="dashboard-name">
+                            <a href="<?php echo e(action('HomeController@index')); ?>">
                                 <img class="menu-logo" src="<?php echo e(\App\Models\SiteConfig::getLogo()); ?>">
-                            </div>
-                        </div>
-
-                        <ul class="nav-menu">
-                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\Agent::class)): ?>
-                                <a class="menu-item" href="<?php echo e(action("AgentController@index")); ?>">
-                                    <i class="fa fa-plus"></i><?php echo app('translator')->getFromJson('site.left_menu.chat_boxes'); ?>
-                                </a>
-                            <?php endif; ?>
-                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\ChatSession::class)): ?>
-                                <a class="menu-item" href="<?php echo e(action("AnalyticsController@index")); ?>">
-                                    <i class="fa fa-bar-chart"></i><?php echo app('translator')->getFromJson('site.left_menu.analytics'); ?>
-                                </a>
-                            <?php endif; ?>
-                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\Calendar::class)): ?>
-                                <a class="menu-item" href="<?php echo e(action("CalendarController@index")); ?>">
-                                    <i class="fa fa-calendar"></i><?php echo app('translator')->getFromJson('site.left_menu.calendar'); ?>
-                                </a>
-                            <?php endif; ?>
-                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\Config::class)): ?>
-                                <a class="menu-item" href="<?php echo e(action("ConfigController@index")); ?>">
-                                    <i class="fa fa-sliders"></i><?php echo app('translator')->getFromJson('site.left_menu.button_settings'); ?>
-                                </a>
-                            <?php endif; ?>
-                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\ChatUser::class)): ?>
-                                <a class="menu-item" href="<?php echo e(action("ChatController@index")); ?>">
-                                    <i class="fa fa-comments"></i><?php echo app('translator')->getFromJson('site.left_menu.chatbots'); ?>
-                                </a>
-                            <?php endif; ?>
-
-                            <?php if(Gate::allows('live-chat', \Auth::user())): ?>
-                                <a class="menu-item" href="<?php echo e(action("LiveChatController@all")); ?>">
-                                    <i class="fa fa-commenting "></i><?php echo app('translator')->getFromJson('site.left_menu.live_chat'); ?>
-                                </a>
-                                <a class="menu-item" href="<?php echo e(action("LiveChatWaitingUserController@index")); ?>">
-                                    <i class="fa fa-user-times"></i><?php echo app('translator')->getFromJson('site.left_menu.live_chat_waiting_user'); ?>
-                                </a>
-                            <?php endif; ?>
-
-                            <a class="menu-item" href="<?php echo e('/getting-started-guide'); ?>">
-                                <i class="fa fa-book"></i><?php echo app('translator')->getFromJson('site.left_menu.getting_started_guide'); ?>
                             </a>
-
-                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\User::class)): ?>
-                                <a class="menu-item" href="<?php echo e(action("UserController@index")); ?>">
-                                    <i class="fa fa-users" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.users'); ?>
-                                </a>
-                            <?php endif; ?>
-                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('update', Auth::user()->company)): ?>
-                                <?php if(Auth::user()->isCompanyAdmin()): ?>
-                                    <a class="menu-item" href="<?php echo e(action("CompanyController@edit", Auth::user()->company_id)); ?>">
-                                        <i class="fa fa-building" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.my_company'); ?>
-                                    </a>
-                                <?php endif; ?>
-                            <?php endif; ?>
-                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\Company::class)): ?>
-                                <a class="menu-item" href="<?php echo e(action("CompanyController@index")); ?>">
-                                    <i class="fa fa-building" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.customer_accounts'); ?>
-                                </a>
-                            <?php endif; ?>
-                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\SiteConfig::class)): ?>
-                                <a class="menu-item" href="<?php echo e(action("SiteConfigController@index")); ?>">
-                                    <i class="fa fa-cogs" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.site_configs'); ?>
-                                </a>
-                            <?php endif; ?>
-                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\Plan::class)): ?>
-                                <a class="menu-item" href="<?php echo e(action("PlanController@index")); ?>">
-                                    <i class="fa fa-credit-card" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.plans'); ?>
-                                </a>
-
-                            <?php endif; ?>
-                                <?php if(Auth::user()->isCompanyAdmin()): ?>
-                                    <a class="menu-item" href="<?php echo e(action("PlanController@buy")); ?>">
-                                        <i class="fa fa-credit-card" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.plan'); ?>
-                                    </a>
-                                <?php endif; ?>
-                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \Waavi\Translation\Models\Language::class)): ?>
-                                <a class="menu-item" href="<?php echo e(action("LanguageController@index")); ?>">
-                                    <i class="fa fa-globe" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.languages'); ?>
-                                </a>
-                            <?php endif; ?>
-                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \Waavi\Translation\Models\Translation::class)): ?>
-                                <a class="menu-item" href="<?php echo e(action("TranslationController@index")); ?>">
-                                    <i class="fa fa-language" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.translates'); ?>
-                                </a>
-                            <?php endif; ?>
-                        </ul>
+                        </div>
+                        <div class="icon-close">
+                            <i class="fa fa-toggle-on"></i>
+                        </div>
                     </div>
 
-                    <div class="grey-header dynamic-content">
+                    <ul class="nav-menu">
+                        <div class="navigation-label">Bot</div>
+                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\Agent::class)): ?>
+                            <a class="menu-item" href="<?php echo e(action("AgentController@index")); ?>">
+                                <i class="fa fa-plus text-success"></i><?php echo app('translator')->getFromJson('site.left_menu.chat_boxes'); ?>
+                            </a>
+                        <?php endif; ?>
+                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\ChatSession::class)): ?>
+                            <a class="menu-item" href="<?php echo e(action("AnalyticsController@index")); ?>">
+                                <i class="fa fa-bar-chart text-primary"></i><?php echo app('translator')->getFromJson('site.left_menu.analytics'); ?>
+                            </a>
+                        <?php endif; ?>
+                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\Calendar::class)): ?>
+                            <a class="menu-item" href="<?php echo e(action("CalendarController@index")); ?>">
+                                <i class="fa fa-calendar text-warning"></i><?php echo app('translator')->getFromJson('site.left_menu.calendar'); ?>
+                            </a>
+                        <?php endif; ?>
+                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\Config::class)): ?>
+                            <a class="menu-item" href="<?php echo e(action("ConfigController@index")); ?>">
+                                <i class="fa fa-sliders text-danger"></i><?php echo app('translator')->getFromJson('site.left_menu.button_settings'); ?>
+                            </a>
+                        <?php endif; ?>
+                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\ChatUser::class)): ?>
+                            <a class="menu-item" href="<?php echo e(action("ChatController@index")); ?>">
+                                <i class="fa fa-comments text-info"></i><?php echo app('translator')->getFromJson('site.left_menu.chatbots'); ?>
+                            </a>
+                        <?php endif; ?>
+                        <div class="navigation-label">Live chat</div>
+                        <?php if(Gate::allows('live-chat', \Auth::user())): ?>
+                            <a class="menu-item" href="<?php echo e(action("LiveChatController@all")); ?>">
+                                <i class="fa fa-commenting "></i><?php echo app('translator')->getFromJson('site.left_menu.live_chat'); ?>
+                            </a>
+                            <a class="menu-item" href="<?php echo e(action("LiveChatWaitingUserController@index")); ?>">
+                                <i class="fa fa-user-times"></i><?php echo app('translator')->getFromJson('site.left_menu.live_chat_waiting_user'); ?>
+                            </a>
+                        <?php endif; ?>
+
+                        <a class="menu-item" href="<?php echo e('/getting-started-guide'); ?>">
+                            <i class="fa fa-book"></i><?php echo app('translator')->getFromJson('site.left_menu.getting_started_guide'); ?>
+                        </a>
+                        <div class="navigation-label">Company</div>
+                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\User::class)): ?>
+                            <a class="menu-item" href="<?php echo e(action("UserController@index")); ?>">
+                                <i class="fa fa-users" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.users'); ?>
+                            </a>
+                        <?php endif; ?>
+                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('update', Auth::user()->company)): ?>
+                            <?php if(Auth::user()->isCompanyAdmin()): ?>
+                                <a class="menu-item"
+                                   href="<?php echo e(action("CompanyController@edit", Auth::user()->company_id)); ?>">
+                                    <i class="fa fa-building"
+                                       aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.my_company'); ?>
+                                </a>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\Company::class)): ?>
+                            <a class="menu-item" href="<?php echo e(action("CompanyController@index")); ?>">
+                                <i class="fa fa-building"
+                                   aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.customer_accounts'); ?>
+                            </a>
+                        <?php endif; ?>
+
+                        <?php if(Auth::user()->isSuperAdmin()): ?>
+                            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
+                               class="dropdown-toggle menu-item">
+                                <i class="fa fa-user-circle"></i>
+                                Admin
+                            </a>
+                        <?php endif; ?>
+                        <ul class="collapse list-unstyled sub-menu" id="homeSubmenu">
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\SiteConfig::class)): ?>
+                                <li>
+                                    <a class="menu-item sub-item" href="<?php echo e(action("SiteConfigController@index")); ?>">
+                                        <i class="fa fa-cogs"
+                                           aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.site_configs'); ?>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\Plan::class)): ?>
+                                <li>
+                                    <a class="menu-item sub-item" href="<?php echo e(action("PlanController@index")); ?>">
+                                        <i class="fa fa-credit-card"
+                                           aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.plans'); ?>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                            <?php if(Auth::user()->isCompanyAdmin()): ?>
+                                <li>
+                                    <a class="menu-item sub-item" href="<?php echo e(action("PlanController@buy")); ?>">
+                                        <i class="fa fa-credit-card" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.plan'); ?>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \Waavi\Translation\Models\Language::class)): ?>
+                                <li>
+                                    <a class="menu-item sub-item" href="<?php echo e(action("LanguageController@index")); ?>">
+                                        <i class="fa fa-globe" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.languages'); ?>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \Waavi\Translation\Models\Translation::class)): ?>
+                                <li>
+                                    <a class="menu-item sub-item" href="<?php echo e(action("TranslationController@index")); ?>">
+                                        <i class="fa fa-language"
+                                           aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.translates'); ?>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
+                    </ul>
+                </div>
+
+                <div class="white-header dynamic-content">
                         <span class="brand-name">
-                          <i class="fa fa-bars icon-menu burger" aria-hidden="true" ></i>
-                          <span class="name"><?php echo $__env->yieldContent('page-name'); ?></span>
+                          <i class="fa fa-toggle-off icon-menu burger" aria-hidden="true"></i>
+                          <span class="name d-inline-block">
+                              <nav aria-label="breadcrumb">
+                                  <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="#">Library</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Data</li>
+                                  </ol>
+                              </nav>
+                          </span>
                         </span>
-                        <span class="right-user-name pull-right d-flex">
+                    <span class="right-user-name pull-right d-flex">
                             <div class="dropdown">
-                                <button class="btn shadow-none dropdown-toggle" type="button" id="dropdownLangButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button class="btn shadow-none dropdown-toggle" type="button" id="dropdownLangButton"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <?php echo e($currentLanguage); ?>
 
                                  </button>
 
                                 <div class="dropdown-menu" aria-labelledby="dropdownLangButton">
                                     <?php $__currentLoopData = $locales; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $language): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <a class="dropdown-item" href="<?php echo e(action("UserController@changeLanguage", $key)); ?>"><?php echo e($language); ?></a>
+                                        <a class="dropdown-item"
+                                           href="<?php echo e(action("UserController@changeLanguage", $key)); ?>"><?php echo e($language); ?></a>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </div>
                             </div>
 
                             <div class="dropdown">
-                                <button class="btn shadow-none dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button class="btn shadow-none dropdown-toggle" type="button" id="dropdownMenuButton"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <?php echo e(Auth::user()->name); ?>
 
                                  </button>
 
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="<?php echo e(action("UserController@editPersonalData", Auth::user())); ?>"><?php echo app('translator')->getFromJson('site.edit_my_profile'); ?></a>
-                                    <a class="dropdown-item" href="<?php echo e(route('logout')); ?>"
-                                     onclick="event.preventDefault();
-                                     document.getElementById('logout-form').submit();"
-                                    ><?php echo app('translator')->getFromJson('site.log_out'); ?></a>
-                                    <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;">
-                                        <?php echo e(csrf_field()); ?>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton"
+                                     style="top: initial;">
+                                    <div class="box-sm">
+                                        <div class="login-box clearfix">
+                                            <div class="user-img">
+                                                <img src="/img/no-image.png" alt="" style="width:100%">
+                                            </div>
+                                            <div class="user-info">
+                                                <span>Michael Lee</span>
+                                                <a class=""
+                                                   href="<?php echo e(action("UserController@editPersonalData", Auth::user())); ?>">
+                                                    <?php echo app('translator')->getFromJson('site.edit_my_profile'); ?>
+                                                    </a>
+                                                <a href="#" title="View notifications">View notifications</a>
+                                            </div>
+                                        </div>
 
-                                    </form>
+                                        <div class="button-pane text-center">
+                                            <a href="#" class="btn btn-danger d-block">
+                                                <i class="glyph-icon icon-power-off"></i> Logout
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </span>
-                    </div>
-                <?php endif; ?>
-            </div>
-        </header>
-
-        <div class="content dynamic-content">
-            <div class="container-fluid padding-null">
-                <div class="page-content">
-                    <?php echo $__env->yieldContent('content'); ?>
                 </div>
+            <?php endif; ?>
+        </div>
+    </header>
+
+    <div class="content dynamic-content">
+        <div class="container-fluid padding-null">
+            <div class="page-content">
+                <?php echo $__env->yieldContent('content'); ?>
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>

@@ -200,6 +200,14 @@ var main = function() {
 
         $('.burger').show();
     });
+
+    $('.settings-button').on('click', function(){
+
+    });
+
+
 };
+
+
 
 $(document).ready(main);
