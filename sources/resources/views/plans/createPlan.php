@@ -17,7 +17,7 @@
                                         'make_your_own' => __('site.plan.user.make_your_own'),
                                     ]) ->toJson(); ?>;
     </script>
-<div class="container">
+<div class="">
 
 
 

@@ -2,8 +2,19 @@
     <?php echo app('translator')->getFromJson("site.plan.page_title"); ?>
 <?php $__env->stopSection(); ?>
 
+<?php $__env->startSection('breadcrumbs'); ?>
+    <?php echo $__env->make('components.breadcrumbs', [
+        'elements' => [
+            [
+                'url' => action('PlanController@index'),
+                'name' => __('site.plan.page_title')
+            ],
+        ],
+    ], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
-    <div class="container">
+    <div class="">
         <div class="card">
             <div class="card-body">
                 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('create', \App\Models\Plan::class)): ?>

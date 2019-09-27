@@ -2,11 +2,23 @@
     <?php echo app('translator')->getFromJson("site.analytic.page_title"); ?>
 <?php $__env->stopSection(); ?>
 
+<?php $__env->startSection('breadcrumbs'); ?>
+    <?php echo $__env->make('components.breadcrumbs', [
+        'elements' => [
+            [
+                'url' => action('AnalyticsController@index'),
+                'name' => __('site.analytic.page_title')
+            ],
+        ],
+    ], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->stopSection(); ?>
+
+
 <?php $__env->startSection('content'); ?>
     <script>
         window.translates = <?php echo $translates; ?>;
     </script>
-    <div class="container">
+    <div class="">
         <div class="card">
             <div class="card-body">
                 <div class="row">

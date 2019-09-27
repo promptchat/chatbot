@@ -365,7 +365,7 @@ body {
   }
 
   .nav-menu {
-    margin: 0;
+    margin-bottom: 150px;
     padding: 0;
     background-color: #272634;
 
@@ -379,7 +379,7 @@ body {
       font-size: 14px;
       text-decoration: none;
       text-transform: capitalize;
-      color: $primary-color;
+      color: $text-color;
       outline: none;
       //transition: 0.5s;
 
@@ -407,7 +407,7 @@ body {
   .icon-close {
     cursor: pointer;
     float: right;
-    color: $primary-color;
+    color: $text-color;
     padding-top: 5px;
     font-size: 20px !important;
   }
@@ -419,7 +419,7 @@ body {
   background: #fff;
   display: flex;
   align-items: center;
-  color: $primary-color;
+  color: $text-color;
   justify-content: space-between;
 
   .icon-menu {
@@ -454,7 +454,7 @@ body {
 
     .dropdown-toggle {
       background: transparent;
-      color: $primary-color;
+      color: $text-color;
       font-size: 14px;
       font-weight: 600;
 
@@ -547,11 +547,11 @@ body {
 }
 
 .btn-primary {
-  background-color: $primary-color;
-  border-color: $primary-color;
+  background-color: $text-color;
+  border-color: $text-color;
 
   &:hover {
-    background-color: $primary-color;
+    background-color: $text-color;
   }
 }
 
@@ -769,7 +769,7 @@ body {
         border-radius: 2px;
         margin: 5px;
         padding: 5px 10px;
-        background-color: $primary-color;
+        background-color: $text-color;
         color: $white;
         box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.14), 0 3px 4px 0 rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
       }
@@ -1199,7 +1199,7 @@ body {
   border: 1px solid #dfe8f1;
 }
 
-* {
+*, button {
   outline: none;
 }
 
@@ -1256,7 +1256,66 @@ body {
 
 a {
   &, &:active, &:hover, &:focus {
-    color: $primary-color;
+    color: $text-color;
     text-decoration: none;
+  }
+}
+
+.stat-card{
+  border-radius: 5px;
+}
+
+.calendar-block{
+  background: rgba(255, 255, 255, 0.7);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.rbc-calendar .rbc-toolbar{
+  padding-top: 1.5rem!important;
+  padding-bottom: 1.5rem!important;
+}
+
+.rbc-toolbar button {
+  padding: .5rem!important;
+  border-radius:13px;
+  border-color: grey;
+}
+
+.rbc-btn-group > button:not(:first-child):not(:last-child) {
+  border-radius: 0;
+}
+
+.rbc-toolbar-label{
+  font-size: 20px;
+}
+
+.rbc-day-bg.holiday {
+  background: #fff;
+}
+
+.rbc-day-bg.holiday.rbc-off-range-bg{
+  background-color: #f5f5f5;
+}
+
+.btn-primary {
+  background: #00afaf;
+}
+
+button{
+  &:active, &:focus{
+    outline: none;
+  }
+}
+
+.time-wrapper{
+  width:auto;
+}
+
+.time-wrapper > input{
+
+  &:focus{
+    border: 1px solid grey!important;
+    border-radius: 5px!important;
   }
 }

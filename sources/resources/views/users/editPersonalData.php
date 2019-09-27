@@ -2,6 +2,17 @@
     <?php echo app('translator')->getFromJson("site.user.page_title"); ?>
 <?php $__env->stopSection(); ?>
 
+<?php $__env->startSection('breadcrumbs'); ?>
+    <?php echo $__env->make('components.breadcrumbs', [
+        'elements' => [
+            [
+                'url' => action('UserController@editPersonalData', $user),
+                'name' => __('site.user.page_title')
+            ],
+        ],
+    ], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
     
     

@@ -2,9 +2,24 @@
     <?php echo app('translator')->getFromJson("site.chat_box.page_title"); ?>
 <?php $__env->stopSection(); ?>
 
+<?php $__env->startSection('breadcrumbs'); ?>
+    <?php echo $__env->make('components.breadcrumbs', [
+        'elements' => [
+            [
+                'url' => action('AgentController@index'),
+                'name' => __('site.chat_box.page_title')
+            ],
+            [
+                'url' => action('AgentController@create'),
+                'name' => __('site.buttons.add')
+            ]
+        ],
+    ], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
 
-<div class="container">
+<div class="">
     <form
             role="form"
             method="post"

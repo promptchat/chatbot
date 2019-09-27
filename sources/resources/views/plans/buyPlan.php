@@ -3,7 +3,7 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-<div class="container">
+<div class="">
     <form action="<?php echo e(action('PaymentController@create', $plan)); ?>">
         <div class="row">
 

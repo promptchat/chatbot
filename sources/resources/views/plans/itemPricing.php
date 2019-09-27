@@ -2,8 +2,23 @@
     <?php echo app('translator')->getFromJson("site.plan.page_title_item"); ?>
 <?php $__env->stopSection(); ?>
 
+<?php $__env->startSection('breadcrumbs'); ?>
+    <?php echo $__env->make('components.breadcrumbs', [
+        'elements' => [
+            [
+                'url' => action('PlanController@index'),
+                'name' => __('site.plan.page_title')
+            ],
+            [
+                'url' => action('PlanController@itemPricing'),
+                'name' => __('site.plan.page_title_item')
+            ],
+        ],
+    ], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
-<div class="container">
+<div class="">
     <form
             role="form"
             method="post"

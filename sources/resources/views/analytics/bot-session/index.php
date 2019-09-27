@@ -1,9 +1,24 @@
 <?php $__env->startSection('page-name'); ?>
-    <?php echo app('translator')->getFromJson("site.analytic.page_title"); ?>
+    <?php echo app('translator')->getFromJson("site.analytic.page_title_bots"); ?>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('breadcrumbs'); ?>
+    <?php echo $__env->make('components.breadcrumbs', [
+        'elements' => [
+            [
+                'url' => action('AnalyticsController@index'),
+                'name' => __('site.analytic.page_title')
+            ],
+            [
+                'url' => action('AnalyticsController@indexBotSessionStatistic'),
+                'name' => __('site.analytic.page_title_bots')
+            ],
+        ],
+    ], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-    <div class="container">
+    <div class="">
         <div class="card">
             <div class="card-body">
                 <div class="row">
@@ -28,7 +43,8 @@
                                         </td>
                                         <td class="text-right text-nowrap">
                                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view', $chatUser)): ?>
-                                                <a href="<?php echo e(action("AnalyticsController@showBotSessionStatistic", $chatUser)); ?>" class="action-button">
+                                                <a href="<?php echo e(action("AnalyticsController@showBotSessionStatistic", $chatUser)); ?>"
+                                                   class="action-button">
                                                     <span class="mi mi-remove-red-eye"></span>
                                                 </a>
                                             <?php endif; ?>

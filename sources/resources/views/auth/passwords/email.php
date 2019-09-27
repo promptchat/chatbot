@@ -1,6 +1,6 @@
 <?php $__env->startSection('content'); ?>
 
-    <div class="container">
+    <div class="">
         <div class="authorization-form">
             <div class="card ">
                 <div class="card-body">
