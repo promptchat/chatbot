@@ -3,6 +3,7 @@ import 'bootstrap-datepicker';
 import 'bootstrap-datepicker/js/locales/bootstrap-datepicker.ru';
 import 'daemonite-material/js/material';
 import "select2/dist/js/select2";
+import 'simplebar';
 
 
 import ReactLoader from 'react-loader';

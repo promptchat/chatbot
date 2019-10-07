@@ -19,44 +19,30 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="table-responsive">
-                            <table class="table table-sm">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        <div class="th-label">
-                                            <?php echo app('translator')->getFromJson('site.analytic.chat_box'); ?>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div class="th-label">
-                                            <?php echo app('translator')->getFromJson('site.analytic.ip'); ?>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div class="th-label">
-                                            <?php echo app('translator')->getFromJson('site.analytic.url'); ?>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div class="th-label">
-                                            <?php echo app('translator')->getFromJson('site.analytic.messages'); ?>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div class="th-label">
-                                            <?php echo app('translator')->getFromJson('site.analytic.last_active'); ?>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div class="th-label">
-                                            <?php echo app('translator')->getFromJson('site.analytic.user_email'); ?>
-                                        </div>
-                                    </th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
+                        <?php $__env->startComponent('components.grid', ['filterAction' => action('LiveChatWaitingUserController@index')]); ?>
+                            <?php $__env->slot('header'); ?>
+                                <th scope="col">@sortablelink('agent_id', __('site.analytic.chat_box'))</th>
+                                <th scope="col">@sortablelink('ip', __('site.analytic.ip'))</th>
+                                <th scope="col">@sortablelink('url', __('site.analytic.url'))</th>
+                                <th scope="col">@sortablelink('messages_count', __('site.analytic.messages'))</th>
+                                <th scope="col">@sortablelink('last_active', __('site.analytic.last_active'))</th>
+                                <th scope="col">@sortablelink('user_email', __('site.analytic.user_email'))</th>
+                                <th scope="col" class="small-column text-center">
+                                    <a href="<?php echo e(action('LiveChatWaitingUserController@index')); ?>"><i class="fa fa-paint-brush" aria-hidden="true"></i></a>
+                                </th>
+                            <?php $__env->endSlot(); ?>
+
+                            <?php $__env->slot('filters'); ?>
+                                <td><?php $__env->startComponent('components.filter.filterSelect',['name' => 'agent_id', 'options' => $agents]); ?><?php echo $__env->renderComponent(); ?></td>
+                                <td><?php $__env->startComponent('components.filter.filterInput', ['name' => 'ip']); ?><?php echo $__env->renderComponent(); ?></td>
+                                <td><?php $__env->startComponent('components.filter.filterInput', ['name' => 'url']); ?><?php echo $__env->renderComponent(); ?></td>
+                                <td><?php $__env->startComponent('components.filter.filterInput', ['name' => 'messages_count']); ?><?php echo $__env->renderComponent(); ?></td>
+                                <td><?php $__env->startComponent('components.filter.filterInput', ['name' => 'last_active', 'class' => 'datepicker']); ?><?php echo $__env->renderComponent(); ?></td>
+                                <td><?php $__env->startComponent('components.filter.filterInput', ['name' => 'user_email']); ?><?php echo $__env->renderComponent(); ?></td>
+                                <td><div class="form-control clear-input-filter"></div></td>
+                            <?php $__env->endSlot(); ?>
+
+                            <?php $__env->slot('data'); ?>
                                 <?php $__empty_1 = true; $__currentLoopData = $chatSessions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chatSession): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                     <tr>
                                         <td>
@@ -98,11 +84,12 @@
                                         </td>
                                     </tr>
                                 <?php endif; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                        <?php echo e($chatSessions->appends(Request::input())->links()); ?>
+                            <?php $__env->endSlot(); ?>
+                            <?php $__env->slot('paginator'); ?>
+                                <?php echo $chatSessions->appends(\Request::except('page'))->render(); ?>
 
+                            <?php $__env->endSlot(); ?>
+                        <?php echo $__env->renderComponent(); ?>
                     </div>
                 </div>
             </div>

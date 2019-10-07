@@ -12,6 +12,7 @@
 @import "~react-times/css/material/default.css";
 @import "~select2/dist/css/select2.css";
 @import "chat-window";
+@import '~simplebar/dist/simplebar.css';
 
 
 .datepicker {
@@ -240,6 +241,12 @@ code {
       border: 1px solid #dee2e6;
       vertical-align: middle;
     }
+  
+    td, th {
+      height: auto;
+      padding-top: 0.275rem;
+      padding-bottom: 0.275rem;
+    }
   }
   
   thead {
@@ -365,14 +372,13 @@ body {
   }
 
   .nav-menu {
-    margin-bottom: 150px;
     padding: 0;
     background-color: #272634;
 
     .menu-item {
       display: block;
       font-family: 'Open Sans', sans-serif;
-      line-height: 45px;
+      line-height: 35px;
       padding-bottom: 3px;
       padding-left: 25px;
       padding-top: 3px;
@@ -381,17 +387,30 @@ body {
       text-transform: capitalize;
       color: $text-color;
       outline: none;
-      //transition: 0.5s;
+      position: relative;
 
       &:hover {
         color: #C9C7EF;
         cursor: pointer;
-        //transition: 0.5s;
       }
 
       i {
         margin-right: 15px;
         width: 15px;
+      }
+      
+      .badge {
+        line-height: normal;
+        border-radius: 50%;
+        position: absolute;
+        top: 8px;
+        right: 29px;
+        width: 25px;
+        height: 25px;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
 
@@ -477,7 +496,7 @@ body {
     &:active,
     &:focus,
     &:hover {
-      background-color: #dc1156;;
+      background-color: #dc1156;
       color: white;
     }
   }
@@ -555,11 +574,31 @@ body {
   }
 }
 
+.form-control:focus,
+.custom-select:focus,
+.form-control-file:focus,
 .form-control:hover,
 .custom-select:hover,
 .form-control-file:hover {
   border-color: rgba($primary-color-rgb, 0.87);
-  box-shadow: inset 0 -2px 0 -1px rgba($primary-color-rgb, 0.87);
+  box-shadow: none;
+}
+
+.form-control, .custom-select {
+  border-radius: 3px;
+  font-size: 13px;
+  display: block;
+  background-color: #fff;
+  float: none;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  color: #2b2f33;
+  border: 1px solid #dfe8f1;
+}
+
+label {
+  color: $primary-color;
 }
 
 /* fixed left menu style*/
@@ -743,6 +782,8 @@ body {
   }
 }
 
+
+
 .blink {
   animation: blinker 1s linear infinite;
 
@@ -757,7 +798,22 @@ body {
 .operator-page {
   line-height: normal;
 
+  .tab-pane{
+    width: 100%;
+  }
+
   .panel {
+    .message-info{
+      padding: 0;
+      margin: 0;
+      max-height: 350px;
+    }
+
+    .conversation-type{
+      padding: 2px;
+      background: #272634;
+    }
+
     .chats-list {
       list-style: none;
       padding-left: 0;
@@ -766,17 +822,29 @@ body {
 
       li {
         cursor: pointer;
-        border-radius: 2px;
-        margin: 5px;
+        border-radius: 0px;
+        margin: 1px;
         padding: 5px 10px;
-        background-color: $text-color;
-        color: $white;
+        background-color: #e5e6ea;
+        color: black;
         box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.14), 0 3px 4px 0 rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
       }
 
       li.blink {
         background-color: red;
       }
+
+      li.unread {
+        background-color: green;
+      }
+
+      li.active {
+        background-color: lightcoral;
+      }
+    }
+
+    .no-messages{
+      color: grey;
     }
 
     .operator-list {
@@ -786,12 +854,16 @@ body {
 
       li {
         display: inline-block;
-        padding: 5px;
-        background-color: $white;
-        color: $black;
-        border-radius: 15px;
+        background-color: transparent;
         margin: 0 5px 5px 0;
         box-shadow: none;
+        padding:0;
+
+        img {
+          border-radius: 50%;
+          width: 40px;
+          height: 40px;
+        }
       }
     }
   }
@@ -1010,7 +1082,7 @@ body {
 
     &:hover,
     &.active {
-      background: #dc1156;;
+      background: #dc1156;
       color: white;
       cursor: pointer;
     }
@@ -1078,10 +1150,22 @@ body {
 
 .name .breadcrumb {
   background: #fff;
-  padding-top: 2rem;
+  min-height: 32px;
+  border-radius: 0;
+  padding: 0;
+  margin-bottom: 0;
 
   .breadcrumb-item {
     font-size: 14px !important;
+    
+    a {
+      color: $primary-color;
+      
+      &:hover,
+      &:focus {
+        color: $black;
+      }
+    }
   }
 }
 
@@ -1090,13 +1174,14 @@ body {
 }
 
 .navigation-label {
-  color: #f1f7ff;
+  color: rgba(255,255,255,.5);
   font-size: 12px;
-  font-weight: 500;
+  font-weight: bold;
   opacity: 1;
-  padding: 25px 25px 5px 15px;
+  padding: 15px 25px 5px 15px;
   margin-bottom: 5px;
   position: relative;
+  text-transform: uppercase;
 }
 
 .sub-menu {
@@ -1186,18 +1271,6 @@ body {
   min-height: 225px;
 }
 
-.form-control {
-  border-radius: 3px;
-  font-size: 13px;
-  display: block;
-  float: none;
-  background: #fff;
-  width: 100%;
-  height: 34px;
-  padding: 6px 12px;
-  color: #2b2f33;
-  border: 1px solid #dfe8f1;
-}
 
 *, button {
   outline: none;
@@ -1315,4 +1388,16 @@ button{
     border: 1px solid grey!important;
     border-radius: 5px!important;
   }
+}
+
+.round-btn{
+  border-radius: 50px;
+}
+
+.tab-pane .position-relative{
+  min-height:640px;
+}
+
+.operator-page .chat {
+  min-height: 640px;
 }

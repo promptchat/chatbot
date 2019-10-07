@@ -65,7 +65,7 @@ class DatePickerInput extends React.Component {
     render() {
         return (
             <button
-                className="btn btn-primary text-uppercase"
+                className="btn btn-primary text-uppercase round-btn"
                 onClick={this.props.onClick}>
                 {window.translates.move_to_another_day}
             </button>
@@ -576,13 +576,10 @@ export default class Calendar extends React.Component {
                     style={customStyles}
                     contentLabel="Example Modal"
                 >
-                    <button className="btn btn-link p-1 pull-right" style={{minWidth: 'auto'}} onClick={() => {
-                        this.setState({activeDay: null})
-                    }}><span className="mi mi-close"></span>
-                    </button>
+
                     {this.state.activeDay && (
                         this.state.special ?
-                            <div style={{width: 600}}>
+                            <div style="width: 400px">
                                 <h3>{moment(this.state.activeDay).format('DD/MM/YYYY')}</h3>
 
                                 <div className="custom-control custom-checkbox">
@@ -632,10 +629,19 @@ export default class Calendar extends React.Component {
                                 </div>
                             </div> :
                             <div>
-                                <div style={{width: 600}}>
-                                    <h3>{moment(this.state.activeDay).format('DD/MM/YYYY ')}
-                                        <a onClick={() => this.setState({special: true})}> {window.translates.click_to_set_special_schedule}</a>
-                                    </h3>
+                                <div style={{width: 440}}>
+                                    <div className='react-modal-header d-flex justify-content-between'>
+                                        <h3>{moment(this.state.activeDay).format('DD/MM/YYYY ')}<br/>
+                                            <a onClick={() => this.setState({special: true})}> {window.translates.click_to_set_special_schedule}</a>
+                                        </h3>
+                                        <div className="close">
+                                            <button className="btn btn-link p-1 pull-right close"
+                                                    style={{minWidth: 'auto'}} onClick={() => {
+                                                this.setState({activeDay: null})
+                                            }}><i className="fa fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                     <div className="d-flex align-items-center mt-2 mb-3">
                                         <h4 className="d-inline-block m-0">{window.translates.create_event}</h4>
                                         <div className="d-inline-block ml-4">
@@ -650,7 +656,7 @@ export default class Calendar extends React.Component {
                                     <div>
                                         <div className="row my-2">
                                             <div className="col-sm-6">
-                                                <div className="pull-left">{window.translates.from}</div>
+                                                <div className="pull-left"><u>{window.translates.from}</u></div>
                                                 <div className="time-wrapper pl-5">
                                                     <TimeInputMask
                                                         style={inputMaskModalStyle}
@@ -660,7 +666,7 @@ export default class Calendar extends React.Component {
                                                 </div>
                                             </div>
                                             <div className="col-sm-6">
-                                                <div className="pull-left">{window.translates.to}</div>
+                                                <div className="pull-left"><u>{window.translates.to}</u></div>
                                                 <div className="time-wrapper pl-5">
                                                     <TimeInputMask
                                                         style={inputMaskModalStyle}
@@ -750,12 +756,12 @@ export default class Calendar extends React.Component {
                                             <div className="col-sm-12 bottom-btn">
                                                 <button
                                                     onClick={this.deleteEvent}
-                                                    className="btn btn-primary pull-left text-uppercase"
+                                                    className="btn btn-primary pull-left text-uppercase round-btn"
                                                 >
                                                     {window.translates.delete}
                                                 </button>
                                                 <button onClick={this.saveEvent}
-                                                        className="btn btn-primary pull-right text-uppercase"
+                                                        className="btn btn-primary pull-right text-uppercase round-btn"
                                                 >
                                                     {window.translates.save}
                                                 </button>

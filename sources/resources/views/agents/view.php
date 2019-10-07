@@ -35,12 +35,6 @@
                 <?php echo e($agent->getWidget()); ?>
 
             </code>
-
-            <div class="row">
-                <div class="col s12">
-                    <a href="<?php echo e(action("AgentController@preview", $agent)); ?>" class="btn btn-primary text-uppercase pull-right"><?php echo app('translator')->getFromJson('site.buttons.preview'); ?></a>
-                </div>
-            </div>
         </div>
     </div>
 </div>

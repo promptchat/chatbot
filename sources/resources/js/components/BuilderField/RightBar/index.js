@@ -76,7 +76,7 @@ export default class RightBar extends React.PureComponent {
                     </a>
                     <img className={'logo'} src={this.props.logo} alt=""/>
                 </div>
-                <div className="configs">
+                <div className="configs" data-simplebar>
                     <div className="navigation-label">{window.translates.create_block}</div>
                     <ButtonCreation
                         isCreation={step === STEP_BUTTON_CREATION}

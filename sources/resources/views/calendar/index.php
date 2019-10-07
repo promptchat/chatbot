@@ -32,7 +32,9 @@
                         <?php $__env->startComponent('components.grid', ['filterAction' => action('CalendarController@index')]); ?>
                             <?php $__env->slot('header'); ?>
                                 <th scope="col">@sortablelink('name', __('site.calendar.calendar_name'))</th>
-                                <th></th>
+                                <th scope="col" class="small-column text-center">
+                                    <a href="<?php echo e(action('CalendarController@index')); ?>"><i class="fa fa-paint-brush" aria-hidden="true"></i></a>
+                                </th>
                             <?php $__env->endSlot(); ?>
 
                             <?php $__env->slot('filters'); ?>

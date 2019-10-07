@@ -602,3 +602,60 @@
     }
   }
 }
+
+.sidebar {
+  height: auto;
+  width: 35%;
+  background: #efedec;
+  position: relative;
+
+  .block {
+    border-bottom: 5px solid #fff;
+  }
+
+  .head .image > img {
+    width: 50px;
+    border-radius: 50px;
+  }
+
+  .head > i {
+    font-size: 20px;
+  }
+
+  .head > a {
+    display: flex;
+    align-items: center;
+
+    i{
+      font-size: 24px;
+    }
+  }
+
+  .bottom {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    border-top: 5px solid #fff;
+    padding: 19px;
+
+    a:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.user-img > img {
+  width: 50px;
+}
+
+.operator-image{
+  width: 50px;
+  height:50px;
+  border-radius:50%;
+}
+
+.input-change-name {
+  width: 100px;
+  text-align: center;
+}
+

@@ -156,6 +156,13 @@
                                     <?php echo e(method_field('PATCH')); ?>
 
                                     <div class="py-3 fields">
+                                        <div class="my-3 text-center">
+                                            <?php $__env->startComponent('components.image-input',  [
+                                                            'label' => __('site.user.photo'),
+                                                            'name' => 'image_id',
+                                                            'value' => $user->image_id,
+                                                        ]); ?><?php echo $__env->renderComponent(); ?>
+                                        </div>
                                         <div class="my-3">
                                             <?php $__env->startComponent('components.form.input', [
                                                 'label' => __('site.user.name'),
@@ -176,13 +183,13 @@
                                                 'required' => true
                                             ]); ?><?php echo $__env->renderComponent(); ?>
                                         </div>
-
-
-
-
-
-
-
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
                                     </div>
                                     <div class="text-center">
                                         <div class="action-block py-3">
