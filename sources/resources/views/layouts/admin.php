@@ -208,9 +208,12 @@
                                         </div>
 
                                         <div class="button-pane text-center">
-                                            <a href="#" class="btn btn-danger d-block">
+                                            <form action="<?php echo e(route('logout')); ?>" method="POST">
+                                                <?php echo csrf_field(); ?>
+                                            <a class="btn btn-danger d-block" id="logout-btn">
                                                 <i class="glyph-icon icon-power-off"></i> Logout
                                             </a>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

@@ -171,6 +171,11 @@ $(document).ready(function(){
             }
         });
     });
+
+    $('#logout-btn').on('click', function() {
+        var form = $(this).parents('form:first');
+        form.submit()
+    })
 });
 
 var main = function() {
@@ -208,6 +213,7 @@ var main = function() {
 
 
 };
+
 
 
 
