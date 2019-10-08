@@ -2,11 +2,26 @@
     <?php echo app('translator')->getFromJson('site.button_setting.page_title'); ?>
 <?php $__env->stopSection(); ?>
 
+<?php $__env->startSection('breadcrumbs'); ?>
+    <?php echo $__env->make('components.breadcrumbs', [
+        'elements' => [
+            [
+                'url' => action('ConfigController@index'),
+                'name' => __('site.button_setting.page_title')
+            ],
+            [
+                'url' => action('ConfigController@edit', $config),
+                'name' => __('site.buttons.edit')
+            ],
+        ],
+    ], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
     <script>
         window.translates = <?php echo $translates; ?>;
     </script>
-    <div class="container">
+    <div class="">
         <div class="card">
             <div class="card-body">
                 <div class="form-group">

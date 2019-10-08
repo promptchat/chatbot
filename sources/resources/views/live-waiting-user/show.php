@@ -2,8 +2,23 @@
     <?php echo app('translator')->getFromJson("site.left_menu.live_chat_waiting_user"); ?>
 <?php $__env->stopSection(); ?>
 
+<?php $__env->startSection('breadcrumbs'); ?>
+    <?php echo $__env->make('components.breadcrumbs', [
+        'elements' => [
+            [
+                'url' => action('LiveChatWaitingUserController@index'),
+                'name' => __('site.left_menu.live_chat_waiting_user')
+            ],
+            [
+                'url' => action('LiveChatWaitingUserController@show', $chatSession),
+                'name' => __('site.left_menu.live_chat_waiting_user_show')
+            ],
+        ],
+    ], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
-    <div class="container">
+    <div class="">
         <div class="card">
             <div class="card-body">
                 <div class="row">

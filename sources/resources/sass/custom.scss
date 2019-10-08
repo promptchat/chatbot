@@ -9,10 +9,11 @@ $screen-992: 992px;
 $dark-blue: #00A0B8;
 $white-blue: #00DAEA;
 $orange-text: #FF7840;
-$blue-text: #00A0B8;
+$dark-text: #272634;
 $grey-text: #676767;
 $card-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-$btn-color: $dark-blue;
+$btn-color: #858598;
+$main: #272634;
 $background-color: #f4f4f4;
 
 * {
@@ -33,6 +34,7 @@ body {
 
 .content {
   flex: 1 0 auto;
+  margin-top: 25px;
 
   @media (max-width: $screen-992) {
     margin-top: 85px;
@@ -146,8 +148,8 @@ body {
     color: $orange-text;
 }
 
-.blue-text {
-    color: $blue-text;
+.dark-text {
+    color: $dark-text;
 }
 
 .my-card {
@@ -185,7 +187,12 @@ header {
     }
 
     .navbar-light {
+      background-color: $main;
       padding: 0 1rem 1rem;
+
+      .dropdown-toggle {
+        color: $white;
+      }
 
       .navbar-brand {
         padding-top: 0;
@@ -314,7 +321,7 @@ header {
   .big-text {
     font-size: 36px;
     text-transform: uppercase;
-    color: $dark-blue;
+    color: $dark-text;
 
     @media (max-width: $screen-768) {
       font-size: 26px;
@@ -322,7 +329,7 @@ header {
   }
 
   .main-line {
-    background: $white-blue;
+    background: $main;
     margin-left: 0;
     margin-right: 0;
     padding: 5px 0;
@@ -360,7 +367,7 @@ header {
     margin: 0 0 10px;
 
     .big-text {
-      color: $white-blue;
+      color: $dark-text;
       font-size: 25px;
       line-height: 27px;
       margin-bottom: 10px;

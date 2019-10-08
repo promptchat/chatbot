@@ -3,6 +3,7 @@ import 'bootstrap-datepicker';
 import 'bootstrap-datepicker/js/locales/bootstrap-datepicker.ru';
 import 'daemonite-material/js/material';
 import "select2/dist/js/select2";
+import 'simplebar';
 
 
 import ReactLoader from 'react-loader';
@@ -21,6 +22,7 @@ import PlanCreator from "./components/PlanCreator";
 import PlanCount from "./components/PlanCount";
 
 import './image-input';
+import $ from "jquery";
 
 
 
@@ -170,6 +172,29 @@ $(document).ready(function(){
             }
         });
     });
+
+    $('#logout-btn').on('click', function() {
+        var form = $(this).parents('form:first');
+        form.submit()
+    })
+
+    $('.image-input-btn').on('change', function() {
+        let $this = $(this);
+        let $form =  $this.parents('form')
+        let formData = new FormData(); // Currently empty
+        formData.append('image', this.files[0]);
+        $.ajax({
+            url: $form.attr('action'),
+            data: formData,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+        }).then((response) => {
+            let url = response.url;
+            $form.find('img').attr('src', url);
+
+        })
+    })
 });
 
 var main = function() {
@@ -200,6 +225,15 @@ var main = function() {
 
         $('.burger').show();
     });
+
+    $('.settings-button').on('click', function(){
+
+    });
+
+
 };
+
+
+
 
 $(document).ready(main);

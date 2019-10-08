@@ -4,7 +4,7 @@
 
 <?php $__env->startSection('content'); ?>
 
-<div class="container">
+<div class="">
     <form
             role="form"
             method="post"

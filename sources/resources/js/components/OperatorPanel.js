@@ -1,19 +1,22 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import axios from 'axios';
-import {clone, find, remove} from 'lodash';
+import {clone, find, remove, filter} from 'lodash';
 import ChatSessions from "./ChatSessions";
 import {Howl, Howler} from 'howler';
 import classnames from 'classnames';
-
+import Messages from "./Messages";
 
 export default class OperatorPanel extends Component {
     state = {
         departments: JSON.parse(this.props.departments),
         chatConfigs: JSON.parse(this.props.configs),
         clients: [],
-        sessions: [],
-        open: null
+        sessions: new Set([]),
+        open: null,
+        sessionId: null,
+        chatsType: 1,
     };
+
 
     constructor() {
         super(...arguments);
@@ -36,64 +39,72 @@ export default class OperatorPanel extends Component {
 
     }
 
-    onNameChange(clientId, name) {
-        this.setState(({sessions, clients}) => {
-            let newState = {};
-            let newSessions = clone(sessions);
-            let session = find(newSessions, {id: clientId});
-            if(session) {
-                session.name = name;
-                newState.sessions = newSessions
-            }
+    onNameChange(name) {
+        this.setState(({clients}) => {
             let newClients = clone(clients);
-            let client = find(newClients, {id: clientId});
+            let client = find(newClients, {id: this.state.sessionId});
 
-            if(client) {
+            if (client) {
                 client.name = name;
-                newState.sessions = newSessions
             }
 
-
-
-            return newState
+            return {
+                clients: newClients
+            }
         })
     }
 
-    takeAPart(clientId) {
-        axios.post('/api/take-part/'+clientId)
-            .then(({data}) => {
-                this.setState(({sessions, open}) => {
-                    let session = data.session;
-                    let newState = {};
-                    if(!find(sessions, {id: data.session.id})) {
-                        let newSessions = clone(sessions);
-                        newSessions.push(session);
-                        newState = {
-                            sessions: newSessions
-                        }
-                    }
-                    newState.open = [session.id];
+    open(clientId) {
+        this.setState(({clients}) => {
+            let newClients = clone(clients);
+            let currentClient = find(newClients, {id: clientId});
+            currentClient.has_unread_messages = false;
+            return {
+                clients: newClients,
+                sessionId: clientId
+            }
+        })
 
-                    return newState
+    }
+
+    takeAPart(clientId) {
+        axios.post('/api/take-part/' + clientId)
+            .then(({data}) => {
+                this.setState(({sessions}) => {
+                    let session = data.session;
+                    let newSessions = new Set([...sessions]);
+                    newSessions.add(session.id);
+
+
+                    return {
+                        sessions: newSessions,
+                    }
+                }, () => {
+                    this.open(clientId)
                 })
             });
 
     }
 
-    leave(clientId) {
-        axios.post('/api/leave/'+clientId)
+    leave() {
+        axios.post('/api/leave/' + this.state.sessionId)
             .then(({}) => {
-                this.setState(({sessions}) => {
-                    let newState = {sessions: clone(sessions)};
-                    remove(newState.sessions, {id: clientId});
-                    return newState
+                this.setState(({sessions, sessionId}) => {
+
+                    let newSessions = new Set([...sessions]);
+                    newSessions.delete(sessionId);
+
+                    return {
+                        sessionId: null,
+                        sessions: newSessions
+                    }
                 })
             });
 
     }
 
     checkSound() {
-        if(this.state.chatConfigs.bring_notification_allowed) {
+        if (this.state.chatConfigs.bring_notification_allowed) {
             if (find(this.state.clients, (a) => a.last_message_from_user && !a.operators.length)) {
                 if (!this.bringId) {
                     this.bringId = this.bring.play();
@@ -111,7 +122,7 @@ export default class OperatorPanel extends Component {
     }
 
     shortAlert() {
-        if(this.state.chatConfigs.short_notification_allowed) {
+        if (this.state.chatConfigs.short_notification_allowed) {
             this.sound.play();
         }
     }
@@ -123,66 +134,94 @@ export default class OperatorPanel extends Component {
 
                 this.setState({
                     clients: data.clients,
-                    sessions: data.sessions
+                    sessions: new Set(data.sessions)
                 });
 
             });
 
+        window.Echo.private('Operator.' + this.props.operator)
+
+            .listen('ClientNewMessage', ({client}) => {
+
+                this.setState(({sessionId, clients}) => {
+
+                    if (sessionId !== client.id) {
+                        let newClients = clone(clients);
+                        let currentClient = find(newClients, {id: client.id});
+                        if (currentClient) {
+                            this.shortAlert();
+                            currentClient.has_unread_messages = true;
+                            return {
+                                clients: newClients
+                            };
+                        }
+                    }
+                });
+            })
+
         this.state.departments.map((departmentId) => {
-            window.Echo.private('Department.'+departmentId)
+            window.Echo.private('Department.' + departmentId)
                 .listen('NewUserConnected', ({client}) => {
-                    this.setState((state) => {
-                        // noinspection EqualityComparisonWithCoercionJS
-                        if(!state.clients.find(({id}) => client.id == id)) {
-                            let newState = clone(state);
+                    this.setState(({clients}) => {
+                        if (!clients.find(({id}) => +client.id === +id)) {
+                            let newClients = clone(clients);
                             client.name = client.names[this.props.operator];
-                            newState.clients.splice(0,0,client);
-                            return newState;
+                            newClients.splice(0, 0, client);
+                            return {
+                                clients: newClients
+                            };
                         }
                     });
                 })
                 .listen('NewUserDisconnected', ({client}) => {
-                    this.setState((state) => {
-                        let newState = clone(state);
-                        remove(newState.clients, {id:client.id});
-                        return newState;
+                    this.setState(({clients}) => {
+                        let newClients = clone(clients);
+                        remove(newClients, {id: client.id});
+                        return {
+                            clients: newClients
+                        };
                     });
                 })
                 .listen('NewLiveChatMessage', ({client}) => {
-                    this.setState((state) => {
-                        let newState = clone(state);
-                        let currentClient = find(newState.clients, {id:client.id});
-                        if(currentClient) {
+                    this.setState(({clients}) => {
+                        let newClients = clone(clients);
+                        let currentClient = find(newClients, {id: client.id});
+                        if (currentClient) {
                             this.shortAlert();
                             currentClient.last_message_from_user = client.last_message_from_user;
-                            return newState;
+                            return {
+                                clients: newClients
+                            };
                         }
                     });
                 })
                 .listen('NewOperatorInChat', ({operator, client}) => {
 
-                    this.setState((state) => {
-                        let newState = clone(state);
-                        let currentClient = find(newState.clients, {id:client.id});
-                        if(currentClient) {
-                            // noinspection EqualityComparisonWithCoercionJS
-                            if(!currentClient.operators.find(({id}) => operator.id == id)) {
+                    this.setState(({clients}) => {
+                        let newClients = clone(clients);
+                        let currentClient = find(newClients, {id: client.id});
+                        if (currentClient) {
+                            if (!currentClient.operators.find(({id}) => +operator.id === +id)) {
                                 currentClient.operators.push(operator);
-                                return newState;
+                                return {
+                                    clients: newClients
+                                };
                             }
                         }
                     });
                 })
-               .listen('OperatorLeaveChat', ({operator, client}) => {
+                .listen('OperatorLeaveChat', ({operator, client}) => {
 
-                    this.setState((state) => {
-                        let newState = clone(state);
-                        let currentClient = find(newState.clients, {id:client.id});
-                        if(currentClient) {
-                            // noinspection EqualityComparisonWithCoercionJS
-                            remove(currentClient.operators, (({id}) => operator.id == id));
+                    this.setState(({clients}) => {
+                        let newClients = clone(clients);
+                        let currentClient = find(newClients, {id: client.id});
+                        if (currentClient) {
+                            remove(currentClient.operators, (({id}) => +operator.id === +id));
                             currentClient.last_message_from_user = client.last_message_from_user;
-                            return newState;
+                            return {
+                                clients: newClients
+                            };
+
                         }
                     });
                 })
@@ -190,11 +229,107 @@ export default class OperatorPanel extends Component {
         })
     }
 
+    render() {
+        let clients = clone(this.state.clients);
+        clients.sort((a, b) => {
+            let aWeight = a.last_message_from_user && !a.operators.length ? 1 : 0;
+            let bWeight = b.last_message_from_user && !b.operators.length ? 1 : 0;
+            return bWeight - aWeight;
+        });
+
+        let sessions = filter(clients, ({id}) => this.state.sessions.has(id));
+        let activeSession = find(sessions, {id: this.state.sessionId});
+
+        return (
+            <div className={'row operator-page'}>
+                <div className={'col-md-4 panel'}>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <div className="card mb-3 conversation">
+                                <div className="card-header text-center conversation-type">
+                                    <h5 className="text-white"><strong>{window.translates.my_chats}</strong></h5>
+                                </div>
+                                <div className="card-body message-info">
+                                    <ul className="chats-list">
+                                        {this.state.sessions.size ?
+                                            sessions
+                                                .map((session) => {
+                                                    return (
+                                                        <ClientCard
+                                                            checkUnread
+                                                            active={session.id === this.state.sessionId}
+                                                            key={session.id}
+                                                            onClick={() => {
+                                                                this.open(session.id)
+                                                            }}
+                                                            client={session}
+                                                            operator={this.props.operator}
+                                                            shortAlert={this.shortAlert}
+                                                            hasUnread={this.hasUnread}
+                                                        />)
+                                                })
+                                            : <div className="no-messages text-center">
+                                                {window.translates.no_active_chats}
+                                            </div>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-12">
+                            <div className={'card mb-3 conversation'}>
+                                <div className="card-header text-center conversation-type">
+                                    <h5 className="text-white"><strong>{window.translates.all_chats}</strong></h5>
+                                </div>
+                                <div className={'card-body message-info'}>
+                                    <ul className={'chats-list'}>
+                                        {
+                                            clients
+                                                .map((client) => {
+                                                    return (
+                                                        <ClientCard
+                                                            key={client.id}
+                                                            onClick={() => {
+                                                                this.takeAPart(client.id)
+                                                            }}
+                                                            client={client}
+                                                        />
+                                                    )
+                                                })
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className={'col-md-8 sessions'}>
+                    <div className={'card'}>
+                        <div className={'card-body'}>
+                            {activeSession && <Messages
+                                onNameChange={this.onNameChange}
+                                key={activeSession.id}
+                                operator={this.props.operator}
+                                leave={this.leave}
+                                session={activeSession}
+                            />}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+
+class ClientCard extends React.PureComponent {
+    state = {
+
+    };
 
     getClientName(client) {
         let name = [];
 
-        if(client.geo && client.geo.iso) {
+        if (client.geo && client.geo.iso) {
             let geo = client.geo;
             name.push(<img src={`/flags/${geo.iso.toLowerCase()}.gif`} className={'mr-1'} key="flag"/>);
             name.push(<span key={'country '} className={'font-italic mr-1'}>{geo.city}, {geo.country}</span>);
@@ -204,67 +339,37 @@ export default class OperatorPanel extends Component {
         return name
     }
 
+
     render() {
-        let clients = clone(this.state.clients);
-        clients.sort((a,b) => {
-            let aWeight = a.last_message_from_user && !a.operators.length ? 1 : 0;
-            let bWeight = b.last_message_from_user && !b.operators.length ? 1 : 0;
-            return bWeight - aWeight;
-        });
+        let {client} = this.props;
+
         return (
-            <div className={'row operator-page'}>
-                <div className={'col-md-4 panel'}>
-                    <div className={'card mb-3'}>
-                        <div className={'card-body'}>
-                            <h5>{window.translates.operator_panel}</h5>
-                            <ul className={'chats-list'}>
-                                {
-                                        clients
-                                        .map((client) => {
-                                            return (
-                                                <li
-                                                    key={client.id}
-                                                    onClick={() => {
-                                                            this.takeAPart(client.id)
-                                                    }}
-                                                    className={classnames({blink: client.last_message_from_user && !client.operators.length})}
-                                                >
-                                                <div>
-                                                    <div>
-                                                        {this.getClientName(client)}
-                                                    </div>
-                                                    {client.url}
-                                                </div>
-                                                <ul className={'operator-list'}>
-                                                    {client.operators.map(({name, id}) =>
-                                                        <li key={id}>
-                                                            {name}
-                                                        </li>
-                                                    )}
-                                                </ul>
-                                            </li>)
-                                        })
-                                }
-                            </ul>
+            <li
+                onClick={this.props.onClick}
+                className={classnames({
+                    blink: client.last_message_from_user && !client.operators.length,
+                    unread: this.props.checkUnread && client.has_unread_messages,
+                    active: this.props.active
+                })}
+            >
+                <div className="">
+                    <div>
+                        <div>
+                            {this.getClientName(client)}
                         </div>
+                        <strong>
+                            {client.url}
+                        </strong>
                     </div>
+                    <ul className={'operator-list'}>
+                        {client.operators.map(({name, id, image}) =>
+                            <li key={id}>
+                                <img src={location.origin + '/storage/' + image.path} title={name}/>
+                            </li>
+                        )}
+                    </ul>
                 </div>
-                <div className={'col-md-8 sessions'}>
-                    <div className={'card'}>
-                        <div className={'card-body'}>
-                            <h5>{window.translates.sessions}</h5>
-                            <ChatSessions
-                                shortAlert={this.shortAlert}
-                                leave={this.leave}
-                                operator={this.props.operator}
-                                open={this.state.open}
-                                onNameChange={this.onNameChange}
-                                sessions={this.state.sessions}
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </li>
         )
     }
 }

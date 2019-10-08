@@ -2,9 +2,24 @@
     <?php echo app('translator')->getFromJson("site.site_config.page_title"); ?>
 <?php $__env->stopSection(); ?>
 
+<?php $__env->startSection('breadcrumbs'); ?>
+    <?php echo $__env->make('components.breadcrumbs', [
+        'elements' => [
+            [
+                'url' => action('SiteConfigController@index'),
+                'name' => __('site.site_config.page_title')
+            ],
+            [
+                'url' => action('SiteConfigController@edit', $siteConfig),
+                'name' => __('site.buttons.edit')
+            ],
+        ],
+    ], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
 
-    <div class="container">
+    <div class="">
         <form
                 role="form"
                 method="post"
