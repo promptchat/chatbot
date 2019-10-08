@@ -111,17 +111,37 @@
                 <div class="card-img-top profile-back">
                     <div class="image-content">
                         <div class="meta-box text-white">
-                            <div class="meta-image">
-                                <img src="/img/no-image.png" alt="" class="img-bordered img-circle">
+                            <div class="meta-image text-center">
+                                <form action="<?php echo e(action('UserController@editProfileImage', $user->id)); ?>">
+                                    <label>
+                                        <input style="display:none" type="file" class="image-input-btn">
+                                        <img class="img-circle" src="<?php echo e($user->image->url ?? '/img/no-image.png'); ?>"
+                                             alt="">
+                                        <br/>
+                                        <span><i>(click to edit)</i></span>
+                                    </label>
+                                </form>
                                 <h3 class="my-2"><?php echo e($user->name); ?></h3>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="info-block">Departmemt</div>
-                    <div class="info-block">Role</div>
-                    <div class="info-block">Company</div>
+                    <table class="personal-info">
+                        <tr>
+                            <th>Company</th>
+                            <td><?php echo e($user->company->name); ?></td>
+                        </tr>
+                        <tr>
+                            <th>Departments</th>
+                            <td><?php echo e($user->departments()->pluck('name')->join(' ')); ?></td>
+                        </tr>
+                        <tr>
+                            <th>Role</th>
+                            <td><?php echo e($user->getUserRole()); ?></td>
+                        </tr>
+
+                    </table>
                 </div>
             </div>
         </div>
@@ -136,13 +156,23 @@
                     </a>
                 </li>
                 <li class="col-md-3 nav-btn">
-                    <a href="#menu1" data-toggle="tab" data-toggle="tab">
+                    <a href="#menu2" data-toggle="tab" data-toggle="tab">
                         <div class="text-center nav-tab-button py-2">
-                            <i class="fa fa-cog"></i><br/>
-                            <strong>Settings</strong>
+                            <i class="fa fa-bell"></i><br/>
+                            <strong>Notifications</strong>
                         </div>
                     </a>
                 </li>
+                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('update', $user)): ?>
+                    <li class="col-md-3 nav-btn">
+                        <a href="#menu1" data-toggle="tab" data-toggle="tab">
+                            <div class="text-center nav-tab-button py-2">
+                                <i class="fa fa-cog"></i><br/>
+                                <strong>Settings</strong>
+                            </div>
+                        </a>
+                    </li>
+                <?php endif; ?>
             </ul>
 
             <div class="tab-content mt-3" id="nav-tabContent">
@@ -156,13 +186,6 @@
                                     <?php echo e(method_field('PATCH')); ?>
 
                                     <div class="py-3 fields">
-                                        <div class="my-3 text-center">
-                                            <?php $__env->startComponent('components.image-input',  [
-                                                            'label' => __('site.user.photo'),
-                                                            'name' => 'image_id',
-                                                            'value' => $user->image_id,
-                                                        ]); ?><?php echo $__env->renderComponent(); ?>
-                                        </div>
                                         <div class="my-3">
                                             <?php $__env->startComponent('components.form.input', [
                                                 'label' => __('site.user.name'),
@@ -183,13 +206,6 @@
                                                 'required' => true
                                             ]); ?><?php echo $__env->renderComponent(); ?>
                                         </div>
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
                                     </div>
                                     <div class="text-center">
                                         <div class="action-block py-3">
@@ -235,7 +251,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="menu1" class="tab-pane fade" role="tabpanel" style="padding-right:40px;">
+                <div id="menu2" class="tab-pane fade" role="tabpanel">
                     <div class="row">
                         <div class="col-md-6 form-field form-box">
                             <form action="<?php echo e(action('UserController@updateSettingsData', $user)); ?>" method="POST">
@@ -291,6 +307,46 @@
                         </div>
                     </div>
                 </div>
+                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('update', $user)): ?>
+                    <div id="menu1" class="tab-pane fade" role="tabpanel">
+                        <div class="row">
+                            <div class="col-md-6 form-field form-box">
+                                <form action="<?php echo e(action('UserController@updateSpecificData', $user)); ?>" method="POST">
+                                    <?php echo e(csrf_field()); ?>
+
+                                    <?php echo e(method_field('PATCH')); ?>
+
+                                    <div class="py-3">
+                                        <?php echo $__env->make('components.form.select2Multiple', [
+                                           'label' => __('site.user.departments'),
+                                           'name' => 'user_departments[]',
+                                           'options' => $departments,
+                                           'selected' => $user->userDepartments->pluck('department_id')->toArray()
+                                       ], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                        <?php if(!$user->isSuperAdmin()): ?>
+                                            <div class="form-group">
+                                                <label for="title"><?php echo app('translator')->getFromJson("site.user.role"); ?></label>
+                                                <?php $__env->startComponent('components.select', [
+                                                    'empty' => __('site.user.select_role'),
+                                                    'options' => $userRoles,
+                                                    'name' => 'role',
+                                                    'default' => $user->role
+                                                ]); ?><?php echo $__env->renderComponent(); ?>
+                                                <?php $__env->startComponent('components.errors', ['field' => "role"]); ?><?php echo $__env->renderComponent(); ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="action-block py-3">
+                                            <button type="submit"
+                                                    class="btn btn-primary text-uppercase"><?php echo app('translator')->getFromJson('site.buttons.save'); ?></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>

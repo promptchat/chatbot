@@ -839,7 +839,7 @@ label {
       }
 
       li.active {
-        background-color: lightcoral;
+        background-color: #92b1ca;
       }
     }
 
@@ -1237,6 +1237,7 @@ label {
 .img-circle {
   width: 88px;
   border-radius: 50%;
+  height: 88px;
 }
 
 .info-block {
@@ -1400,4 +1401,10 @@ button{
 
 .operator-page .chat {
   min-height: 640px;
+}
+
+.personal-info {
+  th {
+    padding-right: 15px
+  }
 }

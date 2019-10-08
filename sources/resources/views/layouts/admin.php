@@ -195,7 +195,7 @@
                                     <div class="box-sm">
                                         <div class="login-box clearfix">
                                             <div class="user-img">
-                                                <img src="/img/no-image.png" alt="" style="width:100%">
+                                                <img src="<?php echo e(Auth::user()->image->url ?? '/img/no-image.png'); ?>" alt="" style="width:100%">
                                             </div>
                                             <div class="user-info">
                                                 <span><?php echo e(Auth::user()->name); ?></span>
@@ -203,14 +203,13 @@
                                                    href="<?php echo e(action("UserController@editPersonalData", Auth::user())); ?>">
                                                     <?php echo app('translator')->getFromJson('site.edit_my_profile'); ?>
                                                     </a>
-                                                <a href="#" title="View notifications">View notifications</a>
                                             </div>
                                         </div>
 
                                         <div class="button-pane text-center">
                                             <form action="<?php echo e(route('logout')); ?>" method="POST">
                                                 <?php echo csrf_field(); ?>
-                                            <a class="btn btn-danger d-block" id="logout-btn">
+                                            <a class="btn btn-danger d-block text-white" id="logout-btn">
                                                 <i class="glyph-icon icon-power-off"></i> Logout
                                             </a>
                                             </form>
