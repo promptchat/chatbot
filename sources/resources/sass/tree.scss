@@ -1,0 +1,608 @@
+@import "./mixins";
+@import "./variables";
+
+$incomeMessageColor: #dec384;
+$borderColor: #eaeaea;
+$rightBarWidth: 285px;
+$danger: red;
+
+//input[type=text],
+//textarea,
+//select {
+//    border: 1px solid #ccc;
+//}
+
+.ReactModal__Content {
+    width: auto;
+    margin: .5rem;
+    
+    @media (min-width: 576px) {
+        max-width: 500px;
+        margin: 1.75rem auto;
+    }
+    
+    .react-modal-header {
+        margin: -20px -20px 20px;
+        background: #272634;
+        padding: 15px 20px;
+        color: $white;
+    
+        .icon {
+            margin-right: 5px;
+        }
+        
+        .close {
+            color: $white;
+        }
+    }
+    
+    .validation-error {
+        color: red;
+    }
+    
+    .button-config {
+        .button.button-inline {
+            color: white;
+            border: none;
+            border-radius: 50px;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            &.decline,
+            &.accept {
+                width: 55px;
+                height: 30px;
+                line-height: normal;
+            }
+            
+            &.decline {
+                background: transparent;
+                text-decoration: underline;
+                color: red;
+            }
+        }
+    }
+    
+    .sub-configs {
+        .button {
+            padding-left: 35px;
+        }
+    }
+    
+    .check-config {
+        input[type=checkbox] {
+            margin-right: 10px;
+        }
+        color: white;
+        width: 100%;
+    }
+    
+    .message-editor {
+        background-color: white;
+        height: 120px;
+        border: 1px solid #ccc;
+        
+        .ck {
+            border: none!important;
+            box-shadow: none!important;
+        }
+        .ck-content {
+            height: 100%;
+        }
+    }
+    
+    .multi-config {
+        margin-top: 20px;
+    }
+    
+    textarea, input[type=text], select {
+        background-color: white;
+        width: 100%;
+        padding: 5px;
+        min-height: 40px;
+        border-radius: 0;
+    }
+    
+    input.with-action {
+        padding-right: 45px;
+    }
+    
+    .label {
+        font-size: 18px;
+    }
+    
+    .button {
+        cursor: pointer;
+        display: block;
+        font-family: 'Open Sans', sans-serif;
+        line-height: 45px;
+        padding-bottom: 3px;
+        padding-left: 25px;
+        padding-top: 3px;
+        font-size: 14px;
+        text-decoration: none;
+        text-transform: capitalize;
+        color: #858598;
+        outline: none;
+        
+        &:hover {
+            color: #C9C7EF;
+            cursor: pointer;
+        }
+        
+        &:focus {
+            outline: none;
+        }
+        
+        &.button-inline {
+            float: right;
+            margin-top: 5px;
+            margin-left: 10px;
+            
+            .button-icon {
+                margin-right: 0;
+            }
+        }
+        
+        &.action {
+            position: relative;
+            margin-top: -35px;
+            border-radius: 50%;
+            padding: 5px;
+            height: 40px;
+            line-height: 35px;
+            width: 40px;
+            background-color: #F6A500;
+            
+            &.remove {
+                border-radius: 0;
+                margin-top: -40px;
+                background-color: $danger;
+            }
+        }
+        
+        &.accept {
+            background-color: $primary-color;
+        }
+        &.decline {
+            background-color: $danger;
+        }
+        
+        .button-icon {
+            margin-right: 20px;
+            width: 15px;
+            text-align: center;
+        }
+    }
+}
+
+.top-block {
+    padding: 15px 25px;
+
+    .logo {
+        max-width: 200px;
+        max-height: 90px;
+    }
+
+    .back-link {
+        margin-right: 15px;
+        color: $primary-color;
+        font-size: 16px;
+    }
+}
+
+.chat-config {
+    padding: 15px;
+}
+.chatbot-builder {
+    position: relative;
+
+    $headerHeight: 65px;
+    
+    &.full-screen {
+        position: fixed;
+        top: $headerHeight;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1000;
+    }
+    
+    .right-bar {
+        width: $rightBarWidth;
+        background-color: #272634;
+        height: 100%;
+        margin-top: -$headerHeight;
+        position: absolute;
+        box-shadow: 0 0 10px 0 #888;
+        z-index: 5000;
+        overflow: hidden;
+        
+        label {
+            color: white;
+        }
+        
+        .navigation-label {
+            color: rgba(255,255,255,.5);
+            font-size: 12px;
+            font-weight: bold;
+            opacity: 1;
+            padding: 15px 25px 5px 15px;
+            margin-bottom: 5px;
+            position: relative;
+            text-transform: uppercase;
+        }
+        
+        .configs {
+            height: calc(100% - #{$headerHeight});
+            width: 100%;
+            overflow-y: auto;
+    
+            .menu-item {
+                display: block;
+                font-family: 'Open Sans', sans-serif;
+                line-height: 35px;
+                padding-bottom: 3px;
+                padding-left: 25px;
+                padding-top: 3px;
+                font-size: 14px;
+                text-decoration: none;
+                text-transform: capitalize;
+                color: $primary-color;
+                outline: none;
+        
+                &:hover {
+                    color: #C9C7EF;
+                    cursor: pointer;
+                }
+        
+                i {
+                    margin-right: 15px;
+                    width: 15px;
+                }
+            }
+        }
+    }
+    
+    .builder-wrapper {
+        width: calc(100% - #{$rightBarWidth});
+        height: calc(100% - #{$headerHeight});
+        margin-left: $rightBarWidth;
+        overflow: scroll;
+        position: relative;
+        
+        .builder-block {
+            .header {
+                cursor: move;
+            }
+        }
+    }
+}
+
+.connect {
+    z-index: 0;
+    display: none;
+    border: 5px solid $primary-color;
+    background-color: white;
+    border-radius:  50%;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    cursor: pointer;
+}
+.connect.connecting {
+    display: block;
+}
+
+.connect-top {
+    right: calc(50% - 10px);
+    top: -8px;
+}
+.connect-right {
+    right: -8px;
+    top: calc(50% - 10px);
+}
+.connect-bottom {
+    right: calc(50% - 10px);
+    bottom: -8px;
+}
+.connect-left {
+    left: -8px;
+    top: calc(50% - 10px);
+}
+
+.connectable-inline {
+
+    .connectable-content {
+        margin: 10px -25px;
+        padding: 10px;
+        background-color: $incomeMessageColor;
+        z-index: 5;
+        position: relative;
+    }
+
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+    .connect {
+        border-color:  $incomeMessageColor;
+    }
+    .connect-right {
+        right: -35px;
+    }
+
+    .connect-left {
+        left: -35px;
+    }
+}
+
+
+.builder {
+    background-image: url("/img/builder/grd.jpg");
+    width: 6000px;
+    height: 6000px;
+    overflow: hidden;
+
+    a,
+    a:active,
+    a:focus,
+    a:hover {
+        color: $white;
+        text-decoration: underline;
+    }
+}
+
+.builder-block:hover >  .connect,
+.connectable-inline:hover .connect{
+    display: block;
+
+}
+
+.image-load {
+    margin: 15px 0;
+    
+    img {
+        max-width: 100%;
+        max-height: 250px;
+        width: auto;
+        height: auto;
+        display: block;
+        margin: 10px 0;
+        padding-right: 17px;
+    }
+}
+
+$inactiveColor: #cccccc;
+$borderRadius: 10px;
+.builder-block-wrapper {
+    user-select: none;
+    border: 1px solid $inactiveColor;
+    border-radius: $borderRadius;
+    z-index: 2;
+    position: absolute;
+    width: 250px;
+    background-color: white;
+
+    .builder-block-body {
+        border-radius: $borderRadius;
+        background-color: white;
+        position: relative;
+        z-index: 5;
+        .content-block {
+            filter: grayscale(70%);
+    
+            img {
+                max-width: 100%;
+                max-height: 250px;
+                width: auto;
+                height: auto;
+                display: block;
+                margin: 10px 0 0;
+            }
+        }
+        .variable {
+            padding: 5px;
+            color: green;
+        }
+        .message {
+            background-color: #34a7fc;
+            color: #fff;
+            display: inline-block;
+            border-radius: 20px;
+            padding: 10px 15px;
+            position: relative;
+            font-size: 15px;
+            line-height: 18px;
+            margin-bottom: 5px;
+
+            &:before {
+                content: "";
+                position: absolute;
+                z-index: 0;
+                bottom: 0;
+                left: -7px;
+                height: 20px;
+                width: 20px;
+                background-color: #34a7fc;
+                border-bottom-right-radius: 15px;
+            }
+            &:after {
+                content: "";
+                position: absolute;
+                z-index: 1;
+                bottom: 0;
+                left: -10px;
+                width: 10px;
+                height: 20px;
+                background: #fff;
+                border-bottom-right-radius: 10px;
+            }
+            .icon {
+                margin-right: 8px;
+            }
+
+
+            &.income {
+                float: right;
+                background-color: $incomeMessageColor;
+
+                &:before {
+                    left:auto;
+                    right: -8px;
+                    background-color: $incomeMessageColor;
+                    border-bottom-left-radius: 15px;
+                }
+
+                &:after {
+                    left:auto;
+                    right: -10px;
+                    border-bottom-left-radius: 10px;
+                }
+            }
+
+            p {
+                margin: 0;
+            }
+        }
+
+
+    }
+
+    &:hover {
+        border-color: $primary-color;
+        .header {
+            &,&.start {
+                background-color: $primary-color;
+            }
+
+            .block-name {
+                color: white;
+            }
+
+            .buttons-block {
+                .button {
+                    color: white;
+                }
+            }
+        }
+        .content-block {
+            filter: none;
+        }
+
+    }
+
+    .header {
+        border-top-left-radius: $borderRadius - 2px;
+        border-top-right-radius: $borderRadius - 2px;
+        height: 40px;
+        background-color: $inactiveColor;
+
+        &.start {
+            border-radius: $borderRadius - 2px;
+
+            background-color: #9c9c9c;
+            .block-name {
+                line-height: 40px;
+                color: white;
+                display: block;
+                text-align: center;
+                width: 100%;
+                padding: 0;
+            }
+        }
+
+        .block-name {
+            color: #8c8c8c;
+            padding: 7px;
+            width: 150px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: inline-block;
+            white-space: nowrap;
+
+        }
+
+        .buttons-block {
+            padding: 7px;
+            float: right;
+
+            .button {
+                color: #8c8c8c;
+                padding: 0 4px;
+                border: none;
+                background: none;
+                cursor: pointer;
+
+                &:last-child {
+                    padding-right: 0;
+                }
+
+                &,&:focus {
+                    outline: none;
+                }
+            }
+        }
+    }
+}
+.builder-block {
+    position: relative;
+
+    .content-block {
+        padding: 15px;
+    }
+}
+
+
+.builder-arrow {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+
+}
+.remove-anchor {
+    position: absolute;
+    z-index: 1;
+    background-color: white;
+    border: 1px solid $primary-color;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    color: $primary-color;
+}
+
+.text {
+    padding: 5px
+}
+.rc-tooltip {
+    z-index: 1000;
+    width: 600px;
+
+    &.rc-tooltip-hidden {
+        display: none;
+    }
+
+    .help {
+        background-color: wheat;
+        width: 231px;
+        padding: 15px;
+
+    }
+}
+
+.ck-editor-block {
+    .ck.ck-content {
+        border: 1px solid rgba(0, 0, 0, 0.42);
+        
+        &:focus,
+        &:hover {
+            border: 1px solid $primary-color!important;
+            box-shadow: inset 0 0 0 1px $primary-color!important;
+            outline: 0!important;
+        }
+    }
+}

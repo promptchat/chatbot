@@ -1,0 +1,32 @@
+$primary-color: #858598;
+$text-color: #858598;
+$primary-color-rgb: rgb(133,133,152);
+$secondary-color: #1db3de;
+$orange-text: #FF7840;
+$dark-blue: #00A0B8;
+$white-blue: #00DAEA;
+$button-color: #00afaf;
+
+$primary: (
+        color: $primary-color,
+        dark:  $primary-color,
+        light: $primary-color
+);
+
+$secondary: (
+        color: $primary-color,
+        dark:  $primary-color,
+        light: $primary-color
+);
+// Body
+$body-bg: #f5f8fa;
+
+// Typography
+$font-family-sans-serif: "Raleway", sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+
+$window-height: 600px;
+$window-width: 350px;
+$white: #ffffff;

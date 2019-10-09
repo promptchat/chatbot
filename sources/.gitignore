@@ -1,0 +1,8 @@
+/public/storage
+/storage/*.key
+/storage/sessions
+!/storage/sessions/.gitignore
+/vendor
+.env
+/node_modules
+laravel-echo-server.lock
