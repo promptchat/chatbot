@@ -22,13 +22,13 @@
                         <?php $__env->startComponent('components.grid', ['filterAction' => action('TranslationController@index')]); ?>
                             <?php $__env->slot('header'); ?>
                                 <th class="with-100">
-                                    @sortablelink('group', __('site.translate.group'))
+                                    <?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('group', __('site.translate.group')));?>
                                 </th>
                                 <th class="with-100">
-                                    @sortablelink('item', __('site.translate.item'))
+                                    <?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('item', __('site.translate.item')));?>
                                 </th>
                                 <th class="with-100">
-                                    @sortablelink('text', __('site.translate.text'))
+                                    <?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('text', __('site.translate.text')));?>
                                 </th>
                                 <th></th>
                             <?php $__env->endSlot(); ?>

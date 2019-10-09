@@ -21,12 +21,12 @@
                     <div class="col-sm-12">
                         <?php $__env->startComponent('components.grid', ['filterAction' => action('LiveChatWaitingUserController@index')]); ?>
                             <?php $__env->slot('header'); ?>
-                                <th scope="col">@sortablelink('agent_id', __('site.analytic.chat_box'))</th>
-                                <th scope="col">@sortablelink('ip', __('site.analytic.ip'))</th>
-                                <th scope="col">@sortablelink('url', __('site.analytic.url'))</th>
-                                <th scope="col">@sortablelink('messages_count', __('site.analytic.messages'))</th>
-                                <th scope="col">@sortablelink('last_active', __('site.analytic.last_active'))</th>
-                                <th scope="col">@sortablelink('user_email', __('site.analytic.user_email'))</th>
+                                <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('agent_id', __('site.analytic.chat_box')));?></th>
+                                <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('ip', __('site.analytic.ip')));?></th>
+                                <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('url', __('site.analytic.url')));?></th>
+                                <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('messages_count', __('site.analytic.messages')));?></th>
+                                <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('last_active', __('site.analytic.last_active')));?></th>
+                                <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('user_email', __('site.analytic.user_email')));?></th>
                                 <th scope="col" class="small-column text-center">
                                     <a href="<?php echo e(action('LiveChatWaitingUserController@index')); ?>"><i class="fa fa-paint-brush" aria-hidden="true"></i></a>
                                 </th>

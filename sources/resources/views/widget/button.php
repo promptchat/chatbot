@@ -42,7 +42,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="<?php echo e(\App\Models\SiteConfig::getFavicon()); ?>">
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Playfair+Display|Poppins|Roboto|Raleway" rel="stylesheet">
-    <link href="<?php echo e(mix('help-button/style.css')); ?>" rel="stylesheet">
+    <link  href="<?php echo e(mix('help-button/style.css')); ?>" rel="stylesheet">
 </head>
 <body>
 

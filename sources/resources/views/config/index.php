@@ -31,7 +31,7 @@
                     <div class="col-sm-12">
                         <?php $__env->startComponent('components.grid', ['filterAction' => action('ConfigController@index')]); ?>
                             <?php $__env->slot('header'); ?>
-                                <th scope="col">@sortablelink('name', __('site.button_setting.name'))</th>
+                                <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('name', __('site.button_setting.name')));?></th>
                                 <th scope="col" class="small-column text-center">
                                     <a href="<?php echo e(action('ConfigController@index')); ?>"><i class="fa fa-paint-brush" aria-hidden="true"></i></a>
                                 </th>

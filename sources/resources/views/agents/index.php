@@ -31,10 +31,10 @@
                     <div class="col-sm-12">
                         <?php $__env->startComponent('components.grid', ['filterAction' => action('AgentController@index')]); ?>
                             <?php $__env->slot('header'); ?>
-                                <th scope="col">@sortablelink('name', __('site.chat_box.name_small'))</th>
-                                <th scope="col">@sortablelink('department.name', __('site.chat_box.department'))</th>
+                                <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('name', __('site.chat_box.name_small')));?></th>
+                                <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('department.name', __('site.chat_box.department')));?></th>
                                 <th scope="col"><?php echo app('translator')->getFromJson('site.chat_box.contacts'); ?></th>
-                                <th scope="col">@sortablelink('chatUser.name', __('site.chat_box.chat_bot'))</th>
+                                <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('chatUser.name', __('site.chat_box.chat_bot')));?></th>
                                 <th scope="col"><?php echo app('translator')->getFromJson('site.chat_box.code'); ?></th>
                                 <th scope="col"><?php echo app('translator')->getFromJson('site.chat_box.preview'); ?></th>
                                 <th scope="col" class="small-column text-center">
