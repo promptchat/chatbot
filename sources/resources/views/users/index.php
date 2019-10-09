@@ -104,6 +104,13 @@
                                     </td>
                                     <td class="text-right text-nowrap">
                                         <div class="d-inline-flex align-items-center">
+
+                                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('login', $user)): ?>
+                                                <a href="<?php echo e(action("UserController@login", $user)); ?>"
+                                                   class="action-button">
+                                                    <span class="mi mi-person"></span>
+                                                </a>
+                                            <?php endif; ?>
                                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('update', $user)): ?>
                                                 <a href="<?php echo e(action("UserController@edit", $user)); ?>"
                                                    class="action-button">
