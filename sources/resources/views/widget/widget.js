@@ -55,6 +55,7 @@ HelpChatWidget = {
 
                 var action = message.event;
                 var data = message.data;
+
                 if(message.agent !== options.agent) {
                     return;
                 }
