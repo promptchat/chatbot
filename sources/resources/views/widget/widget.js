@@ -52,8 +52,12 @@ HelpChatWidget = {
                 if (event.origin !== host)
                     return;
                 var message = JSON.parse(event.data);
+
                 var action = message.event;
                 var data = message.data;
+                if(data.agent !== options.agent) {
+                    return;
+                }
                 switch (action) {
                     case "resize":
                         if(data.height) {
