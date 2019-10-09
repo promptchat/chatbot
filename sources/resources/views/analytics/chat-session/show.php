@@ -14,7 +14,7 @@
                 'name' => __('site.analytic.page_title_bots')
             ],
             [
-                'url' => action('AnalyticsController@showChatSessionStatistic', $chatUser),
+                'url' => action('AnalyticsController@showChatSessionStatistic', $chatSession),
                 'name' => __('site.analytic.page_title_chat')
             ],
         ],
@@ -110,4 +110,5 @@
         </div>
     </div>
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
