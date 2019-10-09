@@ -10,6 +10,7 @@
         window.logo = "<?php echo $logo; ?>";
         window.hasLive = "<?php echo $hasLive; ?>";
         window.isMobile = <?php echo request()->get('isMobile'); ?>;
+        window.embed = <?php echo request()->get('embed'); ?>;
         window.config = <?php echo $config; ?>;
         window.chat = <?php echo $chat; ?>;
         window.hostUrl = "<?php echo request()->get('hostUrl'); ?>";
@@ -36,7 +37,7 @@
         }
     </style>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<?php echo e(config('app.google_map_key')); ?>&libraries=places"></script>
-    
+
     <script src="<?php echo e(mix('help-button/bundle.js')); ?>" defer></script>
 
     <link rel="icon" type="image/png" sizes="16x16" href="<?php echo e(\App\Models\SiteConfig::getFavicon()); ?>">

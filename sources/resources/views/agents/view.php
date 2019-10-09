@@ -32,7 +32,7 @@
             </h4>
             <p><?php echo app('translator')->getFromJson('models.agent.instructions'); ?></p>
             <code>
-                <?php echo e($agent->getWidget()); ?>
+                <?php echo nl2br( str_replace(' ', '&nbsp;',e($agent->getWidget()))); ?>
 
             </code>
         </div>

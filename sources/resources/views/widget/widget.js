@@ -1,31 +1,42 @@
 HelpChatWidget = {
     init: function(options) {
+            var selector = options.options.selector;
+
             var d=document.createElement("div");
-            var style = document.createElement("style");
-            var configs = options.options || {};
-            var position = configs.position || 'right';
-            style.innerHTML = "  #help-button-wrapper {\n" +
-                "        position: fixed;\n" +
-                "        z-index: 999999;\n" +
-                "        "+position+": 0;\n" +
-                "        bottom: 0;\n" +
-                "    }"
+            if(selector) {
+              document.querySelector(selector).appendChild(d);
 
-            var isMobile = document.body.clientWidth <= 500 || document.body.clientHeight <= 500
+            } else {
+                var style = document.createElement("style");
+                var configs = options.options || {};
+                var position = configs.position || 'right';
+                style.innerHTML = "  #help-button-wrapper {\n" +
+                    "        position: fixed;\n" +
+                    "        z-index: 999999;\n" +
+                    "        "+position+": 0;\n" +
+                    "        bottom: 0;\n" +
+                    "    }";
+                d.style.width = "0";
+                d.style.height = "0";
 
-            const overflow = document.body.style.overflow
+                d.id = "help-button-wrapper";
+                document.body.appendChild(style,document.head);
+                document.body.insertBefore(d,document.body.getElementsByTagName("*")[0])
 
-            d.style.width = "0"
-            d.style.height = "0"
-            d.id = "help-button-wrapper"
-            document.body.insertBefore(d,document.body.getElementsByTagName("*")[0])
-            document.body.appendChild(style,document.head)
-            var iframe = document.createElement("iframe")
-            iframe.style = "width:100%; height:100%; border:none"
+            }
+
+            var isMobile = document.body.clientWidth <= 500 || document.body.clientHeight <= 500;
+
+            const overflow = document.body.style.overflow;
+
+
+
+            var iframe = document.createElement("iframe");
+            iframe.style = "width:100%; height:100%; border:none";
             var src = '&isMobile=' + isMobile;
             var url = window.location.href;
             if(options.company && options.agent) {
-                iframe.src = host + "/frame/" + options.company + "/" + options.agent + '?hostUrl=' + encodeURIComponent(url) + src
+                iframe.src = host + "/frame/" + options.company + "/" + options.agent + '?embed='+(+!!selector)+'&hostUrl=' + encodeURIComponent(url) + src
             } else {
                 iframe.src = host + "/create-widget/?config=" + encodeURIComponent(JSON.stringify(options)) + src
             }
