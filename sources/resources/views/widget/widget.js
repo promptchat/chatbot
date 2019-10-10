@@ -70,7 +70,9 @@ HelpChatWidget = {
                         d.style.right = null;
                         d.style.left = null;
                         d.style.bottom = null;
-                        document.body.style.overflow = overflow
+                        if(!selector) {
+                            document.body.style.overflow = overflow
+                        }
                         break;
 
                     case "full-screen":
@@ -79,7 +81,9 @@ HelpChatWidget = {
                         d.style.right = "0";
                         d.style.left = "0";
                         d.style.bottom = "0";
-                        document.body.style.overflow = 'hidden'
+                        if(!selector) {
+                            document.body.style.overflow = 'hidden'
+                        }
 
                         break;
                 }
