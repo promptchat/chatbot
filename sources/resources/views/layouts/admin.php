@@ -63,7 +63,7 @@
                                 <i class="fa fa-plus text-success"></i><?php echo app('translator')->getFromJson('site.left_menu.chat_boxes'); ?>
                             </a>
                         <?php endif; ?>
-                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\ChatSession::class)): ?>
+                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\ChatSession\ChatSession::class)): ?>
                             <a class="menu-item" href="<?php echo e(action("AnalyticsController@index")); ?>">
                                 <i class="fa fa-bar-chart text-danger"></i><?php echo app('translator')->getFromJson('site.left_menu.analytics'); ?>
                             </a>
@@ -97,7 +97,7 @@
                             <i class="fa fa-book text-warning"></i><?php echo app('translator')->getFromJson('site.left_menu.getting_started_guide'); ?>
                         </a>
                         <div class="navigation-label">Company</div>
-                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\User::class)): ?>
+                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\User\User::class)): ?>
                             <a class="menu-item" href="<?php echo e(action("UserController@index")); ?>">
                                 <i class="fa fa-users text-success" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.users'); ?>
                             </a>
@@ -200,7 +200,7 @@
                                             <div class="user-info">
                                                 <span><?php echo e(Auth::user()->name); ?></span>
                                                 <a class=""
-                                                   href="<?php echo e(action("UserController@editPersonalData", Auth::user())); ?>">
+                                                   href="<?php echo e(action("UserController@edit", Auth::user())); ?>">
                                                     <?php echo app('translator')->getFromJson('site.edit_my_profile'); ?>
                                                     </a>
                                             </div>

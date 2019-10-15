@@ -193,6 +193,7 @@ export default class Messages extends React.Component {
                     </div>
                 </TabPane>
                 <ChatSessionSidebar
+                    tags={this.props.tags}
                     onNameChange={this.props.onNameChange}
                     session={this.props.session}
                     leave={this.props.leave}

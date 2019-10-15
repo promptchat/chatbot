@@ -606,11 +606,13 @@
 .sidebar {
   height: auto;
   width: 35%;
-  background: #efedec;
+  background: #ffffff;
   position: relative;
 
   .block {
-    border-bottom: 5px solid #fff;
+    border-radius: 7px;
+    background: #e2e3e5;
+    margin-bottom: 5px;
   }
 
   .head .image > img {
@@ -658,4 +660,3 @@
   width: 100px;
   text-align: center;
 }
-

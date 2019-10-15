@@ -17,7 +17,7 @@
     <div class="">
         <div class="card">
             <div class="card-body">
-                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('create', \App\User::class)): ?>
+                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('create', \App\Models\User\User::class)): ?>
                     <div class="row mb-15">
                         <div class="col-sm-12">
                             <a href="<?php echo e(action('UserController@create', ['companyId' => $companyId])); ?>"
@@ -129,10 +129,12 @@
                             <?php endif; ?>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     <?php $__env->endSlot(); ?>
+                        <?php $__env->slot('paginator'); ?>
+                            <?php echo $users->appends(\Request::except('page'))->render(); ?>
+
+                        <?php $__env->endSlot(); ?>
                 <?php echo $__env->renderComponent(); ?>
             </div>
-            <?php echo e($users->appends(Request::input())->links()); ?>
-
         </div>
     </div>
 <?php $__env->stopSection(); ?>

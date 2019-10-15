@@ -8,8 +8,7 @@
     </script>
     <chat-creator
             logo="<?php echo e(\App\Models\SiteConfig::getLogo()); ?>"
-            method="patch"
-            url="<?php echo e(action('ChatController@update', $chat)); ?>"
+            id="<?php echo e($chat->id); ?>"
             name="<?php echo e($chat->name); ?>"
             data="<?php echo e(json_encode($chat->chat->getItems())); ?>"
     />

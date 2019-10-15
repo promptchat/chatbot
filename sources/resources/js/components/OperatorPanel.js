@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {clone, find, remove, filter} from 'lodash';
+import {clone, find, remove, filter, cloneDeep} from 'lodash';
 import ChatSessions from "./ChatSessions";
 import {Howl, Howler} from 'howler';
 import classnames from 'classnames';
@@ -15,6 +15,7 @@ export default class OperatorPanel extends Component {
         open: null,
         sessionId: null,
         chatsType: 1,
+        tags: [],
     };
 
 
@@ -134,7 +135,8 @@ export default class OperatorPanel extends Component {
 
                 this.setState({
                     clients: data.clients,
-                    sessions: new Set(data.sessions)
+                    sessions: new Set(data.sessions),
+                    tags: data.tags
                 });
 
             });
@@ -198,7 +200,7 @@ export default class OperatorPanel extends Component {
                 .listen('NewOperatorInChat', ({operator, client}) => {
 
                     this.setState(({clients}) => {
-                        let newClients = clone(clients);
+                        let newClients = cloneDeep(clients);
                         let currentClient = find(newClients, {id: client.id});
                         if (currentClient) {
                             if (!currentClient.operators.find(({id}) => +operator.id === +id)) {
@@ -210,10 +212,24 @@ export default class OperatorPanel extends Component {
                         }
                     });
                 })
+                .listen('ChatSessionTagsChanged', ({client, tags }) => {
+
+                    this.setState(({clients}) => {
+                        let newClients = cloneDeep(clients);
+                        let currentClient = find(newClients, {id: client.id});
+                        if (currentClient) {
+                            currentClient.tags  = tags;
+                            return {
+                                clients: newClients
+                            };
+
+                        }
+                    });
+                })
                 .listen('OperatorLeaveChat', ({operator, client}) => {
 
                     this.setState(({clients}) => {
-                        let newClients = clone(clients);
+                        let newClients = cloneDeep(clients);
                         let currentClient = find(newClients, {id: client.id});
                         if (currentClient) {
                             remove(currentClient.operators, (({id}) => +operator.id === +id));
@@ -307,6 +323,7 @@ export default class OperatorPanel extends Component {
                     <div className={'card'}>
                         <div className={'card-body'}>
                             {activeSession && <Messages
+                                tags={this.state.tags}
                                 onNameChange={this.onNameChange}
                                 key={activeSession.id}
                                 operator={this.props.operator}
@@ -365,6 +382,13 @@ class ClientCard extends React.PureComponent {
                         {client.operators.map(({name, id, image}) =>
                             <li key={id}>
                                 <img src={location.origin + '/storage/' + image.path} title={name}/>
+                            </li>
+                        )}
+                    </ul>
+                    <ul className={'tag-list'}>
+                        {client.tags.map(({name, id}) =>
+                            <li className="tag" key={id}>
+                                {name}
                             </li>
                         )}
                     </ul>

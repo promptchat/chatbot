@@ -21,46 +21,79 @@
     <div class="">
         <div class="card">
             <div class="card-body">
+                    <div class="row mb-5">
+                        <div class="col-sm-12">
+                            <a href="<?php echo e(action('TagController@index')); ?>"
+                               class="btn btn-primary text-uppercase pull-left">
+                                <?php echo app('translator')->getFromJson('site.analytic.tag_manage'); ?>
+                            </a>
+                        </div>
+                    </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="table-responsive">
-                            <table class="table table-sm">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        <div class="th-label">
-                                            <?php echo app('translator')->getFromJson('site.analytic.chat_box'); ?>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div class="th-label">
-                                            <?php echo app('translator')->getFromJson('site.analytic.operators'); ?>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div class="th-label">
-                                            <?php echo app('translator')->getFromJson('site.analytic.ip'); ?>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div class="th-label">
-                                            <?php echo app('translator')->getFromJson('site.analytic.url'); ?>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div class="th-label">
-                                            <?php echo app('translator')->getFromJson('site.analytic.messages'); ?>
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div class="th-label">
-                                            <?php echo app('translator')->getFromJson('site.analytic.last_active'); ?>
-                                        </div>
-                                    </th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
+                        <?php $__env->startComponent('components.grid', ['filterAction' => action('AnalyticsController@indexChatSessionStatistic')]); ?>
+                            <?php $__env->slot('header'); ?>
+                                <th>
+                                    <div class="th-label">
+                                        <?php echo app('translator')->getFromJson('site.analytic.chat_box'); ?>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th-label">
+                                        <?php echo app('translator')->getFromJson('site.analytic.operators'); ?>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th-label">
+                                        <?php echo app('translator')->getFromJson('site.analytic.ip'); ?>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th-label">
+                                        <?php echo app('translator')->getFromJson('site.analytic.tags'); ?>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th-label">
+                                        <?php echo app('translator')->getFromJson('site.analytic.url'); ?>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th-label">
+                                        <?php echo app('translator')->getFromJson('site.analytic.messages'); ?>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th-label">
+                                        <?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('last_active', __('site.analytic.last_active')));?>
+                                    </div>
+                                </th>
+                                <th scope="col" class="small-column text-center">
+                                    <a href="<?php echo e(action('AnalyticsController@indexChatSessionStatistic')); ?>"><i
+                                                class="fa fa-paint-brush"
+                                                aria-hidden="true"></i></a>
+                                </th>
+                            <?php $__env->endSlot(); ?>
+
+                            <?php $__env->slot('filters'); ?>
+                                <td><?php $__env->startComponent('components.filter.filterInput', ['name' => 'agent']); ?><?php echo $__env->renderComponent(); ?></td>
+                                <td> <?php $__env->startComponent('components.filter.filterInput', ['name' => 'operators']); ?><?php echo $__env->renderComponent(); ?></td>
+                                <td>
+                                    <div class="form-control clear-input-filter"></div>
+                                </td>
+                                <td><?php $__env->startComponent('components.filter.filterInput', ['name' => 'tags']); ?><?php echo $__env->renderComponent(); ?></td>
+                                <td>
+                                    <?php $__env->startComponent('components.filter.filterInput', ['name' => 'url']); ?><?php echo $__env->renderComponent(); ?>
+                                </td>
+                                <td>
+                                    <div class="form-control clear-input-filter"></div>
+                                </td>
+                                <td>
+                                    <div class="form-control clear-input-filter"></div>
+                                </td>
+                            <?php $__env->endSlot(); ?>
+
+                            <?php $__env->slot('data'); ?>
                                 <?php $__empty_1 = true; $__currentLoopData = $chatSessions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chatSession): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                     <tr>
                                         <td>
@@ -78,6 +111,21 @@
 
                                         </td>
                                         <td>
+                                            <ul class="tag-list">
+                                                <?php $__currentLoopData = $chatSession->tags; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tag): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <li>
+                                                        <?php echo e($tag->name); ?>
+
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                    </li>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            </ul>
+                                        </td>
+                                        <td>
                                             <?php echo e($chatSession->url); ?>
 
                                         </td>
@@ -91,7 +139,8 @@
                                         </td>
                                         <td class="text-right text-nowrap">
                                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view', $chatSession)): ?>
-                                                <a href="<?php echo e(action("AnalyticsController@showChatSessionStatistic", $chatSession)); ?>" class="action-button">
+                                                <a href="<?php echo e(action("AnalyticsController@showChatSessionStatistic", $chatSession)); ?>"
+                                                   class="action-button">
                                                     <span class="mi mi-remove-red-eye"></span>
                                                 </a>
                                             <?php endif; ?>
@@ -104,11 +153,12 @@
                                         </td>
                                     </tr>
                                 <?php endif; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                        <?php echo e($chatSessions->appends(Request::input())->links()); ?>
+                            <?php $__env->endSlot(); ?>
+                            <?php $__env->slot('paginator'); ?>
+                                <?php echo $chatSessions->appends(\Request::except('page'))->render(); ?>
 
+                            <?php $__env->endSlot(); ?>
+                        <?php echo $__env->renderComponent(); ?>
                     </div>
                 </div>
             </div>
