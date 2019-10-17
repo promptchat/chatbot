@@ -14,13 +14,16 @@ services:
       - ${PWD}/configs/nginx_conf/logs:/var/log/nginx
     env_file:
       - variables.env
+      - license.txt
 
   composer:
     image: composer:latest
     working_dir: /sources
     volumes:
       - ./sources:/sources
-    command: install
+    command: >
+      sh -c "rm -f vendor/autoload.php && composer install"
+
 
   db:
     image: mysql
@@ -47,7 +50,7 @@ services:
       context: .
       dockerfile: docker_files/php/Dockerfile
       args:
-        uid: ${USERID}
+        uid: ${UID}
     depends_on:
       - composer
       - db
@@ -61,14 +64,15 @@ services:
       UID: ${PWD}
     env_file:
       - variables.env
-#
+      - license.txt
+
   scheduler:
     restart: always
     build:
       context: .
       dockerfile: docker_files/phpworker/Dockerfile
       args:
-        uid: ${USERID}
+        uid: ${UID}
     depends_on:
       - php
     volumes:
@@ -79,13 +83,14 @@ services:
       LOG_FILE: logs/laravel-scheduler.log
     env_file:
       - variables.env
+      - license.txt
 
   migrator:
     build:
       context: .
       dockerfile: docker_files/phpworker/Dockerfile
       args:
-        uid: ${USERID}
+        uid: ${UID}
     depends_on:
       - php
     links:
@@ -98,6 +103,7 @@ services:
       LOG_FILE: logs/laravel-migrator.log
     env_file:
       - variables.env
+      - license.txt
 
   queue:
     restart: always
@@ -105,7 +111,7 @@ services:
        context: .
        dockerfile: docker_files/phpworker/Dockerfile
        args:
-         uid: ${USERID}
+         uid: ${UID}
     depends_on:
       - php
     volumes:
@@ -116,6 +122,7 @@ services:
       LOG_FILE: logs/laravel-queue.log
     env_file:
       - variables.env
+      - license.txt
 
   monitor:
     restart: always
@@ -123,7 +130,7 @@ services:
        context: .
        dockerfile: docker_files/phpworker/Dockerfile
        args:
-         uid: ${USERID}
+         uid: ${UID}
     depends_on:
       - php
     volumes:
@@ -134,6 +141,7 @@ services:
       LOG_FILE: logs/laravel-monitor.log
     env_file:
       - variables.env
+      - license.txt
 
   node:
     restart: always
@@ -146,9 +154,6 @@ services:
       - ./sources:/sources
     depends_on:
       - redis
-#    command:
-#      - "npm install"
-#      - "npm laravel-echo-server start"
 
 volumes:
   redis-data:

@@ -1,8 +1,9 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
-    "license": "MIT",
+    "name": "promptchat/chatbot",
+    "description": "White label chatbot and live chat",
+    "keywords": ["chatbot", "live chat", "promptchat"],
+    "license": "OEM",
+    "version": "0.3.0",
     "type": "project",
     "require": {
         "php": "^7.1.3",

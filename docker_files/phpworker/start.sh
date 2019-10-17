@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 role=${CONTAINER_ROLE:-php}
-env=${APP_ENV:-production}
+
 
 until [ -f /sources/vendor/autoload.php ]
 do
