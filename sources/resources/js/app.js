@@ -1,10 +1,10 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
 import './bootstrap';
+
 
 $(".chat-trigger").on('click', function () {
     setTimeout(triggerTab);
@@ -14,7 +14,7 @@ $(".chat-trigger").on('click', function () {
 function triggerTab() {
     const id = window.location.hash;
     $(`a[role="tab"][href="${id}"]`).tab('show');
-    if($(id).length) {
+    if ($(id).length) {
         $("html, body").scrollTop($(".active .block-1").offset().top)
     }
 }
@@ -27,11 +27,11 @@ $('a[data-toggle="tooltip"]').tooltip({
     trigger: 'click'
 });
 
-$('a[data-toggle="tooltip"]').click(function(event){
+$('a[data-toggle="tooltip"]').click(function (event) {
     event.stopPropagation();
 });
 
-$('body').click(function(){
+$('body').click(function () {
     $('a[data-toggle="tooltip"]').tooltip('hide');
 });
 

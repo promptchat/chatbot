@@ -12,6 +12,7 @@
 @import "~react-times/css/material/default.css";
 @import "~select2/dist/css/select2.css";
 @import "chat-window";
+@import "analytics";
 @import '~simplebar/dist/simplebar.css';
 
 
@@ -230,25 +231,25 @@ code {
 .table {
   border: 1px solid #dee2e6;
   border-top-color: $primary-color;
-  
+
   tbody {
     tr:not(.table-filter)[data-url],
     td[data-url] {
       cursor: pointer;
     }
-    
+
     td {
       border: 1px solid #dee2e6;
       vertical-align: middle;
     }
-  
+
     td, th {
       height: auto;
       padding-top: 0.275rem;
       padding-bottom: 0.275rem;
     }
   }
-  
+
   thead {
     th {
       background-color: $primary-color;
@@ -258,58 +259,58 @@ code {
       text-align: center;
       line-height: 14px;
       padding: 10px 3px;
-      
+
       a {
         color: $white;
       }
     }
   }
-  
+
   .table-filter {
     td {
       padding: 0;
       background: $white;
       height: auto;
     }
-    
+
     .form-control {
       border-radius: 0;
     }
   }
-  
+
   .clear-input-filter {
     background: rgba(133, 133, 152, 0.1);
     pointer-events: none;
-    
+
     &:hover,
     &:focus {
-    
+
     }
   }
-  
+
   .small-column {
     width: 40px;
   }
-  
+
   .table-img {
     width: auto;
     height: 40px;
     max-width: 40px;
     object-fit: cover;
   }
-  
+
   .table-input {
     width: 100%;
     text-align: right;
     outline: none;
     padding: 0 6px;
   }
-  
+
   select.form-control.table-select {
     padding: 0;
     height: 30px;
   }
-  
+
   .edit-icon {
     font-size: 18px;
   }
@@ -398,7 +399,7 @@ body {
         margin-right: 15px;
         width: 15px;
       }
-      
+
       .badge {
         line-height: normal;
         border-radius: 50%;
@@ -798,6 +799,14 @@ label {
 .operator-page {
   line-height: normal;
 
+  .small-dd {
+    .dropdown-toggle {
+      padding-left: 5px;
+      padding-right: 5px;
+      min-width: auto;
+    }
+  }
+
   .tab-pane{
     width: 100%;
   }
@@ -835,7 +844,7 @@ label {
       }
 
       li.unread {
-        background-color: green;
+        background-color: #ffe;
       }
 
       li.active {
@@ -853,16 +862,33 @@ label {
       margin-top: 10px;
 
       li {
+        $imgSize: 40px;
         display: inline-block;
         background-color: transparent;
         margin: 0 5px 5px 0;
         box-shadow: none;
         padding:0;
+        vertical-align: middle;
+        width: $imgSize;
+        height: $imgSize;
 
-        img {
+        .avatar, img {
           border-radius: 50%;
-          width: 40px;
-          height: 40px;
+          width: $imgSize;
+          height: $imgSize;
+        }
+        .avatar {
+          background-color: #00A0B8;
+          color: white;
+          text-align: center;
+          display: inline-block;
+          overflow: hidden;
+
+          .avatar-inner {
+            font-size: 30px;
+            line-height: 40px;
+            text-transform: uppercase;
+          }
         }
       }
     }
@@ -1190,10 +1216,10 @@ label {
 
   .breadcrumb-item {
     font-size: 14px !important;
-    
+
     a {
       color: $primary-color;
-      
+
       &:hover,
       &:focus {
         color: $black;

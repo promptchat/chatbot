@@ -16,13 +16,6 @@ export default class Messages extends React.Component {
         notification: "",
     };
 
-    updateName(session, name) {
-        axios.post('/api/raname-session/'+session.id, {
-            name
-        }).then(() => {
-            this.props.onNameChange(session.id, name)
-        })
-    }
 
     constructor() {
         super(...arguments);
@@ -53,13 +46,13 @@ export default class Messages extends React.Component {
 
             this.setState({message: ""});
             this.private.whisper('stop-answering');
-            axios.post('api/write-message/' + this.props.session.id, data)
+            axios.post('api/write-message/' + this.props.session.get('id'), data)
         }
     }
 
 
     componentDidMount() {
-        axios.get('api/messages/' + this.props.session.id)
+        axios.get('api/messages/' + this.props.session.get('id'))
             .then(({data}) => {
                 this.initializeEchoListeners(data.session.api_token);
 
@@ -194,7 +187,6 @@ export default class Messages extends React.Component {
                 </TabPane>
                 <ChatSessionSidebar
                     tags={this.props.tags}
-                    onNameChange={this.props.onNameChange}
                     session={this.props.session}
                     leave={this.props.leave}
                 />

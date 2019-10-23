@@ -22,8 +22,6 @@
                         <?php $__env->startComponent('components.grid', ['filterAction' => action('LiveChatWaitingUserController@index')]); ?>
                             <?php $__env->slot('header'); ?>
                                 <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('agent_id', __('site.analytic.chat_box')));?></th>
-                                <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('ip', __('site.analytic.ip')));?></th>
-                                <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('url', __('site.analytic.url')));?></th>
                                 <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('messages_count', __('site.analytic.messages')));?></th>
                                 <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('last_active', __('site.analytic.last_active')));?></th>
                                 <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('user_email', __('site.analytic.user_email')));?></th>
@@ -34,8 +32,6 @@
 
                             <?php $__env->slot('filters'); ?>
                                 <td><?php $__env->startComponent('components.filter.filterSelect',['name' => 'agent_id', 'options' => $agents]); ?><?php echo $__env->renderComponent(); ?></td>
-                                <td><?php $__env->startComponent('components.filter.filterInput', ['name' => 'ip']); ?><?php echo $__env->renderComponent(); ?></td>
-                                <td><?php $__env->startComponent('components.filter.filterInput', ['name' => 'url']); ?><?php echo $__env->renderComponent(); ?></td>
                                 <td><?php $__env->startComponent('components.filter.filterInput', ['name' => 'messages_count']); ?><?php echo $__env->renderComponent(); ?></td>
                                 <td><?php $__env->startComponent('components.filter.filterInput', ['name' => 'last_active', 'class' => 'datepicker']); ?><?php echo $__env->renderComponent(); ?></td>
                                 <td><?php $__env->startComponent('components.filter.filterInput', ['name' => 'user_email']); ?><?php echo $__env->renderComponent(); ?></td>
@@ -49,14 +45,7 @@
                                             <?php echo e($chatSession->agent->name); ?>
 
                                         </td>
-                                        <td>
-                                            <?php echo e($chatSession->ip); ?>
 
-                                        </td>
-                                        <td>
-                                            <?php echo e($chatSession->url); ?>
-
-                                        </td>
                                         <td>
                                             <?php echo e($chatSession->messages_count); ?>
 
@@ -96,4 +85,5 @@
         </div>
     </div>
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

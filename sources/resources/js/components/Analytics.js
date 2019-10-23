@@ -1,7 +1,10 @@
-import React, { Component, Fragment } from  'react'
+import React, {PureComponent, Component, Fragment} from 'react'
 import {Bar} from "react-chartjs-2"
 import axios from 'axios'
+import DatePicker from 'react-datepicker'
 import {getById} from "../help/services";
+import LiveAnalytic from '../components/Analytic/LiveAnalytic'
+import StaticAnalytic from '../components/Analytic/StaticAnalytic'
 
 
 export class StatisticByAgent extends Component {
@@ -9,6 +12,7 @@ export class StatisticByAgent extends Component {
         data: {},
         agents: []
     };
+
     componentDidMount() {
         axios.get("/analytics/by-agents", {
             params: {
@@ -26,19 +30,19 @@ export class StatisticByAgent extends Component {
         let agents = this.state.agents;
         let dates = [];
         let dateSets = [];
-        for(let i in data) {
+        for (let i in data) {
             if (data.hasOwnProperty(i)) {
                 dates.push(i);
             }
         }
 
-        for(let agent of agents) {
+        for (let agent of agents) {
             let agentsData = [];
-            for(let i in data) {
-                if(data.hasOwnProperty(i)) {
+            for (let i in data) {
+                if (data.hasOwnProperty(i)) {
                     let day = data[i];
                     let _ = day.find((d) => d.id === agent.id);
-                    if(_) {
+                    if (_) {
                         agentsData.push(_.count)
                     } else {
                         agentsData.push(0)
@@ -61,9 +65,8 @@ export class StatisticByAgent extends Component {
         }
 
 
-
-        return(
-            <div style={ {width: "100%"}  }>
+        return (
+            <div style={{width: "100%"}}>
 
                 <Bar
                     width={50}
@@ -86,11 +89,13 @@ export class StatisticByAgent extends Component {
 
     }
 }
+
 export class StatisticByServices extends Component {
     state = {
         data: {},
         services: []
     };
+
     componentDidMount() {
         axios.get("/analytics/by-services", {
             params: {
@@ -108,19 +113,19 @@ export class StatisticByServices extends Component {
         let services = this.state.services;
         let dates = [];
         let dateSets = [];
-        for(let i in data) {
+        for (let i in data) {
             if (data.hasOwnProperty(i)) {
                 dates.push(i);
             }
         }
 
-        for(let service of services) {
+        for (let service of services) {
             let serviceData = [];
-            for(let i in data) {
-                if(data.hasOwnProperty(i)) {
+            for (let i in data) {
+                if (data.hasOwnProperty(i)) {
                     let day = data[i];
                     let _ = day.find((d) => d.contact_type_id === service.id);
-                    if(_) {
+                    if (_) {
                         serviceData.push(_.count)
                     } else {
                         serviceData.push(0)
@@ -143,9 +148,8 @@ export class StatisticByServices extends Component {
         }
 
 
-
-        return(
-            <div style={ {width: "100%"}  }>
+        return (
+            <div style={{width: "100%"}}>
 
                 <Bar
                     width={50}
@@ -168,8 +172,9 @@ export class StatisticByServices extends Component {
 
     }
 }
+
 export class StatisticByChatBots extends Component {
-    state= {
+    state = {
         bots: [],
         data: []
     };
@@ -201,7 +206,8 @@ export class StatisticByChatBots extends Component {
                                     <th>{window.translates.ip}</th>
                                     <th>{window.translates.url}</th>
                                     <th>{window.translates.created_at}</th>
-                                    {bot.variables.map((v) => <th key={v.id}>{window.translates.variable} {v.variable}</th>)}
+                                    {bot.variables.map((v) => <th
+                                        key={v.id}>{window.translates.variable} {v.variable}</th>)}
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -211,9 +217,9 @@ export class StatisticByChatBots extends Component {
                                         <td>{session.ip}</td>
                                         <td>{session.url}</td>
                                         <td>{session.created_at}</td>
-                                        {bot.variables.map((v) => <td key={`${session.id}-${v.id}`}>{session.variables[v.variable] || ''}</td>)}
+                                        {bot.variables.map((v) => <td
+                                            key={`${session.id}-${v.id}`}>{session.variables[v.variable] || ''}</td>)}
                                     </tr>
-
                                 )}
                                 </tbody>
                             </table>
@@ -225,14 +231,17 @@ export class StatisticByChatBots extends Component {
         )
     }
 }
+
 export default class Analytics extends Component {
     state = {
         data: {},
         agents: []
     };
+
     componentDidMount() {
 
     }
+
     static getRandomColor() {
         var letters = '0123456789ABCDEF';
         var color = '#';
@@ -241,15 +250,22 @@ export default class Analytics extends Component {
         }
         return color;
     }
+
     render() {
 
 
-        return(
+        return (
             <div>
-                <h4>{window.translates.statistic_by_agents_channels}</h4>
-                <StatisticByAgent from={this.props.from} to={this.props.to} />
-                <h4>{window.translates.statistic_by_contacts}</h4>
-                <StatisticByServices from={this.props.from} to={this.props.to} />
+                <div className="card">
+                    <div className="card-body">
+                        <LiveAnalytic/>
+                    </div>
+                </div>
+                {/*<div className="card mt-4">*/}
+                {/*    <div className="card-body">*/}
+                {/*        <StaticAnalytic/>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
             </div>
         )
 

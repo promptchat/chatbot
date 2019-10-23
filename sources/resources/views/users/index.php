@@ -39,19 +39,23 @@
                         <th scope="col">
                             <?php echo app('translator')->getFromJson('site.user.role'); ?>
                         </th>
+                        <th scope="col">
+                            <?php echo app('translator')->getFromJson('site.user.status'); ?>
+                        </th>
                         <th scope="col" class="small-column text-center">
 
                         </th>
                     <?php $__env->endSlot(); ?>
 
-                        <?php $__env->slot('filters'); ?>
-                            <td><?php $__env->startComponent('components.filter.filterInput', ['name' => 'name']); ?><?php echo $__env->renderComponent(); ?></td>
-                            <td><?php $__env->startComponent('components.filter.filterInput',['name' => 'email']); ?><?php echo $__env->renderComponent(); ?></td>
-                            <td><?php $__env->startComponent('components.filter.filterSelect',['name' => 'role', 'options' => $userRoles]); ?><?php echo $__env->renderComponent(); ?></td>
-                            <td>
-                                <div class="form-control clear-input-filter"></div>
-                            </td>
-                        <?php $__env->endSlot(); ?>
+                    <?php $__env->slot('filters'); ?>
+                        <td><?php $__env->startComponent('components.filter.filterInput', ['name' => 'name']); ?><?php echo $__env->renderComponent(); ?></td>
+                        <td><?php $__env->startComponent('components.filter.filterInput',['name' => 'email']); ?><?php echo $__env->renderComponent(); ?></td>
+                        <td><?php $__env->startComponent('components.filter.filterSelect',['name' => 'role', 'options' => $userRoles]); ?><?php echo $__env->renderComponent(); ?></td>
+                        <td><?php $__env->startComponent('components.filter.filterSelect',['name' => 'status', 'options' => [1 => 'online']]); ?><?php echo $__env->renderComponent(); ?></td>
+                        <td>
+                            <div class="form-control clear-input-filter"></div>
+                        </td>
+                    <?php $__env->endSlot(); ?>
 
                     <?php $__env->slot('data'); ?>
                         <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -102,6 +106,15 @@
                                         <?php echo e($user->getUserRole()); ?>
 
                                     </td>
+                                    <td>
+                                        <?php $isOnline = $user->getLastActive(); ?>
+                                        <?php if($isOnline === true): ?>
+                                            <span class="fa fa-user-circle" style="color:green;"></span>
+                                        <?php else: ?>
+                                            <?php echo e($isOnline); ?>
+
+                                        <?php endif; ?>
+                                    </td>
                                     <td class="text-right text-nowrap">
                                         <div class="d-inline-flex align-items-center">
 
@@ -129,10 +142,10 @@
                             <?php endif; ?>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     <?php $__env->endSlot(); ?>
-                        <?php $__env->slot('paginator'); ?>
-                            <?php echo $users->appends(\Request::except('page'))->render(); ?>
+                    <?php $__env->slot('paginator'); ?>
+                        <?php echo $users->appends(\Request::except('page'))->render(); ?>
 
-                        <?php $__env->endSlot(); ?>
+                    <?php $__env->endSlot(); ?>
                 <?php echo $__env->renderComponent(); ?>
             </div>
         </div>

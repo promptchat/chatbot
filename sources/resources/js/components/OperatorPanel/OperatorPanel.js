@@ -1,16 +1,33 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {clone, find, remove, filter, cloneDeep} from 'lodash';
+import { Map } from 'immutable'
+import {  UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem  } from 'reactstrap';
+import {clone, find, findIndex, remove, filter, cloneDeep} from 'lodash';
 import ChatSessions from "./ChatSessions";
 import {Howl, Howler} from 'howler';
 import classnames from 'classnames';
 import Messages from "./Messages";
 
+const mapClient = (client) => {
+    let {operators, tags, ...props} = client;
+    return Map({
+        operators: Map(Object.fromEntries(operators.map((operator) => {
+            return [
+                operator.id,
+                operator
+            ]
+        }))),
+        tags,
+
+        ...props
+    })
+}
+
 export default class OperatorPanel extends Component {
     state = {
         departments: JSON.parse(this.props.departments),
         chatConfigs: JSON.parse(this.props.configs),
-        clients: [],
+        clients: Map(),
         sessions: new Set([]),
         open: null,
         sessionId: null,
@@ -23,7 +40,6 @@ export default class OperatorPanel extends Component {
         super(...arguments);
 
         this.leave = this.leave.bind(this);
-        this.onNameChange = this.onNameChange.bind(this);
         this.shortAlert = this.shortAlert.bind(this);
 
 
@@ -40,28 +56,12 @@ export default class OperatorPanel extends Component {
 
     }
 
-    onNameChange(name) {
-        this.setState(({clients}) => {
-            let newClients = clone(clients);
-            let client = find(newClients, {id: this.state.sessionId});
 
-            if (client) {
-                client.name = name;
-            }
-
-            return {
-                clients: newClients
-            }
-        })
-    }
 
     open(clientId) {
         this.setState(({clients}) => {
-            let newClients = clone(clients);
-            let currentClient = find(newClients, {id: clientId});
-            currentClient.has_unread_messages = false;
             return {
-                clients: newClients,
+                clients: clients.setIn([`${clientId}`, 'has_unread_messages'], false),
                 sessionId: clientId
             }
         })
@@ -106,7 +106,7 @@ export default class OperatorPanel extends Component {
 
     checkSound() {
         if (this.state.chatConfigs.bring_notification_allowed) {
-            if (find(this.state.clients, (a) => a.last_message_from_user && !a.operators.length)) {
+            if (this.state.clients.find((a) => a.get('last_message_from_user') && !a.get('operators').size)) {
                 if (!this.bringId) {
                     this.bringId = this.bring.play();
                 }
@@ -128,13 +128,20 @@ export default class OperatorPanel extends Component {
         }
     }
 
-    componentDidMount() {
 
+
+    componentDidMount() {
         axios.get('/api/panel')
             .then(({data}) => {
 
                 this.setState({
-                    clients: data.clients,
+                    clients: Map(Object.fromEntries(data.clients.map((client) => {
+
+                        return [
+                            client.id,
+                            mapClient(client)
+                        ]
+                    }))),
                     sessions: new Set(data.sessions),
                     tags: data.tags
                 });
@@ -148,97 +155,82 @@ export default class OperatorPanel extends Component {
                 this.setState(({sessionId, clients}) => {
 
                     if (sessionId !== client.id) {
-                        let newClients = clone(clients);
-                        let currentClient = find(newClients, {id: client.id});
-                        if (currentClient) {
                             this.shortAlert();
-                            currentClient.has_unread_messages = true;
                             return {
-                                clients: newClients
+                                clients: clients.setIn([`${client.id}`, 'has_unread_messages'], true)
                             };
-                        }
+
                     }
                 });
-            })
+            });
 
         this.state.departments.map((departmentId) => {
             window.Echo.private('Department.' + departmentId)
                 .listen('NewUserConnected', ({client}) => {
                     this.setState(({clients}) => {
-                        if (!clients.find(({id}) => +client.id === +id)) {
-                            let newClients = clone(clients);
-                            client.name = client.names[this.props.operator];
-                            newClients.splice(0, 0, client);
-                            return {
-                                clients: newClients
-                            };
-                        }
+                        return {
+                            clients: clients.setIn([`${client.id}`], mapClient(client))
+                        };
+                    });
+                })
+                .listen('UserSeancesModified', ({client, seances}) => {
+                    this.setState(({clients}) => {
+                        return {
+                            clients: clients.setIn([`${client.id}`, 'active_seances'], seances)
+                        };
+
                     });
                 })
                 .listen('NewUserDisconnected', ({client}) => {
                     this.setState(({clients}) => {
-                        let newClients = clone(clients);
-                        remove(newClients, {id: client.id});
                         return {
-                            clients: newClients
+                            clients: clients.deleteIn([`${client.id}`])
                         };
                     });
                 })
                 .listen('NewLiveChatMessage', ({client}) => {
                     this.setState(({clients}) => {
-                        let newClients = clone(clients);
-                        let currentClient = find(newClients, {id: client.id});
-                        if (currentClient) {
-                            this.shortAlert();
-                            currentClient.last_message_from_user = client.last_message_from_user;
-                            return {
-                                clients: newClients
-                            };
-                        }
+                        return {
+                            clients: clients.setIn([`${client.id}`, 'last_message_from_user'], client.last_message_from_user)
+                        };
                     });
                 })
                 .listen('NewOperatorInChat', ({operator, client}) => {
 
                     this.setState(({clients}) => {
-                        let newClients = cloneDeep(clients);
-                        let currentClient = find(newClients, {id: client.id});
-                        if (currentClient) {
-                            if (!currentClient.operators.find(({id}) => +operator.id === +id)) {
-                                currentClient.operators.push(operator);
-                                return {
-                                    clients: newClients
-                                };
-                            }
+                        return {
+                            clients: clients.setIn([`${client.id}`, 'operators', `${operator.id}`], operator)
                         }
+                    });
+                })
+                .listen('NameChanged', ({name, client}) => {
+
+                    this.setState(({clients}) => {
+                        return {
+                            clients: clients.setIn([`${client.id}`, 'name'], name)
+                        };
+
                     });
                 })
                 .listen('ChatSessionTagsChanged', ({client, tags }) => {
 
                     this.setState(({clients}) => {
-                        let newClients = cloneDeep(clients);
-                        let currentClient = find(newClients, {id: client.id});
-                        if (currentClient) {
-                            currentClient.tags  = tags;
+
                             return {
-                                clients: newClients
+                                clients: clients.setIn([`${client.id}`, 'tags'], tags)
                             };
 
-                        }
+
                     });
                 })
                 .listen('OperatorLeaveChat', ({operator, client}) => {
 
                     this.setState(({clients}) => {
-                        let newClients = cloneDeep(clients);
-                        let currentClient = find(newClients, {id: client.id});
-                        if (currentClient) {
-                            remove(currentClient.operators, (({id}) => +operator.id === +id));
-                            currentClient.last_message_from_user = client.last_message_from_user;
-                            return {
-                                clients: newClients
-                            };
+                        return {
+                            clients: clients.deleteIn([`${client.id}`, 'operators', `${operator.id}`])
+                                .setIn([`${client.id}`, 'last_message_from_user'], client.last_message_from_user)
+                        };
 
-                        }
                     });
                 })
 
@@ -246,15 +238,21 @@ export default class OperatorPanel extends Component {
     }
 
     render() {
-        let clients = clone(this.state.clients);
-        clients.sort((a, b) => {
-            let aWeight = a.last_message_from_user && !a.operators.length ? 1 : 0;
-            let bWeight = b.last_message_from_user && !b.operators.length ? 1 : 0;
+
+
+        let clients = this.state.clients.sort((a, b) => {
+            let aWeight = a.last_message_from_user && !a.operators.size ? 1 : 0;
+            let bWeight = b.last_message_from_user && !b.operators.size ? 1 : 0;
             return bWeight - aWeight;
         });
 
-        let sessions = filter(clients, ({id}) => this.state.sessions.has(id));
-        let activeSession = find(sessions, {id: this.state.sessionId});
+
+
+        let sessions = clients.filter((el) => {
+            return el.hasIn(['operators', this.props.operator])
+        });
+
+        let activeSession = sessions.get(`${this.state.sessionId}`);
 
         return (
             <div className={'row operator-page'}>
@@ -267,16 +265,16 @@ export default class OperatorPanel extends Component {
                                 </div>
                                 <div className="card-body message-info">
                                     <ul className="chats-list">
-                                        {this.state.sessions.size ?
+                                        {sessions.size ?
                                             sessions
                                                 .map((session) => {
                                                     return (
                                                         <ClientCard
                                                             checkUnread
-                                                            active={session.id === this.state.sessionId}
-                                                            key={session.id}
+                                                            active={session.get('id') === this.state.sessionId}
+                                                            key={session.get('id')}
                                                             onClick={() => {
-                                                                this.open(session.id)
+                                                                this.open(session.get('id'))
                                                             }}
                                                             client={session}
                                                             operator={this.props.operator}
@@ -284,6 +282,8 @@ export default class OperatorPanel extends Component {
                                                             hasUnread={this.hasUnread}
                                                         />)
                                                 })
+                                                .toIndexedSeq()
+                                                .toArray()
                                             : <div className="no-messages text-center">
                                                 {window.translates.no_active_chats}
                                             </div>
@@ -304,14 +304,14 @@ export default class OperatorPanel extends Component {
                                                 .map((client) => {
                                                     return (
                                                         <ClientCard
-                                                            key={client.id}
+                                                            key={client.get('id')}
                                                             onClick={() => {
-                                                                this.takeAPart(client.id)
+                                                                this.takeAPart(client.get('id'))
                                                             }}
                                                             client={client}
                                                         />
                                                     )
-                                                })
+                                                }).toIndexedSeq().toArray()
                                         }
                                     </ul>
                                 </div>
@@ -324,8 +324,7 @@ export default class OperatorPanel extends Component {
                         <div className={'card-body'}>
                             {activeSession && <Messages
                                 tags={this.state.tags}
-                                onNameChange={this.onNameChange}
-                                key={activeSession.id}
+                                key={activeSession.get('id')}
                                 operator={this.props.operator}
                                 leave={this.leave}
                                 session={activeSession}
@@ -343,52 +342,125 @@ class ClientCard extends React.PureComponent {
 
     };
 
-    getClientName(client) {
-        let name = [];
+    url(url) {
+        return url.replace(/^(.{10}).+(.{10})$/, '$1...$2')
+    }
 
-        if (client.geo && client.geo.iso) {
-            let geo = client.geo;
+    getClientAddress(seance) {
+        let ip = seance.ip;
+        let geo = seance.geo;
+        let name = [<span key="ip"> [{ip}] </span>];
+        if (geo && geo.iso) {
             name.push(<img src={`/flags/${geo.iso.toLowerCase()}.gif`} className={'mr-1'} key="flag"/>);
             name.push(<span key={'country '} className={'font-italic mr-1'}>{geo.city}, {geo.country}</span>);
         }
-        name.push(<span key={'ip'} className={'font-weight-bold'}>[{client.name || client.ip}]</span>);
+
 
         return name
     }
 
 
-    render() {
-        let {client} = this.props;
+    renderItem(seance) {
+        let icon = {
+            color: 'red',
+            icon: 'window-close-o',
+            title: window.translates.chatbox_activity_idle
+        };
+        switch (seance.current_window) {
+            case 'bot':
+                icon = {
+                    color: 'purple',
+                    icon: 'comments',
+                    title: window.translates.chatbox_activity_bot
+                };
+                break;
+            case 'live':
+                icon = {
+                    color: 'green',
+                    icon: 'comments-o',
+                    title: window.translates.chatbox_activity_live
+                };
+                break;
+            case 'fb':
+                icon = {
+                    color: 'blue',
+                    icon: 'facebook',
+                    title: window.translates.chatbox_activity_fb
+                };
+                break;
+            case 'whatsapp':
+                icon = {
+                    color: 'green',
+                    icon: 'whatsapp',
+                    title: window.translates.chatbox_activity_whatsapp
+                };
+                break;
+        }
+        return <span >
+            <span title={icon.title} style={{marginRight: 5, color: icon.color}}
+            ><i className={'fa fa-'+icon.icon} /></span>
+            <a style={{marginRight: 5, color: 'blue'}} title={seance.url} target={'_blank'} href={seance.url}>{this.url(seance.url)}</a>
+        </span>
+    }
 
+    render() {
+
+        let {client} = this.props;
+        let [activeSeance, ...otherSeances] =  client.get('active_seances')
+            .sort(({current_window}) => !current_window);
         return (
             <li
                 onClick={this.props.onClick}
                 className={classnames({
-                    blink: client.last_message_from_user && !client.operators.length,
-                    unread: this.props.checkUnread && client.has_unread_messages,
+                    blink: client.get('last_message_from_user') && !client.get('operators').size,
+                    unread: this.props.checkUnread && client.get('has_unread_messages'),
                     active: this.props.active
                 })}
             >
                 <div className="">
                     <div>
                         <div>
-                            {this.getClientName(client)}
+                            {client.get('name')}
+                            <strong>{this.getClientAddress(activeSeance)}</strong>
+                            <strong style={{color: 'green'}}><i className={'fa fa-signal'}/> ({client.get('inactive_seances_count')})</strong>
                         </div>
-                        <strong>
-                            {client.url}
-                        </strong>
+                        <div style={{marginTop: 10}}>
+                            {this.renderItem(activeSeance)}
+                            {!!otherSeances.length &&
+                            <UncontrolledDropdown className={'d-inline  small-dd'} size={"sm"}>
+                                <DropdownToggle onClick={() => {}} caret>
+                                    + {otherSeances.length}
+                                </DropdownToggle>
+                                <DropdownMenu>
+                                    {
+                                        otherSeances.map((seance) => (
+                                            <DropdownItem key={seance.id}>{this.renderItem(seance)}</DropdownItem>
+                                        ))
+                                    }
+
+                                </DropdownMenu>
+                            </UncontrolledDropdown>}
+                        </div>
                     </div>
                     <ul className={'operator-list'}>
-                        {client.operators.map(({name, id, image}) =>
-                            <li key={id}>
-                                <img src={location.origin + '/storage/' + image.path} title={name}/>
-                            </li>
-                        )}
+                        <li >
+                            {client.get('name') ? <span className={'avatar'}><span className={'avatar-inner'}>{client.get('name')[0]}</span></span>:
+                            <img src={ '/img/default-user-image.png'}/>}
+                        </li>
+                        {
+                            client.get('operators').map(({name, id, image}) =>
+                                <li key={id}>
+                                    <img src={image ? '/storage/' + image.path: '/img/default_operator_img.svg'} title={name}/>
+                                </li>
+                            )
+                            .toIndexedSeq()
+                            .toArray()
+                        }
                     </ul>
                     <ul className={'tag-list'}>
-                        {client.tags.map(({name, id}) =>
-                            <li className="tag" key={id}>
-                                {name}
+                        {client.get('tags').map((tag) =>
+                            <li className="tag" key={tag.id}>
+                                {tag.name}
                             </li>
                         )}
                     </ul>

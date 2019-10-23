@@ -1,3 +1,4 @@
+import axios from "axios";
 
 window._ = require('lodash');
 window.popper = window.Popper = require('popper.js').default;
@@ -44,6 +45,12 @@ window.Echo = new Echo({
     host: window.location.host,
 
 });
+
+(function  online() { setTimeout(() => {
+    axios.post('/operator/online').then(() => {
+        online();
+    });
+}, 10e3)})();
 
 
 

@@ -17,7 +17,7 @@ import Create from "./components/Create";
 import ChatCreator from "./components/ChatCreator";
 import Calendar from "./components/Calendar";
 import JsonView from "./components/JsonView";
-import OperatorPanel from "./components/OperatorPanel";
+import OperatorPanel from "./components/OperatorPanel/OperatorPanel";
 import PlanCreator from "./components/PlanCreator";
 import PlanCount from "./components/PlanCount";
 
