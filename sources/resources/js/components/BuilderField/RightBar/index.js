@@ -21,6 +21,7 @@ export default class RightBar extends React.PureComponent {
         this.stopButtonCreation = this.stopButtonCreation.bind(this);
         this.startTemplates = this.startTemplates.bind(this);
         this.setData = this.setData.bind(this);
+        this.stopTemplates = this.stopTemplates.bind(this);
     }
 
     setData({blocks, anchors}) {
@@ -39,7 +40,9 @@ export default class RightBar extends React.PureComponent {
     }
     startTemplates() {
         this.setState({step: STEP_TEMPLATES});
-
+    }
+    stopTemplates() {
+        this.setState({step: STEP_INIT});
     }
 
     onBlockChange(data, type) {
@@ -93,6 +96,7 @@ export default class RightBar extends React.PureComponent {
                     ><i className={`button-icon fa fa-download`} aria-hidden="true" />{window.translates.load_from_template}</a>
                     {
                         step===STEP_TEMPLATES && <TemplatesLoader
+                            onCancel={this.stopTemplates}
                             setData={this.setData}
                         />
                     }

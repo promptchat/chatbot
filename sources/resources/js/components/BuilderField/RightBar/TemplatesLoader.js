@@ -1,6 +1,21 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Modal from "react-modal";
 
+Modal.setAppElement('#app');
+const customStyles = {
+    overlay: {
+        overflowX: 'hidden',
+        overflowY: 'auto',
+    },
+    content : {
+        position: 'relative',
+        top: 'unset',
+        left: 'unset',
+        right: 'unset',
+        bottom: 'unset'
+    }
+};
 export default class TemplatesLoader extends  Component {
     state={
         templates: []
@@ -15,7 +30,15 @@ export default class TemplatesLoader extends  Component {
     }
 
     render() {
-        return(<div className="sub-configs">{this.state.templates.map((template) => (
+        return(
+            <Modal
+                isOpen={true}
+                onRequestClose={() => {
+                    this.props.onCancel()
+                }}
+                style={customStyles}
+            >
+                <div className="sub-configs">{this.state.templates.map((template) => (
             <a
                 key={template.id}
                 onClick={() => this.startLoad(template.id)}
@@ -25,6 +48,7 @@ export default class TemplatesLoader extends  Component {
                 {template.name}
             </a>
         ))}
-        </div>)
+        </div>
+            </Modal>)
     }
 }
