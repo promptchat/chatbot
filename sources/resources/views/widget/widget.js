@@ -24,8 +24,8 @@ HelpChatWidget = {
                 document.body.insertBefore(d,document.body.getElementsByTagName("*")[0])
 
             }
-
-            var isMobile = document.body.clientWidth <= 500 || document.body.clientHeight <= 500;
+            var html = document.getElementsByTagName('html')[0]
+            var isMobile = html.clientWidth <= 500 || html.clientHeight <= 500;
 
             const overflow = document.body.style.overflow;
 
