@@ -15,6 +15,9 @@ services:
     env_file:
       - variables.env
       - license.txt
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
 
   composer:
     image: composer:latest
@@ -23,6 +26,9 @@ services:
       - ./sources:/sources
     command: >
       sh -c "rm -f vendor/autoload.php && composer install"
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
 
 
   db:
@@ -36,6 +42,9 @@ services:
       MYSQL_USER: promptchat
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
 
   redis:
     image: redis:4.0.5-alpine
@@ -44,6 +53,9 @@ services:
     hostname: redis
     volumes:
       - redis-data:/data
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
   php:
     restart: always
     build:
@@ -65,6 +77,9 @@ services:
     env_file:
       - variables.env
       - license.txt
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
 
   scheduler:
     restart: always
@@ -84,6 +99,9 @@ services:
     env_file:
       - variables.env
       - license.txt
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
 
   migrator:
     build:
@@ -104,6 +122,9 @@ services:
     env_file:
       - variables.env
       - license.txt
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
 
   queue:
     restart: always
@@ -123,6 +144,9 @@ services:
     env_file:
       - variables.env
       - license.txt
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
 
   monitor:
     restart: always
@@ -142,6 +166,9 @@ services:
     env_file:
       - variables.env
       - license.txt
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
 
   node:
     restart: always
@@ -154,6 +181,9 @@ services:
       - ./sources:/sources
     depends_on:
       - redis
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
 
 volumes:
   redis-data:
