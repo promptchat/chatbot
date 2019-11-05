@@ -15,6 +15,16 @@
 
                             <div class="col-sm-12">
                                 <div class="form-group">
+                                    <label for="siteName"><?php echo e(__('Site name')); ?></label>
+                                    <input id="siteName" type="text" class="form-control<?php echo e($errors->has('siteName') ? ' is-invalid' : ''); ?>" name="siteName" value="<?php echo e(old('siteName')); ?>" required autofocus>
+
+                                    <?php if($errors->has('siteName')): ?>
+                                        <span class="invalid-feedback" role="alert">
+                                        <strong><?php echo e($errors->first('siteName')); ?></strong>
+                                    </span>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="form-group">
                                     <label for="name"><?php echo e(__('Name')); ?></label>
                                     <input id="name" type="text" class="form-control<?php echo e($errors->has('name') ? ' is-invalid' : ''); ?>" name="name" value="<?php echo e(old('name')); ?>" required autofocus>
 
@@ -23,7 +33,8 @@
                                         <strong><?php echo e($errors->first('name')); ?></strong>
                                     </span>
                                     <?php endif; ?>
-                                </div><div class="form-group">
+                                </div>
+                                <div class="form-group">
                                     <label for="email"><?php echo e(__('E-Mail Address')); ?></label>
                                     <input id="email" type="email" class="form-control<?php echo e($errors->has('email') ? ' is-invalid' : ''); ?>" name="email" value="<?php echo e(old('email')); ?>" required>
 
