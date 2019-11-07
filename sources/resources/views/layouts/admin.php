@@ -93,9 +93,9 @@
                             </a>
                         <?php endif; ?>
 
-                        <a class="menu-item" href="<?php echo e('/getting-started-guide'); ?>">
-                            <i class="fa fa-book text-warning"></i><?php echo app('translator')->getFromJson('site.left_menu.getting_started_guide'); ?>
-                        </a>
+
+
+
                         <div class="navigation-label">Company</div>
                         <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\User\User::class)): ?>
                             <a class="menu-item" href="<?php echo e(action("UserController@index")); ?>">
@@ -111,6 +111,8 @@
                         <?php endif; ?>
 
                         <?php if(Auth::user()->isSuperAdmin()): ?>
+                            <a href="https://license.promptchat.com" class="menu-item" target="_blank">
+                            <i class="fa fa-id-badge text-warning"></i><?php echo app('translator')->getFromJson('site.left_menu.license'); ?></a>
                             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
                                class="dropdown-toggle menu-item">
                                 <i class="fa fa-user-circle text-info"></i>
