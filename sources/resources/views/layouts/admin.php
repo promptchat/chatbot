@@ -89,13 +89,14 @@
                                 <i class="fa fa-commenting text-danger"></i><?php echo app('translator')->getFromJson('site.left_menu.live_chat'); ?>
                             </a>
                             <a class="menu-item" href="<?php echo e(action("LiveChatWaitingUserController@index")); ?>">
-                                <i class="fa fa-user-times text-info"></i><?php echo app('translator')->getFromJson('site.left_menu.live_chat_waiting_user'); ?> <span class="badge badge-danger"><?php echo e(\App\Http\Controllers\LiveChatWaitingUserController::getWaitingUsersCount()); ?></span>
+                                <i class="fa fa-user-times text-info"></i><?php echo app('translator')->getFromJson('site.left_menu.live_chat_waiting_user'); ?>
+                                <span class="badge badge-danger"><?php echo e(\App\Http\Controllers\LiveChatWaitingUserController::getWaitingUsersCount()); ?></span>
                             </a>
                         <?php endif; ?>
 
-
-
-
+                        
+                        
+                        
                         <div class="navigation-label">Company</div>
                         <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\User\User::class)): ?>
                             <a class="menu-item" href="<?php echo e(action("UserController@index")); ?>">
@@ -111,8 +112,6 @@
                         <?php endif; ?>
 
                         <?php if(Auth::user()->isSuperAdmin()): ?>
-                            <a href="https://license.promptchat.com" class="menu-item" target="_blank">
-                            <i class="fa fa-id-badge text-warning"></i><?php echo app('translator')->getFromJson('site.left_menu.license'); ?></a>
                             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
                                class="dropdown-toggle menu-item">
                                 <i class="fa fa-user-circle text-info"></i>
@@ -139,14 +138,16 @@
                             <?php if(Auth::user()->isCompanyAdmin()): ?>
                                 <li>
                                     <a class="menu-item sub-item" href="<?php echo e(action("PlanController@buy")); ?>">
-                                        <i class="fa fa-credit-card text-white" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.plan'); ?>
+                                        <i class="fa fa-credit-card text-white"
+                                           aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.plan'); ?>
                                     </a>
                                 </li>
                             <?php endif; ?>
                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \Waavi\Translation\Models\Language::class)): ?>
                                 <li>
                                     <a class="menu-item sub-item" href="<?php echo e(action("LanguageController@index")); ?>">
-                                        <i class="fa fa-globe text-white" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.languages'); ?>
+                                        <i class="fa fa-globe text-white"
+                                           aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.languages'); ?>
                                     </a>
                                 </li>
                             <?php endif; ?>
@@ -159,6 +160,12 @@
                                 </li>
                             <?php endif; ?>
                         </ul>
+                        <?php if(Auth::user()->isSuperAdmin()): ?>
+                            <li>
+                                <a href="https://license.promptchat.com" class="menu-item" target="_blank">
+                                    <i class="fa fa-id-badge text-warning"></i><?php echo app('translator')->getFromJson('site.left_menu.license'); ?></a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
 
@@ -197,7 +204,8 @@
                                     <div class="box-sm">
                                         <div class="login-box clearfix">
                                             <div class="user-img">
-                                                <img src="<?php echo e(Auth::user()->image->url ?? '/img/no-image.png'); ?>" alt="" style="width:100%">
+                                                <img src="<?php echo e(Auth::user()->image->url ?? '/img/no-image.png'); ?>" alt=""
+                                                     style="width:100%">
                                             </div>
                                             <div class="user-info">
                                                 <span><?php echo e(Auth::user()->name); ?></span>
