@@ -3,20 +3,27 @@
     <div class="">
         <div class="authorization-form">
             <div class="card">
-                <div class="card-body">
+                <div class="card-header bg-dark">
                     <div class="text-center">
-                        <img src="<?php echo e(\App\Models\SiteConfig::getLogo()); ?>" class="authorization-logo" style="margin: 15px 0">
+                        <img src="<?php echo e(\App\Models\SiteConfig::getLogo()); ?>" class="authorization-logo"
+                             style="margin: 15px 0">
                     </div>
-
+                </div>
+                <div class="card-text py-3">
+                    <div class="text-center text-danger">
+                        <h4>Set your Administrator account</h4>
+                    </div>
                     <form role="form" method="POST" action="<?php echo e(action('ConfigureController@saveConfigurations')); ?>">
                         <div class="row">
-                        <?php echo e(csrf_field()); ?>
+                            <?php echo e(csrf_field()); ?>
 
 
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="siteName"><?php echo e(__('Site name')); ?></label>
-                                    <input id="siteName" type="text" class="form-control<?php echo e($errors->has('siteName') ? ' is-invalid' : ''); ?>" name="siteName" value="<?php echo e(old('siteName')); ?>" required autofocus>
+                                    <input id="siteName" type="text"
+                                           class="form-control<?php echo e($errors->has('siteName') ? ' is-invalid' : ''); ?>"
+                                           name="siteName" value="<?php echo e(old('siteName')); ?>" required autofocus>
 
                                     <?php if($errors->has('siteName')): ?>
                                         <span class="invalid-feedback" role="alert">
@@ -26,7 +33,9 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="name"><?php echo e(__('Name')); ?></label>
-                                    <input id="name" type="text" class="form-control<?php echo e($errors->has('name') ? ' is-invalid' : ''); ?>" name="name" value="<?php echo e(old('name')); ?>" required autofocus>
+                                    <input id="name" type="text"
+                                           class="form-control<?php echo e($errors->has('name') ? ' is-invalid' : ''); ?>"
+                                           name="name" value="<?php echo e(old('name')); ?>" required autofocus>
 
                                     <?php if($errors->has('name')): ?>
                                         <span class="invalid-feedback" role="alert">
@@ -36,7 +45,9 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="email"><?php echo e(__('E-Mail Address')); ?></label>
-                                    <input id="email" type="email" class="form-control<?php echo e($errors->has('email') ? ' is-invalid' : ''); ?>" name="email" value="<?php echo e(old('email')); ?>" required>
+                                    <input id="email" type="email"
+                                           class="form-control<?php echo e($errors->has('email') ? ' is-invalid' : ''); ?>"
+                                           name="email" value="<?php echo e(old('email')); ?>" required>
 
                                     <?php if($errors->has('email')): ?>
                                         <span class="invalid-feedback" role="alert">
@@ -47,7 +58,9 @@
 
                                 <div class="form-group">
                                     <label for="password"><?php echo e(__('Password')); ?></label>
-                                    <input id="password" type="password" class="form-control<?php echo e($errors->has('password') ? ' is-invalid' : ''); ?>" name="password" required>
+                                    <input id="password" type="password"
+                                           class="form-control<?php echo e($errors->has('password') ? ' is-invalid' : ''); ?>"
+                                           name="password" required>
 
                                     <?php if($errors->has('password')): ?>
                                         <span class="invalid-feedback" role="alert">
@@ -58,16 +71,17 @@
 
                                 <div class="form-group">
                                     <label for="password-confirm"><?php echo e(__('Confirm Password')); ?></label>
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                    <input id="password-confirm" type="password" class="form-control"
+                                           name="password_confirmation" required>
                                 </div>
                             </div>
 
                             <div class="col-sm-12 text-right">
-                                <button type="submit" class="btn btn-primary text-uppercase"><?php echo e(__('Configure')); ?></button>
+                                <button type="submit"
+                                        class="btn btn-primary text-uppercase"><?php echo e(__('Configure')); ?></button>
                             </div>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>

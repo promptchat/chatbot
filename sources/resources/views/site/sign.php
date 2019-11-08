@@ -9,36 +9,39 @@
 
                     <div class="form-group">
                         <input
-                            id="email"
-                            type="email"
-                            class="form-control"
-                            name="email"
-                            value="<?php echo e(old('email')); ?>"
-                            placeholder=<?php echo e(__('site.sign.email')); ?>
+                                id="email"
+                                type="email"
+                                class="form-control"
+                                name="email"
+                                value="<?php echo e(old('email')); ?>"
+                                placeholder=<?php echo e(__('site.sign.email')); ?>
 
-                            autofocus
+                                        autofocus
                         >
                     </div>
 
                     <div class="form-group mx-md-3">
                         <input
-                            id="password"
-                            type="password"
-                            class="form-control"
-                            name="password"
-                            placeholder=<?php echo e(__('site.sign.password')); ?>
+                                id="password"
+                                type="password"
+                                class="form-control"
+                                name="password"
+                                placeholder=<?php echo e(__('site.sign.password')); ?>
 
                         >
                     </div>
                     <div class="form-group mr-md-3">
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" <?php echo e(old('remember') ? 'checked' : ''); ?> class="custom-control-input" name='remember' id="remember-me"/>
-                            <label for="remember-me" class="custom-control-label text-white">  <?php echo e(__('site.sign.remember_me')); ?></label>
+                            <input type="checkbox" <?php echo e(old('remember') ? 'checked' : ''); ?> class="custom-control-input"
+                                   name='remember' id="remember-me"/>
+                            <label for="remember-me"
+                                   class="custom-control-label text-white">  <?php echo e(__('site.sign.remember_me')); ?></label>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary text-uppercase"><?php echo e(__('site.sign.sign_in')); ?></button>
+                        <button type="submit"
+                                class="btn btn-primary text-uppercase"><?php echo e(__('site.sign.sign_in')); ?></button>
                     </div>
                 </form>
             </div>
@@ -99,6 +102,8 @@
                                         </span>
                                     <?php endif; ?>
                                 </div>
+                            </div>
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="company_name"><?php echo app('translator')->getFromJson('site.sign.company_name'); ?></label>
                                     <input
@@ -118,8 +123,24 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
+                                    <label for="register_email"><?php echo app('translator')->getFromJson('site.sign.phone'); ?></label>
+                                    <input id="register_email" type="text"
+                                           class="form-control <?php echo e($errors->has('register_phone') ? ' is-invalid' : ''); ?>"
+                                           name="register_phone" value="<?php echo e(old('register_phone')); ?>" required>
+
+                                    <?php if($errors->has('register_phone')): ?>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong><?php echo e($errors->first('register_phone')); ?></strong>
+                                        </span>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
                                     <label for="register_email"><?php echo app('translator')->getFromJson('site.sign.email'); ?></label>
-                                    <input id="register_email" type="email" class="form-control<?php echo e($errors->has('register_email') ? ' is-invalid' : ''); ?>" name="register_email" value="<?php echo e(old('register_email')); ?>" required>
+                                    <input id="register_email" type="email"
+                                           class="form-control<?php echo e($errors->has('register_email') ? ' is-invalid' : ''); ?>"
+                                           name="register_email" value="<?php echo e(old('register_email')); ?>" required>
 
                                     <?php if($errors->has('register_email')): ?>
                                         <span class="invalid-feedback" role="alert">
@@ -127,9 +148,13 @@
                                         </span>
                                     <?php endif; ?>
                                 </div>
+                            </div>
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="register_password"><?php echo app('translator')->getFromJson('site.sign.password'); ?></label>
-                                    <input id="register_password" type="password" class="form-control<?php echo e($errors->has('register_password') ? ' is-invalid' : ''); ?>" name="register_password" required>
+                                    <input id="register_password" type="password"
+                                           class="form-control<?php echo e($errors->has('register_password') ? ' is-invalid' : ''); ?>"
+                                           name="register_password" required>
 
                                     <?php if($errors->has('register_password')): ?>
                                         <span class="invalid-feedback" role="alert">
@@ -137,17 +162,22 @@
                                         </span>
                                     <?php endif; ?>
                                 </div>
-
+                            </div>
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="password_confirm"><?php echo app('translator')->getFromJson('site.sign.confirm_password'); ?></label>
-                                    <input id="password_confirm" type="password" class="form-control" name="register_password_confirmation" required>
+                                    <input id="password_confirm" type="password" class="form-control"
+                                           name="register_password_confirmation" required>
                                 </div>
                             </div>
 
                             <div class="col-sm-12">
                                 <div class="custom-control custom-checkbox mb-3">
                                     <input type="checkbox" class="custom-control-input" name="terms" id="customCheck1">
-                                    <label class="custom-control-label" for="customCheck1"><?php echo app('translator')->getFromJson('site.sign.accept'); ?> <a target="_blank" href="/terms-and-conditions"><?php echo app('translator')->getFromJson('site.sign.terms_and_conditions'); ?></a> <?php echo app('translator')->getFromJson('site.sign.and'); ?> <a target="_blank" href="/privacy-policy"><?php echo app('translator')->getFromJson('site.sign.privacy_policy'); ?></a>.</label>
+                                    <label class="custom-control-label" for="customCheck1"><?php echo app('translator')->getFromJson('site.sign.accept'); ?> <a
+                                                target="_blank"
+                                                href="/terms-and-conditions"><?php echo app('translator')->getFromJson('site.sign.terms_and_conditions'); ?></a> <?php echo app('translator')->getFromJson('site.sign.and'); ?>
+                                        <a target="_blank" href="/privacy-policy"><?php echo app('translator')->getFromJson('site.sign.privacy_policy'); ?></a>.</label>
                                     <?php if($errors->has('terms')): ?>
                                         <span class="invalid-feedback d-block" role="alert">
                                             <strong><?php echo e($errors->first('terms')); ?></strong>
@@ -156,7 +186,8 @@
                                 </div>
                             </div>
                             <div class="col-sm-12 text-right">
-                                <button type="submit" class="btn btn-primary text-uppercase"><?php echo app('translator')->getFromJson('site.sign.sign_up'); ?></button>
+                                <button type="submit"
+                                        class="btn btn-primary text-uppercase"><?php echo app('translator')->getFromJson('site.sign.sign_up'); ?></button>
                             </div>
                         </div>
                     </form>

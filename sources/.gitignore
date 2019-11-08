@@ -1,7 +1,7 @@
 /public/storage
 /storage/*.key
 /storage/sessions
-/storage/configured
+/storage/framework/configured
 !/storage/sessions/.gitignore
 /vendor
 .env
