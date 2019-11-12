@@ -100,7 +100,7 @@
                         </div>
 
                         <div class="form-group">
-                            <socials socials=<?php echo e(json_encode($agent->getFormattedContacts())); ?> />
+                            <socials socials="<?php echo e(json_encode($agent->getFormattedContacts())); ?>" />
                         </div>
                     </div>
                 </div>
