@@ -119,6 +119,13 @@
                             </a>
                         <?php endif; ?>
                         <ul class="collapse list-unstyled sub-menu" id="homeSubmenu">
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\Template\Template::class)): ?>
+                                <li>
+                                    <a href="<?php echo e(action('TemplateController@index')); ?>" class="menu-item sub-item">
+                                        <i class="fa fa-file-archive-o"></i><?php echo app('translator')->getFromJson('site.left_menu.templates'); ?>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\SiteConfig::class)): ?>
                                 <li>
                                     <a class="menu-item sub-item" href="<?php echo e(action("SiteConfigController@index")); ?>">

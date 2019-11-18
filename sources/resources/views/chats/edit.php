@@ -8,9 +8,10 @@
     </script>
     <chat-creator
             logo="<?php echo e(\App\Models\SiteConfig::getLogo()); ?>"
-            id="<?php echo e($chat->id); ?>"
-            name="<?php echo e($chat->name); ?>"
-            data="<?php echo e(json_encode($chat->chat->getItems())); ?>"
+            id="<?php echo e($chatUser->id); ?>"
+            name="<?php echo e($chatUser->name); ?>"
+            temporary_chat_id="<?php echo e($chatUser->temporary_chat_id); ?>"
+            chat_id="<?php echo e($chatUser->chat_id); ?>"
     />
 <?php $__env->stopSection(); ?>
 

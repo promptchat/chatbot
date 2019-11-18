@@ -7,8 +7,8 @@ export default  class Anchor extends React.Component {
     get d() {
         const HEADER_HEIGHT = 0;
         const RIGHT_BAR_WIDTH = 285;
-
-        const DELTA  = 12;
+        const k = 100/this.props.scale;
+        const DELTA  = 12 / k;
         const PATH_LEFT = 1;
         const PATH_RIGHT = 2;
         const PATH_TOP = 3;
@@ -124,11 +124,22 @@ export default  class Anchor extends React.Component {
 
         const [SOURCE, TARGET, PATH] = paths.sort((a,b) => distance(...a) - distance(...b))[0];
         const CURVE = 80;
-        
+
+
+        SOURCE.x*=k;
+        SOURCE.y*=k;
+        TARGET.x*=k;
+        TARGET.y*=k;
+
         let middle = {
             'top': (SOURCE.y + TARGET.y)/2,
             'left': (SOURCE.x + TARGET.x)/2,
         };
+
+
+
+
+
 
         const leftPath = () =>
             `M ${SOURCE.x},          ${SOURCE.y} 

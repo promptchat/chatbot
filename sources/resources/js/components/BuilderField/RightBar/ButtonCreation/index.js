@@ -1,6 +1,7 @@
 import React from 'react';
 import Message from "./Message";
 import {
+    TYPE_API_CONTENT,
     TYPE_BUTTONS, TYPE_CALENDAR, TYPE_MAP, TYPE_MESSAGE, TYPE_QUESTION,
     TYPE_SELECT
 } from "../../../../help/buttonTypes";
@@ -10,6 +11,7 @@ import Select from "./Select";
 import Calendar from "./Calendar";
 import Map from "./Map";
 import Modal from 'react-modal';
+import Api from "./Api";
 
 
 Modal.setAppElement('#app');
@@ -46,60 +48,62 @@ export default class ButtonCreation extends React.PureComponent {
         let content = null;
         let message = null;
         let icon = null;
+        let options = {
+            onCancel: this.props.onCancel,
+            onBlockChange: this.props.onBlockChange,
+            blockId: this.props.block ? this.props.block.id : null,
+            block: this.props.block ? this.props.block.data : {},
+            variables: this.props.variables,
+        };
         switch (buttonType) {
             case TYPE_MESSAGE:
                 icon = 'comment';
                 message = window.translates.message;
                 content = <Message
-                    onCancel={this.props.onCancel}
-                    onBlockChange={this.props.onBlockChange}
-                    blockId={this.props.block ? this.props.block.id : null}
-                    block={this.props.block ? this.props.block.data : {}}/>;
+                    {...options}
+                />;
                     break;
             case TYPE_QUESTION:
                 icon = 'question';
                 message = window.translates.question;
                 content =  <Question
-                    onCancel={this.props.onCancel}
-                    onBlockChange={this.props.onBlockChange}
-                    blockId={this.props.block ? this.props.block.id : null}
-                    block={this.props.block ? this.props.block.data : {}}/>;
+                    {...options}
+                />;
                     break;
             case TYPE_BUTTONS:
                 icon = 'list';
                 message = window.translates.buttons;
                 content =  <Buttons
-                    onCancel={this.props.onCancel}
-                    onBlockChange={this.props.onBlockChange}
-                    blockId={this.props.block ? this.props.block.id : null}
-                    block={this.props.block ? this.props.block.data : {}}/>;
+                    {...options}
+                />;
                     break;
             case TYPE_SELECT:
                 icon = 'check-square';
                 message = window.translates.select;
                 content = <Select
-                    onCancel={this.props.onCancel}
-                    onBlockChange={this.props.onBlockChange}
-                    blockId={this.props.block ? this.props.block.id : null}
-                    block={this.props.block ? this.props.block.data : {}}/>;
+                    {...options}
+                />;
                     break;
             case TYPE_CALENDAR:
                 icon = 'calendar';
                 message = window.translates.calendar;
                 content =  <Calendar
-                    onCancel={this.props.onCancel}
-                    onBlockChange={this.props.onBlockChange}
-                    blockId={this.props.block ? this.props.block.id : null}
-                    block={this.props.block ? this.props.block.data : {}}/>;
+                    {...options}
+                />;
                     break;
             case TYPE_MAP:
                 icon = 'map';
                 message = window.translates.map;
                 content =  <Map
-                    onCancel={this.props.onCancel}
-                    onBlockChange={this.props.onBlockChange}
-                    blockId={this.props.block ? this.props.block.id : null}
-                    block={this.props.block ? this.props.block.data : {}}/>;
+                    {...options}
+                />;
+                break;
+            case TYPE_API_CONTENT:
+                icon = 'code';
+                message = 'API'/*window.translates.api*/;
+                content =  <Api
+                    {...options}
+                />;
                 break;
         }
 
@@ -155,6 +159,11 @@ export default class ButtonCreation extends React.PureComponent {
                     className="menu-item"
                     onClick={() => this.createButton(TYPE_MAP)}
                 ><i className={`button-icon fa fa-map`} aria-hidden="true" />{window.translates.map}</a>
+
+                <a
+                    className="menu-item"
+                    onClick={() => this.createButton(TYPE_API_CONTENT)}
+                ><i className={`button-icon fa fa-code`} aria-hidden="true" />{'API'/*window.translates.api*/}</a>
                 {this.renderButtonConfig()}
             </div>
         )

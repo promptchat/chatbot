@@ -2,6 +2,7 @@ import React from 'react';
 import {each} from 'lodash'
 import Draggable from "react-draggable";
 import {
+    TYPE_API_CONTENT,
     TYPE_BUTTONS, TYPE_CALENDAR, TYPE_MAP, TYPE_MESSAGE, TYPE_QUESTION, TYPE_SELECT,
     TYPE_START
 } from "../../../help/buttonTypes";
@@ -12,6 +13,7 @@ import {SelectBlock} from "./SelectBlock";
 import {StartBlock} from "./StartBlock";
 import {CalendarBlock} from "./CalendarBlock";
 import {MapBlock} from "./MapBlock";
+import {APIContentBlock} from "./APIContentBlock";
 
 
 export class Connect extends React.PureComponent {
@@ -136,6 +138,7 @@ export default class Block extends React.PureComponent {
         this.onRemove = this.onRemove.bind(this);
         this.edit = this.edit.bind(this);
         this.copy = this.copy.bind(this);
+        this.connector = this.connector.bind(this);
     }
 
     onControlledStopDrag(e, position) {
@@ -191,7 +194,16 @@ export default class Block extends React.PureComponent {
 
 
     get isConnectable() {
-        return [TYPE_MESSAGE, TYPE_QUESTION, TYPE_SELECT, TYPE_START, TYPE_MAP, TYPE_CALENDAR].indexOf(this.props.type) !== -1
+        if([TYPE_MESSAGE, TYPE_QUESTION, TYPE_SELECT, TYPE_START, TYPE_MAP, TYPE_CALENDAR].indexOf(this.props.type) !== -1) {
+            return true;
+        }
+
+        if(this.props.type === TYPE_API_CONTENT) {
+            return  this.props.data.buttons.length === 0;
+        }
+
+        return false;
+
     }
 
 
@@ -207,6 +219,8 @@ export default class Block extends React.PureComponent {
                 return "Scheduler";
             case TYPE_MAP:
                 return "Map";
+            case TYPE_API_CONTENT:
+                return "API";
 
             case TYPE_QUESTION:
             case TYPE_SELECT:
@@ -215,6 +229,16 @@ export default class Block extends React.PureComponent {
         }
     }
 
+    connector(render, id) {
+        this.children.push(id);
+        return <div className={'connectable-inline'} key={id} ref={(ref) => this.blocks[id] = ref}>{
+            <Connect positions={['right', 'left']} onConnect={(e) => {
+                this.props.startConnect(e, id)
+            }}>
+                <div className="connectable-content">{render}</div>
+            </Connect>
+        }</div>
+    };
     render() {
 
         let content;
@@ -226,19 +250,10 @@ export default class Block extends React.PureComponent {
                 content = null;
                 break;
             case TYPE_BUTTONS:
+
                 content = <ButtonsBlock
                     block={this.props.data}
-                    connector={(render, id) => {
-                        this.children.push(id);
-                        return <div className={'connectable-inline'} key={id} ref={(ref) => this.blocks[id] = ref}>{
-                            <Connect positions={['right', 'left']} onConnect={(e) => {
-                                this.props.startConnect(e, id)
-                            }}>
-                                <div className="connectable-content">{render}</div>
-                            </Connect>
-                        }</div>
-                    }
-                    }
+                    connector={this.connector}
 
                 />;
                 break;
@@ -266,10 +281,18 @@ export default class Block extends React.PureComponent {
 
                 />;
                 break;
+            case TYPE_API_CONTENT:
+                content = <APIContentBlock
+                    block={this.props.data}
+                    connector={this.connector}
+                />;
+                break;
         }
 
         return (
             <Draggable
+                scale={this.props.scale/100}
+                bounds="parent"
                 handle=".header"
                 position={this.state.position}
                 onDrag={this.onControlledDrag.bind(this)}

@@ -8,13 +8,13 @@ import 'simplebar';
 
 import ReactLoader from 'react-loader';
 
-
 import SocialServices from "./components/SocialServices";
 import AgentContacts from "./components/AgentContacts";
 import Analytics from "./components/Analytics";
 import Color from "./components/Color";
 import Create from "./components/Create";
 import ChatCreator from "./components/ChatCreator";
+import TemplateCreator from "./components/TemplateCreator";
 import Calendar from "./components/Calendar";
 import JsonView from "./components/JsonView";
 import OperatorPanel from "./components/OperatorPanel/OperatorPanel";
@@ -34,6 +34,7 @@ react.component('agent-contacts', AgentContacts);
 react.component('color', Color);
 react.component('create', Create);
 react.component('chat-creator', ChatCreator);
+react.component('template-creator', TemplateCreator);
 react.component('calendar', Calendar);
 react.component('json-view', JsonView);
 react.component('operator-panel', OperatorPanel);

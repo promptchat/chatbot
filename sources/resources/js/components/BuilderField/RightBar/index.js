@@ -1,8 +1,9 @@
 import React from 'react'
 import ButtonCreation from "./ButtonCreation";
-import {find, cloneDeep, remove, uniqueId} from 'lodash'
+import {find, cloneDeep, remove, uniqueId, get, filter, countBy} from 'lodash'
 import TemplatesLoader from "./TemplatesLoader";
-import {TYPE_CALENDAR, TYPE_QUESTION, TYPE_SELECT} from "../../../help/buttonTypes";
+import {TYPE_API_CONTENT, TYPE_CALENDAR, TYPE_QUESTION, TYPE_SELECT} from "../../../help/buttonTypes";
+import MarkCreator from "../../MarkCreator";
 
 const STEP_INIT = 1;
 const STEP_BUTTON_CREATION = 2;
@@ -25,8 +26,8 @@ export default class RightBar extends React.PureComponent {
     }
 
     setData({blocks, anchors}) {
-        this.props.setBlocks(blocks);
-        this.props.setAnchors(anchors);
+        let variables = countBy(blocks.map(({data: {variable}}) => variable).filter((variable) => (variable)));
+        this.props.setBlocks(blocks, anchors, variables);
         this.stopButtonCreation();
     }
 
@@ -46,8 +47,12 @@ export default class RightBar extends React.PureComponent {
     }
 
     onBlockChange(data, type) {
-        let blocks = cloneDeep(this.props.getBlocks());
+        let blocks = this.props.getBlocks();
         let block = find(blocks, {id: this.props.blockUpdate});
+
+        let newAnchors = null;
+        let newVariables = null;
+
         if(!block) {
             let lastBlock = blocks[blocks.length - 1];
             block = {
@@ -58,9 +63,30 @@ export default class RightBar extends React.PureComponent {
             };
             blocks.push(block);
         }
+
+
+        if(block.variable || data.variable) {
+            newVariables = cloneDeep(this.props.getVariables());
+            if(block.variable) {
+                newVariables[block.variable]--;
+            }
+            if(data.variable) {
+                newVariables[data.variable] = -~newVariables[data.variable];
+            }
+        }
+        if(type === TYPE_API_CONTENT) {
+            let oldLength = get(data, 'buttons', []).length === 0;
+            let newLength = get(block, 'data.buttons', []).length === 0;
+            if(oldLength !== newLength) {
+                let anchors = cloneDeep(this.props.getAnchors());
+                remove(anchors, {source: this.props.blockUpdate});
+                newAnchors =  anchors
+            }
+        }
+
         block.data = data;
 
-        this.props.setBlocks(blocks);
+        this.props.setBlocks(blocks,newAnchors, newVariables);
         this.stopButtonCreation();
     }
 
@@ -74,7 +100,7 @@ export default class RightBar extends React.PureComponent {
         return (
             <div className="right-bar">
                 <div className="top-block">
-                    <a href="/chats" className="back-link">
+                    <a href={this.props.url} className="back-link">
                         <i className="fa fa-arrow-left" aria-hidden="true"></i>
                     </a>
                     <img className={'logo'} src={this.props.logo} alt=""/>
@@ -82,6 +108,7 @@ export default class RightBar extends React.PureComponent {
                 <div className="configs" data-simplebar>
                     <div className="navigation-label">{window.translates.create_block}</div>
                     <ButtonCreation
+                        variables={this.props.getVariables()}
                         isCreation={step === STEP_BUTTON_CREATION}
                         onCancel={this.stopButtonCreation}
                         onBlockChange={this.onBlockChange}

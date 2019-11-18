@@ -186,11 +186,11 @@ export default class Builder extends React.Component {
                         )
                         .map(
                             ({target, source}) =>
-                                <Anchor onRemove={() => this.removeAnchor(target,source)} getWrapper={this.props.getWrapper} scroll={this.props.scroll} key={[target,source].join('-')} target={this.state.blockSizes[target]} source={this.state.blockSizes[source]} />
+                                <Anchor scale={this.props.scale} onRemove={() => this.removeAnchor(target,source)} getWrapper={this.props.getWrapper} scroll={this.props.scroll} key={[target,source].join('-')} target={this.state.blockSizes[target]} source={this.state.blockSizes[source]} />
                         )
                 }
                 {
-                    this.state.draw && <Anchor getWrapper={this.props.getWrapper} scroll={this.props.scroll} source={this.state.drawStart} target={this.state.drawEnd}  />
+                    this.state.draw && <Anchor  scale={this.props.scale}  getWrapper={this.props.getWrapper} scroll={this.props.scroll} source={this.state.drawStart} target={this.state.drawEnd}  />
                 }
                 {
                     this
@@ -199,6 +199,7 @@ export default class Builder extends React.Component {
                         .map(
                             (block) =>
                                 <Block
+                                    scale={this.props.scale}
                                     ref={(ref) => this.blocks[block.id] = ref}
                                     onBlockUpdate={this.props.onBlockUpdate}
                                     isConnectable={block.isConnectable}

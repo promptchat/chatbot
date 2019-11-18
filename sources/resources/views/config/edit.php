@@ -30,10 +30,8 @@
                             name="<?php echo e($config->name); ?>"
                             id="<?php echo e($config->id); ?>"
                             has_live="<?php echo e($hasLive); ?>"
-                            default_operator_img_id="<?php echo e($config->default_operator_img_id ? $config->default_operator_img_id : null); ?>"
-                            default_operator_img="<?php echo e($config->defaultOperatorImg ? $config->defaultOperatorImg->url : url('/img/default_operator_img.svg')); ?>"
-                            logo_id="<?php echo e($config->logo_id ? $config->logo_id : null); ?>"
-                            logo="<?php echo e($config->logo ? $config->logo->url : url('/img/default_chat_logo.svg')); ?>"
+                            logo="<?php echo e($config->logo ? $config->logo->toJSON() : null); ?>"
+                            default_operator_img="<?php echo e($config->defaultOperatorImg ? $config->defaultOperatorImg->toJSON(): null); ?>",
                             message_notification="<?php echo e($config->messageNotification ? $config->messageNotification->url : url('/audio/notification.mp3')); ?>"
                     />
                 </div>

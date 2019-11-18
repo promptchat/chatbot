@@ -1,5 +1,6 @@
 @import "./mixins";
 @import "./variables";
+@import '~codemirror/lib/codemirror.css';
 
 $incomeMessageColor: #dec384;
 $borderColor: #eaeaea;
@@ -11,6 +12,72 @@ $danger: red;
 //select {
 //    border: 1px solid #ccc;
 //}
+
+.react-select-container {
+    .react-select {
+        &__control {
+            border-radius: 0;
+            box-shadow: none;
+            max-height: 40px;
+
+            &:hover {
+                box-shadow: none;
+                outline: none;
+            }
+        }
+
+        &__value-container {
+            min-height: 40px;
+            padding-top: 0;
+            margin-top: -2px;
+        }
+
+        &__input {
+            margin-top: -6px;
+        }
+
+        &__menu {
+            margin: 0;
+            border-radius: 0;
+
+            &-list {
+                margin: 0;
+                padding: 0;
+                font-size: 14px;
+                line-height: 12px;
+
+                .react-select__option {
+                    font-size: 14px;
+                    line-height: 12px;
+                }
+            }
+        }
+    }
+}
+
+.Collapsible {
+    .Collapsible__trigger {
+        border-bottom: 1px solid white;
+        background: #858598;
+        color: white;
+        display: block;
+        padding: 10px 15px;
+        cursor: pointer;
+
+        .icon {
+            float: right;
+            line-height: 25px;
+            font-size: 24px;
+        }
+    }
+
+    .Collapsible__contentInner {
+        border: 1px solid $borderColor;
+        border-top: none;
+        padding: 15px;
+    }
+}
+
 
 .ReactModal__Content {
     width: auto;
@@ -579,7 +646,7 @@ $borderRadius: 10px;
     padding: 5px
 }
 .rc-tooltip {
-    z-index: 1000;
+    z-index: 1000000;
     width: 600px;
 
     &.rc-tooltip-hidden {
@@ -587,7 +654,8 @@ $borderRadius: 10px;
     }
 
     .help {
-        background-color: wheat;
+        background-color: rgba(0,0,0,.8);
+        color: white;
         width: 231px;
         padding: 15px;
 

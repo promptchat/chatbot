@@ -9,11 +9,11 @@
         window.defaultOperatorImg = "<?php echo $defaultOperatorImg; ?>";
         window.logo = "<?php echo $logo; ?>";
         window.hasLive = "<?php echo $hasLive; ?>";
-        window.isMobile = <?php echo request()->get('isMobile'); ?>;
-        window.embed = <?php echo request()->get('embed'); ?>;
+        window.isMobile = <?php echo request()->get('isMobile', 0); ?>;
+        window.embed = <?php echo request()->get('embed', $embed ?? 0); ?>;
         window.config = <?php echo $config; ?>;
         window.chat = <?php echo $chat; ?>;
-        window.hostUrl = "<?php echo request()->get('hostUrl'); ?>";
+        window.hostUrl = "<?php echo request()->get('hostUrl', request()->url()); ?>";
         window.appName = "<?php echo e(\App\Models\SiteConfig::getPoweredByName()); ?>";
         window.projectBaseUrl =  "<?php echo e(\App\Models\SiteConfig::getPoweredByLink()); ?>";
         window.translates = <?php echo $translates; ?>;

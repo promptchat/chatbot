@@ -41,13 +41,10 @@ export default class Color extends React.Component {
     constructor(props) {
         super(...arguments);
         let styles = JSON.parse(props.styles);
-
         this.state = {
             name: props.name,
-            logo_id: props.logo_id,
-            logo: props.logo,
-            default_operator_img_id: props.default_operator_img_id,
-            default_operator_img: props.default_operator_img,
+            logo: props.logo ? JSON.parse(props.logo) : {},
+            default_operator_img: props.default_operator_img ? JSON.parse(props.default_operator_img) : {},
             hasLive: props.has_live,
             message_notification_id: null,
             message_notification: props.message_notification,
@@ -130,8 +127,8 @@ export default class Color extends React.Component {
 
         return {
             name: this.state.name,
-            logo_id: this.state.logo_id,
-            default_operator_img_id: this.state.default_operator_img_id,
+            logo_id: this.state.logo.id,
+            default_operator_img_id: this.state.default_operator_img.id,
             message_notification_id: this.state.message_notification_id,
             config: data
         }
@@ -318,14 +315,14 @@ export default class Color extends React.Component {
                             />
                         </div>
                         <ImageLoader
-                            onChange={(id, url) => this.setState({logo_id: id, logo: url})}
+                            onChange={(logo) => this.setState({logo})}
                             label="Chat Logo"
                             default='/img/default_chat_logo.svg'
                             value={this.state.logo}
                         />
                         {this.state.hasLive &&
                             [<ImageLoader
-                                onChange={(id, url) => this.setState({default_operator_img_id: id, default_operator_img: url})}
+                                onChange={(default_operator_img) => this.setState({default_operator_img})}
                                 label="Default operator image"
                                 default='/img/default_operator_img.svg'
                                 value={this.state.default_operator_img}
@@ -629,7 +626,7 @@ export default class Color extends React.Component {
                 <div onClick={this.openMenuClicker('header', 'top_header')} className="hover-element top-header d-flex justify-content-space-between align-items-center">
                     <div className="d-flex align-items-center">
                         <div className="logo">
-                            <img src={this.state.logo}/>
+                            <img src={this.state.logo ? `/storage/${this.state.logo.path}` : '/img/default_chat_logo.svg'}/>
                         </div>
                         <div className="name">{this.getFirstFromSate('header_title')}</div>
                     </div>
@@ -651,7 +648,7 @@ export default class Color extends React.Component {
                                         {this.state.hasLive ?
                                             <div className="front">
                                                 <div className="icon">
-                                                    <img src={this.state.default_operator_img}/>
+                                                    <img src={this.state.default_operator_img ? `/storage/${this.state.default_operator_img.path}` : '/img/default_operator_img.svg'}/>
                                                 </div>
                                                 <img className="click" src="" alt=""/>
                                                 <span

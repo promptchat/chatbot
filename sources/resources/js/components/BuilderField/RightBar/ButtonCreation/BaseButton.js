@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import {cloneDeep, find, uniqueId, remove, clone, get} from 'lodash';
+import {cloneDeep, find, uniqueId, remove, clone, keys, get, map, filter} from 'lodash';
 import CKEditor from '@ckeditor/ckeditor5-react';
-import InlineEditor from '@ckeditor/ckeditor5-build-inline';
+import Editor from '@ckeditor/ckeditor5-build-classic';
 import Tooltip from "rc-tooltip";
 import axios from 'axios';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps"
@@ -13,6 +13,10 @@ import PlacesAutocomplete, {
     geocodeByPlaceId,
     getLatLng,
 } from 'react-places-autocomplete'
+import ApiRequestEditor from "../../../ApiRequestEditor";
+import {TYPE_API_CONTENT} from "../../../../help/buttonTypes";
+import ImageLoader from "../../../ImageLoader";
+
 
 
 Modal.setAppElement('#app');
@@ -160,7 +164,7 @@ class Map extends React.PureComponent {
                     <label>{window.translates.window_message}</label>
                     <div className="ck-editor-block">
                         <CKEditor
-                            editor={ InlineEditor }
+                            editor={ Editor }
                             data={this.state.text}
                             onInit={ editor => {
                                 // You can store the "editor" and use when it is needed.
@@ -291,7 +295,8 @@ export default class BaseButton extends Component {
         calendars: [],
         errors: {},
         image: {},
-        markers: []
+        markers: [],
+        ready: false,
     };
 
 
@@ -304,10 +309,17 @@ export default class BaseButton extends Component {
         this.changeImage = this.changeImage.bind(this);
         this.changeMarkers = this.changeMarkers.bind(this);
     }
+    get isApi() {
+        return this.type === TYPE_API_CONTENT;
+    }
 
     saveBlock() {
         let errors = {};
         let hasError = false;
+        let data = this.state;
+        if(this.isApi) {
+            data['api'] = this.api.getData();
+        }
 
         for(let i of this.requiredFields) {
             if(!this.state[i]) {
@@ -317,7 +329,7 @@ export default class BaseButton extends Component {
         }
 
         if(!hasError) {
-            this.props.onBlockChange(this.state, this.type)
+            this.props.onBlockChange(data, this.type)
         } else {
             this.setState({errors})
         }
@@ -330,14 +342,8 @@ export default class BaseButton extends Component {
 
     }
 
-    changeImage(e) {
-        let formData = new FormData();
-        formData.append('file', e.target.files[0]);
-
-        axios.post('/file', formData).then(({data}) => {
-            this.setState({image: data})
-        })
-
+    changeImage(image) {
+        this.setState({image})
     }
 
     componentDidMount() {
@@ -355,12 +361,13 @@ export default class BaseButton extends Component {
     buildState(props= this.props) {
 
         this.setState(            {
+                ready: true,
                 text: props.block.text || '',
                 variants:  props.block.variants || (this.has('Variants') ? [{
                     id: uniqueId('variant-'),
                     text: '',
                 }] : []),
-                buttons:  props.block.buttons ||  (this.has('Buttons') ? [{
+                buttons:  props.block.buttons ||  (this.has('Buttons') && !this.isApi ? [{
                     id: uniqueId('button-'),
                     text: '',
                 }] : []),
@@ -370,6 +377,7 @@ export default class BaseButton extends Component {
                 calendar: props.block.calendar || '',
                 image: props.block.image || {},
                 markers: props.block.markers || [],
+                api: props.block.api || {}
             }
         )
     }
@@ -470,36 +478,50 @@ export default class BaseButton extends Component {
 
 
 
-                <div className={'message-editor'}>
-                    <CKEditor
-                        editor={ InlineEditor }
-                        data={this.state.text}
-                        onInit={ editor => {
-                            // You can store the "editor" and use when it is needed.
-                            // console.log( 'Editor is ready to use!', editor );
-                        } }
+            <div className={'message-editor'}>
+                <CKEditor
+                    editor={ Editor }
+                    data={this.state.text}
+                    onInit={ editor => {
+                        // You can store the "editor" and use when it is needed.
+                        // console.log( 'Editor is ready to use!', editor );
+                    } }
 
-                        config={ {
-                            toolbar: [ 'bold', 'italic', 'link', ]
-                        } }
-
-                        onChange={ ( event, editor ) => {
-                            const data = editor.getData();
-                            let errors = cloneDeep(this.state.errors);
-                            errors['text'] = false;
-                            this.setState({text: data});
-
-                        } }
-                    />
-                </div>
-                <div className="image-load">
-                    <label htmlFor="">
-                        {
-                            this.state.image.path && <img src={`/storage/${this.state.image.path}`} alt=""/>
+                    config={ {
+                        toolbar: [ 'bold', 'italic', 'link', ],
+                        mention: {
+                            feeds: [
+                                {
+                                    marker: '@',
+                                    feed: (queryString) => {
+                                        return Promise.resolve([{id: `@${queryString}`}, ...filter(
+                                            map(this.props.variables, (v, id) => ({id: `@${id}`})),
+                                            ({id}) => id.toLowerCase().includes(queryString.toLowerCase())
+                                        )])
+                                    },
+                                },
+                            ]
                         }
-                        <input type="file" onChange={this.changeImage}/>
-                    </label>
-                </div>
+                    } }
+
+                    onChange={ ( event, editor ) => {
+                        const data = editor.getData();
+                        let errors = cloneDeep(this.state.errors);
+                        errors['text'] = false;
+                        this.setState({text: data});
+
+                    } }
+                />
+            </div>
+            <div className="image-load">
+                <label htmlFor="">
+                    <ImageLoader
+                        onChange={this.changeImage}
+                        value={this.state.image}
+                    />
+
+                </label>
+            </div>
 
             {
                 this.state.errors['text'] &&
@@ -530,18 +552,18 @@ export default class BaseButton extends Component {
     renderVariable() {
         return <div className="form-group">
             <div className="label">{window.translates.save_value_to_variable} <Tooltip destroyTooltipOnHide={true}
-                                                                   placement="right" trigger={['hover']}
-                                                                   overlay={<div className="help">
-                {window.translates.enter_keyword_which_will_be_saved_in_statistic}
-            </div>}>
+                                                                                       placement="right" trigger={['hover']}
+                                                                                       overlay={<div className="help">
+                                                                                           {window.translates.enter_keyword_which_will_be_saved_in_statistic}
+                                                                                       </div>}>
                 <i className={'fa fa-question-circle'}/>
             </Tooltip></div>
 
-           <input id="" type="text" onChange={(e) =>{
-            let errors = cloneDeep(this.state.errors);
-            errors['variable'] = false;
-            this.setState({variable: e.target.value, errors})
-        }} value={this.state.variable}/>
+            <input id="" type="text" onChange={(e) =>{
+                let errors = cloneDeep(this.state.errors);
+                errors['variable'] = false;
+                this.setState({variable: e.target.value, errors})
+            }} value={this.state.variable}/>
             {
                 this.state.errors['variable'] &&
                 <div className="validation-error">
@@ -572,10 +594,10 @@ export default class BaseButton extends Component {
     renderMaxCountValues() {
         return  <div className="form-group">
             <div className="label">{window.translates.max_count_selected_items} <Tooltip destroyTooltipOnHide={true}
-                                                                   placement="right" trigger={['hover']}
-                                                                   overlay={<div className="help">
-                {window.translates.integer_will_show_how_many_items}
-                                                                   </div>}>
+                                                                                         placement="right" trigger={['hover']}
+                                                                                         overlay={<div className="help">
+                                                                                             {window.translates.integer_will_show_how_many_items}
+                                                                                         </div>}>
                 <i className={'fa fa-question-circle'}/>
             </Tooltip></div>
             <input
@@ -586,6 +608,18 @@ export default class BaseButton extends Component {
             />
         </div>
     }
+
+    renderApi() {
+
+        return  (<div className={'multi-config'}>
+            <div className="form-group">
+                <div className="label">{window.translates.api}</div>
+
+            </div>
+            <ApiRequestEditor data={this.state.api} ref={(api) => this.api = api} variables={keys(this.props.variables)}/>
+        </div>)
+    }
+
     renderVariants() {
         return  <div className={'multi-config'}>
             <div className="form-group">
@@ -640,6 +674,7 @@ export default class BaseButton extends Component {
     renderButtons() {
         return  <div className={'multi-config'}>
             <div className="form-group">
+                {this.isApi && <label>{window.translates.buttonsSpecial}</label> }
                 <div className="label">{window.translates.buttons}</div>
                 <button
                     type={'button'}
@@ -703,7 +738,9 @@ export default class BaseButton extends Component {
     }
 
     render() {
-
+        if(!this.state.ready) {
+            return  null;
+        }
         return(
             <div className={'button-config'}>
 

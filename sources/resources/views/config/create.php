@@ -29,9 +29,9 @@
                             styles="<?php echo e(json_encode($config->getStyleConfigs())); ?>"
                             name="<?php echo e($config->name); ?>"
                             id="<?php echo e($config->id); ?>"
-                            hasLive="<?php echo e($hasLive); ?>"
-                            logo_id="<?php echo e($config->logo ? $config->logo->url : url('/img/default_chat_logo.svg')); ?>"
-                            default_operator_img_id="<?php echo e($config->defaultOperatorImg ? $config->defaultOperatorImg->url : url('/img/default_operator_img.svg')); ?>"
+                            has_live="<?php echo e($hasLive); ?>"
+                            logo="<?php echo e($config->logo ? $config->logo->toJSON() : null); ?>"
+                            default_operator_img="<?php echo e($config->defaultOperatorImg ? $config->defaultOperatorImg->toJSON(): null); ?>",
                             message_notification="<?php echo e($config->messageNotification ? $config->messageNotification->url : url('/audio/notification.mp3')); ?>"
                     />
                 </div>
