@@ -11,8 +11,7 @@
 
     <link rel="icon" type="image/png" sizes="16x16" href="<?php echo e(\App\Models\SiteConfig::getFavicon()); ?>">
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans" rel="stylesheet">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <!-- Scripts -->
+
 
 </head>
 
@@ -57,9 +56,6 @@
     </div>
 
     <script src="<?php echo e(mix('js/app.js')); ?>" defer></script>
-
-
-    <?php echo app('chat-agent')->getWidget(); ?>
 
 
 

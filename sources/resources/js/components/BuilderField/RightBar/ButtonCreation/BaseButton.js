@@ -171,9 +171,6 @@ class Map extends React.PureComponent {
                                 // console.log( 'Editor is ready to use!', editor );
                             } }
 
-                            config={ {
-                                toolbar: [ 'bold', 'italic', 'link', ]
-                            } }
 
                             onChange={ ( event, editor ) => {
                                 const data = editor.getData();
@@ -488,7 +485,6 @@ export default class BaseButton extends Component {
                     } }
 
                     config={ {
-                        toolbar: [ 'bold', 'italic', 'link', ],
                         mention: {
                             feeds: [
                                 {

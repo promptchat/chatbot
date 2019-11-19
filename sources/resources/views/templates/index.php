@@ -70,7 +70,8 @@
                                 </td>
                                 <td><?php $__env->startComponent('components.filter.filterInput', ['name' => 'name']); ?><?php echo $__env->renderComponent(); ?></td>
                                 <td>
-                                    <?php $__env->startComponent('components.filter.filterSelect', ['name' => 'marks', 'options' => $marks]); ?><?php echo $__env->renderComponent(); ?>
+                                    <div class="form-control clear-input-filter"></div>
+
                                 </td>
                                 <td>
                                     <div class="form-control clear-input-filter"></div>
