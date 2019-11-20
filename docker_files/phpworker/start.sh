@@ -33,7 +33,10 @@ elif [ "$role" = "queue" ]; then
     php /sources/artisan  queue:work --verbose --tries=3 --timeout=90
 
 elif [ "$role" = "monitor" ]; then
-   php /sources/artisan  chat:monitor
+   while [ true ]
+   do
+    php /sources/artisan  chat:monitor
+   done
 elif [ "$role" = "scheduler" ]; then
 
     while [ true ]
