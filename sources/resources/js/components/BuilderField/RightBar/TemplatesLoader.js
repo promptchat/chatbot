@@ -11,11 +11,13 @@ export default class TemplatesLoader extends PureComponent {
 
         this.updateMarks = this.updateMarks.bind(this);
         this.searchUpdated = this.searchUpdated.bind(this)
+        this.codeUpdated = this.codeUpdated.bind(this)
     }
 
     state = {
         templates: [],
         searchTerm: '',
+        code: this.props.code || '',
         marksList: [],
         marks: [],
     };
@@ -29,6 +31,7 @@ export default class TemplatesLoader extends PureComponent {
         axios.get(`/templates/list/`, {
             params: {
                 q: this.state.searchTerm,
+                code: this.state.code,
                 marks: this.state.marks.map(({value}) => value)
             }
         }).then(({data}) => this.setState({templates: data}))
@@ -42,7 +45,11 @@ export default class TemplatesLoader extends PureComponent {
         this.setState({searchTerm: e.target.value}, () => {
             this.getTemplateList()
         })
-
+    }
+    codeUpdated (e) {
+        this.setState({code: e.target.value}, () => {
+            this.getTemplateList()
+        })
     }
 
     updateMarks(marks) {
@@ -90,6 +97,7 @@ export default class TemplatesLoader extends PureComponent {
             >
                 <div className="row">
                 <div className={'col-4'}>
+                    <input type="text" value={this.state.code} onChange={this.codeUpdated} placeholder={'Code'}/>
                     <Select className="p-1"
                             placeholder={'Tags'}
                             value={this.state.marks}

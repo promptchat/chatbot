@@ -3,7 +3,12 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
+    <?php if($errors->any()): ?>
+        <div class="alert alert-danger">
+            <?php echo implode('', $errors->all('<div>:message</div>')); ?>
 
+        </div>
+    <?php endif; ?>
     <div class="modal fade" id="importZip" tabindex="-1" role="dialog" aria-labelledby="importZipModal"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -32,6 +37,32 @@
         </div>
     </div>
 
+    <div class="modal fade" id="load" tabindex="-1" role="dialog" aria-labelledby="loadModal"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="<?php echo e(action('TemplateController@loadByCode')); ?>" method="POST">
+                    <?php echo csrf_field(); ?>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="importZipModal">Load template by code</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="text" name="code"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary"><?php echo app('translator')->getFromJson('site.buttons.load'); ?></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div class="">
         <div class="card">
             <div class="card-body">
@@ -40,6 +71,10 @@
                         <div class="col-sm-12">
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importZip">
                                 <?php echo app('translator')->getFromJson('site.templates.import'); ?>
+                            </button>
+
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#load">
+                                <?php echo app('translator')->getFromJson('site.templates.load'); ?>
                             </button>
 
                             <a href="<?php echo e(action('TemplateController@create')); ?>"
