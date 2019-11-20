@@ -118,7 +118,7 @@
                                     <tr>
                                         <td style="width: 60px">
                                             <?php if($template->image): ?>
-                                                <img src="<?php echo e('storage/' . $template->image->path); ?>" alt="">
+                                                <img src="<?php echo e('storage/' . $template->image->path); ?>" alt="" style="width: 32px; height: 32px">
                                             <?php endif; ?>
                                         </td>
 
