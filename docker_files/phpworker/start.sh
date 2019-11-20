@@ -36,6 +36,7 @@ elif [ "$role" = "monitor" ]; then
    while [ true ]
    do
     php /sources/artisan  chat:monitor
+    sleep 60
    done
 elif [ "$role" = "scheduler" ]; then
 
