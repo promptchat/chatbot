@@ -93,25 +93,35 @@
                                 <span class="badge badge-danger"><?php echo e(\App\Http\Controllers\LiveChatWaitingUserController::getWaitingUsersCount()); ?></span>
                             </a>
                         <?php endif; ?>
-
                         
                         
                         
                         <div class="navigation-label">Company</div>
-                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\User\User::class)): ?>
-                            <a class="menu-item" href="<?php echo e(action("UserController@index")); ?>">
-                                <i class="fa fa-users text-success" aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.users'); ?>
-                            </a>
-                        <?php endif; ?>
+                        <?php if(Auth::user()->company): ?>
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('update', Auth::user()->company)): ?>
+                                <a class="menu-item" href="<?php echo e(action("CompanyController@edit", Auth::user()->company)); ?>">
+                                    <i class="fa fa-compass text-warning"
+                                       aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.my_company'); ?>
+                                </a>
+                            <?php endif; ?>
 
-                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\Company::class)): ?>
-                            <a class="menu-item" href="<?php echo e(action("CompanyController@index")); ?>">
-                                <i class="fa fa-building text-danger"
-                                   aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.customer_accounts'); ?>
-                            </a>
-                        <?php endif; ?>
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('buy', \App\Models\Plan::class)): ?>
+                                <a class="menu-item" href="<?php echo e(action("PlanController@buy")); ?>">
+                                    <i class="fa fa-paypal text-info"
+                                       aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.plans'); ?>
+                                </a>
+                            <?php endif; ?>
 
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\User\User::class)): ?>
+                                <a class="menu-item" href="<?php echo e(action("UserController@index")); ?>">
+                                    <i class="fa fa-users text-success"
+                                       aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.users'); ?>
+                                </a>
+                            <?php endif; ?>
+                        <?php endif; ?>
                         <?php if(Auth::user()->isSuperAdmin()): ?>
+                            <a href="https://license.promptchat.com" class="menu-item" target="_blank"><i
+                                        class="fa fa-id-badge text-warning"></i><?php echo app('translator')->getFromJson('site.left_menu.license'); ?></a>
                             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
                                class="dropdown-toggle menu-item">
                                 <i class="fa fa-user-circle text-info"></i>
@@ -119,13 +129,6 @@
                             </a>
                         <?php endif; ?>
                         <ul class="collapse list-unstyled sub-menu" id="homeSubmenu">
-                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\Template\Template::class)): ?>
-                                <li>
-                                    <a href="<?php echo e(action('TemplateController@index')); ?>" class="menu-item sub-item">
-                                        <i class="fa fa-file-archive-o"></i><?php echo app('translator')->getFromJson('site.left_menu.templates'); ?>
-                                    </a>
-                                </li>
-                            <?php endif; ?>
                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\SiteConfig::class)): ?>
                                 <li>
                                     <a class="menu-item sub-item" href="<?php echo e(action("SiteConfigController@index")); ?>">
@@ -133,6 +136,12 @@
                                            aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.site_configs'); ?>
                                     </a>
                                 </li>
+                            <?php endif; ?>
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\Company::class)): ?>
+                                <a class="menu-item sub-item" href="<?php echo e(action("CompanyController@index")); ?>">
+                                    <i class="fa fa-building text-white"
+                                       aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.customer_accounts'); ?>
+                                </a>
                             <?php endif; ?>
                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\Plan::class)): ?>
                                 <li>
@@ -167,12 +176,6 @@
                                 </li>
                             <?php endif; ?>
                         </ul>
-                        <?php if(Auth::user()->isSuperAdmin()): ?>
-                            <li>
-                                <a href="https://license.promptchat.com" class="menu-item" target="_blank">
-                                    <i class="fa fa-id-badge text-warning"></i><?php echo app('translator')->getFromJson('site.left_menu.license'); ?></a>
-                            </li>
-                        <?php endif; ?>
                     </ul>
                 </div>
 
@@ -215,11 +218,16 @@
                                                      style="width:100%">
                                             </div>
                                             <div class="user-info">
-                                                <span><?php echo e(Auth::user()->name); ?></span>
-                                                <a class=""
-                                                   href="<?php echo e(action("UserController@edit", Auth::user())); ?>">
+                                                <div>
+                                                    <span><?php echo e(Auth::user()->name); ?></span>
+                                                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('walletShow', Auth::user()->company)): ?>
+                                                        <a href="<?php echo e(action('WalletController@show', Auth::user()->company)); ?>"
+                                                           class="text-secondary">Balance: <?php echo e(Auth::user()->company->balance / 100); ?>$</a>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <a href="<?php echo e(action("UserController@edit", Auth::user())); ?>">
                                                     <?php echo app('translator')->getFromJson('site.edit_my_profile'); ?>
-                                                    </a>
+                                                </a>
                                             </div>
                                         </div>
 

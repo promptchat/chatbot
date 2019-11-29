@@ -1,5 +1,5 @@
 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('create', \App\Models\Department::class)): ?>
-    <a href="<?php echo e(action('DepartmentController@create', ['companyId' => $companyId])); ?>" class="btn btn-primary text-uppercase pull-right">
+    <a href="<?php echo e(action('DepartmentController@create', ['companyId' => $companyId])); ?>" class="btn btn-primary text-uppercase pull-right mb-4">
         <?php echo app('translator')->getFromJson('site.buttons.add'); ?>
     </a>
 <?php endif; ?>

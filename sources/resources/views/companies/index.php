@@ -42,6 +42,11 @@
                                         <?php echo app('translator')->getFromJson('site.company.company_users'); ?>
                                     </div>
                                 </th>
+                                <th>
+                                    <div class="th-label">
+                                        <?php echo app('translator')->getFromJson('site.company.wallet'); ?>
+                                    </div>
+                                </th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -55,6 +60,11 @@
                                     <td>
                                         <a href="<?php echo e(action("UserController@index", ['companyId' => $company->id])); ?>">
                                             <?php echo app('translator')->getFromJson('site.company.users'); ?>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="<?php echo e(action('WalletController@show', Auth::user()->company)); ?>">
+                                            <?php echo app('translator')->getFromJson('site.company.wallet'); ?>
                                         </a>
                                     </td>
                                     <td class="text-right text-nowrap">

@@ -17,7 +17,7 @@
     <div class="">
         <div class="card">
             <div class="card-body">
-                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('create', \App\Models\Plan::class)): ?>
+                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('createCustomPlan', \App\Models\Plan::class)): ?>
                     <div class="row mb-15">
                         <div class="col-sm-12">
                             <a href="<?php echo e(action('PlanController@create')); ?>" class="btn btn-primary text-uppercase pull-right">

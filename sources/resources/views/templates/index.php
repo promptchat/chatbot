@@ -90,7 +90,7 @@
                             <?php $__env->slot('header'); ?>
                                 <th scope="col">Logo</th>
                                 <th scope="col"><?php echo app('translator')->getFromJson('site.templates.template_name'); ?></th>
-                                <th scope="col"><?php echo app('translator')->getFromJson('site.templates.marks'); ?></th>
+                                <th scope="col"><?php echo app('translator')->getFromJson('site.templates.tags'); ?></th>
                                 <th scope="col" class="small-column text-center">
                                     <a href="<?php echo e(action('TemplateController@index')); ?>">
                                         <i class="fa fa-paint-brush"

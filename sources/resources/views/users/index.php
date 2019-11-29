@@ -48,7 +48,7 @@
                     <?php $__env->endSlot(); ?>
 
                     <?php $__env->slot('filters'); ?>
-                        <td><?php $__env->startComponent('components.filter.filterInput', ['name' => 'name']); ?><?php echo $__env->renderComponent(); ?></td>
+                        <td><input type="hidden" name="companyId" value="<?php echo e(request()->get('companyId')); ?>" ><?php $__env->startComponent('components.filter.filterInput', ['name' => 'name']); ?><?php echo $__env->renderComponent(); ?></td>
                         <td><?php $__env->startComponent('components.filter.filterInput',['name' => 'email']); ?><?php echo $__env->renderComponent(); ?></td>
                         <td><?php $__env->startComponent('components.filter.filterSelect',['name' => 'role', 'options' => $userRoles]); ?><?php echo $__env->renderComponent(); ?></td>
                         <td><?php $__env->startComponent('components.filter.filterSelect',['name' => 'status', 'options' => [1 => 'online']]); ?><?php echo $__env->renderComponent(); ?></td>

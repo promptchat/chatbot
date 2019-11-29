@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cfcef833377258d207471c6bc68e032d",
+    "content-hash": "23bf0320ca15f34f66a765913bbdf30b",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -88,6 +88,80 @@
                 "sdk"
             ],
             "time": "2019-05-29T18:17:02+00:00"
+        },
+        {
+            "name": "bavix/laravel-wallet",
+            "version": "4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bavix/laravel-wallet.git",
+                "reference": "0ece697894a680cec95cbed0f722637a5da4b5e5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bavix/laravel-wallet/zipball/0ece697894a680cec95cbed0f722637a5da4b5e5",
+                "reference": "0ece697894a680cec95cbed0f722637a5da4b5e5",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "^2.8",
+                "ext-pdo": "*",
+                "illuminate/database": "^5.5|^6.0",
+                "nesbot/carbon": "^1.20|^2.0",
+                "php": "^7.2|^8.0",
+                "ramsey/uuid": "^3.0"
+            },
+            "require-dev": {
+                "infection/infection": "^0.14",
+                "laravel/cashier": "^7.0|^8.0|^9.0|^10.0",
+                "orchestra/testbench": "^4.0",
+                "phpstan/phpstan": "^0.11",
+                "phpunit/phpunit": "^8.3"
+            },
+            "suggest": {
+                "bavix/laravel-wallet-swap": "Addition to the laravel-wallet library for quick setting of exchange rates",
+                "bavix/laravel-wallet-vacuum": "Addition to the laravel-wallet library for quick fix race condition"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Bavix\\Wallet\\WalletServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Bavix\\Wallet\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Babichev Maxim",
+                    "email": "info@babichev.net"
+                }
+            ],
+            "description": "Easy work with virtual wallet.",
+            "homepage": "https://bavix.github.io/laravel-wallet/",
+            "keywords": [
+                "bavix",
+                "credits",
+                "currency",
+                "laravel",
+                "laravel-wallet",
+                "laravel5",
+                "laravel5-package",
+                "laravel6",
+                "laravel6-package",
+                "payments",
+                "virtual",
+                "wallet"
+            ],
+            "time": "2019-10-04T11:21:28+00:00"
         },
         {
             "name": "composer/ca-bundle",

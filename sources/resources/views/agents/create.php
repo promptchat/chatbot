@@ -94,6 +94,14 @@
                             <?php $__env->startComponent('components.errors', ['field' => "translator_language_locale"]); ?><?php echo $__env->renderComponent(); ?>
                         </div>
 
+                        <div class="form-group my-4">
+                            <?php $__env->startComponent('components.form.checkbox', [
+                                'label' => __('site.chat_box.is_rtl'),
+                                'name' => 'is_rtl',
+                            ]); ?><?php echo $__env->renderComponent(); ?>
+                            <?php $__env->startComponent('components.errors', ['field' => "is_rtl"]); ?><?php echo $__env->renderComponent(); ?>
+                        </div>
+
                         <div class="form-group">
                             <socials />
                         </div>

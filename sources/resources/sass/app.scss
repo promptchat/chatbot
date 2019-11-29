@@ -12,7 +12,6 @@
 @import "~react-times/css/material/default.css";
 @import "~select2/dist/css/select2.css";
 @import "chat-window";
-@import "analytics";
 @import '~simplebar/dist/simplebar.css';
 
 
@@ -784,7 +783,6 @@ label {
 }
 
 
-
 .blink {
   animation: blinker 1s linear infinite;
 
@@ -812,13 +810,13 @@ label {
   }
 
   .panel {
-    .message-info{
+    .message-info {
       padding: 0;
       margin: 0;
       max-height: 350px;
     }
 
-    .conversation-type{
+    .conversation-type {
       padding: 2px;
       background: #272634;
     }
@@ -852,7 +850,7 @@ label {
       }
     }
 
-    .no-messages{
+    .no-messages {
       color: grey;
     }
 
@@ -892,7 +890,8 @@ label {
         }
       }
     }
-    .tag-list{
+
+    .tag-list {
       list-style: none;
       padding-left: 0;
       margin-top: 10px;
@@ -1090,10 +1089,10 @@ label {
   }
 }
 
-.tag-list{
+.tag-list {
   list-style: none;
   padding-left: 0;
-  margin-bottom:0;
+  margin-bottom: 0;
 }
 
 .tag-list > li {
@@ -1233,7 +1232,7 @@ label {
 }
 
 .navigation-label {
-  color: rgba(255,255,255,.5);
+  color: rgba(255, 255, 255, .5);
   font-size: 12px;
   font-weight: bold;
   opacity: 1;
@@ -1394,24 +1393,24 @@ a {
   }
 }
 
-.stat-card{
+.stat-card {
   border-radius: 5px;
 }
 
-.calendar-block{
+.calendar-block {
   background: rgba(255, 255, 255, 0.7);
   padding: 20px;
   border-radius: 10px;
 }
 
-.rbc-calendar .rbc-toolbar{
-  padding-top: 1.5rem!important;
-  padding-bottom: 1.5rem!important;
+.rbc-calendar .rbc-toolbar {
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
 }
 
 .rbc-toolbar button {
-  padding: .5rem!important;
-  border-radius:13px;
+  padding: .5rem !important;
+  border-radius: 13px;
   border-color: grey;
 }
 
@@ -1419,7 +1418,7 @@ a {
   border-radius: 0;
 }
 
-.rbc-toolbar-label{
+.rbc-toolbar-label {
   font-size: 20px;
 }
 
@@ -1427,35 +1426,35 @@ a {
   background: #fff;
 }
 
-.rbc-day-bg.holiday.rbc-off-range-bg{
+.rbc-day-bg.holiday.rbc-off-range-bg {
   background-color: #f5f5f5;
 }
 
 
-button{
-  &:active, &:focus{
+button {
+  &:active, &:focus {
     outline: none;
   }
 }
 
-.time-wrapper{
-  width:auto;
+.time-wrapper {
+  width: auto;
 }
 
-.time-wrapper > input{
+.time-wrapper > input {
 
-  &:focus{
-    border: 1px solid grey!important;
-    border-radius: 5px!important;
+  &:focus {
+    border: 1px solid grey !important;
+    border-radius: 5px !important;
   }
 }
 
-.round-btn{
+.round-btn {
   border-radius: 50px;
 }
 
-.tab-pane .position-relative{
-  min-height:640px;
+.tab-pane .position-relative {
+  min-height: 640px;
 }
 
 .operator-page .chat {
@@ -1471,4 +1470,45 @@ button{
 .img-loader-btn {
   margin-right: 10px;
   min-width: 50px;
+}
+
+
+.plan-block {
+  padding: 2rem;
+  border-radius: 10px;
+  background: #eaeaea;
+}
+
+.plan-features {
+  u {
+    font-weight: bold;
+    font-size: 18px;
+    color: #1db3de;
+  }
+
+  padding: 15px;
+  text-align: left;
+  border-radius: 5px;
+  color: black;
+  background: #eeeeee;
+}
+
+.price {
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  align-items: center;
+  background: #eeeeee;
+}
+
+.crossed {
+  text-decoration: line-through;
+}
+
+.month-input {
+  align-items: center;
+
+  input {
+    width: 80px;
+  }
 }
