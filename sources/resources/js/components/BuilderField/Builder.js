@@ -113,9 +113,10 @@ export default class Builder extends React.Component {
         copy.id = uniqueId('new-');
 
         let blocks = cloneDeep(this.props.blocks);
-        each(copy.children, (child) => {
+        each(copy.data.buttons, (child) => {
             child.id = uniqueId('child-')
         });
+
         blocks.push(copy);
         this.props.setBlocks(blocks);
     }

@@ -75,8 +75,9 @@ export default class ApiRequestEditor extends PureComponent {
                     }
                 });
             });
-
-            axios.request({
+            const clientInstance = axios.create();
+            clientInstance.defaults.headers.common = {};
+            clientInstance.request({
                 method: this.state.method,
                 url: this.state.url,
                 data: values.data,

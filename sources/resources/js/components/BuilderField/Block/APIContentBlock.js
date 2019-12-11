@@ -24,34 +24,10 @@ export class APIContentBlock extends React.Component {
                 }
 
                 <div className={'configuration'}>
-                    <span className="name">{'Method'}</span>
-                    <span className="value">{api.method}</span>
-                </div>
-                <div className={'configuration'}>
-                    <span className="name">{'Url'}</span>
+                    <span className="name">{api.method}{` `}</span>
                     <span className="value">{api.url}</span>
                 </div>
-                {
-                    api.headers.length ?
-                        <div className={'configuration'}>
-                            <span className="name">{'Headers'}</span>
-                            <span className="value">{api.headers.length}</span>
-                        </div> : null
-                }
-                {
-                    api.params.length ?
-                        <div className={'configuration'}>
-                            <span className="name">{'Params'}</span>
-                            <span className="value">{api.params.length}</span>
-                        </div> : null
-                }
-                {
-                    api.data.length ?
-                        <div className={'configuration'}>
-                            <span className="name">{'Body'}</span>
-                            <span className="value">{api.data.length}</span>
-                        </div> : null
-                }
+
 
             </div>
         )
