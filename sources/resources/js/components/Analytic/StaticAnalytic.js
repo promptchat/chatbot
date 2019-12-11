@@ -144,8 +144,8 @@ export default class StaticAnalytic extends Component {
                                         <th rowSpan={2}>{window.translates.page}</th>
                                         <th colSpan={2}>{window.translates.sessions}</th>
                                         <th colSpan={2}>{window.translates.clicks}</th>
-                                        <th colSpan={3}>{window.translates.livechat}</th>
-                                        <th colSpan={3}>{window.translates.chatbot}</th>
+                                        <th colSpan={3} className={'bg-dark'}>{window.translates.livechat}</th>
+                                        <th colSpan={3} className={'bg-info'}>{window.translates.chatbot}</th>
                                     </tr>
                                     <tr>
 
@@ -153,12 +153,12 @@ export default class StaticAnalytic extends Component {
                                         <th>{window.translates.unique}</th>
                                         <th>{window.translates.total}</th>
                                         <th>{window.translates.unique}</th>
-                                        <th>{window.translates.total}</th>
-                                        <th>{window.translates.unique}</th>
-                                        <th>{window.translates.avg_duration}</th>
-                                        <th>{window.translates.total}</th>
-                                        <th>{window.translates.unique}</th>
-                                        <th>{window.translates.avg_duration}</th>
+                                        <th className={'bg-dark'}>{window.translates.total}</th>
+                                        <th className={'bg-dark'}>{window.translates.unique}</th>
+                                        <th className={'bg-dark'}>{window.translates.avg_duration}</th>
+                                        <th className={'bg-info'}>{window.translates.total}</th>
+                                        <th className={'bg-info'}>{window.translates.unique}</th>
+                                        <th className={'bg-info'}>{window.translates.avg_duration}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -168,14 +168,14 @@ export default class StaticAnalytic extends Component {
                                         <td>{totalPage.count_unique}</td>
                                         <td>{totalPage.opens_total}</td>
                                         <td>{totalPage.opens_unique}</td>
-                                        <td>{totalPage.livechat_total}</td>
-                                        <td>{totalPage.livechat_unique}</td>
-                                        <td>
+                                        <td style={{backgroundColor: 'rgba(255, 0, 0, 0.1)'}}>{totalPage.livechat_total}</td>
+                                        <td style={{backgroundColor: 'rgba(255, 0, 0, 0.1)'}}>{totalPage.livechat_unique}</td>
+                                        <td style={{backgroundColor: 'rgba(255, 0, 0, 0.1)'}}>
                                             {totalPage.livechat_duration && Math.round(totalPage.livechat_duration / 60, 2) + ' min'}
                                         </td>
-                                        <td>{totalPage.chatbot_total}</td>
-                                        <td>{totalPage.chatbot_unique}</td>
-                                        <td>{totalPage.chatbot_duration && Math.round(totalPage.chatbot_duration / 60, 2) + ' min'}</td>
+                                        <td style={{backgroundColor: 'rgba(0, 0, 255, 0.1)'}}>{totalPage.chatbot_total}</td>
+                                        <td style={{backgroundColor: 'rgba(0, 0, 255, 0.1)'}}>{totalPage.chatbot_unique}</td>
+                                        <td style={{backgroundColor: 'rgba(0, 0, 255, 0.1)'}}>{totalPage.chatbot_duration && Math.round(totalPage.chatbot_duration / 60, 2) + ' min'}</td>
                                     </tr>
                                     {this.state.pages.length !== 0 && this.state.pages.map((page) => {
                                         return (<tr key={page.url}>
@@ -184,12 +184,12 @@ export default class StaticAnalytic extends Component {
                                             <td>{page.count_unique}</td>
                                             <td>{page.opens_total}</td>
                                             <td>{page.opens_unique}</td>
-                                            <td>{page.livechat_total}</td>
-                                            <td>{page.livechat_unique}</td>
-                                            <td>{Math.round(page.livechat_duration / 60, 2)} min</td>
-                                            <td>{page.chatbot_total}</td>
-                                            <td>{page.chatbot_unique}</td>
-                                            <td>{Math.round(page.chatbot_duration / 60, 2)} min</td>
+                                            <td style={{backgroundColor: 'rgba(255, 0, 0, 0.1)'}}>{page.livechat_total}</td>
+                                            <td style={{backgroundColor: 'rgba(255, 0, 0, 0.1)'}}>{page.livechat_unique}</td>
+                                            <td style={{backgroundColor: 'rgba(255, 0, 0, 0.1)'}}>{Math.round(page.livechat_duration / 60, 2)} min</td>
+                                            <td style={{backgroundColor: 'rgba(0, 0, 255, 0.1)'}}>{page.chatbot_total}</td>
+                                            <td style={{backgroundColor: 'rgba(0, 0, 255, 0.1)'}}>{page.chatbot_unique}</td>
+                                            <td style={{backgroundColor: 'rgba(0, 0, 255, 0.1)'}}>{Math.round(page.chatbot_duration / 60, 2)} min</td>
                                         </tr>)
                                     })}
                                     </tbody>

@@ -34,6 +34,7 @@ export default class LiveAnalytic extends Component {
     }
 
     updateData() {
+        
         axios.get("/analytics-liveData", {params: {company_id: this.props.companyId}})
             .then(({data}) => {
                 this.setState({

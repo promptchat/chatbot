@@ -265,8 +265,9 @@ export default class Analytics extends Component {
                     </div>
                 </div>
                 <div className="card mt-4">
-                    <div className="card-header">
+                    <div className="card-header d-flex justify-content-between">
                         <h3>Detail analytics</h3>
+                        <a href="/analytics/chat-statistics/" className={'btn btn-primary'}>{window.translates.all_sessions}</a>
                     </div>
                     <div className="card-body">
                         <StaticAnalytic companyId={this.props.company_id}/>
