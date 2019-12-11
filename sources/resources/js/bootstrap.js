@@ -44,9 +44,3 @@ window.Echo = new Echo({
     broadcaster: 'socket.io',
     host: window.location.host,
 });
-
-(function  online() { setTimeout(() => {
-    axios.post('/operator/online').then(() => {
-        online();
-    });
-}, 10e3)})();

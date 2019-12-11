@@ -23,6 +23,7 @@ import PlanCount from "./components/PlanCount";
 
 import './image-input';
 import $ from "jquery";
+import axios from "axios";
 
 
 
@@ -234,7 +235,10 @@ var main = function() {
 
 };
 
-
-
+(function  online() { setTimeout(() => {
+    axios.post('/operator/online').then(() => {
+        online();
+    });
+}, 10e3)})();
 
 $(document).ready(main);

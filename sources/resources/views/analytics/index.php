@@ -13,6 +13,10 @@
     ], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php $__env->stopSection(); ?>
 
+<?php $__env->startPush('styles'); ?>
+    <link rel="stylesheet" href="<?php echo e(mix('css/analytics.css')); ?>">
+<?php $__env->stopPush(); ?>
+
 
 <?php $__env->startSection('content'); ?>
     <script>

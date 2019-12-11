@@ -5,7 +5,7 @@ import DatePicker from 'react-datepicker'
 import {getById} from "../help/services";
 import LiveAnalytic from '../components/Analytic/LiveAnalytic'
 import StaticAnalytic from '../components/Analytic/StaticAnalytic'
-
+import {VectorMap} from "react-jvectormap";
 
 export class StatisticByAgent extends Component {
     state = {
@@ -235,7 +235,7 @@ export class StatisticByChatBots extends Component {
 export default class Analytics extends Component {
     state = {
         data: {},
-        agents: []
+        agents: [],
     };
 
     componentDidMount() {
@@ -257,15 +257,21 @@ export default class Analytics extends Component {
         return (
             <div>
                 <div className="card">
+                    <div className="card-header">
+                        <h3>Live analytics</h3>
+                    </div>
                     <div className="card-body">
                         <LiveAnalytic/>
                     </div>
                 </div>
-                {/*<div className="card mt-4">*/}
-                {/*    <div className="card-body">*/}
-                {/*        <StaticAnalytic/>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
+                <div className="card mt-4">
+                    <div className="card-header">
+                        <h3>Detail analytics</h3>
+                    </div>
+                    <div className="card-body">
+                        <StaticAnalytic/>
+                    </div>
+                </div>
             </div>
         )
 

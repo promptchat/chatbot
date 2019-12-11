@@ -2,7 +2,7 @@ import React from 'react';
 
 import Anchor from './Anchor'
 import Block from './Block'
-import {clone, cloneDeep, remove, uniqBy, uniqueId, find} from 'lodash'
+import {clone, cloneDeep, remove, uniqBy, uniqueId, find, each} from 'lodash'
 import MS_EDGE_WRAPPER from "../../MS_EDGE_WRAPPER";
 
 class MouseRect {
@@ -113,6 +113,9 @@ export default class Builder extends React.Component {
         copy.id = uniqueId('new-');
 
         let blocks = cloneDeep(this.props.blocks);
+        each(copy.children, (child) => {
+            child.id = uniqueId('child-')
+        });
         blocks.push(copy);
         this.props.setBlocks(blocks);
     }

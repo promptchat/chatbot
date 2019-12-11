@@ -71,16 +71,18 @@
   i {
     padding: 5px;
     font-size: 22px;
-    border: 1px solid #CDCDCD;
-    border-radius: 3px;
     background: white;
   }
 
-  i:hover{
+  &:hover{
     cursor: pointer;
   }
 }
 
 .clickable:hover {
   cursor:pointer;
+}
+
+.rounded {
+  border-radius: 10px;
 }
