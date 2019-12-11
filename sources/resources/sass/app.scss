@@ -493,11 +493,14 @@ body {
 
 .nav-tabs {
   .nav-link {
+    transition: top 1s ease-out 0.5s;
+
     &:active,
     &:focus,
     &:hover {
       background-color: #dc1156;
       color: white;
+      border-radius: inherit!important;
     }
   }
 }
@@ -814,6 +817,8 @@ label {
       padding: 0;
       margin: 0;
       max-height: 350px;
+      overflow: scroll;
+
     }
 
     .conversation-type {
@@ -1513,6 +1518,12 @@ button {
   }
 }
 
-.btn {
-  border-radius: 8px;
+.round-left {
+  border-top-left-radius: 25px!important;
+  border-bottom-left-radius: 25px!important;
+}
+
+.round-right {
+  border-top-right-radius: 25px!important;
+  border-bottom-right-radius: 25px!important;
 }

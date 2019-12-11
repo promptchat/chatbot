@@ -20,6 +20,7 @@ import JsonView from "./components/JsonView";
 import OperatorPanel from "./components/OperatorPanel/OperatorPanel";
 import PlanCreator from "./components/PlanCreator";
 import PlanCount from "./components/PlanCount";
+import ActionsTimeline from "./components/Analytic/ActionsTimeline";
 
 import './image-input';
 import $ from "jquery";
@@ -31,6 +32,7 @@ const react = new ReactLoader('#app');
 
 react.component('socials', SocialServices);
 react.component('analytics', Analytics);
+react.component('actions-timeline', ActionsTimeline)
 react.component('agent-contacts', AgentContacts);
 react.component('color', Color);
 react.component('create', Create);

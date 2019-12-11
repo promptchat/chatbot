@@ -24,7 +24,8 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Playfair+Display|Poppins|Roboto"
           rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jvectormap/2.0.4/jquery-jvectormap.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jvectormap/2.0.4/jquery-jvectormap.css"
+          type="text/css" media="screen"/>
 
     <!-- Styles -->
     <link href="<?php echo e(mix('css/app.css')); ?>" rel="stylesheet">
@@ -123,6 +124,7 @@
                         <?php if(Auth::user()->isSuperAdmin()): ?>
                             <a href="https://license.promptchat.com" class="menu-item" target="_blank"><i
                                         class="fa fa-id-badge text-warning"></i><?php echo app('translator')->getFromJson('site.left_menu.license'); ?></a>
+
                             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
                                class="dropdown-toggle menu-item">
                                 <i class="fa fa-user-circle text-info"></i>
@@ -130,6 +132,21 @@
                             </a>
                         <?php endif; ?>
                         <ul class="collapse list-unstyled sub-menu" id="homeSubmenu">
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\Company::class)): ?>
+                                <li>
+                                    <a href="<?php echo e(action('WalletController@transactions')); ?>" class="menu-item sub-item">
+                                        <i class="fa fa-dollar text-white"></i><?php echo app('translator')->getFromJson('site.left_menu.transactions'); ?>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\Template\Template::class)): ?>
+                                <li>
+                                    <a class="menu-item sub-item" href="<?php echo e(action("TemplateController@index")); ?>">
+                                        <i class="fa fa-paperclip text-white"
+                                           aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.templates'); ?>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\SiteConfig::class)): ?>
                                 <li>
                                     <a class="menu-item sub-item" href="<?php echo e(action("SiteConfigController@index")); ?>">

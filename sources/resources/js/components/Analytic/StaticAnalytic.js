@@ -167,12 +167,14 @@ export default class StaticAnalytic extends Component {
                                         <td>{totalPage.count_unique}</td>
                                         <td>{totalPage.opens_total}</td>
                                         <td>{totalPage.opens_unique}</td>
-                                        <td>{totalPage.live_chat_total}</td>
-                                        <td>{totalPage.live_chat_unique}</td>
-                                        <td>{totalPage.live_chat_duration}</td>
+                                        <td>{totalPage.livechat_total}</td>
+                                        <td>{totalPage.livechat_unique}</td>
+                                        <td>
+                                            {totalPage.livechat_duration && Math.round(totalPage.livechat_duration / 60, 2) + ' min'}
+                                        </td>
                                         <td>{totalPage.chatbot_total}</td>
                                         <td>{totalPage.chatbot_unique}</td>
-                                        <td>{totalPage.chatbot_duration}</td>
+                                        <td>{totalPage.chatbot_duration && Math.round(totalPage.chatbot_duration / 60, 2) + ' min'}</td>
                                     </tr>
                                     {this.state.pages.length !== 0 && this.state.pages.map((page) => {
                                         return (<tr key={page.url}>
@@ -181,12 +183,12 @@ export default class StaticAnalytic extends Component {
                                             <td>{page.count_unique}</td>
                                             <td>{page.opens_total}</td>
                                             <td>{page.opens_unique}</td>
-                                            <td>{page.live_chat_total}</td>
-                                            <td>{page.live_chat_unique}</td>
-                                            <td>{page.live_chat_duration}</td>
+                                            <td>{page.livechat_total}</td>
+                                            <td>{page.livechat_unique}</td>
+                                            <td>{Math.round(page.livechat_duration / 60, 2)} min</td>
                                             <td>{page.chatbot_total}</td>
                                             <td>{page.chatbot_unique}</td>
-                                            <td>{page.chatbot_duration}</td>
+                                            <td>{Math.round(page.chatbot_duration / 60, 2)} min</td>
                                         </tr>)
                                     })}
                                     </tbody>

@@ -5,7 +5,7 @@ import {VectorMap} from "react-jvectormap";
 export default class VisitorsMap extends Component {
 
     regionHover(tip, code) {
-        tip[0].innerHTML = tip[0].innerHTML + ' ' + (this.props.countries[code] ? this.props.countries[code] : 0)
+        tip[0].innerHTML = tip[0].innerHTML + ': ' + (this.props.countries[code] ? this.props.countries[code] : 0)
     }
 
     render() {

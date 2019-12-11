@@ -24,6 +24,8 @@ import axios from "axios";
 import AudioLoader from "./AudioLoader";
 import TranslateField from "./TranslateField";
 import ImageLoader from "./ImageLoader";
+import {TabPane, TabContent, Nav, NavItem, NavLink} from 'reactstrap';
+import classnames from 'classnames';
 
 let fonts = [
     'Raleway',
@@ -97,10 +99,18 @@ export default class Color extends React.Component {
 
             menu: null,
             submenu: null,
+
+            activeTab: '1',
         };
 
         this.saveConfigs = this.saveConfigs.bind(this);
+        this.toggle = this.toggle.bind(this);
+    }
 
+    toggle(tab) {
+        if(this.state.activeTab !== tab) {
+            this.setState({activeTab: tab})
+        }
     }
 
     getData() {
@@ -301,132 +311,284 @@ export default class Color extends React.Component {
     render() {
         return (
             <div>
-                <div className="row">
-                    <div className="col-sm-12 col-md-4 offset-md-4">
-                        <div className="form-group">
-                            <label htmlFor="name">Name</label>
-                            <input
-                                type="text"
-                                name="name"
-                                value={this.state.name}
-                                className="form-control"
-                                onChange={this.handleChangeTextInput('name')}
-                                required
-                            />
+                <Nav tabs style={{backgroundColor: '#e7e7e7', borderRadius: '25px'}}>
+                    <NavItem style={{width: '33%'}} className={'text-center round-left'}>
+                        <NavLink onClick={() => { this.toggle('1'); }}
+                                 className={classnames({ active: this.state.activeTab === '1' })}>
+                            Settings
+                        </NavLink>
+                    </NavItem>
+                    <NavItem style={{width: '33%'}} className={'text-center'}>
+                        <NavLink onClick={() => { this.toggle('2'); }}
+                        className={classnames({ active: this.state.activeTab === '2' })}>
+                            Button
+                        </NavLink>
+                    </NavItem>
+                    <NavItem style={{width: '34%'}} className={'text-center round-right'}>
+                        <NavLink onClick={() => { this.toggle('3'); }}
+                        className={classnames({ active: this.state.activeTab === '3' })}>
+                            Window
+                        </NavLink>
+                    </NavItem>
+                </Nav>
+                <TabContent activeTab={this.state.activeTab} className={'mt-5'}>
+                    <TabPane tabId={'1'}>
+                        <div className="row">
+                            <div className="col-sm-12 col-md-4 offset-md-4">
+                                <div className="form-group">
+                                    <label htmlFor="name">Name</label>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        value={this.state.name}
+                                        className="form-control"
+                                        onChange={this.handleChangeTextInput('name')}
+                                        required
+                                    />
+                                </div>
+                                <ImageLoader
+                                    onChange={(logo) => this.setState({logo})}
+                                    label="Chat Logo"
+                                    default='/img/default_chat_logo.svg'
+                                    value={this.state.logo}
+                                />
+                                {this.state.hasLive &&
+                                [<ImageLoader
+                                    onChange={(default_operator_img) => this.setState({default_operator_img})}
+                                    label="Default operator image"
+                                    default='/img/default_operator_img.svg'
+                                    value={this.state.default_operator_img}
+                                />,
+                                    <AudioLoader
+                                        onChange={(id) => this.setState({message_notification_id: id})}
+                                        label="Message Notification"
+                                        default='/audio/notification.mp3'
+                                        value={this.state.message_notification}
+                                    />]
+                                }
+                            </div>
                         </div>
-                        <ImageLoader
-                            onChange={(logo) => this.setState({logo})}
-                            label="Chat Logo"
-                            default='/img/default_chat_logo.svg'
-                            value={this.state.logo}
-                        />
-                        {this.state.hasLive &&
-                            [<ImageLoader
-                                onChange={(default_operator_img) => this.setState({default_operator_img})}
-                                label="Default operator image"
-                                default='/img/default_operator_img.svg'
-                                value={this.state.default_operator_img}
-                            />,
-                            <AudioLoader
-                                onChange={(id) => this.setState({message_notification_id: id})}
-                                label="Message Notification"
-                                default='/audio/notification.mp3'
-                                value={this.state.message_notification}
-                            />]
-                        }
-                    </div>
-                </div>
-                <div className="row">
-                    {this.getStyle()}
-                    <div className="col-xl-3 col-lg-6">
-                        <div className="colors-menu">
-                            <ul>
-                                {ButtonConfigsItems.map((param) => {
-                                    const {key: mainMenu, name, items} = param;
-                                    return <li
-                                        key={mainMenu}
-                                    >
-                                        <div className="menu-item" onClick={this.openMenuClicker(mainMenu)} >{name}</div>
-                                        {
-                                            this.state.menu === mainMenu &&
-                                            <ul>
+                    </TabPane>
+                    <TabPane tabId={'2'}>
+                        <div className="row">
+                            {this.getStyle()}
+                            <div className="col-xl-3 col-lg-6">
+                                <div className="colors-menu">
+                                    <ul>
+                                        {ButtonConfigsItems.map((param) => {
+                                            const {key: mainMenu, name, items} = param;
+                                            return <li
+                                                key={mainMenu}
+                                            >
+                                                <div className="menu-item" onClick={this.openMenuClicker(mainMenu)} >{name}</div>
                                                 {
-                                                    items.map((item) => {
-                                                        const {key, name} = item;
-                                                        return (
-                                                            <li
-                                                                onClick={this.openMenuClicker(mainMenu, key)}
-                                                                key={key}
-                                                                className={`sub-menu-item ${this.state.submenu === key  ? 'active' : ''}`}
-                                                            >
-                                                                {name}
-                                                            </li>)
-                                                    })
+                                                    this.state.menu === mainMenu &&
+                                                    <ul>
+                                                        {
+                                                            items.map((item) => {
+                                                                const {key, name} = item;
+                                                                return (
+                                                                    <li
+                                                                        onClick={this.openMenuClicker(mainMenu, key)}
+                                                                        key={key}
+                                                                        className={`sub-menu-item ${this.state.submenu === key  ? 'active' : ''}`}
+                                                                    >
+                                                                        {name}
+                                                                    </li>)
+                                                            })
+                                                        }
+                                                    </ul>
                                                 }
-                                            </ul>
-                                        }
-                                    </li>
+                                            </li>
+                                        })}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className="col-xl-4 col-lg-6">
+                                {this.getCurrentItems(ButtonConfigsItems).map((item) => {
+                                    return this.renderField(item);
                                 })}
-                            </ul>
+                            </div>
+                            <div className="col-xl-5 col-lg-12 d-flex align-items-end">
+                                <div className="position-relative d-flex justify-content-center align-items-center" style={{width: '100%', height: '100px'}}>
+                                    <a className="chat-btn show hover-element" onClick={this.openMenuClicker('button', 'colors')}>
+                                        <div className="img-icon show" dangerouslySetInnerHTML={{__html: IMG_ICON}}></div>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div className="col-xl-4 col-lg-6">
-                        {this.getCurrentItems(ButtonConfigsItems).map((item) => {
-                            return this.renderField(item);
-                        })}
-                    </div>
-                    <div className="col-xl-5 col-lg-12 d-flex align-items-end">
-                        <div className="position-relative d-flex justify-content-center align-items-center" style={{width: '100%', height: '100px'}}>
-                            <a className="chat-btn show hover-element" onClick={this.openMenuClicker('button', 'colors')}>
-                                <div className="img-icon show" dangerouslySetInnerHTML={{__html: IMG_ICON}}></div>
-                            </a>
+                    </TabPane>
+                    <TabPane tabId={'3'}>
+                        <div className="row">
+                            <div className="col-xl-3 col-lg-6">
+                                <div className="colors-menu">
+                                    <ul>
+                                        {ChatConfigsItems.map((param) => {
+                                            const {key: mainMenu, name, items} = param;
+                                            return <li
+                                                key={mainMenu}
+                                            >
+                                                <div className="menu-item" onClick={this.openMenuClicker(mainMenu)} >{name}</div>
+                                                {
+                                                    this.state.menu === mainMenu &&
+                                                    <ul>
+                                                        {
+                                                            items.map((item) => {
+                                                                const {key, name} = item;
+                                                                return (
+                                                                    <li
+                                                                        onClick={this.openMenuClicker(mainMenu, key)}
+                                                                        key={key}
+                                                                        className={`sub-menu-item ${this.state.submenu === key  ? 'active' : ''}`}
+                                                                    >
+                                                                        {name}
+                                                                    </li>)
+                                                            })
+                                                        }
+                                                    </ul>
+                                                }
+                                            </li>
+                                        })}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className="col-xl-4 col-lg-6">
+                                {this.getCurrentItems(ChatConfigsItems).map((item) => {
+                                    return this.renderField(item);
+                                })}
+                            </div>
+                            <div className="col-xl-5 col-lg-12 d-flex justify-content-center">
+                                {this.renderChatWindow()}
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </TabPane>
+                </TabContent>
+                {/*<div className="row">*/}
+                {/*    <div className="col-sm-12 col-md-4 offset-md-4">*/}
+                {/*        <div className="form-group">*/}
+                {/*            <label htmlFor="name">Name</label>*/}
+                {/*            <input*/}
+                {/*                type="text"*/}
+                {/*                name="name"*/}
+                {/*                value={this.state.name}*/}
+                {/*                className="form-control"*/}
+                {/*                onChange={this.handleChangeTextInput('name')}*/}
+                {/*                required*/}
+                {/*            />*/}
+                {/*        </div>*/}
+                {/*        <ImageLoader*/}
+                {/*            onChange={(logo) => this.setState({logo})}*/}
+                {/*            label="Chat Logo"*/}
+                {/*            default='/img/default_chat_logo.svg'*/}
+                {/*            value={this.state.logo}*/}
+                {/*        />*/}
+                {/*        {this.state.hasLive &&*/}
+                {/*            [<ImageLoader*/}
+                {/*                onChange={(default_operator_img) => this.setState({default_operator_img})}*/}
+                {/*                label="Default operator image"*/}
+                {/*                default='/img/default_operator_img.svg'*/}
+                {/*                value={this.state.default_operator_img}*/}
+                {/*            />,*/}
+                {/*            <AudioLoader*/}
+                {/*                onChange={(id) => this.setState({message_notification_id: id})}*/}
+                {/*                label="Message Notification"*/}
+                {/*                default='/audio/notification.mp3'*/}
+                {/*                value={this.state.message_notification}*/}
+                {/*            />]*/}
+                {/*        }*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+                {/*<div className="row">*/}
+                {/*    {this.getStyle()}*/}
+                {/*    <div className="col-xl-3 col-lg-6">*/}
+                {/*        <div className="colors-menu">*/}
+                {/*            <ul>*/}
+                {/*                {ButtonConfigsItems.map((param) => {*/}
+                {/*                    const {key: mainMenu, name, items} = param;*/}
+                {/*                    return <li*/}
+                {/*                        key={mainMenu}*/}
+                {/*                    >*/}
+                {/*                        <div className="menu-item" onClick={this.openMenuClicker(mainMenu)} >{name}</div>*/}
+                {/*                        {*/}
+                {/*                            this.state.menu === mainMenu &&*/}
+                {/*                            <ul>*/}
+                {/*                                {*/}
+                {/*                                    items.map((item) => {*/}
+                {/*                                        const {key, name} = item;*/}
+                {/*                                        return (*/}
+                {/*                                            <li*/}
+                {/*                                                onClick={this.openMenuClicker(mainMenu, key)}*/}
+                {/*                                                key={key}*/}
+                {/*                                                className={`sub-menu-item ${this.state.submenu === key  ? 'active' : ''}`}*/}
+                {/*                                            >*/}
+                {/*                                                {name}*/}
+                {/*                                            </li>)*/}
+                {/*                                    })*/}
+                {/*                                }*/}
+                {/*                            </ul>*/}
+                {/*                        }*/}
+                {/*                    </li>*/}
+                {/*                })}*/}
+                {/*            </ul>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*    <div className="col-xl-4 col-lg-6">*/}
+                {/*        {this.getCurrentItems(ButtonConfigsItems).map((item) => {*/}
+                {/*            return this.renderField(item);*/}
+                {/*        })}*/}
+                {/*    </div>*/}
+                {/*    <div className="col-xl-5 col-lg-12 d-flex align-items-end">*/}
+                {/*        <div className="position-relative d-flex justify-content-center align-items-center" style={{width: '100%', height: '100px'}}>*/}
+                {/*            <a className="chat-btn show hover-element" onClick={this.openMenuClicker('button', 'colors')}>*/}
+                {/*                <div className="img-icon show" dangerouslySetInnerHTML={{__html: IMG_ICON}}></div>*/}
+                {/*            </a>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
                 <br/>
                 <hr/>
-                <div className="row">
-                    <div className="col-xl-3 col-lg-6">
-                        <div className="colors-menu">
-                            <ul>
-                                {ChatConfigsItems.map((param) => {
-                                    const {key: mainMenu, name, items} = param;
-                                    return <li
-                                        key={mainMenu}
-                                    >
-                                        <div className="menu-item" onClick={this.openMenuClicker(mainMenu)} >{name}</div>
-                                            {
-                                                this.state.menu === mainMenu &&
-                                                <ul>
-                                                    {
-                                                        items.map((item) => {
-                                                            const {key, name} = item;
-                                                            return (
-                                                                <li
-                                                                    onClick={this.openMenuClicker(mainMenu, key)}
-                                                                    key={key}
-                                                                    className={`sub-menu-item ${this.state.submenu === key  ? 'active' : ''}`}
-                                                                >
-                                                                    {name}
-                                                                </li>)
-                                                        })
-                                                    }
-                                                </ul>
-                                            }
-                                    </li>
-                                })}
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="col-xl-4 col-lg-6">
-                        {this.getCurrentItems(ChatConfigsItems).map((item) => {
-                            return this.renderField(item);
-                        })}
-                    </div>
-                    <div className="col-xl-5 col-lg-12 d-flex justify-content-center">
-                        {this.renderChatWindow()}
-                    </div>
-                </div>
+                {/*<div className="row">*/}
+                {/*    <div className="col-xl-3 col-lg-6">*/}
+                {/*        <div className="colors-menu">*/}
+                {/*            <ul>*/}
+                {/*                {ChatConfigsItems.map((param) => {*/}
+                {/*                    const {key: mainMenu, name, items} = param;*/}
+                {/*                    return <li*/}
+                {/*                        key={mainMenu}*/}
+                {/*                    >*/}
+                {/*                        <div className="menu-item" onClick={this.openMenuClicker(mainMenu)} >{name}</div>*/}
+                {/*                            {*/}
+                {/*                                this.state.menu === mainMenu &&*/}
+                {/*                                <ul>*/}
+                {/*                                    {*/}
+                {/*                                        items.map((item) => {*/}
+                {/*                                            const {key, name} = item;*/}
+                {/*                                            return (*/}
+                {/*                                                <li*/}
+                {/*                                                    onClick={this.openMenuClicker(mainMenu, key)}*/}
+                {/*                                                    key={key}*/}
+                {/*                                                    className={`sub-menu-item ${this.state.submenu === key  ? 'active' : ''}`}*/}
+                {/*                                                >*/}
+                {/*                                                    {name}*/}
+                {/*                                                </li>)*/}
+                {/*                                        })*/}
+                {/*                                    }*/}
+                {/*                                </ul>*/}
+                {/*                            }*/}
+                {/*                    </li>*/}
+                {/*                })}*/}
+                {/*            </ul>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*    <div className="col-xl-4 col-lg-6">*/}
+                {/*        {this.getCurrentItems(ChatConfigsItems).map((item) => {*/}
+                {/*            return this.renderField(item);*/}
+                {/*        })}*/}
+                {/*    </div>*/}
+                {/*    <div className="col-xl-5 col-lg-12 d-flex justify-content-center">*/}
+                {/*        {this.renderChatWindow()}*/}
+                {/*    </div>*/}
+                {/*</div>*/}
                 <button onClick={this.saveConfigs} className="mt-4 btn btn-primary pull-right text-uppercase">Save</button>
             </div>
         );

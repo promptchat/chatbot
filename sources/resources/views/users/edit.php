@@ -298,6 +298,20 @@
                                                     'value' => $user->bring_notification_id,
                                                 ]); ?><?php echo $__env->renderComponent(); ?>
                                             </div>
+                                            <div class="my-3 text-center">
+                                                <?php $__env->startComponent('components.form.checkbox', [
+                                                   'label' => __('site.user.notify_livechat'),
+                                                   'name' => 'notify_about_livechat_activity',
+                                                   'value' => $user->notify_about_livechat_activity,
+                                               ]); ?><?php echo $__env->renderComponent(); ?>
+                                            </div>
+                                            <div class="my-3 text-center">
+                                                <?php $__env->startComponent('components.form.checkbox', [
+                                                   'label' => __('site.user.notify_chatbot'),
+                                                   'name' => 'notify_about_chatbot_activity',
+                                                   'value' => $user->notify_about_chatbot_activity,
+                                               ]); ?><?php echo $__env->renderComponent(); ?>
+                                            </div>
                                         <?php endif; ?>
                                     </div>
                                     <div class="text-center">

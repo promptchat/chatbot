@@ -63,7 +63,7 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="<?php echo e(action('WalletController@show', Auth::user()->company)); ?>">
+                                        <a href="<?php echo e(action('WalletController@show', $company)); ?>">
                                             <?php echo app('translator')->getFromJson('site.company.wallet'); ?>
                                         </a>
                                     </td>

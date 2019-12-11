@@ -30,7 +30,7 @@ export default class LiveAnalytic extends Component {
     }
 
     activeSeances() {
-
+        window.open('/analytics/chat-statistics/');
     }
 
     updateData() {
@@ -62,6 +62,7 @@ export default class LiveAnalytic extends Component {
                             class={'fa-bar-chart'}
                             name={window.translates.active}
                             value={this.state.active_users}
+                            onClick={this.activeSeances}
                         />
                     </div>
                     <div className="col-md-3 text-center">

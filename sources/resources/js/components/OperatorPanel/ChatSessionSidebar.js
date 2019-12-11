@@ -4,12 +4,13 @@ import {clone, remove} from "lodash";
 import moment from 'moment'
 import Creatable from 'react-select/lib/Creatable';
 import {DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown} from "reactstrap";
+import ImageLoader from "../ImageLoader";
 
 export default class ChatSessionSidebar extends React.PureComponent {
     constructor(props) {
         super(props);
         this.renameUser = this.renameUser.bind(this);
-        this.changeTags = this.changeTags.bind(this);
+        this.changeTags = this.changeTags.bind(this);;
     }
 
     state = {
@@ -84,26 +85,28 @@ export default class ChatSessionSidebar extends React.PureComponent {
                 };
                 break;
         }
-        return <span >
+        return <span>
             <span title={icon.title} style={{marginRight: 5, color: icon.color}}
-            ><i className={'fa fa-'+icon.icon} /></span>
-            <a style={{marginRight: 5, color: 'blue'}} title={seance.url} target={'_blank'} href={seance.url}>{this.url(seance.url)}</a>
+            ><i className={'fa fa-' + icon.icon}/></span>
+            <a style={{marginRight: 5, color: 'blue'}} title={seance.url} target={'_blank'}
+               href={seance.url}>{this.url(seance.url)}</a>
         </span>
     }
+
     url(url) {
         return url.replace(/^(.{10}).+(.{10})$/, '$1...$2')
     }
 
     render() {
         let {session} = this.props;
-        let [activeSeance, ...otherSeances] =  session.get('active_seances');
+        let [activeSeance, ...otherSeances] = session.get('active_seances');
         return (
-            <div className="sidebar">
+            <div className="sidebar" style={{overflowY: 'scroll'}}>
                 <div className="block">
                     <div className="head text-center">
                         <div className="p-3">
                             <div className="image">
-                                <img src="/img/default-user-image.png"/>
+                                <img src="/img/default-user-image.png" alt=""/>
                             </div>
                             {
                                 this.state.editName ?
@@ -118,7 +121,10 @@ export default class ChatSessionSidebar extends React.PureComponent {
                                     </div>
                                     : <div>
                                         <p className="my-2">{this.props.session.get('name') || <i>(not set)</i>}</p>
-                                        <button className="btn btn-primary" onClick={() => this.setState({editName: true, name: this.props.session.get('name')})}>
+                                        <button className="btn btn-primary" onClick={() => this.setState({
+                                            editName: true,
+                                            name: this.props.session.get('name')
+                                        })}>
                                             <i
                                                 className={'fa fa-edit'}/>{window.translates.edit}
                                         </button>
@@ -137,13 +143,21 @@ export default class ChatSessionSidebar extends React.PureComponent {
                             <i className="fa fa-globe pr-2"></i>
                             {window.translates.location}: {this.sessionLocation}
                         </p>
+                        <p>
+                            <i className="fa fa-bar-chart pr-2"></i>
+                            <a href={`/analytics/chat-statistics/${session.get('id')}`} target={'_blank'}
+                               className={'text-dark'}>
+                                {window.translates.analytics}
+                            </a>
+                        </p>
                         <div>
                             <p>
                                 {this.renderItem(activeSeance)}
                             </p>
                             {!!otherSeances.length &&
                             <UncontrolledDropdown className={'d-inline small-dd'} size={"sm"}>
-                                <DropdownToggle onClick={() => {}} caret>
+                                <DropdownToggle onClick={() => {
+                                }} caret>
                                     + {otherSeances.length}
                                 </DropdownToggle>
                                 <DropdownMenu>
@@ -167,8 +181,9 @@ export default class ChatSessionSidebar extends React.PureComponent {
                                 return (
                                     <div className="col-md-6" key={operator.id}>
                                         <div className="operator-image text-center">
-                                            <img src={operator.image ?  '/storage/' + operator.image.path: '/img/default_operator_img.svg'}
-                                                 className="operator-image"/>
+                                            <img
+                                                src={operator.image ? '/storage/' + operator.image.path : '/img/default_operator_img.svg'}
+                                                className="operator-image"/>
                                         </div>
                                         <div className="mt-2">
                                             <p>{operator.name}</p>
@@ -185,20 +200,20 @@ export default class ChatSessionSidebar extends React.PureComponent {
                 <div className="block">
                     <h5 className="text-center mb-2 pt-2 font-italic">{window.translates.tags}</h5>
                     <Creatable className="p-3"
-                        value={this.props.session.get('tags').map((tag) => ({
-                            value: tag.id,
-                            label: tag.name,
-                        }))}
-                        options={
-                            this.props.tags.map((tag) => ({
-                                value: tag.id,
-                                label: tag.name,
-                            }))
-                        }
-                        onChange={this.changeTags}
-                        isClearable={false}
-                        isMulti
-                        isCreatable
+                               value={this.props.session.get('tags').map((tag) => ({
+                                   value: tag.id,
+                                   label: tag.name,
+                               }))}
+                               options={
+                                   this.props.tags.map((tag) => ({
+                                       value: tag.id,
+                                       label: tag.name,
+                                   }))
+                               }
+                               onChange={this.changeTags}
+                               isClearable={false}
+                               isMulti
+                               isCreatable
                     />
 
                 </div>

@@ -287,6 +287,7 @@
 
                                            ]); ?><?php echo $__env->renderComponent(); ?>
                                         </div>
+
                                         <div class="my-3 text-center">
                                             <?php $__env->startComponent('components.audio-input',  [
                                                 'label' => __('site.user.long_notification'),
