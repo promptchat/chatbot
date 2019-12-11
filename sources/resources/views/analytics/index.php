@@ -19,6 +19,7 @@
 
 
 <?php $__env->startSection('content'); ?>
+
     <?php if(Auth::user()->isSuperAdmin()): ?>
         <div class="row">
             <div class="col-md-4">
@@ -30,7 +31,7 @@
                                 'empty' => __('site.analytic.company'),
                                 'default' => $companyId,
                                 'options' => \App\Models\Company::getOptions(),
-                                'name' => 'companyId',
+                                'name' => 'company_id',
                             ]); ?><?php echo $__env->renderComponent(); ?>
                             <button class="btn btn-info mb-3 ml-3"><?php echo app('translator')->getFromJson('site.analytic.see'); ?></button>
                         </div>

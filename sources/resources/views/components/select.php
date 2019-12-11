@@ -4,6 +4,7 @@
         <option value="<?php echo e($val); ?>" <?php if(old($name, $default ?? null) == $val): ?> selected <?php endif; ?>><?php echo e($option); ?></option>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 </select>
+
 <?php if($errors->has($name)): ?>
     <span class="help-block">
         <?php $__currentLoopData = $errors->get($name); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
