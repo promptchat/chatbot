@@ -42,7 +42,7 @@
     <script>
         window.translates = <?php echo $translates; ?>;
     </script>
-    <analytics from="<?php echo e($from); ?>" to="<?php echo e($to); ?>" company_id=<?php echo e($companyId); ?> />
+    <analytics from="<?php echo e($from); ?>" to="<?php echo e($to); ?>" company_id="<?php echo e($companyId); ?>" />
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
