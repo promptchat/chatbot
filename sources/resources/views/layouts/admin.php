@@ -13,6 +13,7 @@
 
     <script>
         window.google_maps_key = "<?php echo e(config('app.google_map_key')); ?>"
+        window.userId = "<?php echo e(Auth::id()); ?>"
     </script>
     <!-- Scripts -->
     <script src="<?php echo e(mix('js/admin.js')); ?>" defer></script>

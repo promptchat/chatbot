@@ -10,8 +10,8 @@
                 'name' => __('site.analytic.page_title')
             ],
             [
-                'url' => action('AnalyticsController@indexBotSessionStatistic'),
-                'name' => __('site.analytic.page_title_bots')
+                'url' => action('AnalyticsController@indexChatSession'),
+                'name' => __('site.analytic.sessions')
             ],
             [
                 'url' => action('AnalyticsController@showChatSessionStatistic', $chatSession),

@@ -45,7 +45,8 @@ export default class StaticAnalytic extends Component {
         axios.get('/analytics/static-data', {
             params: {
                 from: this.state.from,
-                to: this.state.to
+                to: this.state.to,
+                company_id: this.props.companyId
             }
         }).then(({data}) => {
             this.setState({

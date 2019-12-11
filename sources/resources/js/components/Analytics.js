@@ -261,7 +261,7 @@ export default class Analytics extends Component {
                         <h3>Live analytics</h3>
                     </div>
                     <div className="card-body">
-                        <LiveAnalytic/>
+                        <LiveAnalytic companyId={this.props.company_id}/>
                     </div>
                 </div>
                 <div className="card mt-4">
@@ -269,7 +269,7 @@ export default class Analytics extends Component {
                         <h3>Detail analytics</h3>
                     </div>
                     <div className="card-body">
-                        <StaticAnalytic/>
+                        <StaticAnalytic companyId={this.props.company_id}/>
                     </div>
                 </div>
             </div>

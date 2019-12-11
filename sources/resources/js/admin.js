@@ -237,10 +237,17 @@ var main = function() {
 
 };
 
-(function  online() { setTimeout(() => {
-    axios.post('/operator/online').then(() => {
-        online();
-    });
-}, 10e3)})();
+if(window.userId) {
+    (function online() {
+        setTimeout(() => {
+            axios.post('/operator/online/'+window.userId).then(() => {
+                online();
+            }).catch(() => {
+                window.location.reload();
+            });
+        }, 10e3)
+    })();
+}
+
 
 $(document).ready(main);
