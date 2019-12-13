@@ -225,9 +225,10 @@ export default class DefaultCreator extends React.Component {
                 </Modal>}
 
                 {this.state.data && <BuilderField
-
+                    name={this.state.name}
                     url={this.props.apiUrl}
                     logo={this.props.logo}
+                    saveAsTemplate={this.props.save_as_template}
                     chatConfig={
                         <div>
                             {this.renderEdit()}

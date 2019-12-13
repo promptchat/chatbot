@@ -7,6 +7,7 @@
         window.translates = <?php echo $translates; ?>;
     </script>
     <chat-creator
+            save_as_template="<?php echo e(Auth::user()->isSuperAdmin()); ?>"
             logo="<?php echo e(\App\Models\SiteConfig::getLogo()); ?>"
             name=""
     />

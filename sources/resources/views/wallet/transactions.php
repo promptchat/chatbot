@@ -17,7 +17,7 @@
                 <?php $__env->endSlot(); ?>
 
                 <?php $__env->slot('data'); ?>
-                    <?php $__currentLoopData = $transactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $transaction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__empty_1 = true; $__currentLoopData = $transactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $transaction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <tr>
                             <td>
                                 <?php if($transaction->company_id): ?>
@@ -35,7 +35,13 @@
                             <td><?php echo e($transaction->meta['description'] ?? 'Not set'); ?></td>
                             <td><?php echo e($transaction->created_at); ?></td>
                         </tr>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                        <tr>
+                            <td colspan="100%">
+                                <?php echo app('translator')->getFromJson('site.no_result'); ?>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
                 <?php $__env->endSlot(); ?>
 
             <?php echo $__env->renderComponent(); ?>

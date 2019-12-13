@@ -99,6 +99,7 @@ export default class Calendar extends React.Component {
         events: [],
         excludedWorkDays: {},
         excludedDayOff: {},
+        errors: [],
     };
 
     getSpecialSchedule(value) {
@@ -255,6 +256,9 @@ export default class Calendar extends React.Component {
             url: `/calendar/${this.state.id}`,
             data: this.state
         }).then(() => window.location.href = '/calendar')
+            .catch((error) => {
+                this.setState({errors: error.response.data.errors})
+            })
     }
 
     deleteEvent() {
@@ -435,6 +439,10 @@ export default class Calendar extends React.Component {
                             onChange={(e) => this.setState({name: e.target.value})}
                             className="form-control"
                         />
+                        {this.state.errors['name'] &&
+                        <span className="invalid-feedback d-block">
+                                        <strong>{this.state.errors['name']}</strong>
+                                    </span>}
                     </div>
                     <div className="form-group">
                         <label>{window.translates.name_of_this_calendar_based_event}</label>
@@ -447,6 +455,10 @@ export default class Calendar extends React.Component {
                             onChange={(e) => this.setState({default_event_name: e.target.value})}
                             className="form-control"
                         />
+                        {this.state.errors['default_event_name'] &&
+                        <span className="invalid-feedback d-block">
+                                        <strong>{this.state.errors['default_event_name']}</strong>
+                                    </span>}
                     </div>
                     <div className="form-group">
                         <label>{window.translates.how_long_will_this_event_last}</label>

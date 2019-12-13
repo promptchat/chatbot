@@ -151,6 +151,8 @@ class BuilderField extends React.Component {
                     {/*</div>*/}
                 {/*</div>*/}
                 <RightBar
+                    name={this.props.name}
+                    saveAsTemplate={this.props.saveAsTemplate}
                     url={this.props.url}
                     logo={this.props.logo}
                     getBlocks={this.getBlocks}
