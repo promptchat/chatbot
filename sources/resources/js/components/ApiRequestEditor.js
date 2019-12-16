@@ -47,6 +47,7 @@ export default class ApiRequestEditor extends PureComponent {
             method: this.state.method,
             params: this.state.params.toJS(),
             data: this.state.data.toJS(),
+            handler: this.state.handler,
         }
     }
 
