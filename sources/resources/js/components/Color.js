@@ -27,16 +27,6 @@ import ImageLoader from "./ImageLoader";
 import {TabPane, TabContent, Nav, NavItem, NavLink} from 'reactstrap';
 import classnames from 'classnames';
 
-let fonts = [
-    'Raleway',
-    'Open Sans',
-    'Montserrat',
-    'Playfair Display',
-    'Poppins',
-    'Roboto',];
-
-const FONT_VARIANTS = fonts.map((font) => ({ value: font, label: font }));
-
 export default class Color extends React.Component {
 
 
@@ -232,11 +222,14 @@ export default class Color extends React.Component {
 
     }
 
+    get fontOptions() {
+        return JSON.parse(this.props.fonts).map((font) => ({ value: font, label: font }));
+    }
+
     renderField(item) {
         const {type, key, name} = item;
         let value = this.state[key];
         let content = null;
-
         switch (type) {
             case TYPE_COLOR:
                 content = <ColorPicker
@@ -246,11 +239,12 @@ export default class Color extends React.Component {
                 />;
                 break;
             case TYPE_FONT_FAMILY:
+
                 content = <Select
                     name={key}
                     value={value}
                     onChange={this.handleChangeSelect(key)}
-                    options={FONT_VARIANTS}
+                    options={this.fontOptions}
                 />;
                 break;
             case TYPE_FONT_SIZE:

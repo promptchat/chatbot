@@ -27,6 +27,7 @@
                 <div class="form-group">
                     <color
                             styles="<?php echo e(json_encode($config->getStyleConfigs())); ?>"
+                            fonts="<?php echo e(json_encode(\App\Models\SiteConfig::getFontsList())); ?>"
                             name="<?php echo e($config->name); ?>"
                             id="<?php echo e($config->id); ?>"
                             has_live="<?php echo e($hasLive); ?>"
