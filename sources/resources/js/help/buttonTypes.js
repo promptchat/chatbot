@@ -1,9 +1,0 @@
-export const TYPE_START = 0;
-export const TYPE_MESSAGE = 1;
-export const TYPE_QUESTION = 2;
-export const TYPE_BUTTONS = 3;
-export const TYPE_SELECT = 4;
-export const TYPE_BUTTON = 5;
-export const TYPE_CALENDAR = 6;
-export const TYPE_API_CONTENT = 7;
-export const TYPE_MAP = 8;
