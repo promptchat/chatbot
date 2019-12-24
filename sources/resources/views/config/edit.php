@@ -33,7 +33,7 @@
                             has_live="<?php echo e($hasLive); ?>"
                             logo="<?php echo e($config->logo ? $config->logo->toJSON() : null); ?>"
                             default_operator_img="<?php echo e($config->defaultOperatorImg ? $config->defaultOperatorImg->toJSON(): null); ?>"
-                            ,
+                            default_chatbot_img="<?php echo e($config->defaultChatbotImg ? $config->defaultChatbotImg->toJSON(): null); ?>"
                             message_notification="<?php echo e($config->messageNotification ? $config->messageNotification->url : url('/audio/notification.mp3')); ?>"
                     />
                 </div>

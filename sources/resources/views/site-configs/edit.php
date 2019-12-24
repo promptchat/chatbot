@@ -75,10 +75,15 @@
                                     >
                                     <?php $__env->startComponent('components.errors', ['field' => "ssl_certificate_key"]); ?><?php echo $__env->renderComponent(); ?>
                                 </div>
+                            <?php elseif($siteConfig->type == \App\Models\SiteConfig::TYPE_FONTS): ?>
+                                <div class="form-group">
+                                    <a href="<?php echo e(\App\Models\SiteConfig::getFontsLink()); ?>" target="_blank"><?php echo app('translator')->getFromJson('site.site_config.see_fonts'); ?></a>
+                                </div>
                             <?php else: ?>
 
                             <?php endif; ?>
-                            <json-view <?php echo e($siteConfig->type==\App\Models\SiteConfig::TYPE_PAGES ? 'aseditor="1"': ''); ?> config="<?php echo e(json_encode($siteConfig->data)); ?>"/>
+                            <json-view
+                                    <?php echo e($siteConfig->type==\App\Models\SiteConfig::TYPE_PAGES ? 'aseditor="1"': ''); ?> config="<?php echo e(json_encode($siteConfig->data)); ?>"/>
                         </div>
                     </div>
                 </div>
@@ -86,7 +91,8 @@
 
             <div class="row">
                 <div class="col-sm-12 bottom-btn">
-                    <button type="submit" class="btn btn-primary pull-right text-uppercase"><?php echo app('translator')->getFromJson('site.buttons.save'); ?></button>
+                    <button type="submit"
+                            class="btn btn-primary pull-right text-uppercase"><?php echo app('translator')->getFromJson('site.buttons.save'); ?></button>
                 </div>
             </div>
         </form>

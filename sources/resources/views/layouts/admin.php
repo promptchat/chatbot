@@ -33,6 +33,92 @@
     <?php echo $__env->yieldPushContent('styles'); ?>
 </head>
 <body class="admin">
+<div class="modal fade" id="licenseModal" tabindex="-1" role="dialog" aria-labelledby="licenseModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="licenseModalLabel"><?php echo app('translator')->getFromJson('site.left_menu.modal.your_plan'); ?></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <a href="https://license.promptchat.com" target="_blank" class="btn btn-info">
+                    <?php echo app('translator')->getFromJson('site.left_menu.update'); ?>
+                    <i class="fa fa-level-up"></i>
+                </a>
+                <div class="mt-3">
+                    <div class="">
+                        <h4><?php echo app('translator')->getFromJson('site.left_menu.modal.overview'); ?> <i class="fa fa-info-circle"></i></h4>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-4">
+                                <strong><?php echo app('translator')->getFromJson('site.left_menu.modal.plan_name'); ?></strong>
+                            </div>
+                            <div class="col-8">
+                                <?php if(defined('PROMPTCHAT_PLAN_NAME')): ?>
+                                    <?php echo e(PROMPTCHAT_PLAN_NAME); ?>
+
+                                <?php else: ?>
+                                    <?php echo app('translator')->getFromJson('site.left_menu.modal.not_defined'); ?>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-4">
+                                <strong><?php echo app('translator')->getFromJson('site.left_menu.modal.valid_till'); ?></strong>
+                            </div>
+                            <div class="col-8">
+                                <?php if(defined('PROMPTCHAT_PLAN_VALID_TILL')): ?>
+                                    <?php echo e(PROMPTCHAT_PLAN_VALID_TILL); ?>
+
+                                <?php else: ?>
+                                    <?php echo app('translator')->getFromJson('site.left_menu.modal.not_defined'); ?>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-4">
+                                <strong><?php echo app('translator')->getFromJson('site.left_menu.modal.white_label'); ?></strong>
+                            </div>
+                            <div class="col-8">
+                                <?php echo e(PROMPTCHAT_LIVECHAT_ENABLED ? __('site.left_menu.modal.enabled') : __('site.left_menu.modal.disabled')); ?>
+
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-4">
+                                <strong><?php echo app('translator')->getFromJson('site.left_menu.modal.customer_management'); ?></strong>
+                            </div>
+                            <div class="col-8">
+                                <?php echo e(PROMPTCHAT_COMPANIES_ENABLED ? __('site.left_menu.modal.enabled') : __('site.left_menu.modal.disabled')); ?>
+
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-4">
+                                <strong><?php echo app('translator')->getFromJson('site.left_menu.modal.livechat'); ?></strong>
+                            </div>
+                            <div class="col-8">
+                                <?php echo e(PROMPTCHAT_WHITE_LABEL_ENABLED ? __('site.left_menu.modal.enabled') : __('site.left_menu.modal.disabled')); ?>
+
+                            </div>
+                        </div>
+                        <hr/>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
 <div id="app">
     <header>
         <div class="container-fluid padding-null">
@@ -123,8 +209,10 @@
                             <?php endif; ?>
                         <?php endif; ?>
                         <?php if(Auth::user()->isSuperAdmin()): ?>
-                            <a href="https://license.promptchat.com" class="menu-item" target="_blank"><i
-                                        class="fa fa-id-badge text-warning"></i><?php echo app('translator')->getFromJson('site.left_menu.license'); ?></a>
+                            <a type="button" class="menu-item" data-toggle="modal" data-target="#licenseModal">
+                                <i class="fa fa-id-badge text-warning"></i>
+                                <?php echo app('translator')->getFromJson('site.left_menu.license'); ?>
+                            </a>
 
                             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
                                class="dropdown-toggle menu-item">

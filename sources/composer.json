@@ -3,7 +3,7 @@
     "description": "White label chatbot and live chat",
     "keywords": ["chatbot", "live chat", "promptchat"],
     "license": "OEM",
-    "version": "0.4.8",
+    "version": "0.5.0",
     "type": "project",
     "require": {
         "php": "^7.1.3",

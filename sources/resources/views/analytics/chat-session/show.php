@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="col-9 text-right">
                                     <div style="font-size: 15px;">
-                                        <p class="mb-0"><?php echo e($data['ip']); ?></p>
+                                        <p class="mb-0"><?php echo e($data['ip'] ?? ''); ?></p>
                                         <?php echo e($data['geo']['city'] ?? ''); ?> <?php echo e($data['geo']['country'] ?? ' ' . __('site.analytic.statistic.session.unknown')); ?>
 
                                     </div>
@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="col-9 text-right">
                                     <div style="font-size: 30px;">
-                                        <?php echo e($data['pages_count']); ?>
+                                        <?php echo e($data['pages_count'] ?? __('site.no_result')); ?>
 
                                     </div>
                                     <div class="" style="font-size: 15px;">
@@ -89,7 +89,7 @@
                                 </div>
                                 <div class="col-9 text-right">
                                     <div style="font-size: 30px;">
-                                        <?php echo e($data['seances_count']); ?>
+                                        <?php echo e($data['seances_count'] ?? __('site.no_result')); ?>
 
                                     </div>
                                     <div class="" style="font-size: 15px;">
@@ -106,7 +106,33 @@
                             <div class="card-header">
                                 <h4><?php echo app('translator')->getFromJson('site.analytic.statistic.session.actions'); ?></h4>
                             </div>
-                            <actions-timeline actions="<?php echo e(json_encode($data['actions'])); ?>"></actions-timeline>
+                            <actions-timeline actions="<?php echo e(json_encode($data['actions'] ?? '')); ?>"></actions-timeline>
+                        </div>
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h4><?php echo app('translator')->getFromJson('site.analytic.statistic.session.saved_variables'); ?></h4>
+                            </div>
+                            <?php if($data['variables']->total()): ?>
+                                <div class="card-body">
+                                    <?php $__env->startComponent('components.grid'); ?>
+                                        <?php $__env->slot('header'); ?>
+                                            <th><?php echo app('translator')->getFromJson('site.analytic.statistic.session.name'); ?></th>
+                                            <th><?php echo app('translator')->getFromJson('site.analytic.statistic.session.value'); ?></th>
+                                        <?php $__env->endSlot(); ?>
+
+                                        <?php $__env->slot('data'); ?>
+                                            <?php $__currentLoopData = $data['variables']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $variable): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <tr>
+                                                    <td><?php echo e($variable->variable); ?></td>
+                                                    <td><?php echo e($variable->message); ?></td>
+                                                </tr>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        <?php $__env->endSlot(); ?>
+                                    <?php echo $__env->renderComponent(); ?>
+                                    <?php echo e($data['variables']->links()); ?>
+
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
 

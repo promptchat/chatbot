@@ -7,6 +7,7 @@
         window.agent = <?php echo $agent; ?>;
         window.messageNotification = "<?php echo $messageNotification; ?>";
         window.defaultOperatorImg = "<?php echo $defaultOperatorImg; ?>";
+        window.defaultChatbotImg = "<?php echo $defaultChatbotImg; ?>";
         window.logo = "<?php echo $logo; ?>";
         window.hasLive = "<?php echo $hasLive; ?>";
         window.isMobile = <?php echo request()->get('isMobile', 0); ?>;
