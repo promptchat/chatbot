@@ -71,12 +71,8 @@
                                 <strong><?php echo app('translator')->getFromJson('site.left_menu.modal.valid_till'); ?></strong>
                             </div>
                             <div class="col-8">
-                                <?php if(defined('PROMPTCHAT_PLAN_VALID_TILL')): ?>
-                                    <?php echo e(PROMPTCHAT_PLAN_VALID_TILL); ?>
+                                <?php echo e(PROMPTCHAT_PLAN_VALID_TILL ?? __('site.left_menu.modal.unlimited')); ?>
 
-                                <?php else: ?>
-                                    <?php echo app('translator')->getFromJson('site.left_menu.modal.not_defined'); ?>
-                                <?php endif; ?>
                             </div>
                         </div>
                         <hr/>
