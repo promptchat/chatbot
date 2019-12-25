@@ -155,7 +155,7 @@
                         </div>
                     </a>
                 </li>
-                <?php if(Auth::user()->id == $user->id): ?>
+                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('update', $user)): ?>
                     <li class="col-md-3 nav-btn">
                         <a href="#menu2" data-toggle="tab" data-toggle="tab">
                             <div class="text-center nav-tab-button py-2">
@@ -249,11 +249,10 @@
                                     </div>
                                 </form>
                             </div>
-                            </form>
                         </div>
                     </div>
                 </div>
-                <?php if(Auth::user()->id == $user->id): ?>
+                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('update', $user)): ?>
                     <div id="menu2" class="tab-pane fade" role="tabpanel">
                         <div class="row">
                             <div class="col-md-6 form-field form-box">
