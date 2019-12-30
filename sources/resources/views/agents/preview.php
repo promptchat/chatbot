@@ -13,7 +13,7 @@
 
 <div class="wrapper">
     <header>
-        <div  class="">
+        <div class="container">
             <div class="row header-box">
                 <div class=" col-lg-12 top-header">
                     <div class="row top-header-box">
@@ -357,7 +357,7 @@
     </div>
 
     <footer >
-        <div class="">
+        <div class="container">
             <div class=" row justify-content-md-center text-xl-left">
                 <div class="footer-box col-md-9 col-lg-12">
                     <div class="row justify-content-sm-center">
