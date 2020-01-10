@@ -60,7 +60,7 @@
                                         </td>
                                         <td class="text-right text-nowrap">
                                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view', $chatSession)): ?>
-                                                <a href="<?php echo e(action("LiveChatWaitingUserController@show", $chatSession)); ?>" class="action-button">
+                                                <a href="<?php echo e(action("AnalyticsController@showChatSessionStatistic", $chatSession)); ?>" class="action-button">
                                                     <span class="mi mi-remove-red-eye"></span>
                                                 </a>
                                             <?php endif; ?>
