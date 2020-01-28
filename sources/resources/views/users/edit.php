@@ -208,6 +208,15 @@
                                                 'required' => true
                                             ]); ?><?php echo $__env->renderComponent(); ?>
                                         </div>
+                                        <div class="my-3">
+                                            <?php $__env->startComponent('components.form.input', [
+                                                'label' => __('site.user.phone'),
+                                                'placeholder' => __('site.user.phone'),
+                                                'type' => 'string',
+                                                'name' => 'phone',
+                                                'value' => $user->phone,
+                                            ]); ?><?php echo $__env->renderComponent(); ?>
+                                        </div>
                                     </div>
                                     <div class="text-center">
                                         <div class="action-block py-3">
@@ -263,53 +272,128 @@
 
                                     <div class="py-3">
                                         <?php if(Gate::allows('live-chat', \Auth::user())): ?>
-                                            <div class="my-3 text-center">
-                                                <?php $__env->startComponent('components.form.checkbox', [
-                                                   'label' => __('site.user.allow_short_notifications'),
-                                                   'type' => 'checkbox',
-                                                   'name' => 'short_notification_allowed',
-                                                   'value' => $user->short_notification_allowed,
+                                            <div class="accordion text-center" id="accordionExample">
+                                                <div class="card">
+                                                    <div class="card-header" id="headingOne">
+                                                        <h2 class="mb-0">
+                                                            <button class="btn btn-link" type="button"
+                                                                    data-toggle="collapse" data-target="#collapseOne"
+                                                                    aria-expanded="true" aria-controls="collapseOne">
+                                                                <img src="/img/icons/site.svg" style="width: 48px"
+                                                                     alt="">
+                                                                <p class="mt-3">Site notifications</p>
+                                                            </button>
+                                                        </h2>
+                                                    </div>
 
-                                               ]); ?><?php echo $__env->renderComponent(); ?>
-                                            </div>
-                                            <div class="my-3 text-center">
-                                                <?php $__env->startComponent('components.audio-input',  [
-                                                    'label' => __('site.user.short_notification'),
-                                                    'default' => '/audio/notification.mp3',
-                                                    'name' => 'short_notification_id',
-                                                    'value' => $user->short_notification_id,
-                                                ]); ?><?php echo $__env->renderComponent(); ?>
-                                            </div>
+                                                    <div id="collapseOne" class="collapse show"
+                                                         aria-labelledby="headingOne" data-parent="#accordionExample">
+                                                        <div class="card-body">
+                                                            <div class="my-3 text-center">
+                                                                <?php $__env->startComponent('components.form.checkbox', [
+                                                                   'label' => __('site.user.allow_short_notifications'),
+                                                                   'type' => 'checkbox',
+                                                                   'name' => 'short_notification_allowed',
+                                                                   'value' => $user->short_notification_allowed,
 
-                                            <div class="my-3 text-center">
-                                                <?php $__env->startComponent('components.form.checkbox', [
-                                                   'label' => __('site.user.allow_long_notifications'),
-                                                   'name' => 'bring_notification_allowed',
-                                                   'value' => $user->bring_notification_allowed,
+                                                               ]); ?><?php echo $__env->renderComponent(); ?>
+                                                            </div>
+                                                            <div class="my-3 text-center">
+                                                                <?php $__env->startComponent('components.audio-input',  [
+                                                                    'label' => __('site.user.short_notification'),
+                                                                    'default' => '/audio/notification.mp3',
+                                                                    'name' => 'short_notification_id',
+                                                                    'value' => $user->short_notification_id,
+                                                                ]); ?><?php echo $__env->renderComponent(); ?>
+                                                            </div>
 
-                                               ]); ?><?php echo $__env->renderComponent(); ?>
-                                            </div>
-                                            <div class="my-3 text-center">
-                                                <?php $__env->startComponent('components.audio-input',  [
-                                                    'label' => __('site.user.long_notification'),
-                                                    'default' => '/audio/bring.mp3',
-                                                    'name' => 'bring_notification_id',
-                                                    'value' => $user->bring_notification_id,
-                                                ]); ?><?php echo $__env->renderComponent(); ?>
-                                            </div>
-                                            <div class="my-3 text-center">
-                                                <?php $__env->startComponent('components.form.checkbox', [
-                                                   'label' => __('site.user.notify_livechat'),
-                                                   'name' => 'notify_about_livechat_activity',
-                                                   'value' => $user->notify_about_livechat_activity,
-                                               ]); ?><?php echo $__env->renderComponent(); ?>
-                                            </div>
-                                            <div class="my-3 text-center">
-                                                <?php $__env->startComponent('components.form.checkbox', [
-                                                   'label' => __('site.user.notify_chatbot'),
-                                                   'name' => 'notify_about_chatbot_activity',
-                                                   'value' => $user->notify_about_chatbot_activity,
-                                               ]); ?><?php echo $__env->renderComponent(); ?>
+                                                            <div class="my-3 text-center">
+                                                                <?php $__env->startComponent('components.form.checkbox', [
+                                                                   'label' => __('site.user.allow_long_notifications'),
+                                                                   'name' => 'bring_notification_allowed',
+                                                                   'value' => $user->bring_notification_allowed,
+
+                                                               ]); ?><?php echo $__env->renderComponent(); ?>
+                                                            </div>
+                                                            <div class="my-3 text-center">
+                                                                <?php $__env->startComponent('components.audio-input',  [
+                                                                    'label' => __('site.user.long_notification'),
+                                                                    'default' => '/audio/bring.mp3',
+                                                                    'name' => 'bring_notification_id',
+                                                                    'value' => $user->bring_notification_id,
+                                                                ]); ?><?php echo $__env->renderComponent(); ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card">
+                                                    <div class="card-header" id="headingTwo">
+                                                        <h2 class="mb-0">
+                                                            <button class="btn btn-link collapsed" type="button"
+                                                                    data-toggle="collapse" data-target="#collapseTwo"
+                                                                    aria-expanded="false" aria-controls="collapseTwo">
+                                                                <img src="/img/icons/mail.svg" style="width: 48px"
+                                                                     alt="">
+                                                                <p class="mt-3">Email notifications</p>
+                                                            </button>
+                                                        </h2>
+                                                    </div>
+                                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                                                         data-parent="#accordionExample">
+                                                        <div class="card-body">
+                                                            <div class="my-3 text-center">
+                                                                <?php $__env->startComponent('components.form.checkbox', [
+                                                                   'label' => __('site.user.notify_livechat_via_email'),
+                                                                   'name' => 'notify_about_livechat_activity_via_email',
+                                                                   'value' => $user->notifications->notify_about_livechat_activity_via_email,
+                                                               ]); ?><?php echo $__env->renderComponent(); ?>
+                                                            </div>
+                                                            <div class="my-3 text-center">
+                                                                <?php $__env->startComponent('components.form.checkbox', [
+                                                                   'label' => __('site.user.notify_chatbot_via_email'),
+                                                                   'name' => 'notify_about_chatbot_activity_via_email',
+                                                                   'value' => $user->notifications->notify_about_chatbot_activity_via_email,
+                                                               ]); ?><?php echo $__env->renderComponent(); ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card">
+                                                    <div class="card-header" id="headingThree">
+                                                        <h2 class="mb-0">
+                                                            <button class="btn btn-link collapsed" type="button"
+                                                                    data-toggle="collapse" data-target="#collapseThree"
+                                                                    aria-expanded="false" aria-controls="collapseThree">
+                                                                <img src="/img/icons/sms.svg" style="width: 48px"
+                                                                     alt="">
+                                                                <p class="mt-3">Sms notifications</p>
+                                                            </button>
+                                                        </h2>
+                                                    </div>
+                                                    <div id="collapseThree" class="collapse"
+                                                         aria-labelledby="headingThree" data-parent="#accordionExample">
+                                                        <div class="card-body">
+                                                            <div class="my-3 text-center">
+                                                                <?php $__env->startComponent('components.form.checkbox', [
+                                                                   'label' => __('site.user.notify_livechat_via_sms'),
+                                                                   'name' => 'notify_about_livechat_activity_via_sms',
+                                                                   'value' => $user->notifications->notify_about_livechat_activity_via_sms,
+                                                               ]); ?><?php echo $__env->renderComponent(); ?>
+                                                            </div>
+                                                            <div class="my-3 text-center">
+                                                                <?php $__env->startComponent('components.form.checkbox', [
+                                                                   'label' => __('site.user.notify_chatbot_via_sms'),
+                                                                   'name' => 'notify_about_chatbot_activity_via_sms',
+                                                                   'value' => $user->notifications->notify_about_chatbot_activity_via_sms,
+                                                               ]); ?><?php echo $__env->renderComponent(); ?>
+                                                                <span class="help-block">
+                                                                    <?php echo e(session()->get('error')); ?>
+
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         <?php endif; ?>
                                     </div>
@@ -320,6 +404,69 @@
                                         </div>
                                     </div>
                                 </form>
+
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+
+                                
+                                
+                                
+                                
+                                
+
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
                             </div>
                         </div>
                     </div>
@@ -328,7 +475,8 @@
                     <div id="menu1" class="tab-pane fade" role="tabpanel">
                         <div class="row">
                             <div class="col-md-6 form-field form-box">
-                                <form action="<?php echo e(action('UserController@updateSpecificData', $user)); ?>" method="POST">
+                                <form action="<?php echo e(action('UserController@updateSpecificData', $user)); ?>"
+                                      method="POST">
                                     <?php echo e(csrf_field()); ?>
 
                                     <?php echo e(method_field('PATCH')); ?>

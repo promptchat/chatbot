@@ -197,6 +197,14 @@
                                 </a>
                             <?php endif; ?>
 
+                            <?php if(Gate::allows('sms-service')): ?>
+                                <li>
+                                    <a href="<?php echo e(action('DeviceController@index')); ?>" class="menu-item">
+                                        <i class="fa fa-phone text-danger"></i><?php echo app('translator')->getFromJson('site.left_menu.sms_service'); ?>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+
                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\User\User::class)): ?>
                                 <a class="menu-item" href="<?php echo e(action("UserController@index")); ?>">
                                     <i class="fa fa-users text-success"
