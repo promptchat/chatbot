@@ -22,7 +22,7 @@ services:
     volumes:
       - ./sources:/sources
     command: >
-      sh -c "rm -f vendor/autoload.php && composer install"
+      sh -c "rm -f vendor/autoload.php && composer install --ignore-platform-reqs"
 
 
   db:
