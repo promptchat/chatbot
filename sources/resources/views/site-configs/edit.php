@@ -79,11 +79,29 @@
                                 <div class="form-group">
                                     <a href="<?php echo e(\App\Models\SiteConfig::getFontsLink()); ?>" target="_blank"><?php echo app('translator')->getFromJson('site.site_config.see_fonts'); ?></a>
                                 </div>
+
                             <?php else: ?>
 
                             <?php endif; ?>
+
+                            <?php if($siteConfig->type == \App\Models\SiteConfig::TYPE_SERVICE_PHONE): ?>
+                            <div class="form-group">
+                                <label for="title"><?php echo app('translator')->getFromJson("site.site_config.sim"); ?></label>
+                                <?php $__env->startComponent('components.select', [
+                                    'name' => 'sim_id',
+                                    'empty' => 'disabled',
+                                     'default' => $siteConfig->data['sim_id'] ?? null,
+                                     'options' => \Auth::user()->company->phoneNumbers()->get()->mapWithKeys(function(\App\Models\PhoneNumber $number) {
+                                             return [$number->id => $number->operator . " ({$number->sim_serial_number})"];
+                                         })
+                                 ]); ?>
+                                <?php echo $__env->renderComponent(); ?>
+                                <?php $__env->startComponent('components.errors', ['field' => "ssl_certificate_key"]); ?><?php echo $__env->renderComponent(); ?>
+                            </div>
+                            <?php else: ?>
                             <json-view
                                     <?php echo e($siteConfig->type==\App\Models\SiteConfig::TYPE_PAGES ? 'aseditor="1"': ''); ?> config="<?php echo e(json_encode($siteConfig->data)); ?>"/>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

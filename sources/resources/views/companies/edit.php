@@ -77,6 +77,19 @@
                                 >
                                 <?php $__env->startComponent('components.errors', ['field' => "name"]); ?><?php echo $__env->renderComponent(); ?>
                             </div>
+                            <div class="form-group">
+                                <label for="title"><?php echo app('translator')->getFromJson('site.company.phone'); ?></label>
+                                <?php $__env->startComponent('components.select', [
+                                'name' => 'phone_number_id',
+                                'empty' => 'none',
+                                 'default' => $company->phone_number_id,
+                                 'options' => $phoneNumbers->mapWithKeys(function(\App\Models\PhoneNumber $number) {
+                                         return [$number->id => $number->operator . " ({$number->sim_serial_number})"];
+                                     })
+                             ]); ?>
+                                <?php echo $__env->renderComponent(); ?>
+                                <?php $__env->startComponent('components.errors', ['field' => "phone_number_id"]); ?><?php echo $__env->renderComponent(); ?>
+                            </div>
                             <a href="<?php echo e(action("UserController@index", ['companyId' => $company->id])); ?>">
                                 <?php echo app('translator')->getFromJson('site.company.company_users'); ?>
                             </a>
