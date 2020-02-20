@@ -32,9 +32,6 @@
 
                             </td>
                             <td>
-                                <a href="<?php echo e(action('IntegrationsController@edit', $integration)); ?>">
-                                    <i class="mi mi-edit"></i>
-                                </a>
                                 <?php $__env->startComponent('components.delete-record', [
                                     'action' => 'IntegrationsController@destroy',
                                     'object' => $integration

@@ -23,7 +23,7 @@
                 </div>
                 <div class="form-group">
                     <label for="message"><?php echo app('translator')->getFromJson('site.sms_service.mailing.message'); ?></label>
-                    <input type="text" class="form-control" name="message" value="<?php echo e($mailing->message); ?>" required>
+                    <textarea class="form-control" name="message" cols="30" rows="10" required><?php echo e($mailing->message); ?></textarea>
                 </div>
                 <button type="submit" class="btn btn-info pull-right"><?php echo app('translator')->getFromJson('site.buttons.save'); ?></button>
             </form>
