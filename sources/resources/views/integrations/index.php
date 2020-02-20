@@ -22,7 +22,7 @@
                     <?php $__currentLoopData = $integrations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $integration): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
                             <td>
-                                <a href="<?php echo e(action('ChatController@edit', $integration->chatUser->id)); ?>">
+                                <a href="<?php echo e(action('ChatController@edit', $integration->chatUser)); ?>">
                                     <?php echo e($integration->chatUser->name); ?>
 
                                 </a>

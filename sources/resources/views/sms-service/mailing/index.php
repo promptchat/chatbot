@@ -31,7 +31,7 @@
                                         <?php echo app('translator')->getFromJson('site.sms_service.mailing.participants'); ?> <i class="fa fa-list-ol"></i>
                                     </a>
                                 </td>
-                                <td><?php echo e($mailing->phoneNumber->sim_serial_number); ?></td>
+                                <td><?php echo e($mailing->phoneNumber->sim_serial_number ?? ''); ?></td>
                                 <td class="text-center">
                                     <a href="<?php echo e(action("Sms\MailingController@edit", $mailing)); ?>"
                                        class="action-button">
