@@ -1,0 +1,2 @@
+<?php 
+  Encryption\Decryptor::decrypt("jbiIqKvN7eys4oWe3C4iFDBrJNCglexktZCgW/JegoBE4p0uQhBiscHJVnYbw/aYP+SC42DGHU07YwMq5QYv8p1Xpn1GoiS8lBrFzSJL7tnkUpciVR+FouYvm+X2KT0AUb0jOhXgrqENfgGMHVEvdRUmEUJhWtTEKzIR9Y4n8jG8TV2DYSelVEcWycxWGIaZRHqv5n3gsdlJH3lWVZqVYPuEts+L8jq4uSjRBi8dhr5FNjIXDQ80is6xeShnm0NpQNfmUP7Ntah7EhAnZG4=");

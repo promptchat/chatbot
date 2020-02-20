@@ -344,15 +344,15 @@
                                                             <div class="my-3 text-center">
                                                                 <?php $__env->startComponent('components.form.checkbox', [
                                                                    'label' => __('site.user.notify_livechat_via_email'),
-                                                                   'name' => 'notify_about_livechat_activity_via_email',
-                                                                   'value' => $user->notifications->notify_about_livechat_activity_via_email,
+                                                                   'name' => 'notifications[' . \App\Models\UserNotification::NOTIFICATION_TYPE_NEW_LIVECHAT_ACTIVITY . '][' . \App\Models\UserNotification::VIA_TYPE_EMAIL . ']',
+                                                                   'value' => $user->allowedNotification(\App\Models\UserNotification::NOTIFICATION_TYPE_NEW_LIVECHAT_ACTIVITY, \App\Models\UserNotification::VIA_TYPE_EMAIL),
                                                                ]); ?><?php echo $__env->renderComponent(); ?>
                                                             </div>
                                                             <div class="my-3 text-center">
                                                                 <?php $__env->startComponent('components.form.checkbox', [
                                                                    'label' => __('site.user.notify_chatbot_via_email'),
-                                                                   'name' => 'notify_about_chatbot_activity_via_email',
-                                                                   'value' => $user->notifications->notify_about_chatbot_activity_via_email,
+                                                                   'name' => 'notifications[' . \App\Models\UserNotification::NOTIFICATION_TYPE_NEW_CHATBOT_ACTIVITY . '][' . \App\Models\UserNotification::VIA_TYPE_EMAIL . ']',
+                                                                   'value' => $user->allowedNotification(\App\Models\UserNotification::NOTIFICATION_TYPE_NEW_CHATBOT_ACTIVITY, \App\Models\UserNotification::VIA_TYPE_EMAIL),
                                                                ]); ?><?php echo $__env->renderComponent(); ?>
                                                             </div>
                                                         </div>
@@ -376,15 +376,15 @@
                                                             <div class="my-3 text-center">
                                                                 <?php $__env->startComponent('components.form.checkbox', [
                                                                    'label' => __('site.user.notify_livechat_via_sms'),
-                                                                   'name' => 'notify_about_livechat_activity_via_sms',
-                                                                   'value' => $user->notifications->notify_about_livechat_activity_via_sms,
+                                                                   'name' => 'notifications[' . \App\Models\UserNotification::NOTIFICATION_TYPE_NEW_LIVECHAT_ACTIVITY . '][' . \App\Models\UserNotification::VIA_TYPE_SMS . ']',
+                                                                   'value' => $user->allowedNotification(\App\Models\UserNotification::NOTIFICATION_TYPE_NEW_LIVECHAT_ACTIVITY, \App\Models\UserNotification::VIA_TYPE_SMS),
                                                                ]); ?><?php echo $__env->renderComponent(); ?>
                                                             </div>
                                                             <div class="my-3 text-center">
                                                                 <?php $__env->startComponent('components.form.checkbox', [
                                                                    'label' => __('site.user.notify_chatbot_via_sms'),
-                                                                   'name' => 'notify_about_chatbot_activity_via_sms',
-                                                                   'value' => $user->notifications->notify_about_chatbot_activity_via_sms,
+                                                                   'name' => 'notifications[' . \App\Models\UserNotification::NOTIFICATION_TYPE_NEW_CHATBOT_ACTIVITY . '][' . \App\Models\UserNotification::VIA_TYPE_SMS . ']',
+                                                                   'value' => $user->allowedNotification(\App\Models\UserNotification::NOTIFICATION_TYPE_NEW_CHATBOT_ACTIVITY, \App\Models\UserNotification::VIA_TYPE_SMS),
                                                                ]); ?><?php echo $__env->renderComponent(); ?>
                                                                 <span class="help-block">
                                                                     <?php echo e(session()->get('error')); ?>

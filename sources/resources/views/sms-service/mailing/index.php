@@ -11,7 +11,7 @@
                 <?php $__env->slot('header'); ?>
                     <th><?php echo app('translator')->getFromJson('site.sms_service.mailing.name'); ?></th>
                     <th><?php echo app('translator')->getFromJson('site.sms_service.mailing.state'); ?></th>
-                    <th><?php echo app('translator')->getFromJson('site.sms_service.mailing.chatbot'); ?></th>
+                    <th><?php echo app('translator')->getFromJson('site.sms_service.mailing.message'); ?></th>
                     <th><?php echo app('translator')->getFromJson('site.sms_service.mailing.start'); ?></th>
                     <th><?php echo app('translator')->getFromJson('site.sms_service.mailing.participants'); ?></th>
                     <th><?php echo app('translator')->getFromJson('site.sms_service.mailing.phone_number'); ?></th>
@@ -24,10 +24,10 @@
                             <tr>
                                 <td><?php echo e($mailing->name); ?></td>
                                 <td><?php echo e($mailing->state()); ?></td>
-                                <td><?php echo e($mailing->chatUser->name); ?></td>
+                                <td><?php echo e($mailing->message); ?></td>
                                 <td><?php echo e($mailing->start); ?></td>
                                 <td class="text-center">
-                                    <a href="<?php echo e(action('Sms\MailingController@participants', $mailing)); ?>">
+                                    <a href="<?php echo e(action('Sms\MailingParticipantController@index', $mailing)); ?>">
                                         <?php echo app('translator')->getFromJson('site.sms_service.mailing.participants'); ?> <i class="fa fa-list-ol"></i>
                                     </a>
                                 </td>

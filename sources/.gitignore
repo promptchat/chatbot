@@ -1,3 +1,4 @@
+/.discovery
 /public/storage
 /storage/*.key
 /storage/sessions

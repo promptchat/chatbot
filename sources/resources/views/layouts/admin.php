@@ -168,6 +168,9 @@
                                 <i class="fa fa-comments text-success"></i><?php echo app('translator')->getFromJson('site.left_menu.chatbots'); ?>
                             </a>
                         <?php endif; ?>
+                        <a class="menu-item" href="<?php echo e(action("IntegrationsController@index")); ?>">
+                            <i class="fa fa-share-alt-square text-danger"></i><?php echo app('translator')->getFromJson('site.left_menu.integration'); ?>
+                        </a>
                         <div class="navigation-label">Live chat</div>
                         <?php if(Gate::allows('live-chat', \Auth::user())): ?>
                             <a class="menu-item" href="<?php echo e(action("LiveChatController@all")); ?>">

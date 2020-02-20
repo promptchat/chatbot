@@ -13,7 +13,7 @@
                         <input name="start" class="datepicker form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="phone_number_id">Phone number</label>
+                        <label for="phone_number_id"><?php echo app('translator')->getFromJson('site.sms_service.mailing.phone_number'); ?></label>
                         <select class="form-control" name="phone_number_id" required>
                             <?php $__currentLoopData = $phoneNumbers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $number): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <option value="<?php echo e($key); ?>"><?php echo e($number); ?></option>
@@ -21,12 +21,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="chat_user_id">Chatbot</label>
-                        <select class="form-control" name="chat_user_id" required>
-                            <?php $__currentLoopData = $chatUsers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $chat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option value="<?php echo e($key); ?>"><?php echo e($chat); ?></option>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        </select>
+                        <label for="message"><?php echo app('translator')->getFromJson('site.sms_service.mailing.message'); ?></label>
+                        <input type="text" class="form-control" name="message" required>
                     </div>
                     <button type="submit" class="btn btn-info pull-right"><?php echo app('translator')->getFromJson('site.buttons.save'); ?></button>
                 </form>
