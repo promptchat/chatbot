@@ -10,7 +10,7 @@
                     </div>
                     <div class="form-group">
                         <label for="start"><?php echo app('translator')->getFromJson('site.sms_service.mailing.start'); ?></label>
-                        <input name="start" class="datepicker form-control" required>
+                        <input name="start" class="form-control" id='datetimepicker1' required>
                     </div>
                     <div class="form-group">
                         <label for="phone_number_id"><?php echo app('translator')->getFromJson('site.sms_service.mailing.phone_number'); ?></label>
