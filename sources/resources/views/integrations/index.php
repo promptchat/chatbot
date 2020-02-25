@@ -28,7 +28,7 @@
                                 </a>
                             </td>
                             <td>
-                                <?php echo e($integration->serviceHtml()); ?>
+                                <?php echo $integration->serviceHtml(); ?>
 
                             </td>
                             <td>

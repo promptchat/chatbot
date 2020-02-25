@@ -14,11 +14,15 @@
                     </div>
                     <div class="form-group">
                         <label for="phone_number_id"><?php echo app('translator')->getFromJson('site.sms_service.mailing.phone_number'); ?></label>
-                        <select class="form-control" name="phone_number_id" required>
-                            <?php $__currentLoopData = $phoneNumbers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $number): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option value="<?php echo e($key); ?>"><?php echo e($number); ?></option>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        </select>
+                        <?php $__env->startComponent('components.select', [
+                                 'name' => 'phone_number_id',
+                                 'empty' => 'none',
+                                  'default' => Auth::user()->company->phone_number_id,
+                                  'options' => $phoneNumbers->mapWithKeys(function(\App\Models\PhoneNumber $number) {
+                                          return [$number->id => $number->operator . " ({$number->sim_serial_number})"];
+                                      })
+                              ]); ?>
+                        <?php echo $__env->renderComponent(); ?>
                     </div>
                     <div class="form-group">
                         <label for="message"><?php echo app('translator')->getFromJson('site.sms_service.mailing.message'); ?></label>
