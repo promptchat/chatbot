@@ -9,10 +9,6 @@
                         <input type="text" name="name" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="start"><?php echo app('translator')->getFromJson('site.sms_service.mailing.start'); ?></label>
-                        <input name="start" class="form-control" id='datetimepicker1' required>
-                    </div>
-                    <div class="form-group">
                         <label for="phone_number_id"><?php echo app('translator')->getFromJson('site.sms_service.mailing.phone_number'); ?></label>
                         <?php $__env->startComponent('components.select', [
                                  'name' => 'phone_number_id',
@@ -26,7 +22,7 @@
                     </div>
                     <div class="form-group">
                         <label for="message"><?php echo app('translator')->getFromJson('site.sms_service.mailing.message'); ?></label>
-                        <input type="text" class="form-control" name="message" required>
+                        <textarea class="form-control" name="message" cols="30" rows="10" required></textarea>
                     </div>
                     <button type="submit" class="btn btn-info pull-right"><?php echo app('translator')->getFromJson('site.buttons.save'); ?></button>
                 </form>

@@ -1,10 +1,10 @@
 {
-    "/help-button/bundle.js": "/help-button/bundle.js?id=09d831870ce0956d2fed",
-    "/help-button/style.css": "/help-button/style.css?id=6453a1bd474933a99639",
-    "/js/admin.js": "/js/admin.js?id=5764a9ed5ce69d96ee4e",
-    "/js/app.js": "/js/app.js?id=bb9c148230e4f1f8ab33",
-    "/css/app.css": "/css/app.css?id=ce89ab9a239caf7b6722",
-    "/css/preview.css": "/css/preview.css?id=4cda54c252be72ce1953",
+    "/help-button/bundle.js": "/help-button/bundle.js?id=d23cfb3a432f47a6b87c",
+    "/js/admin.js": "/js/admin.js?id=81e52a58ee93ca6f9312",
+    "/js/app.js": "/js/app.js?id=275522da81cdc34bdc35",
+    "/css/app.css": "/css/app.css?id=3f69247b2508f18875b0",
+    "/css/preview.css": "/css/preview.css?id=d87b8dd296397c046cef",
     "/css/custom.css": "/css/custom.css?id=b8361583c1674f647090",
-    "/css/analytics.css": "/css/analytics.css?id=643e3ec0092b153eaa4a"
+    "/css/analytics.css": "/css/analytics.css?id=643e3ec0092b153eaa4a",
+    "/css/panel.css": "/css/panel.css?id=c8284b23fcb4b3cf3f7e"
 }

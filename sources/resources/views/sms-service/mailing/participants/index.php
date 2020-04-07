@@ -1,27 +1,11 @@
 <?php $__env->startSection('content'); ?>
 
     <div class="card">
-        <div class="card-body">
-            <div class="row input-participants">
-                <div class="col-3 pl-0">
-                    <form action="<?php echo e(action('Sms\MailingParticipantController@import', $mailing)); ?>"
-                          enctype="multipart/form-data" method="POST">
-                        <?php echo csrf_field(); ?>
-                        <div class="form-group">
-                            <label for="file">Import from .csv file</label>
-                            <input type="file" name="file" class="form-control-file border-0" accept=".csv" required>
-                        </div>
-                        <button type="submit" class="btn btn-info mt-2">Import</button>
-                    </form>
-                </div>
-                <div class="col-9 pr-0">
-                    <div class="mt-2">
-                        <p>Example of .csv file</p>
-                        <img src="/img/csv-example.png" alt="">
-                    </div>
-                </div>
-            </div>
+        <div class="card-header">
+            <h3>Mailing participants</h3>
+            <p class="text-secondary mb-0"><?php echo app('translator')->getFromJson('site.sms_service.mailing.warning'); ?></p>
         </div>
+        <participants-upload-progress mailing_id="<?php echo e($mailing->id); ?>" loading="<?php echo e($mailing->state === \App\Models\Mailing::STATE_PARTICIPANTS_UPLOADING); ?>"></participants-upload-progress>
         <div class="card-body">
             <?php $__env->startComponent('components.grid'); ?>
                 <?php $__env->slot('header'); ?>
@@ -59,6 +43,8 @@
                     <?php endif; ?>
                 <?php $__env->endSlot(); ?>
             <?php echo $__env->renderComponent(); ?>
+            <?php echo e($participants->links()); ?>
+
             <a href="<?php echo e(action('Sms\MailingParticipantController@create', $mailing)); ?>"
                class="btn btn-success"><?php echo app('translator')->getFromJson('site.buttons.add'); ?></a>
         </div>

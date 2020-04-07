@@ -25,7 +25,12 @@
                                 <td><?php echo e($mailing->name); ?></td>
                                 <td><?php echo e($mailing->state()); ?></td>
                                 <td><?php echo e($mailing->message); ?></td>
-                                <td><?php echo e($mailing->start); ?></td>
+                                <td>
+                                    <a href="<?php echo e(action("Sms\MailingController@chooseTime", $mailing)); ?>">
+                                    <?php echo e($mailing->start); ?>
+
+                                    </a>
+                                </td>
                                 <td class="text-center">
                                     <a href="<?php echo e(action('Sms\MailingParticipantController@index', $mailing)); ?>">
                                         <?php echo app('translator')->getFromJson('site.sms_service.mailing.participants'); ?> <i class="fa fa-list-ol"></i>

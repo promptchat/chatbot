@@ -2,23 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script>
-        window.baseUrl = "<?php echo e(url('')); ?>" ;
-        window.agent = <?php echo $agent; ?>;
-        window.messageNotification = "<?php echo $messageNotification; ?>";
-        window.defaultOperatorImg = "<?php echo $defaultOperatorImg; ?>";
-        window.defaultChatbotImg = "<?php echo $defaultChatbotImg; ?>";
-        window.logo = "<?php echo $logo; ?>";
-        window.hasLive = "<?php echo $hasLive; ?>";
-        window.isMobile = <?php echo request()->get('isMobile', 0); ?>;
-        window.embed = <?php echo request()->get('embed', $embed ?? 0); ?>;
-        window.config = <?php echo $config; ?>;
-        window.chat = <?php echo $chat; ?>;
-        window.hostUrl = "<?php echo request()->get('hostUrl', request()->url()); ?>";
-        window.appName = "<?php echo e(\App\Models\SiteConfig::getPoweredByName()); ?>";
-        window.projectBaseUrl =  "<?php echo e(\App\Models\SiteConfig::getPoweredByLink()); ?>";
-        window.translates = <?php echo $translates; ?>;
-    </script>
+
     <style type="text/css">
 
         label.checkbox{
@@ -37,17 +21,26 @@
             background-image: url("<?php echo e(url('/checkbox/radio_on.png')); ?>");
         }
     </style>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<?php echo e(config('app.google_map_key')); ?>&libraries=places"></script>
+
 
     <script src="<?php echo e(mix('help-button/bundle.js')); ?>" defer></script>
 
     <link rel="icon" type="image/png" sizes="16x16" href="<?php echo e(\App\Models\SiteConfig::getFavicon()); ?>">
 
     <link href="<?php echo e(\App\Models\SiteConfig::getFonts()); ?>" rel="stylesheet">
-    <link  href="<?php echo e(mix('help-button/style.css')); ?>" rel="stylesheet">
+
 </head>
 <body>
+<div data-widget-host="habitat" class="preview">
+    <script type="text/props">
+      <?php echo json_encode([
+            'id' => $agent->id,
+            'baseURL' => url(""),
+            'currentURL' => request()->get('hostUrl', request()->url()),
+        ]); ?>
 
+    </script>
+</div>
 
 </body>
 </html>

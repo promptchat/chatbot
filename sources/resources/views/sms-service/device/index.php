@@ -18,7 +18,7 @@
                 <?php $__env->slot('data'); ?>
                     <?php $__currentLoopData = $devices; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $device): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
-                            <td><?php echo e(substr($device->unique_id, -4)); ?></td>
+                            <td><?php echo e($device->device_info['model'] . ' (' . substr($device->unique_id, -4) . ')'); ?></td>
                             <td><?php echo e($device->device_info['name'] ?? 'Not defined'); ?></td>
                             <td class="text-center">
                                 <?php
