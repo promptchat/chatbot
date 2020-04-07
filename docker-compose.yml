@@ -164,7 +164,7 @@ services:
       - ./sources:/sources
     command: >
       node nde-executor
-d
+
 
 
 volumes:
