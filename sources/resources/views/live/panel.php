@@ -2,6 +2,10 @@
     <?php echo app('translator')->getFromJson("site.live_chat.page_title"); ?>
 <?php $__env->stopSection(); ?>
 
+<?php $__env->startPush('styles'); ?>
+    <link rel="stylesheet" href="<?php echo e(asset('css/panel.css')); ?>">
+<?php $__env->stopPush(); ?>
+
 <?php $__env->startSection('breadcrumbs'); ?>
     <?php echo $__env->make('components.breadcrumbs', [
         'elements' => [
@@ -17,7 +21,7 @@
     <script>
         window.translates = <?php echo $translates; ?>;
     </script>
-    <operator-panel
+    <panel
             configs="<?php echo e(json_encode(Auth::user()->getChatConfigs())); ?>"
             operator="<?php echo e(\Auth::id()); ?>"
             departments="<?php echo e(Auth::user()->userDepartments()->pluck('department_id')->toJson()); ?>"
