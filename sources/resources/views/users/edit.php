@@ -14,97 +14,6 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-
-    
-
-
-    
-    
-    
-    
-    
-    
-
-
-    
-    
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-
     <div class="row">
         <div class="col-lg-4 profile-info">
             <div class="card">
@@ -171,6 +80,16 @@
                             <div class="text-center nav-tab-button py-2">
                                 <i class="fa fa-cog"></i><br/>
                                 <strong><?php echo app('translator')->getFromJson('site.user.settings'); ?></strong>
+                            </div>
+                        </a>
+                    </li>
+                <?php endif; ?>
+                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('update', $user)): ?>
+                    <li class="col-md-3 nav-btn">
+                        <a href="#menu3" data-toggle="tab" data-toggle="tab">
+                            <div class="text-center nav-tab-button py-2">
+                                <i class="fa fa-comment"></i><br/>
+                                <strong><?php echo app('translator')->getFromJson('site.user.livechat'); ?></strong>
                             </div>
                         </a>
                     </li>
@@ -404,69 +323,6 @@
                                         </div>
                                     </div>
                                 </form>
-
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-
-                                
-                                
-                                
-                                
-                                
-
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
                             </div>
                         </div>
                     </div>
@@ -500,6 +356,40 @@
                                                 <?php $__env->startComponent('components.errors', ['field' => "role"]); ?><?php echo $__env->renderComponent(); ?>
                                             </div>
                                         <?php endif; ?>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="action-block py-3">
+                                            <button type="submit"
+                                                    class="btn btn-primary text-uppercase"><?php echo app('translator')->getFromJson('site.buttons.save'); ?></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('update', $user)): ?>
+                    <div id="menu3" class="tab-pane fade" role="tabpanel">
+                        <div class="row">
+                            <div class="col-md-6 form-field form-box">
+                                <form action="<?php echo e(action('UserController@updateLivechatSettings', $user)); ?>"
+                                      method="POST">
+                                    <?php echo e(csrf_field()); ?>
+
+                                    <?php echo e(method_field('PATCH')); ?>
+
+                                    <div class="py-3">
+                                        <div class="form-group">
+                                            <label for="connect_message">Default message when take a part in
+                                                conversation (min 10 symbols)</label>
+                                            <textarea class="form-control" name="connect_message" id="connect_message"
+                                                      rows="3"><?php echo e($user->connect_message); ?></textarea>
+                                            <?php if($errors->has('connect_message')): ?>
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong><?php echo e($errors->first('connect_message')); ?></strong>
+                                                </span>
+                                            <?php endif; ?>
+                                        </div>
                                     </div>
                                     <div class="text-center">
                                         <div class="action-block py-3">

@@ -9,7 +9,8 @@ http.createServer(function(req, res){
 
             let requestData = JSON.parse(body);
             requestData.handler;
-            let data = (new Function('response', requestData.handler))(requestData.data);
+
+            let data = (new Function('response', 'variables', requestData.handler))(requestData.data || {}, requestData.variables);
             res.end(JSON.stringify(data));
         });
     }

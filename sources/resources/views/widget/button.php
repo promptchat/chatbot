@@ -37,6 +37,7 @@
             'id' => $agent->id,
             'baseURL' => url(""),
             'currentURL' => request()->get('hostUrl', request()->url()),
+            'configs' => $configs,
         ]); ?>
 
     </script>
