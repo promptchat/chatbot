@@ -163,7 +163,7 @@ services:
     volumes:
       - ./sources:/sources
     command: >
-      node nde-executor
+      node node-executor
 
 
 
