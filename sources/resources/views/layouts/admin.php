@@ -171,6 +171,12 @@
                         <a class="menu-item" href="<?php echo e(action("IntegrationsController@index")); ?>">
                             <i class="fa fa-share-alt-square text-danger"></i><?php echo app('translator')->getFromJson('site.left_menu.integration'); ?>
                         </a>
+                        <a class="menu-item" href="<?php echo e(action('AnnouncementController@index')); ?>">
+                            <i class="fa fa-bullhorn text-info"></i><?php echo app('translator')->getFromJson('site.left_menu.announcements'); ?>
+                        </a>
+                        <a class="menu-item" href="<?php echo e(action('SessionController@index')); ?>">
+                            <i class="fa fa-user-circle"></i><?php echo app('translator')->getFromJson('site.left_menu.clients'); ?>
+                        </a>
                         <div class="navigation-label">Live chat</div>
                         <?php if(Gate::allows('live-chat', \Auth::user())): ?>
                             <a class="menu-item" href="<?php echo e(action("LiveChatController@all")); ?>">
@@ -194,14 +200,6 @@
                                     <i class="fa fa-paypal text-info"
                                        aria-hidden="true"></i><?php echo app('translator')->getFromJson('site.left_menu.plans'); ?>
                                 </a>
-                            <?php endif; ?>
-
-                            <?php if(Gate::allows('sms-service')): ?>
-                                <li>
-                                    <a href="<?php echo e(action('DeviceController@index')); ?>" class="menu-item">
-                                        <i class="fa fa-phone text-danger"></i><?php echo app('translator')->getFromJson('site.left_menu.sms_service'); ?>
-                                    </a>
-                                </li>
                             <?php endif; ?>
 
                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\User\User::class)): ?>

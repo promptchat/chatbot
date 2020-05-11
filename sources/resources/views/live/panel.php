@@ -22,9 +22,12 @@
         window.translates = <?php echo $translates; ?>;
     </script>
     <panel
+            agents="<?php echo e(json_encode($agents)); ?>"
             configs="<?php echo e(json_encode(Auth::user()->getChatConfigs())); ?>"
             operator="<?php echo e(\Auth::id()); ?>"
             departments="<?php echo e(Auth::user()->userDepartments()->pluck('department_id')->toJson()); ?>"
+            connect_message="<?php echo e(\Auth::user()->connect_message); ?>"
+            sound="<?php echo e(intval($sound)); ?>"
     />
 <?php $__env->stopSection(); ?>
 

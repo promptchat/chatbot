@@ -1,8 +1,5 @@
 <?php $__env->startSection('content'); ?>
     <script>
-        window.numbers = <?php echo json_encode($numbers->mapWithKeys(function(\App\Models\PhoneNumber $number) {
-            return [$number->id => $number->operator . " ({$number->sim_serial_number})"];
-        })); ?>;
         window.configs = <?php echo json_encode($configs); ?>;
         window.languages = <?php echo json_encode($languages); ?>;
         window.translates = <?php echo json_encode($translates); ?>;
