@@ -31,6 +31,7 @@
 
 </head>
 <body>
+
 <div data-widget-host="habitat" class="preview">
     <script type="text/props">
       <?php echo json_encode([
@@ -38,6 +39,7 @@
             'baseURL' => url(""),
             'currentURL' => request()->get('hostUrl', request()->url()),
             'configs' => $configs,
+            'embed' => request()->get('embed', $embed ?? 0)
         ]); ?>
 
     </script>
