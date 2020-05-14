@@ -1,5 +1,19 @@
-<?php $__env->startSection('content'); ?>
+<?php $__env->startSection('breadcrumbs'); ?>
+    <?php echo $__env->make('components.breadcrumbs', [
+        'elements' => [
+            [
+                'url' => action('AnnouncementController@index'),
+                'name' => __('site.announcement.page_title')
+            ],
+            [
+                'url' => action('AnnouncementController@create'),
+                'name' => __('site.buttons.add')
+            ]
+        ],
+    ], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->stopSection(); ?>
 
+<?php $__env->startSection('content'); ?>
     <div class="">
         <div class="card">
             <div class="card-body">

@@ -1,5 +1,7 @@
 HelpChatWidget = {
+    host: "",
     init: function(options) {
+            const host = this.host;
             var selector = options.options.selector;
             var position = options.options.position;
             var iframe = document.createElement("iframe");
@@ -10,8 +12,6 @@ HelpChatWidget = {
             iframe.style = "border:none; bottom:0; width:0; height:0;  position: fixed; z-index: 9999;";
 
             var setIframeAsSize =function(){
-                itemHeight = iframe.contentWindow.document.body.scrollHeight;
-                itemWidth = iframe.contentWindow.document.body.scrollWidth;
                 iframe.style.height = itemHeight  + 'px';
                 iframe.style.width = itemWidth  + 'px';
 
@@ -37,7 +37,6 @@ HelpChatWidget = {
 
             window.onresize = sendIsEnoughSize
 
-            iframe.onload = setIframeAsSize;
             var url = window.location.href;
 
             iframe.src = host + "/frame/" + options.company + "/" + options.agent + '?embed='+(+!!selector)+'&hostUrl=' + encodeURIComponent(url)
@@ -63,6 +62,8 @@ HelpChatWidget = {
 
                 switch (action) {
                     case "resize":
+                        itemHeight = message.height;
+                        itemWidth = message.width;
                         setIframeAsSize();
                         break;
                     case "full-screen":

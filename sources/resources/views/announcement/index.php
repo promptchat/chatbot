@@ -3,7 +3,7 @@
         'elements' => [
             [
                 'url' => action('AnnouncementController@index'),
-                'name' => __('site.announcement.page-title')
+                'name' => __('site.announcement.page_title')
             ],
         ],
     ], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
@@ -16,15 +16,15 @@
             <div class="row">
                 <div class="col-sm-12">
                     <a href="<?php echo e(action('AnnouncementController@create')); ?>" class="btn btn-primary float-right mb-3">
-                        Create
+                        <?php echo app('translator')->getFromJson('site.buttons.add'); ?>
                     </a>
                     <?php $__env->startComponent('components.grid', ['filterAction' => action('AnnouncementController@index')]); ?>
                         <?php $__env->slot('header'); ?>
-                            <th scope="col">Name</th>
-                            <th scope="col" width="15%">State</th>
-                            <th scope="col" width="15%">Start</th>
-                            <th scope="col" width="10%">Clients count</th>
-                            <th scope="col" width="5%">Action</th>
+                            <th scope="col"><?php echo app('translator')->getFromJson('site.announcement.name'); ?></th>
+                            <th scope="col" width="15%"><?php echo app('translator')->getFromJson('site.announcement.state'); ?></th>
+                            <th scope="col" width="15%"><?php echo app('translator')->getFromJson('site.announcement.date_start'); ?></th>
+                            <th scope="col" width="10%"><?php echo app('translator')->getFromJson('site.announcement.client_count'); ?></th>
+                            <th scope="col" width="5%"></th>
                         <?php $__env->endSlot(); ?>
 
                         <?php $__env->slot('data'); ?>
@@ -34,10 +34,10 @@
                                     <td class="text-center"><?php echo e($announcement->getStringState()); ?></td>
                                     <td class="text-center"><?php echo e($announcement->start); ?></td>
                                     <td class="text-center"><?php echo e($announcement->chat_sessions_count); ?></td>
-                                    <td class="text-center">
-
-
-
+                                    <td class="text-right text-nowrap">
+                                        <a href="<?php echo e(action('AnnouncementController@edit', $announcement)); ?>" class="action-button">
+                                            <i class="mi mi-edit" style="font-size: 24px"></i>
+                                        </a>
                                         <?php $__env->startComponent('components.delete-record', ['action' => 'AnnouncementController@destroy', 'object' => $announcement]); ?>
                                         <?php echo $__env->renderComponent(); ?>
                                     </td>
@@ -57,6 +57,5 @@
             </div>
         </div>
     </div>
-
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

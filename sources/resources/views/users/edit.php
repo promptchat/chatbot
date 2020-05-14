@@ -339,6 +339,7 @@
 
                                     <div class="py-3">
                                         <?php echo $__env->make('components.form.select2Multiple', [
+
                                            'label' => __('site.user.departments'),
                                            'name' => 'user_departments[]',
                                            'options' => $departments,
