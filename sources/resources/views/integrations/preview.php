@@ -39,7 +39,8 @@
             .focus();
         document.execCommand("copy");
         $temp.remove();
-        alert('Code copied to clipboard');
+        ale
+        rt('Code copied to clipboard');
     }
 </script>
 </body>
