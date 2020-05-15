@@ -120,6 +120,10 @@
             font-size: 14px;
         }
 
+        .form-block input {
+            height: 30px;
+        }
+
         .form-block input,
         .form-block textarea {
             display: block;
@@ -131,6 +135,7 @@
 
         textarea {
             resize: none;
+            height: 55px;
         }
     </style>
 </head>
