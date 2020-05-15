@@ -3,7 +3,7 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('styles'); ?>
-    <link rel="stylesheet" href="<?php echo e(asset('css/panel.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(mix('css/panel.css')); ?>">
 <?php $__env->stopPush(); ?>
 
 <?php $__env->startSection('breadcrumbs'); ?>
