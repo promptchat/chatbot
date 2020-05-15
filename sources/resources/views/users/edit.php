@@ -285,13 +285,16 @@
                                                                     aria-expanded="false" aria-controls="collapseThree">
                                                                 <img src="/img/icons/sms.svg" style="width: 48px"
                                                                      alt="">
-                                                                <p class="mt-3">Sms notifications</p>
+                                                                <p class="mt-3">Integration notifications</p>
                                                             </button>
                                                         </h2>
                                                     </div>
                                                     <div id="collapseThree" class="collapse"
                                                          aria-labelledby="headingThree" data-parent="#accordionExample">
                                                         <div class="card-body">
+                                                            <div class="my-3 text-center">
+                                                                Use code <code>CONNECT: #<?php echo e($user->connect_chat_session_code); ?></code>
+                                                            </div>
                                                             <div class="my-3 text-center">
                                                                 <?php $__env->startComponent('components.form.checkbox', [
                                                                    'label' => __('site.user.notify_livechat_via_sms'),

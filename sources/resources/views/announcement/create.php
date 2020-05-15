@@ -62,9 +62,9 @@
                                     }),
                                 ]); ?>
                                 <?php echo $__env->renderComponent(); ?>
-                                <div class="pull-right" id="session-counter">
-                                    <?php echo e($sessionsCount); ?>
-
+                                <div class="form-group">
+                                    <label for="start">Session count:</label>
+                                    <input value="<?php echo e($sessionsCount); ?>" class="form-control" disabled name="start"/>
                                 </div>
                             </div>
                         </div>
