@@ -29,11 +29,15 @@ HelpChatWidget = {
 
                 if(window.innerHeight < itemHeight ||
                     window.innerWidth < itemWidth) {
-                    iframe.contentWindow.postMessage('sizeIsNotEnough', '*')
+                    postMessageToChatBox('sizeIsNotEnough');
                 } else {
-                    iframe.contentWindow.postMessage('sizeEnough', '*')
+                    postMessageToChatBox('sizeEnough');
                 }
             };
+
+            function postMessageToChatBox(type, params) {
+                iframe.contentWindow.postMessage(JSON.stringify({type: type, params: params}), '*')
+            }
 
             window.onresize = sendIsEnoughSize
 
@@ -72,6 +76,16 @@ HelpChatWidget = {
                         break;
                 }
             }
+            window.chatOpen = function(message) {
+                postMessageToChatBox('open')
+            }
+            window.chatSendMessage = function(message) {
+                postMessageToChatBox('postMessage', {message: message})
+            }
+            window.chatTriggerEvent = function (message, payload) {
+                postMessageToChatBox('postMessage', {message: message, payload: payload})
+            }
+
     }
 }
 
