@@ -82,8 +82,8 @@ HelpChatWidget = {
             window.chatSendMessage = function(message) {
                 postMessageToChatBox('postMessage', {message: message})
             }
-            window.chatTriggerEvent = function (message, payload) {
-                postMessageToChatBox('postMessage', {message: message, payload: payload})
+            window.chatTriggerEvent = function (message, trigger, payload) {
+                postMessageToChatBox('postMessage', {message: message, payload: payload, trigger: trigger})
             }
 
     }
