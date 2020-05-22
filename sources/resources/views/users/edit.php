@@ -24,7 +24,7 @@
                                 <form action="<?php echo e(action('UserController@editProfileImage', $user->id)); ?>">
                                     <label>
                                         <input style="display:none" type="file" class="image-input-btn">
-                                        <img class="img-circle" src="<?php echo e($user->image->url ?? '/img/no-image.png'); ?>"
+                                        <img class="img-circle" src="<?php echo e($user->image->url ?? '/img/default_operator_img.svg'); ?>"
                                              alt="">
                                         <br/>
                                         <span><i><?php echo app('translator')->getFromJson('site.user.image_edit'); ?></i></span>

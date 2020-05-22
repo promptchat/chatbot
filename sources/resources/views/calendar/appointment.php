@@ -21,6 +21,13 @@
             padding: 1.3em 0.5em!important;
         }
 
+        .react-calendar__tile--active,
+        .react-calendar__tile--active:enabled:hover,
+        .react-calendar__tile--active:enabled:focus {
+            background: <?php echo e($style['window_header_bg']); ?>!important;
+            color: <?php echo e($style['window_header_color']); ?>!important;
+        }
+
         .react-calendar__navigation {
             margin-bottom: 0.1em!important;
         }
@@ -43,7 +50,8 @@
         }
 
         .btn.btn-next {
-            background: #1087ff;
+            background: <?php echo e($style['window_header_bg']); ?>;
+            color: <?php echo e($style['window_header_color']); ?>;
             float: right;
         }
 
@@ -66,11 +74,15 @@
             justify-content: space-between;
             width: 300px;
             padding: 10px;
-            color: white;
+            color: <?php echo e($style['window_header_color']); ?>;
             text-transform: capitalize;
-            background: #1087ff;
-            border: 1px solid #1087ff;
+            background: <?php echo e($style['window_header_bg']); ?>;
+            border: 1px solid <?php echo e($style['window_header_bg']); ?>;
             font-size: 16px;
+        }
+
+        .calendar-header .btn {
+            color: <?php echo e($style['window_header_color']); ?>;
         }
 
         .calendar-block {
@@ -107,8 +119,8 @@
         }
 
         .time-item.active {
-            background: #1087ff;
-            color: white;
+            background: <?php echo e($style['window_header_bg']); ?>;
+            color: <?php echo e($style['window_header_color']); ?>;
         }
 
         .form-block {
@@ -140,7 +152,7 @@
     </style>
 </head>
 <body>
-<appointment calendar="<?php echo e($calendar); ?>"></appointment>
+<appointment calendar="<?php echo e($calendar); ?>" session="<?php echo e($chatSessionId); ?>"></appointment>
 <script src="<?php echo e(mix('js/appointment.js')); ?>" defer></script>
 </body>
 </html>

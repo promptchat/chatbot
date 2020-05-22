@@ -322,7 +322,7 @@
                                     <div class="box-sm">
                                         <div class="login-box clearfix">
                                             <div class="user-img">
-                                                <img src="<?php echo e(Auth::user()->image->url ?? '/img/no-image.png'); ?>" alt=""
+                                                <img src="<?php echo e(Auth::user()->image->url ?? '/img/default_operator_img.svg'); ?>" alt=""
                                                      style="width:100%">
                                             </div>
                                             <div class="user-info">

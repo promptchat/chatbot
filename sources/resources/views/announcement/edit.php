@@ -1,3 +1,18 @@
+<?php $__env->startSection('breadcrumbs'); ?>
+    <?php echo $__env->make('components.breadcrumbs', [
+        'elements' => [
+            [
+                'url' => action('AnnouncementController@index'),
+                'name' => __('site.announcement.page_title')
+            ],
+            [
+                'url' => null,
+                'name' => __('site.buttons.edit')
+            ]
+        ],
+    ], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
 
     <div class="">
