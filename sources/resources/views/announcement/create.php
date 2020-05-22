@@ -34,13 +34,25 @@
                                     <input type="text" class="form-control" name="name" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="message">Message (You can use variables that your user had mentioned before)<br/>Ex: Hello, [name].</label>
-                                    <textarea name="message" id="" cols="30" rows="10" class="form-control"
-                                              required></textarea>
+                                    <label for="message">Message</label>
+                                    <textarea name="message" id="" cols="30" rows="10" class="form-control" required></textarea>
+                                    <small>
+                                        (You can use variables that your user had mentioned before). Ex: Hello, [name].
+                                    </small>
                                 </div>
-                                <div class="form-group">
-                                    <label for="start">Start (UTC)</label>
-                                    <input id="datetimepicker1" class="form-control" name="start" required/>
+                                <div class="row" style="margin: 0 -20px;">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="start">Start date</label>
+                                            <input id="datetimepicker1" class="form-control" name="start_date" required value="<?php echo e(Carbon\Carbon::now()->format('d/m/Y')); ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="start">Start time</label>
+                                            <input id="datetimepickertime1" class="form-control" name="start_time" required value="<?php echo e(Carbon\Carbon::now()->format('H:i')); ?>">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -49,7 +61,7 @@
                                     'id' => 'tag-select',
                                     'name' => 'tags[]',
                                     'options' => $tags->mapWithKeys(function ($elem) {
-                                        return [$elem->id => $elem->name . ' (' . $elem->count . ' users)'];
+                                        return [$elem->id => $elem->name];
                                     }),
                                 ]); ?>
                                 <?php echo $__env->renderComponent(); ?>
@@ -58,13 +70,13 @@
                                     'id' => 'agent-select',
                                     'name' => 'agents[]',
                                     'options' => $agents->mapWithKeys(function ($elem) {
-                                        return [$elem->id => $elem->name . ' (' . $elem->count . ' users)'];
+                                        return [$elem->id => $elem->name];
                                     }),
                                 ]); ?>
                                 <?php echo $__env->renderComponent(); ?>
                                 <div class="form-group">
                                     <label for="start">Session count:</label>
-                                    <input value="<?php echo e($sessionsCount); ?>" class="form-control" disabled name="start"/>
+                                    <span id="session-counter"><?php echo e($sessionsCount); ?></span>
                                 </div>
                             </div>
                         </div>

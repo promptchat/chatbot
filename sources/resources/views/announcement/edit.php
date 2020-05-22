@@ -41,29 +41,47 @@
                                     <textarea name="message" id="" cols="30" rows="10" class="form-control"
                                               required><?php echo e($announcement->message); ?></textarea>
                                 </div>
-                                <div class="form-group">
-                                    <label for="start">Start</label>
-                                    <input id="datetimepicker1" class="form-control" name="start" required value="<?php echo e(Carbon\Carbon::parse($announcement->start)->format('d/m/Y h:i A')); ?>">
+                                <div class="row" style="margin: 0 -20px;">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="start">Start date</label>
+                                            <input id="datetimepicker1" class="form-control" name="start_date" required value="<?php echo e(Carbon\Carbon::parse($announcement->start)->format('d/m/Y')); ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="start">Start time</label>
+                                            <input id="datetimepickertime1" class="form-control" name="start_time" required value="<?php echo e(Carbon\Carbon::parse($announcement->start)->format('H:i')); ?>">
+                                        </div>
+                                    </div>
                                 </div>
+
                             </div>
                             <div class="col-lg-6">
                                 <?php $__env->startComponent('components.form.select2Multiple', [
                                     'label' => 'Tags',
                                     'name' => 'tags[]',
+                                    'id' => 'tag-select',
                                     'options' => $tags->mapWithKeys(function ($elem) {
-                                        return [$elem->id => $elem->name . ' (' . $elem->count . ' users)'];
+                                        return [$elem->id => $elem->name];
                                     }),
+                                    'selected' => $announcement->tags->pluck('tag_id')->toArray()
                                 ]); ?>
                                 <?php echo $__env->renderComponent(); ?>
                                 <?php $__env->startComponent('components.form.select2Multiple', [
                                     'label' => 'Integrations',
                                     'name' => 'agents[]',
+                                    'id' => 'agent-select',
                                     'options' => $agents->mapWithKeys(function ($elem) {
-                                        return [$elem->id => $elem->name . ' (' . $elem->count . ' users)'];
+                                        return [$elem->id => $elem->name];
                                     }),
-                                    'values' => old('agents')
+                                    'selected' => $announcement->agents->pluck('agent_id')->toArray()
                                 ]); ?>
                                 <?php echo $__env->renderComponent(); ?>
+                                <div class="form-group">
+                                    <label for="start">Session count:</label>
+                                    <span id="session-counter"><?php echo e($announcement->chatSessions->count()); ?></span>
+                                </div>
                             </div>
                         </div>
 
