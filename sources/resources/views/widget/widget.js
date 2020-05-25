@@ -1,49 +1,58 @@
 HelpChatWidget = {
+    host: "",
     init: function(options) {
+            const host = this.host;
             var selector = options.options.selector;
-
-            var d=document.createElement("div");
-            if(selector) {
-              document.querySelector(selector).appendChild(d);
-
-            } else {
-                var style = document.createElement("style");
-                var configs = options.options || {};
-                var position = configs.position || 'right';
-                style.innerHTML = "  #help-button-wrapper {\n" +
-                    "        position: fixed;\n" +
-                    "        z-index: 999999;\n" +
-                    "        "+position+": 0;\n" +
-                    "        bottom: 0;\n" +
-                    "    }";
-                d.style.width = "0";
-                d.style.height = "0";
-
-                d.id = "help-button-wrapper";
-                document.body.appendChild(style,document.head);
-                document.body.insertBefore(d,document.body.getElementsByTagName("*")[0])
-
-            }
-            var html = document.getElementsByTagName('html')[0]
-            var isMobile = html.clientWidth <= 500 || html.clientHeight <= 500;
-
-            const overflow = document.body.style.overflow;
-
-
-
+            var position = options.options.position;
             var iframe = document.createElement("iframe");
-            iframe.style = "width:100%; height:100%; border:none";
-            var src = '&isMobile=' + isMobile;
-            var url = window.location.href;
-            if(options.company && options.agent) {
-                iframe.src = host + "/frame/" + options.company + "/" + options.agent + '?embed='+(+!!selector)+'&hostUrl=' + encodeURIComponent(url) + src
-            } else {
-                iframe.src = host + "/create-widget/?config=" + encodeURIComponent(JSON.stringify(options)) + src
+
+            var itemHeight = 0;
+            var itemWidth = 0;
+
+            iframe.style = "border:none; bottom:0; width:0; height:0;  position: fixed; z-index: 9999;";
+
+            var setIframeAsSize =function(){
+                iframe.style.height = itemHeight  + 'px';
+                iframe.style.width = itemWidth  + 'px';
+
+                if(position === 'left') {
+                    iframe.style.right = 'unset';
+                    iframe.style.left = '0';
+                } else {
+                    iframe.style.right = '0';
+                    iframe.style.left = 'unset';
+                }
+                sendIsEnoughSize();
+            };
+
+            var sendIsEnoughSize = function() {
+
+                if(window.innerHeight < itemHeight ||
+                    window.innerWidth < itemWidth) {
+                    postMessageToChatBox('sizeIsNotEnough');
+                } else {
+                    postMessageToChatBox('sizeEnough');
+                }
+            };
+
+            function postMessageToChatBox(type, params) {
+                iframe.contentWindow.postMessage(JSON.stringify({type: type, params: params}), '*')
             }
+
+            window.onresize = sendIsEnoughSize
+
+            var url = window.location.href;
+
+            iframe.src = host + "/frame/" + options.company + "/" + options.agent + '?embed='+(+!!selector)+'&hostUrl=' + encodeURIComponent(url)
+
             iframe.dataset.url = window.location.href;
             iframe.allow = 'geolocation';
 
-            d.appendChild(iframe);
+            if(selector) {
+                document.querySelector(selector).appendChild(iframe);
+            } else {
+                document.body.insertBefore(iframe,document.body.getElementsByTagName("*")[0])
+            }
 
             window.addEventListener("message", receiveMessage, false);
 
@@ -54,40 +63,29 @@ HelpChatWidget = {
                 var message = JSON.parse(event.data);
 
                 var action = message.event;
-                var data = message.data;
 
-                if(message.agent !== options.agent) {
-                    return;
-                }
                 switch (action) {
                     case "resize":
-                        if(data.height) {
-                            d.style.height = data.height
-                        }
-                        if(data.width) {
-                            d.style.width = data.width
-                        }
-                        d.style.right = null;
-                        d.style.left = null;
-                        d.style.bottom = null;
-                        if(!selector) {
-                            document.body.style.overflow = overflow
-                        }
+                        itemHeight = message.height;
+                        itemWidth = message.width;
+                        setIframeAsSize();
                         break;
-
                     case "full-screen":
-                        d.style.height = "100%";
-                        d.style.width = "100%";
-                        d.style.right = "0";
-                        d.style.left = "0";
-                        d.style.bottom = "0";
-                        if(!selector) {
-                            document.body.style.overflow = 'hidden'
-                        }
-
+                        iframe.style.height = "100%";
+                        iframe.style.width = "100%";
                         break;
                 }
             }
+            window.chatOpen = function(message) {
+                postMessageToChatBox('open')
+            }
+            window.chatSendMessage = function(message) {
+                postMessageToChatBox('postMessage', {message: message})
+            }
+            window.chatTriggerEvent = function (message, trigger, payload) {
+                postMessageToChatBox('postMessage', {message: message, payload: payload, trigger: trigger})
+            }
+
     }
 }
 

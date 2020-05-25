@@ -142,24 +142,6 @@
                                 <?php echo app('translator')->getFromJson('site.analytic.user_email'); ?>: <a
                                         href="mailto:<?php echo e($chatSession->user_email); ?>"><?php echo e($chatSession->user_email); ?></a>
                             </div>
-                            <?php if($chatSession->answered !== null): ?>
-                                <div class="col-sm-6">
-                                    <form
-                                            role="form"
-                                            method="post"
-                                            action="<?php echo e(action('LiveChatWaitingUserController@answerToUser', $chatSession)); ?>"
-                                            enctype="multipart/form-data"
-                                    >
-                                        <?php echo e(csrf_field()); ?>
-
-                                        <?php echo e(method_field("patch")); ?>
-
-
-                                        <button type="submit"
-                                                class="btn btn-primary pull-right text-uppercase"><?php echo app('translator')->getFromJson('site.buttons.answer_to_user'); ?></button>
-                                    </form>
-                                </div>
-                            <?php endif; ?>
                         </div>
                         <div class="border px-3">
                             <div class="position-relative operator-page">

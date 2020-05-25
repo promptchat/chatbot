@@ -22,7 +22,7 @@ services:
     volumes:
       - ./sources:/sources
     command: >
-      sh -c "rm -f vendor/autoload.php && composer install"
+      sh -c "rm -f vendor/autoload.php && composer install --ignore-platform-reqs"
 
 
   db:
@@ -55,6 +55,7 @@ services:
       - composer
       - db
       - redis
+      - node-executor
     volumes:
       - ./sources:/sources
       - ${PWD}/configs/php/logs:/var/log/php7.2-fpm.log
@@ -154,6 +155,17 @@ services:
       - ./sources:/sources
     depends_on:
       - redis
+
+  node-executor:
+    image: node:8.15-alpine
+    working_dir: /sources
+    hostname: redis
+    volumes:
+      - ./sources:/sources
+    command: >
+      node node-executor
+
+
 
 volumes:
   redis-data:

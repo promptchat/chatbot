@@ -10,7 +10,7 @@
     <?php endif; ?>
     <select class="select2-multiple d-none form-control <?php echo e(isset($selectClass) ? $selectClass : ''); ?> <?php echo e($errors->has($name) ? ' is-invalid' : ''); ?>"
             multiple="multiple"
-            id="<?php echo e($name); ?>"
+            id="<?php echo e($id ?? $name); ?>"
             name="<?php echo e($name); ?>"
             <?php echo e(isset($attributes) ? $attributes : ''); ?>
 
