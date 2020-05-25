@@ -22,8 +22,8 @@
         }
     </style>
 
-    <script src="http://localhost:8080/bundle.js" defer></script>
 
+    <script src="<?php echo e(mix('help-button/bundle.js')); ?>" defer></script>
     <link rel="icon" type="image/png" sizes="16x16" href="<?php echo e(\App\Models\SiteConfig::getFavicon()); ?>">
 
     <link href="<?php echo e(\App\Models\SiteConfig::getFonts()); ?>" rel="stylesheet">
