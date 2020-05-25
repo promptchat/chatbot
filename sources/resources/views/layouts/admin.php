@@ -143,11 +143,11 @@
 
                     <ul class="nav-menu">
                         <div class="navigation-label">Bot</div>
-                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\Agent\Agent::class)): ?>
-                            <a class="menu-item" href="<?php echo e(action("AgentController@index")); ?>">
-                                <i class="fa fa-plus text-success"></i><?php echo app('translator')->getFromJson('site.left_menu.chat_boxes'); ?>
-                            </a>
-                        <?php endif; ?>
+
+
+
+
+
                         <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('index', \App\Models\ChatSession\ChatSession::class)): ?>
                             <a class="menu-item" href="<?php echo e(action("AnalyticsController@index")); ?>">
                                 <i class="fa fa-bar-chart text-danger"></i><?php echo app('translator')->getFromJson('site.left_menu.analytics'); ?>
@@ -168,14 +168,19 @@
                                 <i class="fa fa-comments text-success"></i><?php echo app('translator')->getFromJson('site.left_menu.chatbots'); ?>
                             </a>
                         <?php endif; ?>
+                        <a class="menu-item" href="<?php echo e(action("IntegrationsController@index")); ?>">
+                            <i class="fa fa-share-alt-square text-danger"></i><?php echo app('translator')->getFromJson('site.left_menu.integration'); ?>
+                        </a>
+                        <a class="menu-item" href="<?php echo e(action('AnnouncementController@index')); ?>">
+                            <i class="fa fa-bullhorn text-info"></i><?php echo app('translator')->getFromJson('site.left_menu.announcements'); ?>
+                        </a>
+                        <a class="menu-item" href="<?php echo e(action('SessionController@index')); ?>">
+                            <i class="fa fa-user-circle"></i><?php echo app('translator')->getFromJson('site.left_menu.clients'); ?>
+                        </a>
                         <div class="navigation-label">Live chat</div>
                         <?php if(Gate::allows('live-chat', \Auth::user())): ?>
                             <a class="menu-item" href="<?php echo e(action("LiveChatController@all")); ?>">
                                 <i class="fa fa-commenting text-danger"></i><?php echo app('translator')->getFromJson('site.left_menu.live_chat'); ?>
-                            </a>
-                            <a class="menu-item" href="<?php echo e(action("LiveChatWaitingUserController@index")); ?>">
-                                <i class="fa fa-user-times text-info"></i><?php echo app('translator')->getFromJson('site.left_menu.live_chat_waiting_user'); ?>
-                                <span class="badge badge-danger"><?php echo e(\App\Http\Controllers\LiveChatWaitingUserController::getWaitingUsersCount()); ?></span>
                             </a>
                         <?php endif; ?>
                         
@@ -317,7 +322,7 @@
                                     <div class="box-sm">
                                         <div class="login-box clearfix">
                                             <div class="user-img">
-                                                <img src="<?php echo e(Auth::user()->image->url ?? '/img/no-image.png'); ?>" alt=""
+                                                <img src="<?php echo e(Auth::user()->image->url ?? '/img/default_operator_img.svg'); ?>" alt=""
                                                      style="width:100%">
                                             </div>
                                             <div class="user-info">
