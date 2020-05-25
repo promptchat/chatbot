@@ -79,7 +79,6 @@
                         <?php $__env->startComponent('components.image-input',  [
                             'label' => __('site.user.photo'),
                             'name' => 'image_id',
-                            'value' => '/img/default_operator_img.svg'
                         ]); ?><?php echo $__env->renderComponent(); ?>
 
                         <?php echo $__env->make('components.form.select2Multiple', [

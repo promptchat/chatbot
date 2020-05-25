@@ -3,7 +3,7 @@
         <label for="<?php echo e($name); ?>" class="control-label"><?php echo e($label); ?></label>
     <?php endif; ?>
 
-    <img class="image-input-preview" src="<?php echo e(isset($value) ? $value : \App\Models\Image::getImageById(old($name) ?: ($value ?? ''))); ?>" alt="">
+    <img class="image-input-preview" src="<?php echo e(\App\Models\Image::getImageById(old($name) ?: ($value ?? ''))); ?>" alt="">
 
     <input id="<?php echo e($name); ?>"
        type="hidden"
