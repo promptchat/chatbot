@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "855b1e62f4aec45781cd0c95e42fb904",
+    "content-hash": "4223b5e37b205293c9d6bb90453b0f17",
     "packages": [
         {
             "name": "adellantado/botman-viber-driver",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/adellantado/botman-viber-driver.git",
-                "reference": "a2d341026864c0c6f170467c6d8ab6416904a2ff"
+                "reference": "97c6042f675784b2356cf98f465d84f197cb2525"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/adellantado/botman-viber-driver/zipball/a2d341026864c0c6f170467c6d8ab6416904a2ff",
-                "reference": "a2d341026864c0c6f170467c6d8ab6416904a2ff",
+                "url": "https://api.github.com/repos/adellantado/botman-viber-driver/zipball/97c6042f675784b2356cf98f465d84f197cb2525",
+                "reference": "97c6042f675784b2356cf98f465d84f197cb2525",
                 "shasum": ""
             },
             "require": {
@@ -53,7 +53,7 @@
                 "bot",
                 "viber"
             ],
-            "time": "2020-02-13T11:10:34+00:00"
+            "time": "2020-03-22T22:12:07+00:00"
         },
         {
             "name": "aws/aws-sdk-php",
@@ -186,16 +186,16 @@
         },
         {
             "name": "bavix/laravel-wallet",
-            "version": "4.0.0",
+            "version": "4.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bavix/laravel-wallet.git",
-                "reference": "0ece697894a680cec95cbed0f722637a5da4b5e5"
+                "reference": "46954daedd0ae537b0cdf9fe2b2279315e148261"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bavix/laravel-wallet/zipball/0ece697894a680cec95cbed0f722637a5da4b5e5",
-                "reference": "0ece697894a680cec95cbed0f722637a5da4b5e5",
+                "url": "https://api.github.com/repos/bavix/laravel-wallet/zipball/46954daedd0ae537b0cdf9fe2b2279315e148261",
+                "reference": "46954daedd0ae537b0cdf9fe2b2279315e148261",
                 "shasum": ""
             },
             "require": {
@@ -207,11 +207,11 @@
                 "ramsey/uuid": "^3.0"
             },
             "require-dev": {
-                "infection/infection": "^0.14",
+                "infection/infection": "^0.15",
                 "laravel/cashier": "^7.0|^8.0|^9.0|^10.0",
-                "orchestra/testbench": "^4.0",
-                "phpstan/phpstan": "^0.11",
-                "phpunit/phpunit": "^8.3"
+                "orchestra/testbench": "^4.5",
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "^8.5"
             },
             "suggest": {
                 "bavix/laravel-wallet-swap": "Addition to the laravel-wallet library for quick setting of exchange rates",
@@ -256,7 +256,7 @@
                 "virtual",
                 "wallet"
             ],
-            "time": "2019-10-04T11:21:28+00:00"
+            "time": "2020-03-22T17:56:54+00:00"
         },
         {
             "name": "botman/botman",
@@ -2019,6 +2019,7 @@
                     "email": "jakub.onderka@gmail.com"
                 }
             ],
+            "abandoned": "php-parallel-lint/php-console-color",
             "time": "2018-09-29T17:23:10+00:00"
         },
         {
@@ -2065,6 +2066,7 @@
                 }
             ],
             "description": "Highlight PHP code in terminal",
+            "abandoned": "php-parallel-lint/php-console-highlighter",
             "time": "2018-09-29T18:48:56+00:00"
         },
         {
@@ -3427,6 +3429,7 @@
                 "rest",
                 "sdk"
             ],
+            "abandoned": true,
             "time": "2019-01-04T20:04:25+00:00"
         },
         {
