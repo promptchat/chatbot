@@ -23,6 +23,10 @@
             <?php echo app('translator')->getFromJson('mail.visitor_ip'); ?>: <?php echo e($ip); ?><br>
         </p>
     </div>
+    <div style="border: 2px solid #f4f4f4; border-radius: 10px; padding: 5px;">
+        <a href="<?php echo e(action('AnalyticsController@showChatSessionStatistic', $event->chat_sesion_id)); ?>"><?php echo app('translator')->getFromJson('mail.view_full_info'); ?>:</a>
+
+    </div>
 
     <p><?php echo app('translator')->getFromJson('mail.with_kind_regards'); ?></p>
 
