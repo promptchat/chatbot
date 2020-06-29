@@ -24,7 +24,7 @@
         </p>
     </div>
     <div style="border: 2px solid #f4f4f4; border-radius: 10px; padding: 5px;">
-        <a href="<?php echo e(action('AnalyticsController@showChatSessionStatistic', $event->chat_sesion_id)); ?>"><?php echo app('translator')->getFromJson('mail.view_full_info'); ?>:</a>
+        <a href="<?php echo e(action('AnalyticsController@showChatSessionStatistic', $event->chat_session_id)); ?>"><?php echo app('translator')->getFromJson('mail.view_full_info'); ?>:</a>
 
     </div>
 
