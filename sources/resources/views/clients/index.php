@@ -60,7 +60,13 @@
                                                 <?php $__currentLoopData = $chatSession->variables; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $name => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <div>
                                                         <strong><?php echo e($name); ?>:</strong>
-                                                        <span class="text-primary"><?php echo e($value); ?>;</span>
+                                                        <?php if(is_array($value)): ?>
+                                                            <span class="text-primary"><?php echo e(join(', ', $value)); ?>;</span>
+
+                                                        <?php else: ?>
+                                                            <span class="text-primary"><?php echo e($value); ?>;</span>
+                                                        <?php endif; ?>
+
                                                     </div>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             <?php endif; ?>
