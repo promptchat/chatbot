@@ -1,4 +1,4 @@
-FROM auravitalii/promptchat:php1.4
+FROM auravitalii/promptchat:php1.5
 
 COPY docker_files/phpworker/start.sh /usr/local/bin/start
 

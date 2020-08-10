@@ -10,7 +10,7 @@ HelpChatWidget = {
             var itemWidth = 0;
 
             iframe.style = "border:none; bottom:0; width:0; height:0; z-index: 9999;" + (selector ? "" : "position: fixed");
-
+            iframe.allowFullscreen = true;
             var setIframeAsSize =function(){
                 iframe.style.height = itemHeight  + 'px';
                 iframe.style.width = itemWidth  + 'px';
