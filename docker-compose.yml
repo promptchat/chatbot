@@ -157,6 +157,7 @@ services:
       - redis
 
   node-executor:
+    restart: always
     image: node:8.15-alpine
     working_dir: /sources
     hostname: node-executor
