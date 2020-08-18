@@ -159,7 +159,7 @@ services:
   node-executor:
     image: node:8.15-alpine
     working_dir: /sources
-    hostname: redis
+    hostname: node-executor
     volumes:
       - ./sources:/sources
     command: >
