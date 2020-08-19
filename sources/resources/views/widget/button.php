@@ -39,7 +39,7 @@
             'currentURL' => request()->get('hostUrl', request()->url()),
             'configs' => $configs,
             'embed' => request()->get('embed', $embed ?? 0),
-            'translates' => $translates
+            'translates' => $translates,
         ]); ?>
 
     </script>
