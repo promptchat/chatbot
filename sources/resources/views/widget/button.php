@@ -23,7 +23,7 @@
     </style>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<?php echo e(config('app.google_map_key')); ?>&libraries=places"></script>
 
-
+    <script src="<?php echo e(mix('help-button/bundle.js')); ?>" defer></script>
     <link rel="icon" type="image/png" sizes="16x16" href="<?php echo e(\App\Models\SiteConfig::getFavicon()); ?>">
 
     <link href="<?php echo e(\App\Models\SiteConfig::getFonts()); ?>" rel="stylesheet">
