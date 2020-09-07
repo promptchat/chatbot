@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
 
     <style type="text/css">
-
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: inline-block;
+        }
         label.checkbox{
             background-image: url("<?php echo e(url('/checkbox/chckbx_off.png')); ?>");
         }

@@ -20,6 +20,8 @@
 <?php $__env->startSection('content'); ?>
     <script>
         window.translates = <?php echo $translates; ?>;
+        window.languages = <?php echo $languages; ?>;
+
     </script>
     <div class="">
         <div class="card">
