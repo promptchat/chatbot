@@ -154,7 +154,7 @@
                                                 </div>
                                             <?php endif; ?>
                                             <div class="time"><?php echo e($liveMessage->user_id ? $liveMessage->user->name.',' : ''); ?> <?php echo e($liveMessage->created_at); ?></div>
-                                            <div class="message"><?php echo e($liveMessage->message); ?></div>
+                                            <div class="message"><?php echo $liveMessage->message; ?></div>
                                         </li>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                                         <?php echo app('translator')->getFromJson('site.no_result'); ?>
