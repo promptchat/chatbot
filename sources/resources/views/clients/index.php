@@ -14,6 +14,7 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
+
     <div class="">
         <div class="card">
             <div class="card-body">
@@ -25,9 +26,30 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <?php $__env->startComponent('components.grid', ['filterAction' => action('SessionController@index')]); ?>
+                            <?php $__env->slot('topFilters'); ?>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <?php echo $__env->make('components.filter.filterInput', ['placeholder' => __('site.client.search'), 'name' => 'message'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                    </div>
+                                    <div class="col-sm-3">
+                                    <?php echo $__env->make('components.filter.filterInput', ['placeholder' => __('site.client.from'), 'name' => 'from', 'class' => 'datepicker'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                    </div>
+                                    <div class="col-sm-3">
+                                    <?php echo $__env->make('components.filter.filterInput', ['placeholder' => __('site.client.to'), 'name' => 'to', 'class' => 'datepicker'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                    </div>
+                                    <?php echo $__env->make('components.form.checkbox', [
+                                                'name' => 'filter[withLiveChat]',
+                                                'type' => 'checkbox',
+                                                'label' => __('site.client.has_live_chat_activity'),
+                                                'attributes' => 'onchange=this.form.submit()'
+                                    ], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                </div>
+                            <?php $__env->endSlot(); ?>
                             <?php $__env->slot('header'); ?>
                                 <th scope="col"><?php echo app('translator')->getFromJson('site.client.agent_name'); ?></th>
                                 <th scope="col"><?php echo app('translator')->getFromJson('site.client.client_name'); ?></th>
+                                <th scope="col"><?php echo app('translator')->getFromJson('site.client.tags'); ?></th>
+                                <th scope="col"><?php echo app('translator')->getFromJson('site.client.last-message'); ?></th>
                                 <th scope="col"><?php echo app('translator')->getFromJson('site.client.variables'); ?></th>
                                 <th scope="col" class="small-column text-center">
                                     <a href="<?php echo e(action('SessionController@index')); ?>">
@@ -39,7 +61,19 @@
                             <?php $__env->slot('filters'); ?>
                                 <td><?php $__env->startComponent('components.filter.filterSelect', ['name' => 'agent_id', 'options' => $agents]); ?><?php echo $__env->renderComponent(); ?></td>
                                 <td><div class="form-control clear-input-filter"></div></td>
+                                <td>
+
+                                        <?php $__env->startComponent('components.filter.filterSelect2Mutltiple', [
+
+                                               'name' => 'tags',
+                                               'options' => $tags->mapWithKeys(function ($elem) {
+                                                   return [$elem->id => $elem->name];
+                                               }),
+                                       ]); ?>
+                                        <?php echo $__env->renderComponent(); ?>
+                              </td>
                                 <td><div class="form-control clear-input-filter"></div></td>
+                                <td><?php echo $__env->make('components.filter.filterInput', ['name' => 'variables'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?></td>
                                 <td><div class="form-control clear-input-filter"></div></td>
                             <?php $__env->endSlot(); ?>
 
@@ -54,6 +88,20 @@
                                         <td>
                                             <?php echo e($chatSession->getClientName()); ?>
 
+                                        </td>
+                                        <td>
+                                            <?php $__currentLoopData = $chatSession->tags; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tag): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <div>
+                                                    <strong><?php echo e($tag->name); ?></strong>
+                                                 </div>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </td>
+                                        <td>
+                                            <?php if($chatSession->lastMessage): ?>
+                                                <div>
+                                                    <strong><?php echo e($chatSession->lastMessage->created_at); ?></strong>
+                                                 </div>
+                                            <?php endif; ?>
                                         </td>
                                         <td style="line-height: 1">
                                             <?php if($chatSession->variables): ?>

@@ -1,3 +1,7 @@
+<?php
+    $_requestName = str_replace(['[]', '][', '[', ']', ' '], ['', '.', '.', '', '.'], $name);
+
+?>
 <div class="form-group <?php echo e(isset($class) ? $class : ''); ?>">
     <div class="custom-control custom-checkbox d-inline-block">
 
@@ -7,13 +11,12 @@
                value="0"
         >
 
-
         <input id="<?php echo e($name); ?>"
                type="checkbox"
                class="custom-control-input <?php echo e(isset($classInput) ? $classInput : ''); ?> <?php echo e($errors->has($name) ? ' is-invalid' : ''); ?>"
                name="<?php echo e($name); ?>"
                value="1"
-               <?php if(old($name) ?: (isset($value) ? $value : false)): ?>
+               <?php if(old($_requestName) || request($_requestName) ?: (isset($value) ? $value : false)): ?>
                    checked
                <?php endif; ?>
                <?php echo e(isset($attributes) ? $attributes : ''); ?>
