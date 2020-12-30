@@ -1,4 +1,4 @@
-FROM auravitalii/promptchat:php1.5
+FROM auravitalii/promptchat:php2.2
 
 ARG uid
 RUN usermod -u $uid www-data; exit 0

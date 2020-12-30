@@ -11,8 +11,14 @@
 |
 */
 
+defined('PROMPTCHAT_COMPANIES_ENABLED')  || define('PROMPTCHAT_COMPANIES_ENABLED', true);
+defined('PROMPTCHAT_WHITE_LABEL_ENABLED')  || define('PROMPTCHAT_WHITE_LABEL_ENABLED', true);
+
+defined('PROMPTCHAT_PLAN_NAME') || define('PROMPTCHAT_PLAN_NAME', 'Unknown plan name');
+defined('PROMPTCHAT_PLAN_VALID_TILL') || define('PROMPTCHAT_PLAN_VALID_TILL', null);
+
 $app = new Illuminate\Foundation\Application(
-    realpath(__DIR__.'/../')
+    $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
 
 /*

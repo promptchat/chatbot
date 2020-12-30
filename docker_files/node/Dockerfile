@@ -1,4 +1,4 @@
-FROM node:8.15-alpine
+FROM node:12.20.0-alpine3.12
 RUN apk add bash
 WORKDIR /sources
 

@@ -1,9 +1,9 @@
 {
-  "name": "docker",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "dependencies": {
-    "laravel-echo-server": "^1.5.5"
-  }
+    "name": "docker",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "dependencies": {
+        "laravel-echo-server": "^1.6.2"
+    }
 }

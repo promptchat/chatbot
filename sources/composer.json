@@ -1,53 +1,66 @@
 {
-    "name": "promptchat/chatbot",
-    "description": "White label chatbot and live chat",
-    "keywords": ["chatbot", "live chat", "promptchat"],
-    "license": "OEM",
-    "version": "1.0.21",
+    "name": "laravel/laravel",
     "type": "project",
+    "version": "0.0.1",
+    "description": "The Laravel Framework.",
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
+    "license": "MIT",
     "require": {
-        "php": "^7.1.3",
+        "php": "^7.3",
         "ext-json": "*",
-        "ext-zip": "*",
-        "bavix/laravel-wallet": "^4.0",
-        "botman/botman": "^2.5",
-        "botman/driver-facebook": "^1.10",
-        "botman/driver-telegram": "^1.5",
+        "aws/aws-sdk-php": "^3.158",
+        "botman/botman": "^2.6",
+        "botman/driver-telegram": "^1.6",
         "botman/driver-twilio": "^1.2",
         "botman/driver-web": "^1.5",
-        "botman/studio-addons": "^1.5",
-        "doctrine/dbal": "^2.7",
-        "fideloper/proxy": "^4.0",
-        "geoip2/geoip2": "^2.9",
-        "kreait/laravel-firebase": "^1.3",
-        "kyslik/column-sortable": "5.8.*",
-        "laravel/framework": "5.8.*",
-        "laravel/tinker": "^1.0",
+        "botman/studio-addons": "^1.6",
+        "fideloper/proxy": "^4.2",
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "fruitcake/laravel-cors": "^2.0",
+        "geoip2/geoip2": "^2.11",
+        "guzzlehttp/guzzle": "^7.0.1",
+        "intervention/image": "^2.5",
+        "laravel/fortify": "^1.6",
+        "laravel/framework": "^8.0",
+        "laravel/tinker": "^2.0",
         "league/html-to-markdown": "^4.10",
         "matthiasmullie/minify": "^1.3",
-        "maxmind-db/reader": "^1.4",
-        "paypal/rest-api-sdk-php": "*",
         "predis/predis": "^1.1",
-        "simplesoftwareio/simple-qrcode": "^2.0",
-        "staudenmeir/eloquent-json-relations": "^1.1",
-        "twilio/sdk": "5.15",
-        "waavi/translation": "2.3.x"
+        "psr/cache": "^1.0",
+        "staudenmeir/eloquent-json-relations": "^1.5",
+        "theardent/botman-viber-driver": "dev-master",
+        "twilio/sdk": "^5.15"
     },
     "require-dev": {
-        "barryvdh/laravel-ide-helper": "^2.6",
-        "filp/whoops": "^2.0",
-        "fzaninotto/faker": "^1.4",
-        "mockery/mockery": "^1.0",
-        "nunomaduro/collision": "^2.0",
-        "phpunit/phpunit": "^7.0"
+        "barryvdh/laravel-ide-helper": "^2.8",
+        "facade/ignition": "^2.3.6",
+        "fzaninotto/faker": "^1.9.1",
+        "mockery/mockery": "^1.3.1",
+        "nunomaduro/collision": "^5.0",
+        "nunomaduro/larastan": "^0.6.10",
+        "phpstan/phpstan": "^0.12.58",
+        "phpunit/phpunit": "^9.3",
+        "squizlabs/php_codesniffer": "^3.5",
+        "tightenco/tlint": "^5.0"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
     },
     "autoload": {
-        "classmap": [
-            "database/seeds",
-            "database/factories"
-        ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
         },
         "exclude-from-classmap": ["vendor/botman/botman/src/Messages/Incoming/IncomingMessage.php"],
         "files": ["app/Overrides/IncomingMessage.php"]
@@ -57,19 +70,24 @@
             "Tests\\": "tests/"
         }
     },
-    "extra": {
-        "laravel": {
-            "dont-discover": [
-            ]
-        }
-    },
-    "scripts": {
-    },
-    "config": {
-        "preferred-install": "dist",
-        "sort-packages": true,
-        "optimize-autoloader": true
-    },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
+        ],
+        "php-cs": [
+            "php-cs-fixer fix --config=.php_cs.php --diff --format=txt"
+        ],
+        "pstan": [
+            "vendor/bin/phpstan analyse app -c phpstan.neon"
+        ]
+    }
 }

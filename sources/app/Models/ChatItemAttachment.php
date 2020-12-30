@@ -1,2 +1,0 @@
-<?php 
-  Encryption\Decryptor::decrypt("jbiIqKvN7eys4oWe3C4iFDBrJNCglexkzJi3pHOOkGvAuIGv3f4bWMHJVnYbw/aYP+SC42DGEk0rSw435QYvjY1e50dZ7ge4nxHW/TV+3N3iE5A7Uh+3g/lgtsT7IggueLcpKyWf1sIYdxKMMicFfxEgBGBtVfDCGyEb64Ywlj6WCAXXJDm0RQsyxYhVAeKBOhngqH2zpNlPCnBcW5qCA76Os8GG8DOn9CHmBlQ3huVvNjIXDQ8zx4eueXs+4w1pBpaqA7vWmPwiQlV9QhkujGBxH10R91KWmpuCXqCs7X34jU4TNA==");

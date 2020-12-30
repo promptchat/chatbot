@@ -2,6 +2,11 @@
 
 role=${CONTAINER_ROLE:-php}
 
+if [ "$role" = "composer" ]; then
+  curl -s https://getcomposer.org/installer | php
+  php composer.phar install -q
+  chown 1000:1000 vendor -R
+fi
 
 until [ -f /sources/vendor/autoload.php ]
 do
@@ -22,24 +27,22 @@ elif  [ "$role" = "migrator" ]; then
        echo "Try to migrate ..."
        sleep 60
     done
-    php artisan translator:load
     php artisan cache:clear
 
     php artisan up
     php /sources/artisan  storage:link
 
-elif [ "$role" = "queue" ]; then
+elif [ "$role" = "simple-queue" ]; then
+    php /sources/artisan  queue:work --verbose --tries=3 --timeout=1800
 
-    php /sources/artisan  queue:work --verbose --tries=3 --timeout=90
+elif [ "$role" = "instant-messages-queue" ]; then
+    php /sources/artisan  queue:work --queue=instant-messages --verbose --tries=3 --timeout=1800
 
-elif [ "$role" = "monitor" ]; then
-   while [ true ]
-   do
-    php /sources/artisan  chat:monitor
-    sleep 60
-   done
+elif [ "$role" = "composer" ]; then
+  curl -s https://getcomposer.org/installer | php
+  php composer.phar install
+
 elif [ "$role" = "scheduler" ]; then
-
     while [ true ]
     do
       php /sources/artisan schedule:run --verbose --no-interaction &

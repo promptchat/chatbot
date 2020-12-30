@@ -16,15 +16,6 @@ services:
       - variables.env
       - license.txt
 
-  composer:
-    image: composer:latest
-    working_dir: /sources
-    volumes:
-      - ./sources:/sources
-    command: >
-      sh -c "rm -f vendor/autoload.php && composer install --ignore-platform-reqs"
-
-
   db:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
@@ -44,6 +35,7 @@ services:
     hostname: redis
     volumes:
       - redis-data:/data
+
   php:
     restart: always
     build:
@@ -94,6 +86,7 @@ services:
         uid: ${UID}
     depends_on:
       - php
+      - composer
     links:
       - db
     volumes:
@@ -106,7 +99,25 @@ services:
       - variables.env
       - license.txt
 
-  queue:
+  composer:
+    build:
+      context: .
+      dockerfile: docker_files/phpworker/Dockerfile
+      args:
+        uid: ${UID}
+    links:
+      - db
+    volumes:
+      - ./sources:/sources
+    working_dir: /sources
+    environment:
+      CONTAINER_ROLE: composer
+      LOG_FILE: logs/laravel-composer.log
+    env_file:
+      - variables.env
+      - license.txt
+
+  simple-queue:
     restart: always
     build:
        context: .
@@ -119,13 +130,13 @@ services:
       - ./sources:/sources
     working_dir: /sources
     environment:
-      CONTAINER_ROLE: queue
+      CONTAINER_ROLE: simple-queue
       LOG_FILE: logs/laravel-queue.log
     env_file:
       - variables.env
       - license.txt
 
-  monitor:
+  instant-messages-queue:
     restart: always
     build:
        context: .
@@ -138,8 +149,8 @@ services:
       - ./sources:/sources
     working_dir: /sources
     environment:
-      CONTAINER_ROLE: monitor
-      LOG_FILE: logs/laravel-monitor.log
+      CONTAINER_ROLE: instant-messages-queue
+      LOG_FILE: logs/laravel-queue.log
     env_file:
       - variables.env
       - license.txt
