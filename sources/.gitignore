@@ -2,7 +2,16 @@
 /node_modules
 /public/hot
 /public/storage
+/public/js
 
+/public/fonts/vendor
+/public/fonts/Glyphter.eot
+/public/fonts/Glyphter.svg
+/public/fonts/Glyphter.ttf
+/public/fonts/Glyphter.woff
+
+/public/chat-box
+/public/mix-manifest.json
 /storage/*.key
 /vendor
 .env
@@ -18,4 +27,3 @@ _ide_helper.php
 _ide_helper_models.php
 laravel-echo-server.json
 laravel-echo-server.lock
-composer.phar

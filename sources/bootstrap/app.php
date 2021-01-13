@@ -58,4 +58,11 @@ $app->singleton(
 |
 */
 
+if (!function_exists('t')) {
+    function t(string $translate) {
+        return app()
+            ->make(\App\Repositories\Interfaces\TranslatesRepositoryInterface::class)
+            ->getTranslate($translate, app()->getLocale());
+    }
+}
 return $app;
