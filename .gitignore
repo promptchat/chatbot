@@ -1,5 +1,6 @@
 .idea/
 configs/nginx_conf/logs
+sources/dump.sql
 variables.env
 backup.sql
 license.txt
