@@ -16,6 +16,7 @@
         crossorigin="anonymous"
     />
     <script src="<?php echo e(mix('chat-box/bundle.js')); ?>" defer></script>
+
     <link rel="icon" type="image/png" sizes="16x16" href="<?php echo e(app(\App\Repositories\Interfaces\ConfigsRepositoryInterface::class)->getFavicon()); ?>">
 
     <link href="<?php echo e(app(\App\Repositories\Interfaces\ConfigsRepositoryInterface::class)->getFontsLink()); ?>" rel="stylesheet">

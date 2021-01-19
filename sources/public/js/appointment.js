@@ -108501,7 +108501,7 @@ var initialState = Object(immutable__WEBPACK_IMPORTED_MODULE_0__["fromJS"])({
         return state.updateIn(["builder", "edit", "data", "buttons"], function (buttons) {
           return buttons.push(Object(immutable__WEBPACK_IMPORTED_MODULE_0__["Map"])({
             id: Object(lodash__WEBPACK_IMPORTED_MODULE_2__["uniqueId"])("button-"),
-            text: ""
+            text: "Variant#".concat(buttons.size + 1)
           }));
         });
       }
