@@ -106022,6 +106022,7 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+/* eslint-disable */
 
 
 
@@ -106064,7 +106065,6 @@ function CalendarStep(_ref) {
 
 function TimeStep(_ref3) {
   var times = _ref3.times,
-      time = _ref3.time,
       setTime = _ref3.setTime;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     className: "time-list"
@@ -107905,8 +107905,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var immutable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! immutable */ "./node_modules/immutable/dist/immutable.es.js");
 /* harmony import */ var _actionTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./actionTypes */ "./resources/js/redux/reducers/calendars/actionTypes.js");
 /* harmony import */ var _redux_helpers_paginatedPageHandler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/redux/helpers/paginatedPageHandler */ "./resources/js/redux/helpers/paginatedPageHandler.js");
-/* harmony import */ var _models_InstantMessage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/models/InstantMessage */ "./resources/js/models/InstantMessage.js");
-
 
 
 
@@ -108045,6 +108043,7 @@ __webpack_require__.r(__webpack_exports__);
   START_CONNECTION: "CHATBOT/START_CONNECTION",
   SET_EDIT: "CHATBOT/SET_EDIT",
   UPDATE_EDIT: "CHATBOT/UPDATE_EDIT",
+  UPDATE_CARD_INDEX_EDIT: "CHATBOT/UPDATE_CARD_INDEX_EDIT",
   SAVE_EDIT: "CHATBOT/SAVE_EDIT",
   ADD_BUTTON: "CHATBOT/ADD_BUTTON",
   REMOVE_BUTTON: "CHATBOT/REMOVE_BUTTON",
@@ -108475,6 +108474,13 @@ var initialState = Object(immutable__WEBPACK_IMPORTED_MODULE_0__["fromJS"])({
 
     case _redux_reducers_chatbot_actionTypes__WEBPACK_IMPORTED_MODULE_1__["default"].SAVE_EDIT:
       return state.setIn(["item", "blocks", state.getIn(["builder", "edit", "id"]).toString()], state.getIn(["builder", "edit"])).setIn(["builder", "edit"], null);
+
+    case _redux_reducers_chatbot_actionTypes__WEBPACK_IMPORTED_MODULE_1__["default"].UPDATE_CARD_INDEX_EDIT:
+      if (state.getIn(["builder", "edit"])) {
+        return state.setIn(["builder", "edit", "data", "activeCard"], payload.index);
+      }
+
+      return state.setIn(["item", "blocks", payload.key.toString(), "data", "activeCard"], payload.index);
 
     case _redux_reducers_chatbot_actionTypes__WEBPACK_IMPORTED_MODULE_1__["default"].DELETE_EDIT:
       {
@@ -109123,7 +109129,7 @@ function deleteClientIdFromList(newState, listName, clientId) {
 
           if (!presentInClientIdsRegularList && !presentInClientIdsWaitForLiveChatList) {
             _newState = _newState.update("clientsMap", function (clientsMap) {
-              clientsMap["delete"](_clientId);
+              return clientsMap["delete"](_clientId);
             });
           }
         }
