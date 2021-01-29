@@ -107040,6 +107040,7 @@ var fields = {
   integration_id: null,
   created_at: null,
   updated_at: null,
+  last_message_at: null,
   tags: [],
   integration: null,
   operator_id: null,
@@ -107068,12 +107069,12 @@ var Client = /*#__PURE__*/function (_Record) {
 
       var res = [];
 
-      if ((_this$variables = this.variables) === null || _this$variables === void 0 ? void 0 : _this$variables.firstName) {
-        res.push(this.variables.firstName);
+      if ((_this$variables = this.variables) === null || _this$variables === void 0 ? void 0 : _this$variables.first_name) {
+        res.push(this.variables.first_name);
       }
 
-      if ((_this$variables2 = this.variables) === null || _this$variables2 === void 0 ? void 0 : _this$variables2.lastName) {
-        res.push(this.variables.lastName);
+      if ((_this$variables2 = this.variables) === null || _this$variables2 === void 0 ? void 0 : _this$variables2.last_name) {
+        res.push(this.variables.last_name);
       }
 
       return res.join(" ");
@@ -107083,7 +107084,7 @@ var Client = /*#__PURE__*/function (_Record) {
     get: function get() {
       var _this$variables3;
 
-      return (_this$variables3 = this.variables) === null || _this$variables3 === void 0 ? void 0 : _this$variables3.phoneNumber;
+      return (_this$variables3 = this.variables) === null || _this$variables3 === void 0 ? void 0 : _this$variables3.phone_number;
     }
   }, {
     key: "needSetResponsibleOperator",
