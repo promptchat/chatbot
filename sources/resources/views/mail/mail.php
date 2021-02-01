@@ -1,7 +1,11 @@
 <div style="background-color: #f4f4f4; padding: 15px;">
     <div style="max-width:640px; margin: 0 auto; text-align: center">
         <a href="<?php echo e(url('/')); ?>">
-            <img style="max-width: 150px;" src="<?php echo e(app(\App\Repositories\Interfaces\ConfigsRepositoryInterface::class)->getLogo()); ?>" alt="">
+            <img
+                style="max-width: 150px;"
+                src="<?php echo e(app(\App\Repositories\Interfaces\ConfigsRepositoryInterface::class)->getLogo()); ?>"
+                alt="<?php echo e(app(\App\Repositories\Interfaces\ConfigsRepositoryInterface::class)->getTitle()); ?>"
+            >
         </a>
     </div>
 </div>
