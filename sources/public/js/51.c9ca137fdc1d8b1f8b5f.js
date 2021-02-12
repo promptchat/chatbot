@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[51],{LL4T:function(t,e,n){"use strict";n.r(e),n.d(e,"default",(function(){return c}));var r=n("q1tI"),a=n.n(r),i=n("oJwA"),o=n("9Koi");function c(){var t=Object(o.a)().t;return a.a.createElement(i.a,{title:t("terms.title")},a.a.createElement("div",{dangerouslySetInnerHTML:{__html:t("terms.text")}}))}}}]);
