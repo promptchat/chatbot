@@ -5,6 +5,11 @@
         window.clientId = <?php echo json_encode($clientToken); ?>
 
     </script>
+    <style>
+        body {
+            font-family: <?php echo e($configs['global_font_family']); ?>!important;
+        }
+    </style>
 <?php $__env->stopPush(); ?>
 <?php $__env->startSection('body'); ?>
     <div>
