@@ -1,4 +1,4 @@
-git #!/usr/bin/env bash
+#!/usr/bin/env bash
 . ./env.sh
 
-docker-compose down --rmi all -v
+docker-compose down --rmi all -v -f
