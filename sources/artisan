@@ -3,12 +3,7 @@
 
 define('LARAVEL_START', microtime(true));
 
-defined('PROMPTCHAT_COMPANIES_ENABLED')  || define('PROMPTCHAT_COMPANIES_ENABLED', true);
-defined('PROMPTCHAT_WHITE_LABEL_ENABLED')  || define('PROMPTCHAT_WHITE_LABEL_ENABLED', true);
-
-//defined('PROMPTCHAT_PLAN_NAME') || define('PROMPTCHAT_PLAN_NAME', 'Unknown plan name');
-defined('PROMPTCHAT_PLAN_VALID_TILL') || define('PROMPTCHAT_PLAN_VALID_TILL', null);
-
+require './license.php';
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
