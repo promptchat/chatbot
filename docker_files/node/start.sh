@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 yarn cache clean --force
+RUN usermod -u $uid www-data;
 
 yarn install
 if [ -f /sources/laravel-echo-server.lock ]; then
@@ -8,5 +9,3 @@ if [ -f /sources/laravel-echo-server.lock ]; then
 fi
 
 ./node_modules/.bin/laravel-echo-server start --force
-chown www-data:www-data /sources/node_modules -R
-chown www-data:www-data /sources/laravel-echo-server.lock

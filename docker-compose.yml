@@ -50,9 +50,6 @@ services:
     volumes:
       - ./sources:/sources
     working_dir: /sources
-    environment:
-      LOG_FILE: logs/laravel.log
-      UID: ${PWD}
     env_file:
       - variables.env
       - license.txt
@@ -71,7 +68,6 @@ services:
     working_dir: /sources
     environment:
       CONTAINER_ROLE: scheduler
-      LOG_FILE: logs/laravel-scheduler.log
     env_file:
       - variables.env
       - license.txt
@@ -92,7 +88,6 @@ services:
     working_dir: /sources
     environment:
       CONTAINER_ROLE: migrator
-      LOG_FILE: logs/laravel-migrator.log
     env_file:
       - variables.env
       - license.txt
@@ -110,7 +105,6 @@ services:
     working_dir: /sources
     environment:
       CONTAINER_ROLE: composer
-      LOG_FILE: logs/laravel-composer.log
     env_file:
       - variables.env
       - license.txt
@@ -129,7 +123,6 @@ services:
     working_dir: /sources
     environment:
       CONTAINER_ROLE: simple-queue
-      LOG_FILE: logs/laravel-queue.log
     env_file:
       - variables.env
       - license.txt
@@ -148,7 +141,6 @@ services:
     working_dir: /sources
     environment:
       CONTAINER_ROLE: instant-messages-queue
-      LOG_FILE: logs/laravel-queue.log
     env_file:
       - variables.env
       - license.txt
@@ -158,6 +150,8 @@ services:
     build:
       context: .
       dockerfile: docker_files/node/Dockerfile
+      args:
+        uid: ${UID}
     working_dir: /sources
     hostname: node
     volumes:
