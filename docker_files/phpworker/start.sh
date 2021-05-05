@@ -5,7 +5,7 @@ role=${CONTAINER_ROLE:-php}
 if [ "$role" = "composer" ]; then
   curl -s https://getcomposer.org/installer | php
   php composer.phar install -q
-  chown 1000:1000 vendor -R
+  chown www-data:www-data vendor -R
 fi
 
 until [ -f /sources/vendor/autoload.php ]
