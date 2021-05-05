@@ -9,3 +9,5 @@
 npm-debug.log
 yarn-error.log
 laravel-echo-server.lock
+composer.phar
+.discovery
