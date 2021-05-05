@@ -1,8 +1,8 @@
 {
-    "name": "laravel/laravel",
+    "name": "promptchat/installer.base",
     "type": "project",
-    "version": "0.0.1",
-    "description": "The Laravel Framework.",
+    "version": "2.0.1",
+    "description": "WhiteLabel chatbot system",
     "keywords": [
         "framework",
         "laravel"
