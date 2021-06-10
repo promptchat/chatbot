@@ -15,10 +15,10 @@
         href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
         crossorigin="anonymous"
     />
-    <?php if(config('app.env') != 'local'): ?>
-        <script src="<?php echo e(mix('chat-box/bundle.js')); ?>" defer></script>
+    <?php if(config('app.chatboxBundle')): ?>
+        <script src="<?php echo e(config('app.chatboxBundle')); ?>" defer></script>
     <?php else: ?>
-        <script src="<?php echo e('http://localhost:8080//bundle.js'); ?>" defer></script>
+        <script src="<?php echo e(mix('chat-box/bundle.js')); ?>" defer></script>
     <?php endif; ?>
     <link rel="icon" type="image/png" sizes="16x16" href="<?php echo e(app(\App\Repositories\Interfaces\ConfigsRepositoryInterface::class)->getFavicon()); ?>">
 
