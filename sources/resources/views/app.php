@@ -5,6 +5,11 @@
             --secondary-color: <?php echo app(\App\Repositories\Interfaces\ConfigsRepositoryInterface::class)->getColorScheme()['secondary']; ?>;
         }
     </style>
+    <style id="menu-panel-variables">
+        :root {
+            --menu-panel-height: 100vh;
+        }
+    </style>
 <?php $__env->stopPush(); ?>
 
 <?php $__env->startSection('body'); ?>
