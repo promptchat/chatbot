@@ -5,7 +5,7 @@
 
     </div>
     <br/>
-    <a href="<?php echo e(url('/live-chat/conversations/'.$client->id)); ?>"><?php echo t(); ?>('mail.new_chatbot_activity', ['site' => config('app.url')]</a>
+    <a href="<?php echo e(url('/live-chat/conversations/'.$client->id)); ?>"><?php echo t('mail.new_chatbot_activity'); ?></a>
 
 <?php $__env->stopSection(); ?>
 
