@@ -32,11 +32,14 @@ elif  [ "$role" = "migrator" ]; then
     php /sources/artisan  storage:link
 
 elif [ "$role" = "simple-queue" ]; then
+    sleep 60
     php /sources/artisan  queue:work --verbose --tries=3 --timeout=1800
-
 elif [ "$role" = "instant-messages-queue" ]; then
+    sleep 60
     php /sources/artisan  queue:work --queue=instant-messages --verbose --tries=3 --timeout=1800
-
+elif [ "$role" = "campaign-messages" ]; then
+    sleep 60
+    php /sources/artisan  queue:work --queue=campaign-messages --verbose --tries=3 --timeout=1800
 elif [ "$role" = "composer" ]; then
   curl -s https://getcomposer.org/installer | php
   php composer.phar install

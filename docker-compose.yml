@@ -14,7 +14,6 @@ services:
     env_file:
       - variables.env
       - license.txt
-
   db:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
@@ -123,6 +122,23 @@ services:
     working_dir: /sources
     environment:
       CONTAINER_ROLE: simple-queue
+    env_file:
+      - variables.env
+      - license.txt
+  campaign-messages-queue:
+    restart: always
+    build:
+       context: .
+       dockerfile: docker_files/phpworker/Dockerfile
+       args:
+         uid: ${UID}
+    depends_on:
+      - php
+    volumes:
+      - ./sources:/sources
+    working_dir: /sources
+    environment:
+      CONTAINER_ROLE: campaign-messages
     env_file:
       - variables.env
       - license.txt
