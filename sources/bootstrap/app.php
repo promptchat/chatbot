@@ -59,10 +59,10 @@ $app->singleton(
 */
 
 if (!function_exists('t')) {
-    function t(string $translate) {
+    function t(string $translate, array $variables = []) {
         return app()
             ->make(\App\Repositories\Interfaces\TranslatesRepositoryInterface::class)
-            ->getTranslate($translate, app()->getLocale());
+            ->getTranslate($translate, app()->getLocale(), $variables);
     }
 }
 return $app;
