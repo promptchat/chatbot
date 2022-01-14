@@ -1,4 +1,9 @@
 <?php $__env->startPush('head'); ?>
+    <script>
+        window.siteConfigs = {
+            primaryColor: "<?php echo app(\App\Repositories\Interfaces\ConfigsRepositoryInterface::class)->getColorScheme()['primary']; ?>",
+        }
+    </script>
     <style id="color-variables">
         :root {
             --primary-color: <?php echo app(\App\Repositories\Interfaces\ConfigsRepositoryInterface::class)->getColorScheme()['primary']; ?>;
