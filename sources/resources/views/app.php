@@ -15,6 +15,11 @@
             --menu-panel-height: 100vh;
         }
     </style>
+    <style id="chatboard-variables">
+        :root {
+            --chatboard-background: <?php echo app(\App\Repositories\Interfaces\ConfigsRepositoryInterface::class)->getChatboardBackground(); ?>;
+        }
+    </style>
 <?php $__env->stopPush(); ?>
 
 <?php $__env->startSection('body'); ?>
