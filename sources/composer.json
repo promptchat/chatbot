@@ -11,6 +11,7 @@
     "require": {
         "php": "^7.3",
         "ext-json": "*",
+        "ext-zip": "*",
         "aws/aws-sdk-php": "^3.158",
         "botman/botman": "^2.6",
         "botman/driver-facebook": "^1.11",
@@ -22,6 +23,7 @@
         "friendsofphp/php-cs-fixer": "^2.16",
         "fruitcake/laravel-cors": "^2.0",
         "geoip2/geoip2": "^2.11",
+        "google/apiclient": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.5",
         "laravel/fortify": "^1.6",
@@ -34,8 +36,7 @@
         "psr/cache": "^1.0",
         "staudenmeir/eloquent-json-relations": "^1.5",
         "theardent/botman-viber-driver": "dev-master",
-        "twilio/sdk": "^5.15",
-        "ext-zip": "*"
+        "twilio/sdk": "^5.15"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.8",
