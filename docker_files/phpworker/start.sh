@@ -30,6 +30,7 @@ elif  [ "$role" = "migrator" ]; then
 
     php artisan up
     php /sources/artisan  storage:link
+    rm /sources/storage/app/monitor-chat-end.lock
 
 elif [ "$role" = "simple-queue" ]; then
     sleep 60
