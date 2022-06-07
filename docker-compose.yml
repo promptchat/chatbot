@@ -27,7 +27,7 @@ services:
       MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
 
   redis:
-    image: redis:4.0.5-alpine
+    image: redis:6.2.6-alpine
     command: ["redis-server", "--appendonly", "yes"]
     restart: always
     hostname: redis

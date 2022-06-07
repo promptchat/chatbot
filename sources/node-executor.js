@@ -7,13 +7,19 @@ http.createServer(function(req, res) {
         });
         req.on("end", () => {
             let requestData = JSON.parse(body);
-            requestData.handler;
 
-            let data = new Function(
-                "response",
-                "variables",
-                requestData.handler,
-            )(requestData.data || {}, requestData.variables);
+            const extra = requestData.extra || {};
+            let data = {};
+            try {
+                data = new Function(
+                    ...Object.keys(extra),
+                    "variables",
+                    requestData.handler,
+                )(...Object.values(extra), requestData.variables);
+            } catch (e) {
+                //do nothing
+            }
+
             res.end(JSON.stringify(data));
         });
     }

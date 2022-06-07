@@ -11,6 +11,8 @@
 |
 */
 
+use App\Repositories\Interfaces\LanguagesRepositoryInterface;
+
 defined('PROMPTCHAT_COMPANIES_ENABLED')  || define('PROMPTCHAT_COMPANIES_ENABLED', true);
 defined('PROMPTCHAT_WHITE_LABEL_ENABLED')  || define('PROMPTCHAT_WHITE_LABEL_ENABLED', true);
 
@@ -59,10 +61,10 @@ $app->singleton(
 */
 
 if (!function_exists('t')) {
-    function t(string $translate) {
+    function t(string $translate, array $variables = []) {
         return app()
             ->make(\App\Repositories\Interfaces\TranslatesRepositoryInterface::class)
-            ->getTranslate($translate, app()->getLocale());
+            ->getTranslate($translate, app()->getLocale() ?: app(LanguagesRepositoryInterface::class)->getDefaultLanguage(), $variables);
     }
 }
 return $app;
