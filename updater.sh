@@ -7,5 +7,5 @@ do
 done
 
 rm ./sources/storage/app/update
-date >> ./sources/storage/app/updater.log
+date >> ./sources/storage/app/updater-history.log
 ./update.sh
