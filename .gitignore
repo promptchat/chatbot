@@ -5,3 +5,4 @@ variables.env
 backup.sql
 license.txt
 currentbuild
+updater.pid
