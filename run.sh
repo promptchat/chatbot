@@ -4,4 +4,4 @@
 cp  ./build ./currentbuild
 docker-compose up -d
 
-./updater.sh & echo $! > ./updater.pid
+./updater.sh &> /dev/null & echo $! > ./updater.pid
