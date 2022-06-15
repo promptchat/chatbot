@@ -28,6 +28,7 @@ elif  [ "$role" = "migrator" ]; then
     done
     php artisan cache:clear
 
+    php artisan chat:end
     php artisan up
     php /sources/artisan  storage:link
     rm /sources/storage/app/monitor-chat-end.lock
