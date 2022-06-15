@@ -4,18 +4,19 @@
 	"clients": [],
 	"database": "redis",
 	"databaseConfig": {
-		"redis": {
-			"host": "redis"
-		},
+        "redis": {
+            "host": "redis"
+        },
 		"sqlite": {
 			"databasePath": "/database/laravel-echo-server.sqlite"
 		}
 	},
-	"devMode": true,
+	"devMode": false,
 	"host": null,
 	"port": "6001",
 	"protocol": "http",
 	"socketio": {},
+	"secureOptions": 67108864,
 	"sslCertPath": "",
 	"sslKeyPath": "",
 	"sslCertChainPath": "",
@@ -25,9 +26,9 @@
 		"redis": true
 	},
 	"apiOriginAllow": {
-		"allowCors": true,
-		"allowOrigin": "*",
-		"allowMethods": "GET, POST",
-		"allowHeaders": "Origin, Content-Type, X-Auth-Token, X-Requested-With, Accept, Authorization, X-CSRF-TOKEN, X-Socket-Id"
+        "allowCors": true,
+        "allowOrigin": "*",
+        "allowMethods": "GET, POST",
+        "allowHeaders": "Origin, Content-Type, X-Auth-Token, X-Requested-With, Accept, Authorization, X-CSRF-TOKEN, X-Socket-Id"
 	}
 }
