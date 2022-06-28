@@ -27,4 +27,3 @@
 - `php artisan chat:monitor` must run every 30 sec
 - `php artisan livechat:answer` shouldn't run directly. This command will be run by the scheduler every minute.
 - `php artisan project:crypt {path?}`
-
