@@ -8,6 +8,7 @@
 - Add to cron `* * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1`
 - Run `laravel-echo-server init`
 
+
 ## Run dev
 - `composer install`
 - `yarn install`
