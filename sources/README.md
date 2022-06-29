@@ -17,7 +17,6 @@
 - `yarn hot`
 - `laravel-echo-server start`
 
-
 ## Commands dev
 - `yarn lint`
 - `composer pstan`
