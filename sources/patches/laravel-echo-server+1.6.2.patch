@@ -1,0 +1,48 @@
+diff --git a/node_modules/laravel-echo-server/dist/channels/channel.js b/node_modules/laravel-echo-server/dist/channels/channel.js
+index 67ca30e..6d48643 100644
+--- a/node_modules/laravel-echo-server/dist/channels/channel.js
++++ b/node_modules/laravel-echo-server/dist/channels/channel.js
+@@ -48,8 +48,13 @@ var Channel = (function () {
+             if (this.isPresence(channel)) {
+                 this.presence.leave(socket, channel);
+             }
++            if (this.isPrivate(channel)) {
++                this.private.leave(socket, {channel})
++            }
+             socket.leave(channel);
++
+             if (this.options.devMode) {
++
+                 log_1.Log.info("[" + new Date().toLocaleTimeString() + "] - " + socket.id + " left channel: " + channel + " (" + reason + ")");
+             }
+         }
+diff --git a/node_modules/laravel-echo-server/dist/channels/private-channel.js b/node_modules/laravel-echo-server/dist/channels/private-channel.js
+index 638c9b1..16c0664 100644
+--- a/node_modules/laravel-echo-server/dist/channels/private-channel.js
++++ b/node_modules/laravel-echo-server/dist/channels/private-channel.js
+@@ -18,8 +18,25 @@ var PrivateChannel = (function () {
+         if (this.options.devMode) {
+             log_1.Log.info("[" + new Date().toLocaleTimeString() + "] - Sending auth request to: " + options.url + "\n");
+         }
++        socket.authData = data;
+         return this.serverRequest(socket, options);
+     };
++    PrivateChannel.prototype.leave = function (socket, options) {
++        if(this.options.leaveEndpoint) {
++            var data = socket.authData;
++            var options = {
++                url: this.authHost(socket) + this.options.leaveEndpoint,
++                form: {channel_name: options.channel},
++                headers: (data.auth && data.auth.headers) ? data.auth.headers : {},
++                rejectUnauthorized: false
++            };
++            if (this.options.devMode) {
++                log_1.Log.info("[" + new Date().toLocaleTimeString() + "] - Sending auth request to: " + options.url + "\n");
++            }
++            this.authData = data;
++            return this.serverRequest(socket, options);
++        }
++    };
+     PrivateChannel.prototype.authHost = function (socket) {
+         var authHosts = (this.options.authHost) ?
+             this.options.authHost : this.options.host;

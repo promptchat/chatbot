@@ -4,6 +4,10 @@
     "main": "index.js",
     "license": "MIT",
     "dependencies": {
-        "laravel-echo-server": "^1.6.2"
+        "laravel-echo-server": "^1.6.2",
+        "patch-package": "^6.4.7"
+    },
+    "scripts": {
+        "postinstall": "patch-package"
     }
 }

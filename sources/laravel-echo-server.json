@@ -1,6 +1,7 @@
 {
 	"authHost": "http://nginx",
 	"authEndpoint": "/broadcasting/auth",
+    "leaveEndpoint": "/api/session/disconnected",
 	"clients": [],
 	"database": "redis",
 	"databaseConfig": {
