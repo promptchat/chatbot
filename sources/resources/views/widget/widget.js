@@ -9,9 +9,7 @@ HelpChatWidget = {
         var itemHeight = 0;
         var itemWidth = 0;
 
-        iframe.style =
-            "border:none; bottom:0; width:0; height:0; z-index: 9999;" +
-            (selector ? "" : "position: fixed");
+        iframe.style = "border:none; bottom:0; width:0; height:0; z-index: 9999;" + (selector ? "" : "position: fixed");
         iframe.allowFullscreen = true;
         var setIframeAsSize = function() {
             iframe.style.height = itemHeight + "px";
@@ -28,10 +26,7 @@ HelpChatWidget = {
         };
 
         var sendIsEnoughSize = function() {
-            if (
-                window.innerHeight < itemHeight ||
-                window.innerWidth < itemWidth
-            ) {
+            if (window.innerHeight < itemHeight || window.innerWidth < itemWidth) {
                 postMessageToChatBox("sizeIsNotEnough");
             } else {
                 postMessageToChatBox("sizeEnough");
@@ -39,10 +34,7 @@ HelpChatWidget = {
         };
 
         function postMessageToChatBox(type, params) {
-            iframe.contentWindow.postMessage(
-                JSON.stringify({ type: type, params: params }),
-                "*",
-            );
+            iframe.contentWindow.postMessage(JSON.stringify({ type: type, params: params }), "*");
         }
 
         window.onresize = sendIsEnoughSize;
@@ -51,7 +43,10 @@ HelpChatWidget = {
 
         iframe.src =
             host +
-            "/frame/" + options.company + "/" + options.integration +
+            "/frame/" +
+            options.company +
+            "/" +
+            options.integration +
             "?embed=" +
             +!!selector +
             "&hostUrl=" +
@@ -63,10 +58,7 @@ HelpChatWidget = {
         if (selector) {
             document.querySelector(selector).appendChild(iframe);
         } else {
-            document.body.insertBefore(
-                iframe,
-                document.body.getElementsByTagName("*")[0],
-            );
+            document.body.insertBefore(iframe, document.body.getElementsByTagName("*")[0]);
         }
 
         window.addEventListener("message", receiveMessage, false);
@@ -87,6 +79,20 @@ HelpChatWidget = {
                     iframe.style.height = "100%";
                     iframe.style.width = "100%";
                     break;
+                case "ready": {
+                    const defaultVariables = options.options.defaultVariables;
+                    if (defaultVariables && Object.keys(defaultVariables).length) {
+                        postMessageToChatBox("setVariables", defaultVariables);
+                    }
+
+                    if (options.options.quietTrigger) {
+                        postMessageToChatBox("postMessage", {
+                            message: null,
+                            payload: "quiet",
+                            trigger: options.options.quietTrigger,
+                        });
+                    }
+                }
             }
         }
         window.chatOpen = function(message) {
@@ -94,6 +100,9 @@ HelpChatWidget = {
         };
         window.chatSendMessage = function(message) {
             postMessageToChatBox("postMessage", { message: message });
+        };
+        window.setClientVariables = function(variables) {
+            postMessageToChatBox("setVariables", variables);
         };
         window.chatTriggerEvent = function(message, trigger, payload) {
             postMessageToChatBox("postMessage", {
