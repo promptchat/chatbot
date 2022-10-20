@@ -11,11 +11,11 @@ http.createServer(function(req, res) {
             const extra = requestData.extra || {};
             let data = {};
             try {
-                data = new Function(
-                    ...Object.keys(extra),
-                    "variables",
-                    requestData.handler,
-                )(...Object.values(extra), requestData.variables);
+                data = new Function(...Object.keys(extra), "variables", "globalVariables", requestData.handler)(
+                    ...Object.values(extra),
+                    requestData.variables,
+                    requestData.globalVariables,
+                );
             } catch (e) {
                 //do nothing
             }
