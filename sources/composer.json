@@ -1,7 +1,7 @@
 {
     "name": "promptchat/installer.base",
     "type": "project",
-    "version": "2.13.5",
+    "version": "2.14.1",
     "description": "WhiteLabel chatbot system",
     "keywords": [
         "framework",
@@ -36,7 +36,8 @@
         "psr/cache": "^1.0",
         "staudenmeir/eloquent-json-relations": "^1.5",
         "theardent/botman-viber-driver": "dev-master",
-        "twilio/sdk": "^5.15"
+        "twilio/sdk": "^5.15",
+        "ext-curl": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.8",
