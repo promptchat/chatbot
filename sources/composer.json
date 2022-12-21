@@ -1,7 +1,7 @@
 {
     "name": "promptchat/installer.base",
     "type": "project",
-    "version": "2.15.3",
+    "version": "2.16.4",
     "description": "WhiteLabel chatbot system",
     "keywords": [
         "framework",
@@ -10,6 +10,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3",
+        "ext-curl": "*",
         "ext-json": "*",
         "ext-zip": "*",
         "aws/aws-sdk-php": "^3.158",
@@ -26,6 +27,7 @@
         "google/apiclient": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.5",
+        "laravel/cashier": "^13.16",
         "laravel/fortify": "^1.6",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
@@ -36,8 +38,7 @@
         "psr/cache": "^1.0",
         "staudenmeir/eloquent-json-relations": "^1.5",
         "theardent/botman-viber-driver": "dev-master",
-        "twilio/sdk": "^5.15",
-        "ext-curl": "*"
+        "twilio/sdk": "^5.15"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.8",
