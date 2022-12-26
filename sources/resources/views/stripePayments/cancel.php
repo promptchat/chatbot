@@ -1,5 +1,9 @@
 <?php $__env->startSection('body'); ?>
-    <div id="app">
+    <div
+        id="app"
+        class="d-flex justify-content-center align-items-center"
+        style="height: 90vh; font-size: 20px; color: red;"
+    >
         Cancel
     </div>
 <?php $__env->stopSection(); ?>
