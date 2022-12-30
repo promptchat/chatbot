@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[96],{eoK5:function(t,e,n){"use strict";n.r(e),n.d(e,"default",(function(){return o}));var a=n("q1tI"),r=n.n(a),i=n("oJwA"),c=n("9Koi");function o(){var t=Object(c.a)().t;return r.a.createElement(i.a,{title:t("privacy.title")},r.a.createElement("div",{dangerouslySetInnerHTML:{__html:t("privacy.text")}}))}}}]);
