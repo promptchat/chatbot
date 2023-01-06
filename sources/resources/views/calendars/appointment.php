@@ -13,7 +13,13 @@
 <?php $__env->stopPush(); ?>
 <?php $__env->startSection('body'); ?>
     <div>
-        <div id="appointment" style="display: none;"><?php echo json_encode(['calendar' => $calendar->id, 'client' => $clientToken, 'title' => $calendar->appointment_window_title, 'variables' => $variables]); ?></div>
+        <div id="appointment" style="display: none;"><?php echo json_encode([
+            'calendar' => $calendar->id,
+            'client' => $clientToken,
+            'title' => $calendar->appointment_window_title,
+            'time_zone_note' => $calendar->time_zone_note,
+            'variables' => $variables,
+    ]); ?></div>
     </div>
     <script src="<?php echo e(mix('js/appointment.js')); ?>"></script>
 <?php $__env->stopSection(); ?>
