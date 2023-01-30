@@ -14,17 +14,6 @@ services:
     env_file:
       - variables.env
       - license.txt
-  db:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    volumes:
-      -  mysql-data:/var/lib/mysql
-    environment:
-      MYSQL_DATABASE: promptchat
-      MYSQL_USER: promptchat
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
 
   redis:
     image: redis:6.2.6-alpine
@@ -43,7 +32,6 @@ services:
         uid: ${UID}
     depends_on:
       - composer
-      - db
       - redis
       - node-executor
     volumes:
@@ -81,8 +69,6 @@ services:
     depends_on:
       - php
       - composer
-    links:
-      - db
     volumes:
       - ./sources:/sources
     working_dir: /sources
@@ -98,8 +84,6 @@ services:
       dockerfile: docker_files/phpworker/Dockerfile
       args:
         uid: ${UID}
-    links:
-      - db
     volumes:
       - ./sources:/sources
     working_dir: /sources

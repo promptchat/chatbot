@@ -2,4 +2,11 @@
 . ./env.sh
 
 ./stop-updater.sh
-docker-compose down --rmi all -v
+
+if  [[ -z "${DB_HOST}" ]] ; then
+   echo "Internal mysql";
+   docker-compose down --rmi all -v
+else
+  echo "External mysql";
+  docker-compose -f docker-compose.common-mysql.yml down --rmi all -v
+fi
