@@ -2,6 +2,13 @@
 . ./env.sh
 
 cp  ./build ./currentbuild
-docker-compose up -d
+
+if  [[ -z "${DB_HOST}" ]] ; then
+   echo "Internal mysql";
+   docker-compose up -d
+else
+  echo "External mysql";
+  docker-compose -f docker-compose.common-mysql.yml up -d
+fi
 
 ./updater.sh &> /dev/null & echo $! > ./updater.pid
