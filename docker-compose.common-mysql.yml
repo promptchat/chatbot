@@ -1,0 +1,193 @@
+version: "3"
+services:
+  nginx:
+    restart: always
+    image: nginx:1.15.0
+    working_dir: /app
+    hostname: nginx
+    ports:
+      - ${PORT}:80
+    volumes:
+      - ./sources:/sources
+      - ${PWD}/configs/nginx_conf/app.conf:/etc/nginx/conf.d/app.conf
+      - ${PWD}/configs/nginx_conf/nginx.conf:/etc/nginx/nginx.conf
+    env_file:
+      - variables.env
+      - license.txt
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      -  mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: promptchat
+      MYSQL_USER: promptchat
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+
+  redis:
+    image: redis:6.2.6-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    restart: always
+    hostname: redis
+    volumes:
+      - redis-data:/data
+
+  php:
+    restart: always
+    build:
+      context: .
+      dockerfile: docker_files/php/Dockerfile
+      args:
+        uid: ${UID}
+    depends_on:
+      - composer
+      - db
+      - redis
+      - node-executor
+    volumes:
+      - ./sources:/sources
+      - ${PWD}/configs/php/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
+    working_dir: /sources
+    env_file:
+      - variables.env
+      - license.txt
+
+  scheduler:
+    restart: always
+    build:
+      context: .
+      dockerfile: docker_files/phpworker/Dockerfile
+      args:
+        uid: ${UID}
+    depends_on:
+      - php
+    volumes:
+      - ./sources:/sources
+    working_dir: /sources
+    environment:
+      CONTAINER_ROLE: scheduler
+    env_file:
+      - variables.env
+      - license.txt
+
+  migrator:
+    build:
+      context: .
+      dockerfile: docker_files/phpworker/Dockerfile
+      args:
+        uid: ${UID}
+    depends_on:
+      - php
+      - composer
+    links:
+      - db
+    volumes:
+      - ./sources:/sources
+    working_dir: /sources
+    environment:
+      CONTAINER_ROLE: migrator
+    env_file:
+      - variables.env
+      - license.txt
+
+  composer:
+    build:
+      context: .
+      dockerfile: docker_files/phpworker/Dockerfile
+      args:
+        uid: ${UID}
+    links:
+      - db
+    volumes:
+      - ./sources:/sources
+    working_dir: /sources
+    environment:
+      CONTAINER_ROLE: composer
+    env_file:
+      - variables.env
+      - license.txt
+
+  simple-queue:
+    restart: always
+    build:
+       context: .
+       dockerfile: docker_files/phpworker/Dockerfile
+       args:
+         uid: ${UID}
+    depends_on:
+      - php
+    volumes:
+      - ./sources:/sources
+    working_dir: /sources
+    environment:
+      CONTAINER_ROLE: simple-queue
+    env_file:
+      - variables.env
+      - license.txt
+  campaign-messages-queue:
+    restart: always
+    build:
+       context: .
+       dockerfile: docker_files/phpworker/Dockerfile
+       args:
+         uid: ${UID}
+    depends_on:
+      - php
+    volumes:
+      - ./sources:/sources
+    working_dir: /sources
+    environment:
+      CONTAINER_ROLE: campaign-messages
+    env_file:
+      - variables.env
+      - license.txt
+
+  instant-messages-queue:
+    restart: always
+    build:
+       context: .
+       dockerfile: docker_files/phpworker/Dockerfile
+       args:
+         uid: ${UID}
+    depends_on:
+      - php
+    volumes:
+      - ./sources:/sources
+    working_dir: /sources
+    environment:
+      CONTAINER_ROLE: instant-messages-queue
+    env_file:
+      - variables.env
+      - license.txt
+
+  node:
+    restart: always
+    build:
+      context: .
+      dockerfile: docker_files/node/Dockerfile
+      args:
+        uid: ${UID}
+    working_dir: /sources
+    hostname: node
+    volumes:
+      - ./sources:/sources
+    depends_on:
+      - redis
+
+  node-executor:
+    restart: always
+    image: node:8.15-alpine
+    working_dir: /sources
+    hostname: node-executor
+    volumes:
+      - ./sources:/sources
+    command: >
+      node node-executor
+
+
+
+volumes:
+  redis-data:
+  mysql-data:
