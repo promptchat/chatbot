@@ -5,8 +5,8 @@
 
 if  [[ -z "${DB_HOST}" ]] ; then
    echo "Internal mysql";
-   docker-compose down --rmi all -v
+   docker-compose down --rmi local -v
 else
   echo "External mysql";
-  docker-compose -f docker-compose.common-mysql.yml down --rmi all -v
+  docker-compose -f docker-compose.common-mysql.yml down --rmi local -v
 fi
