@@ -1,7 +1,7 @@
 {
     "name": "promptchat/installer.base",
     "type": "project",
-    "version": "2.18.2",
+    "version": "2.18.3",
     "description": "WhiteLabel chatbot system",
     "keywords": [
         "framework",
@@ -71,8 +71,8 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         },
-        "exclude-from-classmap": ["vendor/botman/botman/src/Messages/Incoming/IncomingMessage.php", "vendor/botman/botman/src/Messages/Outgoing/OutgoingMessage.php"],
-        "files": ["app/Overrides/IncomingMessage.php", "app/Overrides/OutgoingMessage.php"]
+        "exclude-from-classmap": ["vendor/botman/botman/src/Messages/Incoming/IncomingMessage.php", "vendor/botman/botman/src/Messages/Outgoing/OutgoingMessage.php", "vendor/botman/botman/src/Messages/Outgoing/Question.php"],
+        "files": ["app/Overrides/IncomingMessage.php", "app/Overrides/OutgoingMessage.php", "app/Overrides/Question.php"]
     },
     "autoload-dev": {
         "psr-4": {
