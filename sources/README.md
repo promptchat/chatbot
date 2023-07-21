@@ -1,6 +1,6 @@
 ## Requirements
 - php7.4
-- node v12.20.0
+- node v16.20.0
 - mysql - timezone must be 0
 
 ## Installation
