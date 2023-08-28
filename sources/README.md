@@ -1,6 +1,6 @@
 ## Requirements
 - php7.4
-- node v12.20.0
+- node v16.20.0
 - mysql - timezone must be 0
 
 ## Installation
@@ -16,6 +16,8 @@
 - `php artisan que:listen --queue=instant-messages`
 - `yarn hot`
 - `laravel-echo-server start`
+- `yarn widget`
+- `./schedule.sh`
 
 ## Commands dev
 - `yarn lint`
@@ -26,3 +28,4 @@
 - `php artisan chat:monitor` must run every 30 sec
 - `php artisan livechat:answer` shouldn't run directly. This command will be run by the scheduler every minute.
 - `php artisan project:crypt {path?}`
+

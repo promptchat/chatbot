@@ -5,6 +5,7 @@
             sideBar: <?php echo json_encode(app(\App\Repositories\Interfaces\ConfigsRepositoryInterface::class)->getSidebarAppearance()); ?>,
             loginPage: "<?php echo \Config::get('auth.isExternal') ? app()->make(\App\Services\ExternalUserResolveService::class)->getLoginPage() : ""; ?>",
             logoutPage: "<?php echo \Config::get('auth.isExternal') ? app()->make(\App\Services\ExternalUserResolveService::class)->getLogoutPage() : "/logout"; ?>",
+            supportEmail: "<?php echo app(\App\Repositories\Interfaces\ConfigsRepositoryInterface::class)->getSupportEmail(); ?>"
         }
     </script>
     <style id="color-variables">
