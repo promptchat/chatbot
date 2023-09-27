@@ -170,6 +170,10 @@ services:
     command: >
       node node-executor
 
+  chart-generator:
+    restart: always
+    image: ianw/quickchart:latest
+    hostname: chart-generator
 
 
 volumes:
