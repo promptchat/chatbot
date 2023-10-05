@@ -79,6 +79,12 @@ HelpChatWidget = {
                     iframe.style.height = "100%";
                     iframe.style.width = "100%";
                     break;
+                case "wait-cookie": {
+                    const cookies = document.cookie.match(new RegExp(`(^| )_pcht_cuid=([^;]+)`));
+                    let cookie = cookies && cookies[2];
+                    postMessageToChatBox("auth", { auth: cookie });
+                    break;
+                }
                 case "ready": {
                     const defaultVariables = options.options.defaultVariables;
                     if (defaultVariables && Object.keys(defaultVariables).length) {
