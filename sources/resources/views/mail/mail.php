@@ -3,7 +3,7 @@
         <a href="<?php echo e(url('/')); ?>">
             <img
                 style="max-width: 150px;"
-                src="<?php echo e(app(\App\Repositories\Interfaces\ConfigsRepositoryInterface::class)->getLogo()); ?>"
+                src="<?php echo e(config('app.url') . app(\App\Repositories\Interfaces\ConfigsRepositoryInterface::class)->getLogo()); ?>"
                 alt="<?php echo e(app(\App\Repositories\Interfaces\ConfigsRepositoryInterface::class)->getTitle()); ?>"
             >
         </a>
