@@ -117,6 +117,9 @@ services:
        dockerfile: docker_files/phpworker/Dockerfile
        args:
          uid: ${UID}
+    deploy:
+      mode: replicated
+      replicas: 3
     depends_on:
       - php
     volumes:
