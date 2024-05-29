@@ -15,9 +15,10 @@
 - `php artisan que:listen`
 - `php artisan que:listen --queue=instant-messages`
 - `yarn hot`
-- `laravel-echo-server start`
+- `yarn laravel-echo-server start`
 - `yarn widget`
 - `./schedule.sh`
+- `node node-executor.js`
 
 ## Commands dev
 - `yarn lint`
