@@ -185,9 +185,22 @@ services:
     working_dir: /sources
     hostname: node-executor
     volumes:
-      - ./sources:/sources
+      - ./sources/node-executor.js:/sources/node-executor.js
     command: >
       node node-executor
+
+  php-executor:
+    restart: always
+    image: trafex/php-nginx:latest
+    hostname: php-executor
+    volumes:
+      - ./sources/php-executor.php:/var/www/html/index.php
+      - ./configs/php/executor.ini:/etc/php83/conf.d/settings.ini
+
+  chart-generator:
+    restart: always
+    image: ianw/quickchart
+    hostname: chart-generator
 
 
 
