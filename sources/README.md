@@ -18,6 +18,7 @@
 - `yarn laravel-echo-server start`
 - `yarn widget`
 - `./schedule.sh`
+- `node node-executor.js`
 
 ## Commands dev
 - `yarn lint`
