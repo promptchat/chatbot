@@ -1,7 +1,7 @@
 {
     "name": "promptchat/installer.base",
     "type": "project",
-    "version": "3.5.6",
+    "version": "3.7.3",
     "description": "WhiteLabel chatbot system",
     "keywords": [
         "framework",
@@ -27,6 +27,7 @@
         "google/apiclient": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.5",
+        "jeroendesloovere/vcard": "^1.7",
         "laravel/cashier": "^13.16",
         "laravel/fortify": "^1.6",
         "laravel/framework": "^8.0",
