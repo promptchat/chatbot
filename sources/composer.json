@@ -1,7 +1,7 @@
 {
     "name": "promptchat/installer.base",
     "type": "project",
-    "version": "3.8.3",
+    "version": "3.8.5",
     "description": "WhiteLabel chatbot system",
     "keywords": [
         "framework",
