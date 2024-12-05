@@ -72,7 +72,7 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "exclude-from-classmap": ["vendor/botman/botman/src/Messages/Incoming/IncomingMessage.php", "vendor/botman/botman/src/Messages/Outgoing/OutgoingMessage.php", "vendor/botman/botman/src/Messages/Outgoing/Question.php", "vendor/botman/botman/src/Interfaces/UserInterface.php", "vendor/botman/botman/src/Users/User.php"],
-        "files": ["app/Overrides/IncomingMessage.php", "app/Overrides/OutgoingMessage.php", "app/Overrides/Question.php", "app/Overrides/User/UserInterface.php", "app/Overrides/User/User.php"]
+        "files": ["globalOverrides/IncomingMessage.php", "globalOverrides/OutgoingMessage.php", "globalOverrides/Question.php", "globalOverrides/User/UserInterface.php", "globalOverrides/User/User.php"]
     },
     "autoload-dev": {
         "psr-4": {
