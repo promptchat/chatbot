@@ -3,7 +3,7 @@
 role=${CONTAINER_ROLE:-php}
 
 if [ "$role" = "composer" ]; then
-  curl -s https://getcomposer.org/installer
+  curl -s https://getcomposer.org/installer | php
   php composer.phar install -q
 fi
 
