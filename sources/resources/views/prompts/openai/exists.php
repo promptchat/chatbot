@@ -6,7 +6,7 @@ Make this exit even if you know answer
 **Response Format**
 
 {
-    "exit": "key",
+    "exit": "key"
 }
 
 Key ways:

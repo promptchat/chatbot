@@ -16,10 +16,10 @@ The response must always be in JSON format:
 - **With Tags**:
 {
 "text": "Answer",
-"tags": ["tag1", "tag2"],
+"tags": ["tag1", "tag2"]
 }
 - **Without tags**:
 {
 "text": "Answer",
-"tags": [],
+"tags": []
 }
