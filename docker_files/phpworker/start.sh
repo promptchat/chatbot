@@ -41,9 +41,6 @@ elif [ "$role" = "instant-messages-queue" ]; then
 elif [ "$role" = "campaign-messages" ]; then
     sleep 60
     php /sources/artisan  queue:work --queue=campaign-messages --verbose --tries=3 --timeout=1800
-elif [ "$role" = "composer" ]; then
-  curl -s https://getcomposer.org/installer | php
-  php composer.phar install
 
 elif [ "$role" = "scheduler" ]; then
     while [ true ]

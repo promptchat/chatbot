@@ -46,6 +46,7 @@ services:
       - db
       - redis
       - node-executor
+      - php-executor
     volumes:
       - ./sources:/sources
       - ${PWD}/configs/php/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
@@ -133,6 +134,9 @@ services:
        dockerfile: docker_files/phpworker/Dockerfile
        args:
          uid: ${UID}
+    deploy:
+      mode: replicated
+      replicas: 3
     depends_on:
       - php
     volumes:
@@ -182,14 +186,23 @@ services:
     working_dir: /sources
     hostname: node-executor
     volumes:
-      - ./sources:/sources
+      - ./sources/node-executor.js:/sources/node-executor.js
     command: >
       node node-executor
 
+  php-executor:
+    restart: always
+    image: trafex/php-nginx:latest
+    hostname: php-executor
+    volumes:
+      - ./sources/php-executor.php:/var/www/html/index.php
+      - ./configs/php/executor.ini:/etc/php83/conf.d/settings.ini
+
   chart-generator:
     restart: always
-    image: ianw/quickchart:latest
+    image: ianw/quickchart
     hostname: chart-generator
+
 
 
 volumes:
