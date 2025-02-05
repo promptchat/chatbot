@@ -16,7 +16,7 @@
         window.translatesUrl = "/translates/\{\{lng\}\}";
         window.availableLanguagesListUrl = "/translates/languages-list";
         window.initialState = {
-            user: <?php echo json_encode(Auth::user() ? Auth::user()->loadMissing(['role', 'company']) : null); ?>,
+            user: <?php echo json_encode(Auth::user() ? Auth::user()->loadMissing(['role', 'company', 'bgProcesses']) : null); ?>,
         }
         window.csrf = "<?php echo csrf_token(); ?>"
         window.locale = "<?php echo app()->getLocale(); ?>";
