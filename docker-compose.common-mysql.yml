@@ -187,6 +187,12 @@ services:
     image: ianw/quickchart
     hostname: chart-generator
 
+  pdf-thumbnail:
+    restart: always
+    build:
+      context: .
+      dockerfile: docker_files/thumbnail/Dockerfile
+    hostname: pdf-thumbnail
 
 
 

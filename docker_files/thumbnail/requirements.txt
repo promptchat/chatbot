@@ -1,0 +1,4 @@
+flask
+pdf2image
+requests
+gunicorn
