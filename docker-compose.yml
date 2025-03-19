@@ -206,8 +206,8 @@ services:
   pdf-thumbnail:
     restart: always
     build:
-      context: .
-      dockerfile: docker_files/thumbnail/Dockerfile
+      context: docker_files/thumbnail
+      dockerfile: Dockerfile
     hostname: pdf-thumbnail
 
 
